@@ -9,7 +9,7 @@ let skuArray = [
   { sku: "9357" }, // caudalie hand nail cream
   { sku: "9414" }, // one united 30ml
   { sku: "8702" }, // clay cleanser
-  { sku: "9023" }, // tummy rub butter
+  { sku: "9013" }, // tummy rub butter
 ];
 
 getManyProductsBySKU(skuArray)
@@ -18,7 +18,7 @@ getManyProductsBySKU(skuArray)
     const data = res
       .map(
         ({ name, sku, inventory_level }) =>
-          `<p>Name: ${name}, SKU: ${sku}, Inventory Level: ${inventory_level}</p>`
+          `<p>${name} (${sku}) => Inventory Level: <strong>${inventory_level}</strong></p>`
       )
       .join("\n");
     const msg = {
