@@ -1,4 +1,4 @@
-const store = require("../config/axios-config");
+
 /**
  * Get-all function to retrieve all info from a given url
  * @param {*} URL supply url for get request
@@ -12,7 +12,7 @@ exports.getAll =
       let aggregatedData = [];
       async function getData() {
         try {
-          const { data } = await store.get(URL, {
+          const { data } = await require("../config/axios-config").get(URL, {
             params: {
               limit: 250,
               page: pageNumber,
