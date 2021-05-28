@@ -5,7 +5,12 @@
  * @param {number} threshold how much you have to spend
  * @returns promo banner for product content
  */
-exports.bfGwpTemplate = (brandName, link, nameOfFreeGift, threshold) => `<div
+exports.bfGwpTemplate = (
+  brandName,
+  link,
+  nameOfFreeGift,
+  threshold
+) => `<!-- start promotion --><div
   style="
     padding: 12px 18px;
     margin-bottom: 12px;
@@ -33,5 +38,4 @@ exports.bfGwpTemplate = (brandName, link, nameOfFreeGift, threshold) => `<div
       when you spend &euro;${threshold.toString()} or more on ${brandName}
     </p>
   </div>
-</div>
-`;
+</div><!-- end promotion -->`;
