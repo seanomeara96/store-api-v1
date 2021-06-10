@@ -1,5 +1,5 @@
 const api = require("./config/config")
-api.config("fs",2)
+api.config("bs",2)
 const instance = api.store
 
 const getAll =
