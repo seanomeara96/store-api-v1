@@ -1,8 +1,7 @@
-const api = require("./config/config");
+const api = require("../config/config");
+const output  = require("./utils/output");
 api.config("bf", 2);
 const instance = api.store;
-const stringify = require("csv-stringify");
-const fs = require("fs");
 const getAll =
   (URL) =>
   (params = {}) =>
@@ -34,27 +33,10 @@ const getAll =
     });
 
 const getAllCoupons = getAll("/coupons");
-/**
- * outputs data to csv file
- * @param {*} content
- */
-const output = (name, content, header=true) => {
-  stringify(content, { header }, (err, output) => {
-    if (err) {
-      throw new Error(err);
-    }
-    fs.writeFile(`./${name}-ouput.csv`, output, (err) => {
-      if (err) {
-        throw new Error(err);
-      }
-    });
-  });
-};
-
 
 getAllCoupons()
   .then((res) => {
-    console.log(res)
-    output("coupons", res)
+    console.log(res);
+    output("coupons", res);
   })
   .catch((err) => console.log(err));
