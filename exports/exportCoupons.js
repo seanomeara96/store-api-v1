@@ -1,5 +1,5 @@
 const api = require("../config/config");
-const output  = require("./utils/output");
+const output = require("./utils/output");
 api.config("bf", 2);
 const instance = api.store;
 const getAll =
