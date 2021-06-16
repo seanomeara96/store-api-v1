@@ -12,7 +12,7 @@ exports.getAll =
       let aggregatedData = [];
       async function getData() {
         try {
-          const { data } = await require("../config/axios-config").get(URL, {
+          const { data } = await require("../config/config").store.get(URL, {
             params: {
               limit: 250,
               page: pageNumber,
