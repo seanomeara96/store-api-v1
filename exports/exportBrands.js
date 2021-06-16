@@ -14,7 +14,7 @@ getAllBrands().then((res) => {
         : 0,
       url: brand.custom_url.url,
       image_url: brand.image_url,
-      meta_keywords: brand.meta_keywords.join(","),
+      meta_keywords: brand.meta_keywords.join(" "),
       search_keywords: brand.search_keywords,
     };
   });
