@@ -19,8 +19,12 @@ exports.getAll =
               ...params,
             },
           });
-          if (data.data === undefined) return reject("data is undefined");
-          let dataArray = data.data;
+          let dataArray;
+          if (data.data === undefined) {
+            dataArray = data;
+          }else {
+            dataArray = data.data
+          }
           if (dataArray.length) {
             aggregatedData.push(...dataArray);
             pageNumber++;
