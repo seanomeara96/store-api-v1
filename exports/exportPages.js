@@ -1,8 +1,9 @@
 const output = require("./utils/output");
 const { getAllPages } = require("../pages/getAllPages");
-require("../config/config").config("bf");
+require("../config/config").config("huk");
 
 getAllPages().then((res) => {
+  console.log(res)
   const pages = res.map((page) => {
     return {
       ID: page.id,

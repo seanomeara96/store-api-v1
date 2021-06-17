@@ -1,6 +1,6 @@
 const { getAllCategories } = require("../categories/getAllCategories");
 const output = require("./utils/output");
-require("../config/config").config("bs");
+require("../config/config").config("huk");
 
 getAllCategories().then((res) => {
   const cats = res.map((cat) => {
