@@ -1,4 +1,4 @@
-const { getAll } = require("../requests/getAll");
+const { getAll } = require("../utils/getAll");
 /**
  * Fetches all products, 250 at a time recursively
  * @param {*} params
