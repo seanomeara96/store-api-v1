@@ -1,7 +1,6 @@
-
 /**
  * Get-all function to retrieve all info from a given url
- * @param {*} URL supply url for get request
+ * @param {string} URL supply url for get request
  * @returns
  */
 exports.getAll =
@@ -22,8 +21,8 @@ exports.getAll =
           let dataArray;
           if (data.data === undefined) {
             dataArray = data;
-          }else {
-            dataArray = data.data
+          } else {
+            dataArray = data.data;
           }
           if (dataArray.length) {
             aggregatedData.push(...dataArray);
