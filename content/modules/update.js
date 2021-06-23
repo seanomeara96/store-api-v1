@@ -1,4 +1,3 @@
-const store = require("../../config/axios-config");
 const { getProductsByBrand } = require("../../products/getProductsByBrand");
 const addLine = (productId, lineToAdd) =>
   new Promise(async (resolve, reject) => {
@@ -44,9 +43,9 @@ const addLineToMany = (productIds, lineToAdd) =>
       .catch(reject);
   });
 /**
- * 
- * @param {string} brandName 
- * @param {string} lineToAdd 
+ *
+ * @param {string} brandName
+ * @param {string} lineToAdd
  * @returns adds string to beginning of content
  */
 const addLineToBrandProducts = (brandName, lineToAdd) =>
@@ -64,7 +63,7 @@ const addLineToBrandProducts = (brandName, lineToAdd) =>
       .catch((err) => reject(err));
   });
 
-  const removeLineFromBrandProducts = (brandName, lineToRemove) =>
+const removeLineFromBrandProducts = (brandName, lineToRemove) =>
   new Promise((resolve, reject) => {
     let promises = [];
     getProductsByBrand(brandName)
@@ -99,7 +98,9 @@ exports.removeLineFromBrandProducts = removeLineFromBrandProducts;
 function getProductDescription(id) {
   return new Promise(async (resolve, reject) => {
     try {
-      const product = await store.get(`/catalog/products/${id}`);
+      const product = await require("../../config/config").store.get(
+        `/catalog/products/${id}`
+      );
       const productDescription = product.data.data.description;
       resolve(productDescription);
     } catch (err) {
@@ -110,8 +111,8 @@ function getProductDescription(id) {
 
 function updateProductDescription(productId, updatedProductDescription) {
   return new Promise((resolve, reject) => {
-    store
-      .put(`/catalog/products/${productId}`, {
+    require("../../config/config")
+      .store.put(`/catalog/products/${productId}`, {
         description: updatedProductDescription,
       })
       .then((res) => resolve(res))
