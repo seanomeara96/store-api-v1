@@ -1,5 +1,5 @@
 const api = require("../config/config");
-const initials = "bs";
+const initials = "bf";
 api.config(initials);
 const { getAllBrands } = require("../brands/getAllBrands");
 const { getAllProducts } = require("../products/getAllProducts");
@@ -27,6 +27,12 @@ getAllProducts()
               } else {
                 brand_content = "Something went wrong";
               }
+              let brandProducts = products.filter(
+                (product) => product.brand_id === brand.id
+              );
+              let brandProductsInStock = brandProducts.filter(
+                (product) => product.inventory_level > 0
+              );
               return {
                 ID: brand.id,
                 "Brand Name": brand.name,
@@ -35,7 +41,8 @@ getAllProducts()
                   ? "TRUE"
                   : "FALSE",
                 "Has Content": brand_content,
-                "No. Of Products": products.filter(product => product.brand_id === brand.id).length,
+                Products: brandProducts.length,
+                "Products In Stock": brandProductsInStock.length,
                 "Page Title": brand.page_title,
                 "Page Title Length": brand.page_title
                   ? brand.page_title.length

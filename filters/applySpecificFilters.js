@@ -1,14 +1,7 @@
 const { applySpecificFilters } = require("./modules/create");
+require("../config/config").config("bf");
+const data = []; // data goes here
 
-const data = [
-  {
-    "Product Id": 177,
-    Filters: "Proceive=Men;Proceive=Women;Proceive=Women & Men",
-  },
-  { "Product Id": 178, Filters: "Proceive=Women;Proceive=Women & Men" },
-  { "Product Id": 179, Filters: "Proceive=Men;Proceive=Women & Men" },
-  { "Product Id": 180, Filters: "Proceive=Men;Proceive=Women;" },
-  { "Product Id": 181, Filters: "Proceive=Men;" },
-];
-
-applySpecificFilters(data);
+applySpecificFilters(data)
+  .then((res) => console.log(res))
+  .catch((err) => console.log(err));

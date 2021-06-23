@@ -1,4 +1,4 @@
-const store = require("../config/axios-config");
+const { getProductIdByName } = require("../../products/getProductIdByName");
 
 const applyFilter = (productId, name, value) =>
   new Promise(async (resolve, reject) => {
@@ -7,7 +7,7 @@ const applyFilter = (productId, name, value) =>
       value,
     };
     try {
-      const { status } = await store.post(
+      const { status } = await require("../../config/config").store.post(
         `/catalog/products/${productId}/custom-fields`,
         data
       );
@@ -51,20 +51,36 @@ const applyManyFiltersToMany = (productIds, filters) =>
       .then((results) => resolve(results))
       .catch(reject);
   });
-
+/**
+ * applies specific filters by name marked x e.g. key = "field" value = "filter" name1 ="x" name2 = ""
+ * @param {array} data
+ * @returns promise
+ */
 const applySpecificFilters = (data) =>
   new Promise((resolve, reject) => {
     let promises = [];
     data.forEach((item) => {
-      const id = item["Product Id"];
-      const filters = item["Filters"]
-        .split(";")
-        .map((filter) => filter.split("="));
-      filters.forEach((filter) => {
-        promises.push(applyFilter(id, filter[0], filter[1]));
-      });
+      if (!item["Key"]) return reject("No Key Heading");
+      if (!item["Value"]) return reject("No Value heading");
+      const key = item["Key"];
+      const value = item["Value"];
+      // generate array of product names by removing fields key and value
+      let productNames = Object.keys(item).filter(
+        (key) => key !== "Key" && key !== "Value"
+      );
+      for (var name in productNames) {
+        if (item[productNames[name]].toUpperCase() === "X") {
+          getProductIdByName(productNames[name])
+            .then((id) => {
+              promises.push(applyFilter(id, key, value).catch(err => console.log(err)));
+            })
+            .catch((err) => console.log(err));
+        }
+      }
+      Promise.allSettled(promises)
+        .then((res) => resolve(res))
+        .catch((err) => reject(err));
     });
-    Promise.allSettled(promises).then(resolve).catch(reject);
   });
 
 exports.applyFilter = applyFilter;
