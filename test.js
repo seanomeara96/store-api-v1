@@ -1,7 +1,4 @@
-require("./config/config").config("pb");
-const { getProductsByBrand } = require("./products/getProductsByBrand");
-getProductsByBrand("LombaMum")
-  .then((products) => {
-    console.log(products.map(product => product.name));
-  })
-  .catch((err) => console.log(err));
+const api = require("./config/config")
+api.config("bf");
+api.store.get("/sites").then(sites => console.log(sites.data.data[0].url))
+
