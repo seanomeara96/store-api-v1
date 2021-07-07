@@ -1,4 +1,4 @@
-const api = require("./config/config")
-api.config("bf");
-api.store.get("/sites").then(sites => console.log(sites.data.data[0].url))
+const axios = require("axios")
+
+axios.get("https://www.beautyfeatures.ie/fitflop-superchelsea-suede-boots-with-studs/").then(res => console.log("res", res)).catch(err => console.log("err"))
 
