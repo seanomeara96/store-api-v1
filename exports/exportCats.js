@@ -2,7 +2,7 @@ const { getAllCategories } = require("../categories/getAllCategories");
 const { getAllProducts } = require("../products/getAllProducts");
 const { getAllBanners } = require("../banners/getAllBanners");
 const output = require("./utils/output");
-const store = "ah";
+const store = "fs";
 require("../config/config").config(store);
 getAllProducts().then((products) => {
   require("../config/config").config(store, 2);

@@ -1,5 +1,5 @@
 const api = require("../config/config");
-const initials = "ah";
+const initials = "fs";
 api.config(initials);
 const { getAllBrands } = require("../brands/getAllBrands");
 const { getAllProducts } = require("../products/getAllProducts");

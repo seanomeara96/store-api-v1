@@ -1,9 +1,12 @@
 const { getProductsByBrand } = require("../../products/getProductsByBrand");
-const addLine = (productId, lineToAdd) =>
+const addLine = (productId, lineToAdd, noDuplicateLines = true) =>
   new Promise(async (resolve, reject) => {
-    validateParams(productId, lineToAdd, reject);
+    validateParams(productId,  reject, lineToAdd);
     try {
       const productDescription = await getProductDescription(productId);
+      if (noDuplicateLines && productDescription.includes(lineToAdd)) {
+        return reject("This line already exists");
+      }
       const updatedProductDescription = lineToAdd + productDescription;
       await updateProductDescription(productId, updatedProductDescription);
       resolve("Line added");
@@ -31,6 +34,25 @@ const removeLine = (productId, lineToRemove) =>
     }
   });
 
+const removePromotion = (productId) =>
+  new Promise(async (resolve, reject) => {
+    validateParams(productId, reject);
+    try {
+      const productDescription = await getProductDescription(productId);
+      console.log(productDescription);
+      const updatedProductDescription = productDescription.replace(
+        /<!-- start promotion -->(.|\n)*?<!-- end promotion -->/,
+        ""
+      );
+      await updateProductDescription(productId, updatedProductDescription);
+      if (productDescription == updatedProductDescription)
+        return reject("no change was made");
+      resolve();
+    } catch (err) {
+      reject(err);
+    }
+  });
+exports.removePromotion = removePromotion;
 const addLineToMany = (productIds, lineToAdd) =>
   new Promise((resolve, reject) => {
     let promises = [];
@@ -47,6 +69,7 @@ const addLineToMany = (productIds, lineToAdd) =>
  * @param {string} brandName
  * @param {string} lineToAdd
  * @returns adds string to beginning of content
+ *
  */
 const addLineToBrandProducts = (brandName, lineToAdd) =>
   new Promise((resolve, reject) => {
@@ -78,6 +101,21 @@ const removeLineFromBrandProducts = (brandName, lineToRemove) =>
       .catch((err) => reject(err));
   });
 
+const removePromotionFromBrandProducts = (brandName) =>
+  new Promise((resolve, reject) => {
+    let promises = [];
+    getProductsByBrand(brandName)
+      .then((products) => {
+        products.forEach(({ id }) => {
+          promises.push(removePromotion(id));
+        });
+        Promise.allSettled(promises)
+          .then((res) => resolve(res))
+          .catch((err) => reject(err));
+      })
+      .catch((err) => reject(err));
+  });
+exports.removePromotionFromBrandProducts = removePromotionFromBrandProducts;
 const removeLineFromMany = (productIds, lineToRemove) =>
   new Promise((resolve, reject) => {
     let promises = [];
@@ -120,7 +158,8 @@ function updateProductDescription(productId, updatedProductDescription) {
   });
 }
 
-function validateParams(numero, sentence, reject) {
-  if (typeof sentence !== "string") reject("lineToAdd must be a string");
+function validateParams(numero, reject, sentence="" ) {
+  if (typeof sentence !== "string")
+    reject("lineToAdd must be a string");
   if (typeof numero !== "number") reject("product id must be a number");
 }
