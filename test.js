@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const api = require("./config/config");
 api.config("ih",2);
 const { getAll } = require("./utils/getAll");
@@ -16,3 +17,9 @@ getAllCoupons()
       })
   })
   .catch((err) => console.log(err));
+=======
+const axios = require("axios")
+
+axios.get("https://www.beautyfeatures.ie/fitflop-superchelsea-suede-boots-with-studs/").then(res => console.log("res", res)).catch(err => console.log("err"))
+
+>>>>>>> 5e8b176faf432e55635951e3d507eb9522c071d3
