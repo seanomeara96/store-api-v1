@@ -1,5 +1,5 @@
 const api = require("../config/config");
-const initials = "pb";
+const initials = "fs";
 api.config(initials);
 const { getAllBrands } = require("../brands/getAllBrands");
 const { getAllProducts } = require("../products/getAllProducts");
@@ -323,3 +323,4 @@ async function exportBrands() {
   }
 }
 exportBrands();
+module.exports = exportBrands;
