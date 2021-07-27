@@ -1,6 +1,6 @@
 require("../config/config").config("bsk");
 const { getProductById } = require("../products/getProductById");
-const { addCatToProduct } = require("../products/addCatToProduct");
+const { removeCatFromProduct } = require("../products/removeCatFromProduct");
 /**
  * issue with this script is that its prematurely returning an empty array and not the expected output from promise allsettled
  */
@@ -20,7 +20,7 @@ const catId = 98;
  * @param {*} categoryName
  * @returns
  */
-const addCategoryToSpecificProducts = (productIds, categoryId) =>
+const removeCategoryFromSpecificProducts = (productIds, categoryId) =>
   new Promise((resolve, reject) => {
     let promises = [];
     productIds.forEach((productId) => {
@@ -31,10 +31,10 @@ const addCategoryToSpecificProducts = (productIds, categoryId) =>
       getProductById(id)
         .then((product) => {
           const { categories } = product;
-          if (!categories.includes(categoryId)) {
-            promises.push(addCatToProduct(id, categoryId));
+          if (categories.includes(categoryId)) {
+            promises.push(removeCatFromProduct(id, categoryId));
           } else {
-            console.log(`product ${id} is already in that category`);
+            console.log(`product ${id} is already not in that category`);
           }
         })
         .catch((err) => {
@@ -47,6 +47,6 @@ const addCategoryToSpecificProducts = (productIds, categoryId) =>
       .catch((err) => reject(err));
   });
 
-addCategoryToSpecificProducts(productIds, catId)
-  .then((res) => console.log("addCategoryToSpecificProducts response",res))
+removeCategoryFromSpecificProducts(productIds, catId)
+  .then((res) => console.log("removeCategoryFromSpecificProducts response",res))
   .catch((err) => console.log(err));
