@@ -1,5 +1,5 @@
 const api = require("../config/config");
-const initials = "fs";
+const initials = "bf";
 api.config(initials);
 const { getAllBrands } = require("../brands/getAllBrands");
 const { getAllProducts } = require("../products/getAllProducts");
@@ -18,7 +18,7 @@ function booleanString(x) {
     return "FALSE";
   }
 }
-async function exportBrands() {
+const exportBrands = async () => {
   try {
     /**
      * all site base domain url
@@ -36,8 +36,11 @@ async function exportBrands() {
      * all store redirects
      */
     const redirects = await getAllRedirects();
+    
+    // require get all banners
     api.config(initials, 2);
     const { getAllBanners } = require("../banners/getAllBanners"); // marketing -> banners is still in v2
+
     /**
      * all store banners
      */
@@ -55,10 +58,10 @@ async function exportBrands() {
         "Contains Broken Links": null,
         "No. of Redirected URLs": null,
         "No. of Broken URLs": null,
-        "301 URLs": null,
-        "404 URLs": null,
         Products: null,
         "Products In Stock": null,
+        "301 URLs": null,
+        "404 URLs": null,
         "Page Title": brand.page_title,
         "Page Title Length": brand.page_title ? brand.page_title.length : 0,
         "Meta Description": brand.meta_description,
