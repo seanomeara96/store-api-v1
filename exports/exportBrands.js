@@ -7,17 +7,12 @@ const { getAllRedirects } = require("../redirects/getAllRedirects");
 const output = require("./utils/output");
 const { getSiteUrl } = require("../utils/getSiteUrl");
 const axios = require("axios");
+const { booleanString } = require("./utils/booleanString");
+const { getAssociatedBrandBanners, getLiveAssociatedBrandBanners} = require("./utils/getAssociatedBanners")
 /**
  * @param {any} x
  * @returns true / false as string
  */
-function booleanString(x) {
-  if (x) {
-    return "TRUE";
-  } else {
-    return "FALSE";
-  }
-}
 const exportBrands = async () => {
   try {
     /**
@@ -36,7 +31,7 @@ const exportBrands = async () => {
      * all store redirects
      */
     const redirects = await getAllRedirects();
-    
+
     // require get all banners
     api.config(initials, 2);
     const { getAllBanners } = require("../banners/getAllBanners"); // marketing -> banners is still in v2
@@ -88,15 +83,7 @@ const exportBrands = async () => {
       brand["Products In Stock"] = brandProductsInStock.length.toString();
     });
 
-    // returns an array of banners associated with a brand
-    function getAssociatedBrandBanners(brandId) {
-      return banners.filter((banner) => parseInt(banner.item_id) === brandId);
-    }
-    function getLiveAssociatedBrandBanners(brandId) {
-      return getAssociatedBrandBanners(brandId).filter(
-        (banner) => banner.visible === "1"
-      );
-    }
+    
 
     // add brand banner details
     outputDoc.forEach((brand) => {
@@ -324,6 +311,6 @@ const exportBrands = async () => {
   } catch (err) {
     console.log(err);
   }
-}
+};
 exportBrands();
 module.exports = exportBrands;
