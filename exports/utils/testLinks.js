@@ -5,9 +5,9 @@ const { default: axios } = require("axios");
 const concat = (list) => {
   return Array.prototype.concat.bind(list);
 };
-const promiseConcat = (nextFunction) => {
+const promiseConcat = (currentValue) => {
   return (x) => {
-    return nextFunction().then(concat(x));
+    return currentValue().then(concat(x));
   };
 };
 
@@ -24,11 +24,9 @@ const serial = (funcs) => {
 };
 // [() => {return axios.get("https://www.beautyfeatures.ie/dermo-suavina/")}, () => {return axios.get("https://www.beautyfeatures.ie/rebeluna/")}]
 
-const promiseReduce = (prmise, nextFunction) => {
-  return prmise.then(promiseConcat(nextFunction));
+const promiseReduce = (accumulator, currentValue) => {
+  return accumulator.then(promiseConcat(currentValue));
 };
-
-
 
 let links = [
   "https://www.beautyfeatures.ie/brands/Burts-Bees.html",
