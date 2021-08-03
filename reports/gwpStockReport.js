@@ -14,11 +14,11 @@ let skuArray = [
 
 getManyProductsBySKU(skuArray)
   .then((res) => {
-    console.log(res);
     const data = res
+      .sort((a, b) => a.inventory_level - b.inventory_level)
       .map(
         ({ name, sku, inventory_level }) =>
-          `<p>${name} (${sku}) => Inventory Level: <strong>${inventory_level}</strong></p>`
+          `<p>${name}<br>SKU: ${sku}<br>Inventory: <strong>${inventory_level}</strong></p>`
       )
       .join("\n");
     const msg = {
