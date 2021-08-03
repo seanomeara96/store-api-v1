@@ -10,6 +10,7 @@ let skuArray = [
   { sku: "8702" }, // clay cleanser
   { sku: "9013" }, // tummy rub butter
   { sku: "10356" },
+  {sku: "10402"} // carter beauty sponge
 ];
 
 getManyProductsBySKU(skuArray)
