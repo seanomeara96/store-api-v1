@@ -1,4 +1,4 @@
-const store = "bs";
+const store = "bf";
 require("../config/config").config(store);
 const { getAllCategories } = require("../categories/getAllCategories");
 const { getAllProducts } = require("../products/getAllProducts");
@@ -21,10 +21,10 @@ const exportCats = async () => {
         "Has Meta Description": booleanString(cat.meta_description),
         "Has Content": booleanString(cat.description),
         "Is Visible": booleanString(cat.is_visible),
-        "Has Banner": hasBanner,
+        "Has Banner": null,
         "Banner(s) Live": null,
-        Products: productsInCat.length,
-        "Products In Stock": productsInCatInStock.length,
+        Products: null,
+        "Products In Stock": null,
         "Page Title": cat.page_title,
         "Page Title Length": cat.page_title ? cat.page_title.length : 0,
         "Meta Description": cat.meta_description,
@@ -36,33 +36,32 @@ const exportCats = async () => {
         "Search Keywords": cat.search_keywords,
       };
     });
-    
+
     // add additional content information
-    outputDoc.forEach((category) => {
+    outputDoc.forEach((cat) => {
       let associatedBanners = banners.filter(
         (banner) => parseInt(banner.item_id) === cat.id
       );
-      category["Has Banner"] = associatedBanners.length;
+      cat["Has Banner"] = associatedBanners.length;
       let associatedBannersLive = associatedBanners.filter(
         (banner) => parseInt(banner.visible) === 1
       );
-      category["Banner(s) Live"] = associatedBannersLive.length;
+      cat["Banner(s) Live"] = associatedBannersLive.length;
     });
-
 
     // add product information
-    outputDoc.forEach((category) => {
-      let productsInCat = products.filter(
-        (product) => product.categories.includes(cat.id) === true
-      ).length;
-      category["Products"] = productsInCat.length;
+    outputDoc.forEach((cat) => {
+      let productsInCat = products.filter((product) =>
+        product.categories.includes(cat.ID)
+      );
+      cat["Products"] = productsInCat.length;
       let productsInCatInStock = productsInCat.filter(
         (product) => product.inventory_level > 0
-      ).length;
-      category["Products In Stock"] = productsInCatInStock;
+      );
+      cat["Products In Stock"] = productsInCatInStock.length;
     });
-
-    output("category", outputDoc);
+    console.log(outputDoc[0]);
+    //output("category", outputDoc);
   } catch (err) {
     console.log(err);
   }

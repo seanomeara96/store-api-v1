@@ -8,7 +8,10 @@ const output = require("./utils/output");
 const { getSiteUrl } = require("../utils/getSiteUrl");
 const axios = require("axios");
 const { booleanString } = require("./utils/booleanString");
-const { getAssociatedBrandBanners, getLiveAssociatedBrandBanners} = require("./utils/getAssociatedBanners")
+const {
+  getAssociatedBrandBanners,
+  getLiveAssociatedBrandBanners,
+} = require("./utils/getAssociatedBanners");
 /**
  * @param {any} x
  * @returns true / false as string
@@ -31,7 +34,8 @@ const exportBrands = async () => {
      * all store redirects
      */
     const redirects = await getAllRedirects();
-
+    let redirectPaths = redirects.map((redirect) => redirect.from_path);
+    console.log(redirectPaths);
     // require get all banners
     api.config(initials, 2);
     const { getAllBanners } = require("../banners/getAllBanners"); // marketing -> banners is still in v2
@@ -83,14 +87,12 @@ const exportBrands = async () => {
       brand["Products In Stock"] = brandProductsInStock.length.toString();
     });
 
-    
-
     // add brand banner details
     outputDoc.forEach((brand) => {
       // gets banners associated with brand
-      let brandBanners = getAssociatedBrandBanners(brand.ID);
+      let brandBanners = getAssociatedBrandBanners(banners, brand.ID);
       brand["Has Content"] = booleanString(brandBanners.length);
-      let liveBrandBanners = getLiveAssociatedBrandBanners(brand.ID);
+      let liveBrandBanners = getLiveAssociatedBrandBanners(banners, brand.ID);
       if (liveBrandBanners.length)
         brand["No. of live banners"] = liveBrandBanners.length;
     });
@@ -105,24 +107,28 @@ const exportBrands = async () => {
         if (typeof link !== "string") return reject("link must be a string");
         if (
           link.startsWith(siteUrl) &&
-          redirects.filter((red) => red.from_path === link.replace(siteUrl, ""))
-            .length
+          redirectPaths.includes(link.replace(siteUrl, ""))
         ) {
+          console.log(301, link, "on redirect file");
           resolve({ status: 301, link: link });
         } else {
           axios
             .get(link)
             .then((response) => {
               if (response.request._redirectable._redirectCount > 0) {
+                console.log(301, link, "not on redirect file");
                 resolve({ status: 301, link: link });
               } else {
                 resolve({ status: 200, link: link });
+                console.log(200, link, "link okay");
               }
             })
             .catch((err) => {
               if (err.response.status === 404) {
+                console.log(404, link, "error");
                 resolve({ status: 404, link: link });
               } else {
+                console.log(err);
                 reject({
                   status: err.response.status,
                   errMessage: "something went wrong while testing a link",
@@ -141,39 +147,30 @@ const exportBrands = async () => {
     function testBannerLinks(linksArray, bannerId) {
       return new Promise((resolve, reject) => {
         if (!linksArray.length) return reject("no links");
-        let requests = [];
-        linksArray.forEach((link) => {
-          requests.push(testBannerLink(link));
-        });
-        Promise.allSettled(requests)
-          .then((responses) => {
-            let testedBannerLinks = {
-              "Banner Id": bannerId,
-              "301 URLs": [],
-              "404 URLs": [],
-            };
-            let rejectedLinks = [];
-            responses.forEach((response) => {
-              if (response.status === "fulfilled") {
-                if (response.value.status === 301) {
-                  testedBannerLinks["301 URLs"].push(response.value.link);
-                } else if (response.value.status === 404) {
-                  testedBannerLinks["404 URLs"].push(response.value.link);
+        let promiseArray = linksArray.map((link) => () => testBannerLink(link));
+        let responses = [];
+        promiseArray.reduce((acc, cur, i) => {
+          return acc.then(cur).then((res) => {
+            responses.push(res);
+            if (i === promiseArray.length - 1) {
+              let testedBannerLinks = {
+                "Banner Id": bannerId,
+                "301 URLs": [],
+                "404 URLs": [],
+              };
+              responses.forEach((response) => {
+                if (response.status === 301) {
+                  testedBannerLinks["301 URLs"].push(response.link);
+                } else if (response.status === 404) {
+                  testedBannerLinks["404 URLs"].push(response.link);
                 } else {
                   return;
                 }
-              } else {
-                // response was rejected
-                rejectedLinks.push(response.reason);
-              }
-            });
-            console.log(`${rejectedLinks.length} links failed to be tested`);
-            resolve(testedBannerLinks);
-          })
-          .catch((err) => {
-            console.log("something went wrong in test banner links", err);
-            reject("something went wrong in test banner links");
+              });
+              resolve(testedBannerLinks);
+            }
           });
+        }, Promise.resolve());
       });
     }
     function testBanners(bannersArray) {
@@ -187,6 +184,7 @@ const exportBrands = async () => {
             let liveBrandLinks = [];
             responses.forEach((response) => {
               if (response.status === "fulfilled") {
+                console.log("test banner links finished", response.value);
                 liveBrandLinks.push(response.value);
               }
             });
@@ -264,7 +262,10 @@ const exportBrands = async () => {
       return new Promise(async (resolve, reject) => {
         const currentBrand = brand;
 
-        const liveBanners = getLiveAssociatedBrandBanners(currentBrand.ID);
+        const liveBanners = getLiveAssociatedBrandBanners(
+          banners,
+          currentBrand.ID
+        );
         if (!liveBanners.length) {
           reject();
         }

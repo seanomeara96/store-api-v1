@@ -1,9 +1,9 @@
 // returns an array of banners associated with a brand
-const getAssociatedBrandBanners = (brandId) => {
+const getAssociatedBrandBanners = (banners, brandId) => {
   return banners.filter((banner) => parseInt(banner.item_id) === brandId);
 };
-const getLiveAssociatedBrandBanners = (brandId) => {
-  return getAssociatedBrandBanners(brandId).filter(
+const getLiveAssociatedBrandBanners = (banners, brandId) => {
+  return getAssociatedBrandBanners(banners, brandId).filter(
     (banner) => banner.visible === "1"
   );
 };
