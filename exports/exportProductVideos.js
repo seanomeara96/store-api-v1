@@ -1,4 +1,4 @@
-require("../config/config");
+require("../config/config").config("ih")
 const {
   getProductVideosOfMany,
 } = require("../products/getProductVideosOfMany");
