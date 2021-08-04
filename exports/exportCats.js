@@ -60,6 +60,13 @@ const exportCats = async () => {
       );
       cat["Products In Stock"] = productsInCatInStock.length;
     });
+
+    // check links in category description
+    let categoryDescriptionLinks;
+    outputDoc.forEach(cat => {
+
+    })
+
     console.log(outputDoc[0]);
     //output("category", outputDoc);
   } catch (err) {
