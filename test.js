@@ -1,4 +1,8 @@
-const axios = require("axios")
-
-axios.get("https://www.beautyfeatures.ie/fitflop-superchelsea-suede-boots-with-studs/").then(res => console.log("res", res)).catch(err => console.log("err"))
-
+const { getAllProducts } = require("./products/getAllProducts");
+require("./config/config").config("bf")
+async function main() {
+  let products = await getAllProducts();
+  products = products.sort((a, b) => a.reviews_count - b.reviews_count);
+  console.log(products[0])
+}
+main();
