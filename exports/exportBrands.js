@@ -12,6 +12,11 @@ const {
   getAssociatedBrandBanners,
   getLiveAssociatedBrandBanners,
 } = require("./utils/getAssociatedBanners");
+const { getLinksArray } = require("./utils/getLinksArray");
+const {
+  replaceUrlVarsWithSiteUrl,
+} = require("./utils/replaceUrlVarsWithSiteUrl");
+const { testBanners } = require("./utils/testBanners");
 /**
  * @param {any} x
  * @returns true / false as string
@@ -83,7 +88,6 @@ const exportBrands = async () => {
         (product) => product.inventory_level > 0
       );
       brand["Products"] = brandProducts.length.toString();
-      console.log(brandProductsInStock.length);
       brand["Products In Stock"] = brandProductsInStock.length.toString();
     });
 
@@ -96,106 +100,6 @@ const exportBrands = async () => {
       if (liveBrandBanners.length)
         brand["No. of live banners"] = liveBrandBanners.length;
     });
-
-    /**
-     *
-     * @param {string} link
-     * @returns status of link + link
-     */
-    function testBannerLink(link) {
-      return new Promise((resolve, reject) => {
-        if (typeof link !== "string") return reject("link must be a string");
-        if (
-          link.startsWith(siteUrl) &&
-          redirectPaths.includes(link.replace(siteUrl, ""))
-        ) {
-          console.log(301, link, "on redirect file");
-          resolve({ status: 301, link: link });
-        } else {
-          axios
-            .get(link)
-            .then((response) => {
-              if (response.request._redirectable._redirectCount > 0) {
-                console.log(301, link, "not on redirect file");
-                resolve({ status: 301, link: link });
-              } else {
-                resolve({ status: 200, link: link });
-                console.log(200, link, "link okay");
-              }
-            })
-            .catch((err) => {
-              if (err.response.status === 404) {
-                console.log(404, link, "error");
-                resolve({ status: 404, link: link });
-              } else {
-                console.log(err);
-                reject({
-                  status: err.response.status,
-                  errMessage: "something went wrong while testing a link",
-                });
-              }
-            });
-        }
-      });
-    }
-    /**
-     *
-     * @param {string[]} linksArray
-     * @param {*} bannerId
-     * @returns
-     */
-    function testBannerLinks(linksArray, bannerId) {
-      return new Promise((resolve, reject) => {
-        if (!linksArray.length) return reject("no links");
-        let promiseArray = linksArray.map((link) => () => testBannerLink(link));
-        let responses = [];
-        promiseArray.reduce((acc, cur, i) => {
-          return acc.then(cur).then((res) => {
-            responses.push(res);
-            if (i === promiseArray.length - 1) {
-              let testedBannerLinks = {
-                "Banner Id": bannerId,
-                "301 URLs": [],
-                "404 URLs": [],
-              };
-              responses.forEach((response) => {
-                if (response.status === 301) {
-                  testedBannerLinks["301 URLs"].push(response.link);
-                } else if (response.status === 404) {
-                  testedBannerLinks["404 URLs"].push(response.link);
-                } else {
-                  return;
-                }
-              });
-              resolve(testedBannerLinks);
-            }
-          });
-        }, Promise.resolve());
-      });
-    }
-    function testBanners(bannersArray) {
-      return new Promise((resolve, reject) => {
-        let promises = [];
-        bannersArray.forEach((banner) => {
-          promises.push(testBannerLinks(banner.links, banner.id));
-        });
-        Promise.allSettled(promises)
-          .then((responses) => {
-            let liveBrandLinks = [];
-            responses.forEach((response) => {
-              if (response.status === "fulfilled") {
-                console.log("test banner links finished", response.value);
-                liveBrandLinks.push(response.value);
-              }
-            });
-            resolve(liveBrandLinks);
-          })
-          .catch((err) => {
-            console.log("error in test banners", err);
-            reject(err);
-          });
-      });
-    }
 
     function checkAllBrandContent(brandsDoc) {
       return new Promise((resolve, reject) => {
@@ -261,32 +165,26 @@ const exportBrands = async () => {
     function checkBrandContent(brand) {
       return new Promise(async (resolve, reject) => {
         const currentBrand = brand;
-
         const liveBanners = getLiveAssociatedBrandBanners(
           banners,
           currentBrand.ID
         );
+
         if (!liveBanners.length) {
-          reject();
+          reject("No Associated Live Banners");
         }
 
         // replace store url var with siteUrl
-        liveBanners.forEach((liveBanner) => {
-          liveBanner.content = liveBanner.content.replace(
-            /%%GLOBAL_ShopPathSSL%%/gi,
-            siteUrl
-          );
-        });
+        liveBanners.forEach(
+          ({ content }) =>
+            (content = replaceUrlVarsWithSiteUrl(content, siteUrl))
+        );
 
         // create an array of links on each banner doc
-        liveBanners.forEach((liveBanner) => {
-          let urls =
-            liveBanner.content.match(
-              /"(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})"/gi
-            ) || [];
-          urls = urls.map((url) => url.slice(1, -1));
-          liveBanner.links = urls;
-        });
+        liveBanners.forEach(
+          (liveBanner) =>
+            (liveBanner.links = getLinksArray(liveBanner.content, siteUrl))
+        );
 
         let linkData = null;
 

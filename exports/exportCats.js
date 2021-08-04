@@ -20,9 +20,13 @@ const exportCats = async () => {
         "Has Page Title": booleanString(cat.page_title),
         "Has Meta Description": booleanString(cat.meta_description),
         "Has Content": booleanString(cat.description),
+        "Description 301s": null,
+        "Description 404s": null,
         "Is Visible": booleanString(cat.is_visible),
         "Has Banner": null,
         "Banner(s) Live": null,
+        "Banner 301s": null,
+        "Banner 404s": null,
         Products: null,
         "Products In Stock": null,
         "Page Title": cat.page_title,
@@ -63,9 +67,7 @@ const exportCats = async () => {
 
     // check links in category description
     let categoryDescriptionLinks;
-    outputDoc.forEach(cat => {
-
-    })
+    outputDoc.forEach((cat) => {});
 
     console.log(outputDoc[0]);
     //output("category", outputDoc);
