@@ -6,7 +6,6 @@ const { getAllProducts } = require("../products/getAllProducts");
 const { getAllRedirects } = require("../redirects/getAllRedirects");
 const output = require("./utils/output");
 const { getSiteUrl } = require("../utils/getSiteUrl");
-const axios = require("axios");
 const { booleanString } = require("./utils/booleanString");
 const {
   getAssociatedBrandBanners,
@@ -39,8 +38,10 @@ const exportBrands = async () => {
      * all store redirects
      */
     const redirects = await getAllRedirects();
-    let redirectPaths = redirects.map((redirect) => redirect.from_path);
-    console.log(redirectPaths);
+    /**
+     * just the slugs
+     */
+    const redirectPaths = redirects.map(({ from_path }) => from_path);
     // require get all banners
     api.config(initials, 2);
     const { getAllBanners } = require("../banners/getAllBanners"); // marketing -> banners is still in v2
@@ -176,20 +177,24 @@ const exportBrands = async () => {
 
         // replace store url var with siteUrl
         liveBanners.forEach(
-          ({ content }) =>
-            (content = replaceUrlVarsWithSiteUrl(content, siteUrl))
+          (liveBanner) =>
+            (liveBanner.content = replaceUrlVarsWithSiteUrl(
+              liveBanner.content,
+              siteUrl
+            ))
         );
 
         // create an array of links on each banner doc
         liveBanners.forEach(
-          ({ links, content }) => (links = getLinksArray(content, siteUrl))
+          (liveBanner) =>
+            (liveBanner.links = getLinksArray(liveBanner.content, siteUrl))
         );
 
         let linkData = null;
 
         if (liveBanners.length) {
           try {
-            linkData = await testBanners(liveBanners);
+            linkData = await testBanners(liveBanners, redirectPaths, siteUrl);
             if (linkData.length) {
               resolve({ brandId: currentBrand.ID, linkData });
             } else {
@@ -204,7 +209,6 @@ const exportBrands = async () => {
     }
 
     await checkAllBrandContent(outputDoc);
-    console.log(outputDoc[0]);
     output("brand", outputDoc);
   } catch (err) {
     console.log(err);

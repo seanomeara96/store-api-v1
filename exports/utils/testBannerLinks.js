@@ -5,11 +5,11 @@ const { testBannerLink } = require("./testBannerLink");
  * @param {*} bannerId
  * @returns
  */
-const testBannerLinks = (linksArray, bannerId, redirectPaths) => {
+const testBannerLinks = (linksArray, bannerId, redirectPaths, siteUrl) => {
   return new Promise((resolve, reject) => {
     if (!linksArray.length) return reject("no links");
     let promiseArray = linksArray.map(
-      (link) => () => testBannerLink(link, redirectPaths)
+      (link) => () => testBannerLink(link, redirectPaths, siteUrl)
     );
     let responses = [];
     promiseArray.reduce((acc, cur, i) => {
@@ -37,4 +37,4 @@ const testBannerLinks = (linksArray, bannerId, redirectPaths) => {
   });
 };
 
-exports.testedBannerLinks = testBannerLinks;
+exports.testBannerLinks = testBannerLinks;

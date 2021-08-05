@@ -3,11 +3,14 @@
  * @param {string} content
  * @returns array of urls
  */
-const getLinksArray = (content) =>
-  content
-    .match(
+const getLinksArray = (content) => {
+  let linksArray =
+    content.match(
       /"(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})"/gi
-    )
-    .map((url) => url.slice(1, -1)) || [];
+    ) || [];
+  return linksArray.length > 0
+    ? linksArray.map((url) => url.slice(1, -1))
+    : linksArray;
+};
 
 exports.getLinksArray = getLinksArray;

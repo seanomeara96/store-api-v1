@@ -4,11 +4,13 @@ const { testBannerLinks } = require("./testBannerLinks");
  * @param {string} bannersArray
  * @returns
  */
-const testBanners = (bannersArray) => {
+const testBanners = (bannersArray, redirectPaths, siteUrl) => {
   return new Promise((resolve, reject) => {
     let promises = [];
     bannersArray.forEach((banner) => {
-      promises.push(testBannerLinks(banner.links, banner.id));
+      promises.push(
+        testBannerLinks(banner.links, banner.id, redirectPaths, siteUrl)
+      );
     });
     Promise.allSettled(promises)
       .then((responses) => {

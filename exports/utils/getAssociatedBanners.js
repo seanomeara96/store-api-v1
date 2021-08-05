@@ -1,3 +1,9 @@
+/**
+ *
+ * @param {string} entityType e.g. catgeory_page or brand_page
+ * @param {*} onlyLiveBanners true if you only want banners visible on site
+ * @returns
+ */
 const getAssociatedBanners =
   (entityType, onlyLiveBanners = false) =>
   (banners, entityId) => {
@@ -9,14 +15,28 @@ const getAssociatedBanners =
       ? res
       : (res = res.filter((banner) => banner.visible === "1"));
   };
-
+/**
+ * gets you all brand page banners
+ */
 const getAssociatedBrandBanners = getAssociatedBanners("brand_page");
+/**
+ * gets you all category page banners
+ */
 const getAssociatedCategoryBanners = getAssociatedBanners("category_page");
+/**
+ * gets you live brand page banners
+ */
 const getLiveAssociatedBrandBanners = getAssociatedBanners("brand_page", true);
+/**
+ * gets you all live category page banners
+ */
 const getLiveAssociatedCategoryBanners = getAssociatedBanners(
   "category_page",
   true
 );
+/**
+ * export relevant functions
+ */
 exports.getAssociatedCategoryBanners = getAssociatedCategoryBanners;
 exports.getAssociatedBrandBanners = getAssociatedBrandBanners;
 exports.getLiveAssociatedBrandBanners = getLiveAssociatedBrandBanners;

@@ -1,3 +1,8 @@
+/**
+ *  returns string true or false
+ * @param {any} x
+ * @returns
+ */
 const booleanString = (x) => {
   if (x) {
     return "TRUE";

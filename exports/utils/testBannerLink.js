@@ -4,7 +4,7 @@ const axios = require("axios");
  * @param {string} link
  * @returns status of link + link
  */
-const testBannerLink = (link, redirectPaths) => {
+const testBannerLink = (link, redirectPaths, siteUrl) => {
   return new Promise((resolve, reject) => {
     if (typeof link !== "string") return reject("link must be a string");
     if (
