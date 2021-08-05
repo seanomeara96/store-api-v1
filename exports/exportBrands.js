@@ -182,11 +182,11 @@ const exportBrands = async () => {
 
         // create an array of links on each banner doc
         liveBanners.forEach(
-          (liveBanner) =>
-            (liveBanner.links = getLinksArray(liveBanner.content, siteUrl))
+          ({links, content}) =>
+            (links = getLinksArray(content, siteUrl))
         );
 
-        let linkData = null;
+        let linkData = null; 
 
         if (liveBanners.length) {
           try {
