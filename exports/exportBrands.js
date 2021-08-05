@@ -1,5 +1,5 @@
 const api = require("../config/config");
-const initials = "bs";
+const initials = "bf";
 api.config(initials);
 const { getAllBrands } = require("../brands/getAllBrands");
 const { getAllProducts } = require("../products/getAllProducts");
@@ -182,11 +182,10 @@ const exportBrands = async () => {
 
         // create an array of links on each banner doc
         liveBanners.forEach(
-          ({links, content}) =>
-            (links = getLinksArray(content, siteUrl))
+          ({ links, content }) => (links = getLinksArray(content, siteUrl))
         );
 
-        let linkData = null; 
+        let linkData = null;
 
         if (liveBanners.length) {
           try {
