@@ -57,16 +57,16 @@ const exportBrands = async () => {
         "Brand Name": brand.name,
         "Has Page Title": booleanString(brand.page_title),
         "Has Meta Description": booleanString(brand.meta_description),
-        "Has Content": null, // default
-        "No. of live banners": null, // default
-        "Contains Redirects": null,
-        "Contains Broken Links": null,
-        "No. of Redirected URLs": null,
-        "No. of Broken URLs": null,
-        Products: null,
-        "Products In Stock": null,
-        "301 URLs": null,
-        "404 URLs": null,
+        "Has Content": "FALSE", // default
+        "No. of live banners": 0, // default
+        "Contains Redirects": "FALSE", // default
+        "Contains Broken Links": "FALSE", // default
+        "No. of Redirected URLs": 0, // default value
+        "No. of Broken URLs": 0, // default value
+        Products: 0, // default value
+        "Products In Stock": 0, // default value
+        "301 URLs": [], // default value
+        "404 URLs": [], // default value
         "Page Title": brand.page_title,
         "Page Title Length": brand.page_title ? brand.page_title.length : 0,
         "Meta Description": brand.meta_description,

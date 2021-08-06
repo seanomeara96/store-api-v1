@@ -12,8 +12,8 @@ const getAssociatedBanners =
         parseInt(banner.item_id) === entityId && banner.page === entityType
     );
     return onlyLiveBanners
-      ? res
-      : (res = res.filter((banner) => banner.visible === "1"));
+      ? res.filter((banner) => banner.visible === "1")
+      : res;
   };
 /**
  * gets you all brand page banners
@@ -34,9 +34,9 @@ const getLiveAssociatedCategoryBanners = getAssociatedBanners(
   "category_page",
   true
 );
-/**
- * export relevant functions
- */
+
+// export relevant functions
+
 exports.getAssociatedCategoryBanners = getAssociatedCategoryBanners;
 exports.getAssociatedBrandBanners = getAssociatedBrandBanners;
 exports.getLiveAssociatedBrandBanners = getLiveAssociatedBrandBanners;
