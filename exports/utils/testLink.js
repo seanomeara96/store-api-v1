@@ -1,10 +1,16 @@
 const axios = require("axios");
 /**
- *
+ * tests links and
+ * resolves with 301 if on redirect file
+ * or if axios responds 301
+ * and 404 if axios responds 404
+ * or 200 if okay
  * @param {string} link
+ * @param {string[]} redirectPaths
+ * @param {string} siteUrl
  * @returns status of link + link
  */
-const testBannerLink = (link, redirectPaths, siteUrl) => {
+const testLink = (link, redirectPaths, siteUrl) => {
   return new Promise((resolve, reject) => {
     if (typeof link !== "string") return reject("link must be a string");
     if (
@@ -40,4 +46,4 @@ const testBannerLink = (link, redirectPaths, siteUrl) => {
     }
   });
 };
-exports.testBannerLink = testBannerLink;
+exports.testLink = testLink;

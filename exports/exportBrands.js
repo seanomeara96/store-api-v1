@@ -11,11 +11,7 @@ const {
   getAssociatedBrandBanners,
   getLiveAssociatedBrandBanners,
 } = require("./utils/getAssociatedBanners");
-const { getLinksArray } = require("./utils/getLinksArray");
-const {
-  replaceUrlVarsWithSiteUrl,
-} = require("./utils/replaceUrlVarsWithSiteUrl");
-const { testBanners } = require("./utils/testBanners");
+const { checkAllBrandContent } = require("./utils/checkAllBrandContent");
 /**
  * @param {any} x
  * @returns true / false as string
@@ -101,114 +97,12 @@ const exportBrands = async () => {
       if (liveBrandBanners.length)
         brand["No. of live banners"] = liveBrandBanners.length;
     });
-
-    function checkAllBrandContent(brandsDoc) {
-      return new Promise((resolve, reject) => {
-        let promises = [];
-        brandsDoc.forEach((brandItem) => {
-          promises.push(checkBrandContent(brandItem));
-        });
-        Promise.allSettled(promises)
-          .then((responses) => {
-            responses
-              .filter(({ status }) => status === "fulfilled")
-              .forEach((response) => {
-                let { value } = response;
-                let { linkData } = value;
-                let redirs = [];
-                linkData.forEach((banner) =>
-                  redirs.push({
-                    "Banner Id": banner["Banner Id"],
-                    "301 URLs": banner["301 URLs"],
-                  })
-                );
-                let broken = [];
-                linkData.forEach((banner) =>
-                  broken.push({
-                    "Banner Id": banner["Banner Id"],
-                    "404 URLs": banner["404 URLs"],
-                  })
-                );
-
-                const noOfRedirs =
-                  redirs.length > 1
-                    ? redirs.reduce(
-                        (a, b) => a["301 URLs"].length + b["301 URLs"].length
-                      )
-                    : redirs[0]["301 URLs"].length;
-
-                const noOfBrokeUrls =
-                  broken.length > 1
-                    ? broken.reduce(
-                        (a, b) => a["404 URLs"].length + b["404 URLs"].length
-                      )
-                    : broken[0]["404 URLs"].length;
-
-                let brandToUpdate = outputDoc.find(
-                  (brand) => brand.ID === response.value.brandId
-                );
-                brandToUpdate["301 URLs"] = redirs;
-                brandToUpdate["404 URLs"] = broken;
-                brandToUpdate["No. of Redirected URLs"] = noOfRedirs;
-                brandToUpdate["No. of Broken URLs"] = noOfBrokeUrls;
-                brandToUpdate["Contains Redirects"] = booleanString(noOfRedirs);
-                brandToUpdate["Contains Broken Links"] =
-                  booleanString(noOfBrokeUrls);
-              });
-            resolve();
-          })
-          .catch(reject);
-      });
-    }
-
-    // recursive async funtions I think are the solution here
-
-    function checkBrandContent(brand) {
-      return new Promise(async (resolve, reject) => {
-        const currentBrand = brand;
-        const liveBanners = getLiveAssociatedBrandBanners(
-          banners,
-          currentBrand.ID
-        );
-
-        if (!liveBanners.length) {
-          reject("No Associated Live Banners");
-        }
-
-        // replace store url var with siteUrl
-        liveBanners.forEach(
-          (liveBanner) =>
-            (liveBanner.content = replaceUrlVarsWithSiteUrl(
-              liveBanner.content,
-              siteUrl
-            ))
-        );
-
-        // create an array of links on each banner doc
-        liveBanners.forEach(
-          (liveBanner) =>
-            (liveBanner.links = getLinksArray(liveBanner.content, siteUrl))
-        );
-
-        let linkData = null;
-
-        if (liveBanners.length) {
-          try {
-            linkData = await testBanners(liveBanners, redirectPaths, siteUrl);
-            if (linkData.length) {
-              resolve({ brandId: currentBrand.ID, linkData });
-            } else {
-              reject();
-            }
-          } catch (err) {
-            console.log(err);
-            reject();
-          }
-        }
-      });
-    }
-
-    await checkAllBrandContent(outputDoc);
+    outputDoc = await checkAllBrandContent(
+      outputDoc,
+      banners,
+      redirectPaths,
+      siteUrl
+    );
     output("brand", outputDoc);
   } catch (err) {
     console.log(err);

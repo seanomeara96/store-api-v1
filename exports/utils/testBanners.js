@@ -1,8 +1,10 @@
 const { testBannerLinks } = require("./testBannerLinks");
 /**
- *
- * @param {string} bannersArray
- * @returns
+ * 
+ * @param {*} bannersArray 
+ * @param {*} redirectPaths 
+ * @param {*} siteUrl 
+ * @returns 
  */
 const testBanners = (bannersArray, redirectPaths, siteUrl) => {
   return new Promise((resolve, reject) => {
