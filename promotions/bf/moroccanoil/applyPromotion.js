@@ -6,7 +6,7 @@ const brandName = "Moroccanoil";
 const lineToAdd = bfGwpTemplate(
   brandName,
   "https://www.beautyfeatures.ie/free-moroccanoil-gift-with-purchase/",
-  "Travel Essentials Kit",
+  "Moroccanoil Re-Energizing Spray 50ml",
   80
 );
 addLineToBrandProducts(brandName, lineToAdd)

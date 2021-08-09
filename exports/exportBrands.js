@@ -12,6 +12,7 @@ const {
   getLiveAssociatedBrandBanners,
 } = require("./utils/getAssociatedBanners");
 const { checkAllBrandContent } = require("./utils/checkAllBrandContent");
+
 /**
  * @param {any} x
  * @returns true / false as string
@@ -22,22 +23,27 @@ const exportBrands = async () => {
      * all site base domain url
      */
     const siteUrl = await getSiteUrl();
+
     /**
      * all store brands
      */
     const brands = await getAllBrands();
+
     /**
      * all store products
      */
     const products = await getAllProducts();
+
     /**
      * all store redirects
      */
     const redirects = await getAllRedirects();
+
     /**
      * just the slugs
      */
     const redirectPaths = redirects.map(({ from_path }) => from_path);
+
     // require get all banners
     api.config(initials, 2);
     const { getAllBanners } = require("../banners/getAllBanners"); // marketing -> banners is still in v2
@@ -46,6 +52,7 @@ const exportBrands = async () => {
      * all store banners
      */
     const banners = await getAllBanners();
+
     // create initial document
     let outputDoc = brands.map((brand) => {
       return {
@@ -97,16 +104,20 @@ const exportBrands = async () => {
       if (liveBrandBanners.length)
         brand["No. of live banners"] = liveBrandBanners.length;
     });
+
+    // check banners for dodgy links
     outputDoc = await checkAllBrandContent(
       outputDoc,
       banners,
       redirectPaths,
       siteUrl
     );
+
+    // write to csv file
     output("brand", outputDoc);
   } catch (err) {
     console.log(err);
   }
 };
 exportBrands();
-module.exports = exportBrands;
+

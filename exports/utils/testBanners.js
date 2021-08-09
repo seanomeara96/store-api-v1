@@ -19,7 +19,7 @@ const testBanners = (bannersArray, redirectPaths, siteUrl) => {
         let liveBrandLinks = [];
         responses.forEach((response) => {
           if (response.status === "fulfilled") {
-            console.log("test banner links finished", response.value);
+            
             liveBrandLinks.push(response.value);
           }
         });

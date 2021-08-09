@@ -27,7 +27,9 @@ const testBannerLinks = (linksArray, bannerId, redirectPaths, siteUrl) => {
             } else if (response.status === 404) {
               testedBannerLinks["404 URLs"].push(response.link);
             } else {
-              return;
+              if(response.status !== 200){
+                console.log(`banner id ${bannerId} has other error (${response.status}) link: ${response.link}`)
+              }
             }
           });
           resolve(testedBannerLinks);
