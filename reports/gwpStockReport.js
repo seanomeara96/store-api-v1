@@ -5,7 +5,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 let skuArray = [
   { sku: "GWP32" }, // pollution protection
   { sku: "9448" }, // cashmere cream
-  { sku: "6504a" }, // Moroccanoil Travel Essentials Repair GWP
+  { sku: "10404" }, // Moroccanoil Re-Energizing Spray 50ml GWP
   { sku: "9357" }, // caudalie hand nail cream
   { sku: "8702" }, // clay cleanser
   { sku: "9013" }, // tummy rub butter
@@ -19,7 +19,7 @@ getManyProductsBySKU(skuArray)
       .sort((a, b) => a.inventory_level - b.inventory_level)
       .map(
         ({ name, sku, inventory_level }) =>
-          `<p>${name}<br>SKU: ${sku}<br>Inventory: <strong>${inventory_level}</strong></p>`
+          `<p ${inventory_level < 20 ? "style='color:#fff;background-color:red;'" : "" }>${name}<br>SKU: ${sku}<br>Inventory: <strong>${inventory_level}</strong></p>`
       )
       .join("\n");
     const msg = {
