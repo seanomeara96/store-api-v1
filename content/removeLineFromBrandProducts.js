@@ -1,3 +1,5 @@
+const { getProductsByBrand } = require("../products/getProductsByBrand");
+const { removeLine } = require("./removeLine");
 /**
  * matches and removes a string from brand product descriptions
  * @param {string} brandName
@@ -9,6 +11,7 @@ const removeLineFromBrandProducts = (brandName, lineToRemove) =>
     let promises = [];
     getProductsByBrand(brandName)
       .then((products) => {
+        console.log("products", products)
         products.forEach(({ id }) => {
           promises.push(removeLine(id, lineToRemove));
         });

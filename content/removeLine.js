@@ -1,5 +1,6 @@
 const { validateParams } = require("./utils/validateParams");
 const { updateProductDescription } = require("./updateProductDescription");
+const {getProductDescription}  =require("./getProductDescription")
 /**
  * matches string in product content and removes it
  * @param {number} productId 
@@ -8,7 +9,7 @@ const { updateProductDescription } = require("./updateProductDescription");
  */
 const removeLine = (productId, lineToRemove) =>
   new Promise(async (resolve, reject) => {
-    validateParams(productId, lineToRemove, reject);
+    validateParams(productId, reject, lineToRemove);
     try {
       const productDescription = await getProductDescription(productId);
       const updatedProductDescription = productDescription.replace(

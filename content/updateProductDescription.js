@@ -1,6 +1,6 @@
 const updateProductDescription = (productId, updatedProductDescription) => {
   return new Promise((resolve, reject) => {
-    require("../../config/config")
+    require("../config/config")
       .store.put(`/catalog/products/${productId}`, {
         description: updatedProductDescription,
       })

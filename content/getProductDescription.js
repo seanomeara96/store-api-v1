@@ -6,7 +6,7 @@
 const getProductDescription = (id) =>
   new Promise(async (resolve, reject) => {
     try {
-      const product = await require("../../config/config").store.get(
+      const product = await require("../config/config").store.get(
         `/catalog/products/${id}`
       );
       const productDescription = product.data.data.description;

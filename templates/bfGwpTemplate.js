@@ -34,4 +34,3 @@ style="
   </p>
 </div>
 </div><!-- end promotion -->`;
-
