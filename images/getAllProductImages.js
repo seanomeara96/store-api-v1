@@ -1,3 +1,8 @@
+/**
+ * Gets all images of a given product by id
+ * @param {number} product_id
+ * @returns
+ */
 const getAllProductImages = (product_id) => {
   return new Promise((resolve, reject) => {
     if (typeof product_id !== "number") reject("product id must be a number");
@@ -7,4 +12,5 @@ const getAllProductImages = (product_id) => {
       .catch((err) => reject(err));
   });
 };
+// exports getAllProductImages
 exports.getAllProductImages = getAllProductImages;
