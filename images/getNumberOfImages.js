@@ -4,8 +4,8 @@ const { getAllProductImages } = require("./getAllProductImages");
  * @param {number} product_id
  * @returns
  */
-const getNumberOfImages = (product_id) => {
-  return new Promise((resolve, reject) => {
+const getNumberOfImages = (product_id) =>
+  new Promise((resolve, reject) => {
     getAllProductImages(product_id)
       .then((images) =>
         resolve({
@@ -15,6 +15,6 @@ const getNumberOfImages = (product_id) => {
       )
       .catch(reject);
   });
-};
+
 // exports gteNumberOfImages
 exports.getNumberOfImages = getNumberOfImages;
