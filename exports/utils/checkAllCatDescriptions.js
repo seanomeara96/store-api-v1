@@ -12,7 +12,7 @@ const checkAllCatDescriptions = (outputDoc, redirectPaths, siteUrl) => {
   return new Promise(async (resolve, reject) => {
     if (!Array.isArray(outputDoc) || !Array.isArray(redirectPaths))
       reject("outputDoc / redirectPaths must be an array");
-    if (typeof siteUrl !== "string") reject("expected straing as SiteUrl");
+    if (typeof siteUrl !== "string") reject("expected string as SiteUrl");
     /**
      * check Cat Description Promises
      */
