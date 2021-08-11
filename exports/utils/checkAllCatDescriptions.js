@@ -43,6 +43,11 @@ const checkAllCatDescriptions = (outputDoc, redirectPaths, siteUrl) => {
       const descriptionLinkData = res
         .filter(({ status }) => status === "fulfilled")
         .map(({ value }) => value);
+      /**
+       * for each response, update the appropriate
+       * outputDoc Categor and resolve
+       * with the finished result
+       */
       descriptionLinkData.forEach((catLinkDataObject) => {
         /**
          * find catToUpdate
