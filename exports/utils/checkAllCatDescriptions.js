@@ -58,6 +58,12 @@ const checkAllCatDescriptions = (outputDoc, redirectPaths, siteUrl) => {
         // updateCat
         catToUpdate["Description 301s"] = catLinkDataObject["301 URLs"];
         catToUpdate["Description 404s"] = catLinkDataObject["404 URLs"];
+        /**
+         * I was wondering why thus find and replace method wasnt working for me when I was using an array of numbers
+         * but i found this and it was all cleared up
+         *
+         * "it will only work on non primitives values. Javascript returns non primitives like objects and arrays by reference"
+         */
       });
       resolve(outputDoc);
     });
