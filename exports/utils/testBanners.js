@@ -1,10 +1,10 @@
 const { testBannerLinks } = require("./testBannerLinks");
 /**
- * 
- * @param {*} bannersArray 
- * @param {*} redirectPaths 
- * @param {*} siteUrl 
- * @returns 
+ *
+ * @param {*} bannersArray
+ * @param {*} redirectPaths
+ * @param {*} siteUrl
+ * @returns
  */
 const testBanners = (bannersArray, redirectPaths, siteUrl) => {
   return new Promise((resolve, reject) => {
@@ -16,14 +16,13 @@ const testBanners = (bannersArray, redirectPaths, siteUrl) => {
     });
     Promise.allSettled(promises)
       .then((responses) => {
-        let liveBrandLinks = [];
+        let liveLinks = [];
         responses.forEach((response) => {
           if (response.status === "fulfilled") {
-            
-            liveBrandLinks.push(response.value);
+            liveLinks.push(response.value);
           }
         });
-        resolve(liveBrandLinks);
+        resolve(liveLinks);
       })
       .catch((err) => {
         console.log("error in test banners", err);

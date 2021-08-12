@@ -10,25 +10,27 @@ const {
   getLiveAssociatedCategoryBanners,
 } = require("./utils/getAssociatedBanners");
 const output = require("./utils/output");
-const {
-  replaceUrlVarsWithSiteUrl,
-} = require("./utils/replaceUrlVarsWithSiteUrl");
-const { getLinksArray } = require("./utils/getLinksArray");
 const { checkAllCatDescriptions } = require("./utils/checkAllCatDescriptions");
+const { checkAllBannerContent } = require("./utils/checkAllBannerContent");
+
 const exportCats = async () => {
   try {
+    console.log("fetching site url...");
     /**
      * all site base domain url
      */
     const siteUrl = await getSiteUrl();
+    console.log("fetching products...");
     /**
      * all store products
      */
     const products = await getAllProducts();
+    console.log("fetching categories...");
     /**
      * all store categories
      */
     const categories = await getAllCategories();
+    console.log("fetching redirects...");
     /**
      * all store redirects
      */
@@ -40,11 +42,13 @@ const exportCats = async () => {
     // require get all banners
     require("../config/config").config(store, 2);
     const { getAllBanners } = require("../banners/getAllBanners");
+    console.log("fetching banners...");
     /**
      * all store banners
      */
     const banners = await getAllBanners();
     // create inital document shape
+    console.log("init output doc");
     let outputDoc = categories.map((cat) => {
       return {
         ID: cat.id,
@@ -57,14 +61,18 @@ const exportCats = async () => {
         "Description 301s": null, // default value
         "#Desc. 301s": 0, // default value
         "Description 404s": null, // default value
-        "#Des. 404s":0, // default value
+        "#Des. 404s": 0, // default value
         "Is Visible": booleanString(cat.is_visible),
         "Has Banner": null, // default value
-        "Banner(s) Live": null, // default value
-        "Banner 301s": null, // default value
-        "Banner 404s": null, // default value
+        "No. of live banners": null, // default value
+        "Contains Redirects": "FALSE",
+        "Contains Broken Links": "FALSE",
+        "No. of Redirected URLs": 0, // default value
+        "No. of Broken URLs": 0, // default value
         Products: null, // default value
         "Products In Stock": null, // default value
+        "301 URLs": [],
+        "404 URLs": [], // default value
         "Page Title": cat.page_title,
         "Page Title Length": cat.page_title ? cat.page_title.length : 0,
         "Meta Description": cat.meta_description,
@@ -76,7 +84,7 @@ const exportCats = async () => {
         "Search Keywords": cat.search_keywords,
       };
     });
-
+    console.log("adding product info...");
     // add product information
     outputDoc.forEach((cat) => {
       let productsInCat = products.filter((product) =>
@@ -88,7 +96,7 @@ const exportCats = async () => {
       );
       cat["Products In Stock"] = productsInCatInStock.length;
     });
-
+    console.log("adding banner info...");
     // add additional content information
     outputDoc.forEach((cat) => {
       cat["Has Banner"] = booleanString(
@@ -99,20 +107,20 @@ const exportCats = async () => {
         cat.ID
       ).length;
     });
-
+    console.log("checking category descriptions...");
     outputDoc = await checkAllCatDescriptions(
       outputDoc,
       redirectPaths,
       siteUrl
     );
-    /**
-     * outputDoc = await checkAllBannerContent(
+    console.log("checking banner content...");
+    outputDoc = await checkAllBannerContent(
       outputDoc,
       banners,
-      redirects,
-      siteUrl
+      redirectPaths,
+      siteUrl,
+      getLiveAssociatedCategoryBanners
     );
-     */
 
     console.log(outputDoc[0]);
     //output("category", outputDoc);

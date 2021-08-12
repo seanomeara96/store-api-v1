@@ -1,4 +1,4 @@
-const { checkBrandContent } = require("./checkBrandContent");
+const { checkBannerContent } = require("./checkBannerContent");
 const { booleanString } = require("./booleanString");
 /**
  *
@@ -8,15 +8,27 @@ const { booleanString } = require("./booleanString");
  * @param {string} siteUrl
  * @returns
  */
-const checkAllBrandContent = (outputDoc, banners, redirectPaths, siteUrl) => {
+const checkAllBannerContent = (
+  outputDoc,
+  banners,
+  redirectPaths,
+  siteUrl,
+  fetchAssociatedBannersMethod
+) => {
   return new Promise((resolve, reject) => {
     /**
-     * checkBrandContent Promises
+     * checkBannerContent Promises
      */
     let promises = [];
-    outputDoc.forEach((brandItem) => {
+    outputDoc.forEach((outputDocItem) => {
       promises.push(
-        checkBrandContent(brandItem, banners, redirectPaths, siteUrl)
+        checkBannerContent(
+          outputDocItem,
+          banners,
+          redirectPaths,
+          siteUrl,
+          fetchAssociatedBannersMethod
+        )
       );
     });
     Promise.allSettled(promises)
@@ -65,15 +77,16 @@ const checkAllBrandContent = (outputDoc, banners, redirectPaths, siteUrl) => {
                   )
                 : broken[0]["404 URLs"].length;
 
-            let brandToUpdate = outputDoc.find(
-              (brand) => brand.ID === response.value.brandId
+            let outputDocItemToUpdate = outputDoc.find(
+              ({ ID }) => ID === response.value.ID
             );
-            brandToUpdate["301 URLs"] = redirs;
-            brandToUpdate["404 URLs"] = broken;
-            brandToUpdate["No. of Redirected URLs"] = noOfRedirs;
-            brandToUpdate["No. of Broken URLs"] = noOfBrokeUrls;
-            brandToUpdate["Contains Redirects"] = booleanString(noOfRedirs);
-            brandToUpdate["Contains Broken Links"] =
+            outputDocItemToUpdate["301 URLs"] = redirs;
+            outputDocItemToUpdate["404 URLs"] = broken;
+            outputDocItemToUpdate["No. of Redirected URLs"] = noOfRedirs;
+            outputDocItemToUpdate["No. of Broken URLs"] = noOfBrokeUrls;
+            outputDocItemToUpdate["Contains Redirects"] =
+              booleanString(noOfRedirs);
+            outputDocItemToUpdate["Contains Broken Links"] =
               booleanString(noOfBrokeUrls);
           });
         resolve(outputDoc);
@@ -82,4 +95,4 @@ const checkAllBrandContent = (outputDoc, banners, redirectPaths, siteUrl) => {
   });
 };
 
-exports.checkAllBrandContent = checkAllBrandContent;
+exports.checkAllBannerContent = checkAllBannerContent;

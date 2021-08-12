@@ -22,13 +22,16 @@ const testBannerLinks = (linksArray, bannerId, redirectPaths, siteUrl) => {
             "404 URLs": [],
           };
           responses.forEach((response) => {
+            console.log(response.status);
             if (response.status === 301) {
               testedBannerLinks["301 URLs"].push(response.link);
             } else if (response.status === 404) {
               testedBannerLinks["404 URLs"].push(response.link);
             } else {
-              if(response.status !== 200){
-                console.log(`banner id ${bannerId} has other error (${response.status}) link: ${response.link}`)
+              if (response.status !== 200) {
+                console.log(
+                  `banner id ${bannerId} has other error (${response.status}) link: ${response.link}`
+                );
               }
             }
           });

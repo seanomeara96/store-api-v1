@@ -120,4 +120,3 @@ const exportBrands = async () => {
   }
 };
 exportBrands();
-

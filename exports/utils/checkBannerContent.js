@@ -1,22 +1,30 @@
 const { replaceUrlVarsWithSiteUrl } = require("./replaceUrlVarsWithSiteUrl");
 const { getLinksArray } = require("./getLinksArray");
 const { testBanners } = require("./testBanners");
-const { getLiveAssociatedBrandBanners } = require("./getAssociatedBanners");
 
 /**
  *
- * @param {object} brand
+ * @param {object} outputDocItem
  * @param {object[]} banners
  * @param {string[]} redirectPaths
  * @param {string} siteUrl
+ * @param {string} type
  * @returns
  */
-const checkBrandContent = (brand, banners, redirectPaths, siteUrl) => {
+const checkBannerContent = (
+  outputDocItem,
+  banners,
+  redirectPaths,
+  siteUrl,
+  type,
+  fetchAssociatedBannersMethod
+) => {
   return new Promise(async (resolve, reject) => {
+    if (!type) reject("must provide a type");
     /**
-     * live associated banners for current brand
+     * live associated banners for current brand/ category
      */
-    const liveBanners = getLiveAssociatedBrandBanners(banners, brand.ID);
+    const liveBanners = fetchAssociatedBannersMethod(banners, outputDocItem.ID);
 
     if (!liveBanners.length) {
       reject("No Associated Live Banners");
@@ -42,16 +50,18 @@ const checkBrandContent = (brand, banners, redirectPaths, siteUrl) => {
       try {
         linkData = await testBanners(liveBanners, redirectPaths, siteUrl);
         if (linkData.length) {
-          resolve({ brandId: brand.ID, linkData });
+          resolve({ outputDocItemId: ID, linkData });
         } else {
-          reject();
+          reject("no link data");
         }
       } catch (err) {
-        console.log(err);
-        reject();
+        console.log("there was an error in check Content", err);
+        reject("there was an error in check Content");
       }
+    } else {
+      reject("no live banners");
     }
   });
 };
 
-exports.checkBrandContent = checkBrandContent;
+exports.checkBannerContent = checkBannerContent;

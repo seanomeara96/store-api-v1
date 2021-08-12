@@ -1,4 +1,5 @@
 const axios = require("axios");
+let count = 1;
 /**
  * tests links and
  * resolves with 301 if on redirect file
@@ -11,6 +12,8 @@ const axios = require("axios");
  * @returns status of link + link
  */
 const testLink = (link, redirectPaths, siteUrl) => {
+  console.log("testing ", count);
+  count++;
   return new Promise((resolve, reject) => {
     if (typeof link !== "string") return reject("link must be a string");
     if (
@@ -29,6 +32,7 @@ const testLink = (link, redirectPaths, siteUrl) => {
           }
         })
         .catch((err) => {
+          console.log("err");
           if (err.response.status === 404) {
             resolve({ status: 404, link: link });
           } else {
