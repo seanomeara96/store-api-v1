@@ -16,17 +16,22 @@ const checkBannerContent = (
   banners,
   redirectPaths,
   siteUrl,
-  type,
   fetchAssociatedBannersMethod
 ) => {
   return new Promise(async (resolve, reject) => {
-    if (!type) reject("must provide a type");
+    if (!fetchAssociatedBannersMethod) {
+      console.log("must prrovide a mehtod to checkBannerContent");
+      reject("must prrovide a mehtod to checkBannerContent");
+    }
     /**
      * live associated banners for current brand/ category
      */
     const liveBanners = fetchAssociatedBannersMethod(banners, outputDocItem.ID);
 
     if (!liveBanners.length) {
+      console.log(
+        "outputDocItem.ID " + outputDocItem.ID + " has no live banners"
+      );
       reject("No Associated Live Banners");
     }
 
@@ -46,20 +51,16 @@ const checkBannerContent = (
 
     let linkData = null;
 
-    if (liveBanners.length) {
-      try {
-        linkData = await testBanners(liveBanners, redirectPaths, siteUrl);
-        if (linkData.length) {
-          resolve({ outputDocItemId: ID, linkData });
-        } else {
-          reject("no link data");
-        }
-      } catch (err) {
-        console.log("there was an error in check Content", err);
-        reject("there was an error in check Content");
+    try {
+      linkData = await testBanners(liveBanners, redirectPaths, siteUrl);
+      if (linkData.length) {
+        resolve({ outputDocItemId: ID, linkData });
+      } else {
+        reject("no link data");
       }
-    } else {
-      reject("no live banners");
+    } catch (err) {
+      console.log("there was an error in check Content", err);
+      reject("there was an error in check Content");
     }
   });
 };

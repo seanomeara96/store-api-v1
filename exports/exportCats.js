@@ -47,6 +47,7 @@ const exportCats = async () => {
      * all store banners
      */
     const banners = await getAllBanners();
+
     // create inital document shape
     console.log("init output doc");
     let outputDoc = categories.map((cat) => {

@@ -7,6 +7,7 @@
 const getAssociatedBanners =
   (entityType, onlyLiveBanners = false) =>
   (banners, entityId) => {
+    console.log("getAssociatedBanners called", banners.length, entityId);
     let res = banners.filter(
       (banner) =>
         parseInt(banner.item_id) === entityId && banner.page === entityType
