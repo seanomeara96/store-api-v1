@@ -26,13 +26,13 @@ const checkAllCatDescriptions = (outputDoc, redirectPaths, siteUrl) => {
      * }
      */
     outputDoc.forEach((cat) => {
-      cat.description = replaceUrlVarsWithSiteUrl(cat.description, siteUrl);
-      cat.description_links = getLinksArray(cat.description);
+      cat.Description = replaceUrlVarsWithSiteUrl(cat.Description, siteUrl);
+      cat.Description_links = getLinksArray(cat.Description);
       checkCatDescriptionLinksPromises.push(
         testCatDescription(cat, redirectPaths, siteUrl)
       );
-      delete cat.description;
-      delete cat.description_links;
+      //delete cat.description;
+     // delete cat.description_links;
     });
     /**
      * await all category descriptions to be tested
@@ -52,9 +52,11 @@ const checkAllCatDescriptions = (outputDoc, redirectPaths, siteUrl) => {
         /**
          * find catToUpdate
          */
+         
         let catToUpdate = outputDoc.find(
-          (category) => category.ID === catLinkDataObject.ID
+          (category) => category.ID === catLinkDataObject.catId
         );
+        console.log("catToUpdate", catToUpdate)
         // updateCat
         catToUpdate["Description 301s"] = catLinkDataObject["301 URLs"];
         catToUpdate["Description 404s"] = catLinkDataObject["404 URLs"];

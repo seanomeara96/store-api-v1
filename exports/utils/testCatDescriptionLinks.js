@@ -8,8 +8,13 @@ const { testLink } = require("./testLink");
  * @returns
  */
 const testCatDescriptionLinks = (linksArray, catId, redirectPaths, siteUrl) => {
-  return new Promise((resolve, reject) => {
-    if (!linksArray.length) return reject("no links");
+  return new Promise((resolve) => {
+    if (!linksArray.length || !linksArray)
+      return resolve({
+        catId,
+        "301 URLs": [],
+        "404 URLs": [],
+      });
     let promiseArray = linksArray.map(
       (link) => () => testLink(link, redirectPaths, siteUrl)
     );

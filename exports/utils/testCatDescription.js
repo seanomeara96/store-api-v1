@@ -1,20 +1,22 @@
 const { testCatDescriptionLinks } = require("./testCatDescriptionLinks");
 /**
- * 
- * @param {*} cat 
- * @param {*} redirectPaths 
- * @param {*} siteUrl 
+ *
+ * @param {*} cat
+ * @param {*} redirectPaths
+ * @param {*} siteUrl
  */
 const testCatDescription = (cat, redirectPaths, siteUrl) => {
   return new Promise((resolve, reject) => {
-    Promise.allSettled(
+    let promises = [];
+    promises.push(
       testCatDescriptionLinks(
-        cat.description_links,
+        cat.Description_links,
         cat.ID,
         redirectPaths,
         siteUrl
       )
-    )
+    );
+    Promise.allSettled(promises)
       .then((responses) => {
         let liveCatLinks = [];
         responses.forEach((response) => {
@@ -23,13 +25,13 @@ const testCatDescription = (cat, redirectPaths, siteUrl) => {
           }
         });
         resolve(liveCatLinks);
-      /**
-       * {
-       * cat id
-       * 301 URLS[]
-       * 404 URLS[]
-       * }
-       */
+        /**
+         * {
+         * cat id
+         * 301 URLS[]
+         * 404 URLS[]
+         * }
+         */
       })
       .catch((err) => {
         console.log("error in test testCatDescription", err);
