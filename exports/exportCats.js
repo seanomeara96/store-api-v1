@@ -55,7 +55,9 @@ const exportCats = async () => {
         "Has Meta Description": booleanString(cat.meta_description),
         "Has Content": booleanString(cat.description),
         "Description 301s": null, // default value
+        "#Desc. 301s": 0, // default value
         "Description 404s": null, // default value
+        "#Des. 404s":0, // default value
         "Is Visible": booleanString(cat.is_visible),
         "Has Banner": null, // default value
         "Banner(s) Live": null, // default value

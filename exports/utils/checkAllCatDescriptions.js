@@ -49,23 +49,27 @@ const checkAllCatDescriptions = (outputDoc, redirectPaths, siteUrl) => {
        * with the finished result
        */
       descriptionLinkData.forEach((catLinkDataObject) => {
+        // shouldnt have to do this
+        catLinkDataObject = catLinkDataObject[0]
         /**
          * find catToUpdate
          */
-         
         let catToUpdate = outputDoc.find(
-          (category) => category.ID === catLinkDataObject.catId
+          (category) => category.ID === catLinkDataObject.catId // why is catLinkDataObject an array and not an object?
         );
-        console.log("catToUpdate", catToUpdate)
         // updateCat
         catToUpdate["Description 301s"] = catLinkDataObject["301 URLs"];
         catToUpdate["Description 404s"] = catLinkDataObject["404 URLs"];
+        catToUpdate["#Desc. 301s"] = catLinkDataObject["301 URLs"].length;
+        catToUpdate["#Des. 404s"] = catLinkDataObject["404 URLs"].length;
         /**
          * I was wondering why thus find and replace method wasnt working for me when I was using an array of numbers
          * but i found this and it was all cleared up
          *
          * "it will only work on non primitives values. Javascript returns non primitives like objects and arrays by reference"
          */
+        delete catToUpdate.Description;
+        delete catToUpdate.Description_links;
       });
       resolve(outputDoc);
     });
