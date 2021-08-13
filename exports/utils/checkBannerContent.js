@@ -54,7 +54,7 @@ const checkBannerContent = (
     try {
       linkData = await testBanners(liveBanners, redirectPaths, siteUrl);
       if (linkData.length) {
-        resolve({ outputDocItemId: ID, linkData });
+        resolve({ ID: outputDocItem.ID, linkData });
       } else {
         reject("no link data");
       }

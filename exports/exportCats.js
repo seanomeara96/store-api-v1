@@ -1,4 +1,4 @@
-const store = "bf";
+const store = "ih";
 require("../config/config").config(store);
 const { getAllCategories } = require("../categories/getAllCategories");
 const { getAllProducts } = require("../products/getAllProducts");
@@ -103,7 +103,7 @@ const exportCats = async () => {
       cat["Has Banner"] = booleanString(
         getAssociatedCategoryBanners(banners, cat.ID).length
       );
-      cat["Banner(s) Live"] = getLiveAssociatedCategoryBanners(
+      cat["No. of live banners"] = getLiveAssociatedCategoryBanners(
         banners,
         cat.ID
       ).length;
@@ -115,7 +115,7 @@ const exportCats = async () => {
       siteUrl
     );
     console.log("checking banner content...");
-    outputDoc = await checkAllBannerContent(
+    let finalDoc = await checkAllBannerContent(
       outputDoc,
       banners,
       redirectPaths,
@@ -123,8 +123,8 @@ const exportCats = async () => {
       getLiveAssociatedCategoryBanners
     );
 
-    console.log(outputDoc[0]);
-    //output("category", outputDoc);
+    //console.log(outputDoc[0]);
+    output("category", finalDoc);
   } catch (err) {
     console.log(err);
   }

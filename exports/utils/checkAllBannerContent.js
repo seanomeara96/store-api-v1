@@ -38,6 +38,7 @@ const checkAllBannerContent = (
           .forEach((response) => {
             let { value } = response;
             let { linkData } = value;
+
             /**
              * banner ids and associated redirect urls
              */
@@ -48,6 +49,7 @@ const checkAllBannerContent = (
                 "301 URLs": banner["301 URLs"],
               })
             );
+
             /**
              * banner ids and associated broken links
              */
@@ -63,18 +65,18 @@ const checkAllBannerContent = (
              */
             const noOfRedirs =
               redirs.length > 1
-                ? redirs.reduce(
-                    (a, b) => a["301 URLs"].length + b["301 URLs"].length
-                  )
+                ? redirs
+                    .map((i) => i["301 URLs"].length)
+                    .reduce((a, b) => a + b)
                 : redirs[0]["301 URLs"].length;
             /**
              * sum total of brokenUrls in all banners
              */
             const noOfBrokeUrls =
               broken.length > 1
-                ? broken.reduce(
-                    (a, b) => a["404 URLs"].length + b["404 URLs"].length
-                  )
+                ? broken
+                    .map((i) => i["404 URLs"].length)
+                    .reduce((a, b) => a + b)
                 : broken[0]["404 URLs"].length;
 
             let outputDocItemToUpdate = outputDoc.find(
@@ -89,6 +91,7 @@ const checkAllBannerContent = (
             outputDocItemToUpdate["Contains Broken Links"] =
               booleanString(noOfBrokeUrls);
           });
+        console.log(outputDoc);
         resolve(outputDoc);
       })
       .catch(reject);
