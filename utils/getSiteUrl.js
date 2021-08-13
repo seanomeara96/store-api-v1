@@ -2,20 +2,28 @@
  *
  * @returns url string of current site
  */
-exports.getSiteUrl = () => {
-  return new Promise((resolve, reject) => {
-    require("../config/config")
-      .store.get("/sites")
-      .then((sites) => resolve(sites.data.data[0].url))
-      .catch((err) => {
-        if (err.response.data.status === 403) {
-          console.log(
-            "you did not have permission to access this so the siteUrl will remain empty"
-          );
-          resolve("");
-        } else {
-          reject(err);
-        }
-      });
-  });
+const getSiteUrl = (storeInitials) => {
+  switch(storeInitials.toLowerCase()){
+    case "bf":
+      return "https://www.beautyfeatures.ie";
+    case "ih":
+      return "https://www.inhealth.ie";
+    case "bsk":
+      return "https://www.beautyskincare.ie";
+    case "ah":
+      return "https://www.allhair.ie";
+    case "pb":
+      return "https://www.pregnancyandbaby.ie";
+    case "bs":
+      return "https://www.babysafety.ie";
+    case "fs":
+      return "https://www.fertilitystore.ie";
+    case "hie":
+      return "https://www.haakaa.ie";
+    case "huk":
+      return "https://www.haakaaofficial.co.uk";
+    default:
+      return ""
+  }
 };
+exports.getSiteUrl = getSiteUrl

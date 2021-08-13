@@ -29,6 +29,7 @@ const testLink = (link, redirectPaths, siteUrl) => {
           }
         })
         .catch((err) => {
+          if(!err.response) return resolve({status: "funky", link}) // sometimes there are weird responses
           if (err.response.status === 404) {
             resolve({ status: 404, link: link });
           } else {
@@ -37,6 +38,7 @@ const testLink = (link, redirectPaths, siteUrl) => {
               link: link,
             });
           }
+    
         });
     }
   });

@@ -1,4 +1,4 @@
-const store = "ih";
+const store = "pb";
 require("../config/config").config(store);
 const { getAllCategories } = require("../categories/getAllCategories");
 const { getAllProducts } = require("../products/getAllProducts");
@@ -19,7 +19,8 @@ const exportCats = async () => {
     /**
      * all site base domain url
      */
-    const siteUrl = await getSiteUrl();
+    const siteUrl = getSiteUrl(store);
+    console.log("Advice: store url = ", siteUrl)
     console.log("fetching products...");
     /**
      * all store products
