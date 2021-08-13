@@ -22,7 +22,6 @@ const testBannerLinks = (linksArray, bannerId, redirectPaths, siteUrl) => {
             "404 URLs": [],
           };
           responses.forEach((response) => {
-            console.log(response.status);
             if (response.status === 301) {
               testedBannerLinks["301 URLs"].push(response.link);
             } else if (response.status === 404) {

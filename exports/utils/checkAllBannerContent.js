@@ -91,7 +91,6 @@ const checkAllBannerContent = (
             outputDocItemToUpdate["Contains Broken Links"] =
               booleanString(noOfBrokeUrls);
           });
-        console.log(outputDoc);
         resolve(outputDoc);
       })
       .catch(reject);

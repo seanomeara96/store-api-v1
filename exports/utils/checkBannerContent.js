@@ -19,21 +19,14 @@ const checkBannerContent = (
   fetchAssociatedBannersMethod
 ) => {
   return new Promise(async (resolve, reject) => {
-    if (!fetchAssociatedBannersMethod) {
-      console.log("must prrovide a mehtod to checkBannerContent");
-      reject("must prrovide a mehtod to checkBannerContent");
-    }
+    if (!fetchAssociatedBannersMethod)
+      return reject("must prrovide a mehtod to checkBannerContent");
     /**
      * live associated banners for current brand/ category
      */
     const liveBanners = fetchAssociatedBannersMethod(banners, outputDocItem.ID);
 
-    if (!liveBanners.length) {
-      console.log(
-        "outputDocItem.ID " + outputDocItem.ID + " has no live banners"
-      );
-      reject("No Associated Live Banners");
-    }
+    if (!liveBanners.length) return reject("No Associated Live Banners");
 
     // replace store url var with siteUrl
     liveBanners.forEach(
@@ -59,7 +52,6 @@ const checkBannerContent = (
         reject("no link data");
       }
     } catch (err) {
-      console.log("there was an error in check Content", err);
       reject("there was an error in check Content");
     }
   });

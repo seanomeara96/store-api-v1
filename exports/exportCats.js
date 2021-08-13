@@ -80,7 +80,7 @@ const exportCats = async () => {
         "Meta Description Length": cat.meta_description
           ? cat.meta_description.length
           : 0,
-        URL: cat.custom_url.url,
+        URL: siteUrl + cat.custom_url.url,
         "Meta Keywords": cat.meta_keywords.join(" "),
         "Search Keywords": cat.search_keywords,
       };
@@ -108,23 +108,23 @@ const exportCats = async () => {
         cat.ID
       ).length;
     });
+    // check category descripitons
     console.log("checking category descriptions...");
     outputDoc = await checkAllCatDescriptions(
       outputDoc,
       redirectPaths,
       siteUrl
     );
+    // check the banner content
     console.log("checking banner content...");
-    let finalDoc = await checkAllBannerContent(
+    outputDoc = await checkAllBannerContent(
       outputDoc,
       banners,
       redirectPaths,
       siteUrl,
       getLiveAssociatedCategoryBanners
     );
-
-    //console.log(outputDoc[0]);
-    output("category", finalDoc);
+    output("category", outputDoc);
   } catch (err) {
     console.log(err);
   }

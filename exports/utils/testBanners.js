@@ -25,7 +25,6 @@ const testBanners = (bannersArray, redirectPaths, siteUrl) => {
         resolve(liveLinks);
       })
       .catch((err) => {
-        console.log("error in test banners", err);
         reject(err);
       });
   });
