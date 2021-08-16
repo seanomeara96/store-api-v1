@@ -4,7 +4,7 @@
  * @param {object} fieldToUpdate 
  * @returns promise
  */
-exports.updateProduct = (productId, fieldToUpdate) => {
+const updateProduct = (productId, fieldToUpdate) => {
   return new Promise((resolve, reject) => {
     if (typeof productId !== "number") reject("product id must be a number");
     require("../config/config")
@@ -15,3 +15,4 @@ exports.updateProduct = (productId, fieldToUpdate) => {
       .catch((err) => reject(err));
   });
 };
+exports.updateProduct = updateProduct;
