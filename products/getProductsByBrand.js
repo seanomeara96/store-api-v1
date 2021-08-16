@@ -5,7 +5,7 @@ const { getAllProducts } = require("./getAllProducts");
  * @param {*} name
  * @returns
  */
-exports.getProductsByBrand = (name) =>
+const getProductsByBrand = (name) =>
   new Promise((resolve, reject) =>
     getBrandIdByName(name).then((brand_id) =>
       getAllProducts({ brand_id })
@@ -13,3 +13,4 @@ exports.getProductsByBrand = (name) =>
         .catch((err) => reject(err))
     )
   ).catch((err) => reject(err));
+exports.getProductsByBrand = getProductsByBrand;
