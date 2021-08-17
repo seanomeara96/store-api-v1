@@ -1,13 +1,12 @@
 const { updateProduct } = require("../products/updateProduct");
 const { getProductById } = require("../products/getProductById");
 /**
- * 
- * @param {number} productId 
+ *
+ * @param {number} productId
  * @param {number} catId
  * @returns promise
  */
-exports.addCatToProduct = (productId, catId) => {
-  return new Promise((resolve, reject) => {
+const addCatToProduct = (productId, catId) => new Promise((resolve, reject) => {
     // get product categories
     getProductById(productId).then((product) => {
       // check if already in category
@@ -17,8 +16,9 @@ exports.addCatToProduct = (productId, catId) => {
       const updatedCategories = [...product.categories, catId];
       // add category
       updateProduct(productId, { categories: updatedCategories })
-        .then((res) => resolve(res.status))
-        .catch((err) => reject(err));
+        .then(({status}) => resolve(status))
+        .catch(reject);
     });
   });
-};
+
+exports.addCatToProduct = addCatToProduct;
