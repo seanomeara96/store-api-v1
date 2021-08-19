@@ -3,26 +3,35 @@ const { addCatToProduct } = require("../products/addCatToProduct");
 /**
  * issue with this script is that its prematurely returning an empty array and not the expected output from promise allsettled
  */
-const productIds = [
-  { "Product ID": 2603 },
-  { "Product ID": 2737 },
-  { "Product ID": 2873 },
-  { "Product ID": 2950 },
-  { "Product ID": 2954 },
-  { "Product ID": 2959 },
-  { "Product ID": 3023 },
-  { "Product ID": 3414 },
-  { "Product ID": 3415 },
-  { "Product ID": 3416 },
-  { "Product ID": 3419 },
-  { "Product ID": 3659 },
-  { "Product ID": 3923 },
-  { "Product ID": 4699 },
-  { "Product ID": 4781 },
-];
+const productIds = [{"Product ID":2803},
+{"Product ID":2804},
+{"Product ID":2805},
+{"Product ID":2806},
+{"Product ID":2807},
+{"Product ID":2808},
+{"Product ID":2809},
+{"Product ID":2827},
+{"Product ID":2859},
+{"Product ID":2860},
+{"Product ID":2861},
+{"Product ID":3078},
+{"Product ID":3082},
+{"Product ID":3553},
+{"Product ID":3554},
+{"Product ID":3555},
+{"Product ID":3556},
+{"Product ID":3904},
+{"Product ID":3905},
+{"Product ID":3939},
+{"Product ID":4024},
+{"Product ID":4027},
+{"Product ID":4037},
+{"Product ID":4038},
+{"Product ID":4040},
+{"Product ID":4186}]
 // alfaparf products with shampoo mentioned in cat field
 
-let catId = 619; // no cat id yet
+let catId = 581; // no cat id yet
 /**
  * This needs to be tested before using
  * @param {*} productIds

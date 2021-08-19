@@ -4,4 +4,6 @@ const { getAll } = require("../utils/getAll");
  * @param {*} params
  * @returns resolves with an array of product objects
  */
-exports.getAllProducts = getAll(`/catalog/products`);
+const getAllProducts = getAll(`/catalog/products`);
+
+exports.getAllProducts = getAllProducts;

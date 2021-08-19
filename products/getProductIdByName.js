@@ -4,7 +4,7 @@ const { getAllProducts } = require("./getAllProducts");
  * @param {number} productName
  * @returns
  */
-exports.getProductIdByName = (productName) =>
+const getProductIdByName = (productName) =>
   new Promise((resolve, reject) => {
     getAllProducts({ name: productName })
       .then((products) => {
@@ -18,3 +18,5 @@ exports.getProductIdByName = (productName) =>
       })
       .catch((err) => console.log("Error in getProductByName", err));
   });
+  // export module
+  exports.getProductIdByName = getProductIdByName;

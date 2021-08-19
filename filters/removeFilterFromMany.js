@@ -1,5 +1,3 @@
-const { removeFilterFromMany } = require("./modules/delete");
-
 const productIDs = [
   { "Product ID": 177 },
   { "Product ID": 178 },
@@ -8,6 +6,14 @@ const productIDs = [
   { "Product ID": 181 },
 ];
 
-removeFilterFromMany(productIDs, "Proceive", "Women & Men")
-  .then(() => console.log("done"))
-  .catch(() => console.log("err"));
+const removeFilterFromMany = (productIds, name, value) =>
+  new Promise((resolve, reject) => {
+    let promises = [];
+    productIds.forEach((product) => {
+      let idKey = Object.keys(product)[0];
+      promises.push(removeFilter(product[idKey], name, value));
+    });
+    Promise.allSettled(promises).then(resolve).catch(reject);
+  });
+
+exports.removeFilterFromMany = removeFilterFromMany;

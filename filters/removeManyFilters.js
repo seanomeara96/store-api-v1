@@ -1,10 +1,16 @@
-const { removeManyFilters } = require("./modules/delete");
-
+const
 const filters = [
   { name: "Proceive", value: "Women" },
   { name: "Proceive", value: "Men & Women" },
 ];
 
-removeManyFilters(177, filters)
-  .then(() => console.log("Filters removed."))
-  .catch(() => console.log("Something went wrong."));
+const removeManyFilters = (productId, filters) =>
+  new Promise((resolve, reject) => {
+    let promises = [];
+    filters.forEach(({ name, value }) => {
+      promises.push(removeFilter(productId, name, value));
+    });
+    Promise.allSettled(promises).then(resolve).catch(reject);
+  });
+
+  exports.removeManyFilters = removeManyFilters
