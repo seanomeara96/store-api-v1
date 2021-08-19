@@ -1,4 +1,3 @@
-require("../config/config").config("bf");
 const { getFilters } = require("./getFilters");
 const productIds = [{ "Product ID": 2541 }, { "Product ID": 2542 }];
 
@@ -10,7 +9,6 @@ const productIds = [{ "Product ID": 2541 }, { "Product ID": 2542 }];
  */
 const getFiltersOfMany = (productIds) =>
   new Promise((resolve, reject) => {
-    let response = {};
     let promises = [];
     productIds.forEach((product) =>
     promises.push(getFilters(product[Object.keys(product)[0]]))
