@@ -19,7 +19,7 @@ getManyProductsBySKU(skuArray)
       .sort((a, b) => a.inventory_level - b.inventory_level)
       .map(
         ({ name, sku, inventory_level }) =>
-          `<p ${inventory_level < 20 ? "style='color:#fff;background-color:coral;'" : "" }>${name}<br>SKU: ${sku}<br>Inventory: <strong>${inventory_level}</strong></p>`
+          `<p>${name}<br>SKU: ${sku}<br>Inventory: <strong  ${inventory_level < 21 ? "style='color:red;'" : "" }>${inventory_level}</strong></p>`
       )
       .join("\n");
     const msg = {
