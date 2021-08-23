@@ -1,37 +1,37 @@
-require("../config/config").config("bf");
+require("../config/config").config("ah");
 const { addCatToProduct } = require("../products/addCatToProduct");
 /**
  * issue with this script is that its prematurely returning an empty array and not the expected output from promise allsettled
  */
-const productIds = [{"Product ID":2803},
-{"Product ID":2804},
-{"Product ID":2805},
-{"Product ID":2806},
-{"Product ID":2807},
-{"Product ID":2808},
-{"Product ID":2809},
-{"Product ID":2827},
-{"Product ID":2859},
-{"Product ID":2860},
-{"Product ID":2861},
-{"Product ID":3078},
-{"Product ID":3082},
-{"Product ID":3553},
-{"Product ID":3554},
-{"Product ID":3555},
-{"Product ID":3556},
-{"Product ID":3904},
-{"Product ID":3905},
-{"Product ID":3939},
-{"Product ID":4024},
-{"Product ID":4027},
-{"Product ID":4037},
-{"Product ID":4038},
-{"Product ID":4040},
-{"Product ID":4186}]
+const productIds = [
+  { "Product ID": 624 },
+  { "Product ID": 662 },
+  { "Product ID": 674 },
+  { "Product ID": 682 },
+  { "Product ID": 698 },
+  { "Product ID": 703 },
+  { "Product ID": 892 },
+  { "Product ID": 934 },
+  { "Product ID": 1068 },
+  { "Product ID": 1302 },
+  { "Product ID": 1304 },
+  { "Product ID": 1496 },
+  { "Product ID": 1497 },
+  { "Product ID": 1499 },
+  { "Product ID": 1500 },
+  { "Product ID": 1501 },
+  { "Product ID": 1655 },
+  { "Product ID": 1656 },
+  { "Product ID": 1658 },
+  { "Product ID": 1659 },
+  { "Product ID": 1661 },
+  { "Product ID": 1662 },
+  { "Product ID": 1663 },
+  { "Product ID": 1664 },
+];
 // alfaparf products with shampoo mentioned in cat field
 
-let catId = 581; // no cat id yet
+let catId = 210; // no cat id yet
 /**
  * This needs to be tested before using
  * @param {*} productIds
