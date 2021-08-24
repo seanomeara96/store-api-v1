@@ -1,3 +1,5 @@
+const { getAllProductVariants } = require("../product-variants/getAllProductVariants");
+
 /**
  * updates product barcodes, cant do options yet but products yes
  */
@@ -12,13 +14,18 @@ function updateProductBarcodes(store) {
       const products = await getAllProducts();
       const upToDateBarcodes = await csv().fromFile("./bp.csv");
       let promises = [];
-      products.forEach((bcProduct) => {
+      products.forEach(async (bcProduct) => {
         let bpProductDetails = upToDateBarcodes.find(
           (bpDoc) => bpDoc.SKU === bcProduct.sku
         );
         if (!bpProductDetails) {
-          console.log(`${bcProduct.name} is either an old SKU or a config`);
-          return;
+          console.log(`This is an old SKU `);
+          
+          if(bcProduct.option_set_id){
+            console.log(bcProduct.name, "product is a config")
+            let variants = await getAllProductVariants(bcproduct.id)
+            console.log(variants)
+          }
         }
         if (bcProduct.upc !== bpProductDetails.Barcode) {
           console.log(`${bcProduct.name} barcode mismatch`.red);

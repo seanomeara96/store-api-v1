@@ -1,8 +1,9 @@
-const { getAllProducts } = require("./products/getAllProducts");
 require("./config/config").config("bf")
-async function main() {
-  let products = await getAllProducts();
-  products = products.sort((a, b) => a.reviews_count - b.reviews_count);
-  console.log(products[0])
-}
-main();
+const { getProductById } = require("./products/getProductById");
+// getProductById(5298).then(console.log).catch(console.log)
+let product_id =5283 
+getProductById(product_id).then(({option_set_id})=>{
+  if(option_set_id){
+    require("./config/config").store.get(`/catalog/products/${product_id}/variants`).then((data) => console.log(data.data))
+  }
+}).catch(console.log)
