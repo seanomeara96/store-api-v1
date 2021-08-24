@@ -11,7 +11,7 @@ const {
   getAssociatedBrandBanners,
   getLiveAssociatedBrandBanners,
 } = require("./utils/getAssociatedBanners");
-const { checkAllBrandContent } = require("./utils/checkAllBrandContent");
+const { checkAllBannerContent } = require("./utils/checkAllBannerContent");
 
 /**
  * @param {any} x
@@ -22,7 +22,7 @@ const exportBrands = async () => {
     /**
      * all site base domain url
      */
-    const siteUrl = await getSiteUrl();
+    const siteUrl =  getSiteUrl(initials);
 
     /**
      * all store brands
@@ -106,11 +106,12 @@ const exportBrands = async () => {
     });
 
     // check banners for dodgy links
-    outputDoc = await checkAllBrandContent(
+    outputDoc = await checkAllBannerContent(
       outputDoc,
       banners,
       redirectPaths,
-      siteUrl
+      siteUrl,
+      getLiveAssociatedBrandBanners
     );
 
     // write to csv file
