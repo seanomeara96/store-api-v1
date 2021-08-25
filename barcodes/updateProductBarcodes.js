@@ -1,5 +1,3 @@
-const { getAllProductVariants } = require("../product-variants/getAllProductVariants");
-
 /**
  * updates product barcodes, cant do options yet but products yes
  */
@@ -10,22 +8,23 @@ function updateProductBarcodes(store) {
     const { updateProductBarcode } = require("./updateProductBarcode");
     const csv = require("csvtojson");
     const colors = require("colors");
+    const {updateProductVariantBarcodes} = require("./updateProductVariantBarcodes")
     try {
       const products = await getAllProducts();
       const upToDateBarcodes = await csv().fromFile("./bp.csv");
       let promises = [];
+      let configs = [];
       products.forEach(async (bcProduct) => {
         let bpProductDetails = upToDateBarcodes.find(
           (bpDoc) => bpDoc.SKU === bcProduct.sku
         );
         if (!bpProductDetails) {
-          console.log(`This is an old SKU `);
-          
-          if(bcProduct.option_set_id){
-            console.log(bcProduct.name, "product is a config")
-            let variants = await getAllProductVariants(bcproduct.id)
-            console.log(variants)
-          }
+          // console.log(`This is an old SKU `);
+          return;
+        }
+        if(bcProduct.option_set_id){
+          console.log(bcProduct.name, "product is a config")
+          configs.push(updateProductVariantBarcodes(bcProduct.id, upToDateBarcodes))
         }
         if (bcProduct.upc !== bpProductDetails.Barcode) {
           console.log(`${bcProduct.name} barcode mismatch`.red);
@@ -35,7 +34,9 @@ function updateProductBarcodes(store) {
         }
       });
       const responses = await Promise.allSettled(promises);
-      console.log(responses.length);
+      const configsResponses = await Promise.allSettled(configs)
+      console.log(`${responses.length} product barcodes updated`);
+      console.log(configsResponses)
       resolve()
     } catch (err) {
       console.log(err);
@@ -43,7 +44,7 @@ function updateProductBarcodes(store) {
     }
   });
 }
-let stores = ["bf", "ah", "bsk", "pb", "bs", "huk"];
+let stores = ["bf","ah", "bsk", "pb", "bs", "huk" ];
 
 stores = stores.map(store => ()=>updateProductBarcodes(store))
 
