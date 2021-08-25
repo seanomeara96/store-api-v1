@@ -16,6 +16,9 @@ const updateProductVariantBarcodes = (configId, bpProductDetails) => {
         let variantDetails = bpProductDetails.find(
           (bpProductDoc) => bpProductDoc.SKU === variant.sku
         );
+        if(!variantDetails){
+          reject("there are no variant details")
+        }
         if (variant.upc !== variantDetails.Barcode) {
           console.log(`product variant barcode mismatch`.red)
           promises.push(
