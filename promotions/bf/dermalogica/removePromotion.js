@@ -1,9 +1,7 @@
-require("../../../config/config").config("bf")
-const { removeLineFromBrandProducts } = require("../../../content/modules/update");
-const { bfGwpTemplate } = require("../../../templates/bfGwpTemplate")
-const brand = "Dermalogica"
-const lineToRemove = bfGwpTemplate(brand,"https://www.beautyfeatures.ie/free-dermalogica-gift-with-purchase/","Pollution Protection Kit",90);
+require("../../../config/config").config("bf");
+const {
+  removePromotionFromBrandProducts,
+} = require("../../../content/removePromotionFromBrandProducts");
+const brand = "Dermalogica";
 
-removeLineFromBrandProducts(brand, lineToRemove)
-  .then((res) => console.log(res))
-  .catch(() => console.log("something went wrong"));
+removePromotionFromBrandProducts(brand).then(console.log).catch(console.log);

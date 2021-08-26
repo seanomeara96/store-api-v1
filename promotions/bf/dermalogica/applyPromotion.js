@@ -1,8 +1,8 @@
 require("../../../config/config").config("bf")
-const { addLineToBrandProducts } = require("../../../content/modules/update");
+const { addLineToBrandProducts } = require("../../../content/addLineToBrandProducts");
 const { bfGwpTemplate } = require("../../../templates/bfGwpTemplate")
 const brand = "Dermalogica"
-const lineToAdd = bfGwpTemplate(brand,"https://www.beautyfeatures.ie/free-dermalogica-gift-with-purchase/", "Pollution Protection Kit", 90);
+const lineToAdd = bfGwpTemplate(brand,"https://www.beautyfeatures.ie/free-dermalogica-gift-with-purchase/", "Hydrating Essentials Kit", 90);
 
 addLineToBrandProducts(brand, lineToAdd)
   .then((res) => console.log(res))
