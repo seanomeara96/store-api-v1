@@ -3,7 +3,7 @@ const { getManyProductsBySKU } = require("../products/getManyProductsBySKU");
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 let skuArray = [
-  { sku: "GWP32" }, // pollution protection
+  { sku: "GWP33" }, // hydrating essentials
   { sku: "9448" }, // cashmere cream
   { sku: "10404" }, // Moroccanoil Re-Energizing Spray 50ml GWP
   { sku: "9357" }, // caudalie hand nail cream
