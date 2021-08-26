@@ -31,7 +31,12 @@ const updateProductVariantBarcodes = (configId, bpProductDetails) => {
         }
       });
       const responses = await Promise.allSettled(promises);
-      resolve(responses.filter(i => i.status === "fulfilled" ).length);
+      let noOfUpdates = responses.filter(i => i.status === "fulfilled" ).length
+      if(!noOfUpdates){
+        reject("nothing to update")
+        return;
+      }
+      resolve(noOfUpdates);
     } catch (err) {
       reject(err);
     }

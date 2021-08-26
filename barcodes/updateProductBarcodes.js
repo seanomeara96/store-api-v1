@@ -23,7 +23,7 @@ function updateProductBarcodes(store) {
         
         if (!bcProduct.option_set_id && !bpProductDetails) {
           // console.log(`This is an old SKU `);
-          console.log("returning".red)
+          console.log("Is a product but has no matching record on brightpearl")
           return;
         }
         if (bcProduct.option_set_id) {
@@ -31,12 +31,14 @@ function updateProductBarcodes(store) {
           configs.push(
             updateProductVariantBarcodes(bcProduct.id, upToDateBarcodes)
           );
+          return;
         }
         if (bcProduct.upc !== bpProductDetails.Barcode) {
           console.log(`${bcProduct.name} barcode mismatch`.red);
           promises.push(
             updateProductBarcode(bcProduct.id, bpProductDetails.Barcode)
           );
+          return;
         }
       });
       const responses = await Promise.allSettled(promises);
@@ -50,7 +52,7 @@ function updateProductBarcodes(store) {
     }
   });
 }
-let stores = ["ah",]// "ah", "bsk", "pb", "bs", "huk"];
+let stores = ["bf", "ah", "bsk", "pb", "bs", "huk"];
 
 stores = stores.map((store) => () => updateProductBarcodes(store));
 
