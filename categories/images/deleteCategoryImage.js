@@ -1,4 +1,8 @@
-
+/**
+ * deletes a category's image by id
+ * @param {number} category_id 
+ * @returns promise containing success / failure status
+ */
 const deleteCategoryImage = (category_id) =>
   new Promise((resolve, reject) => {
     if (typeof category_id !== "number")
