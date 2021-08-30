@@ -1,10 +1,10 @@
 const { applyFilter } = require("./applyFilter");
 /**
  * applies a field (name) and value to multiple products by id
- * @param {object[]} productIds 
- * @param {string} name 
- * @param {string} value 
- * @returns 
+ * @param {object[]} productIds
+ * @param {string} name
+ * @param {string} value
+ * @returns
  */
 const applyFilterToMany = (productIds, name, value) =>
   new Promise((resolve, reject) => {
@@ -19,3 +19,4 @@ const applyFilterToMany = (productIds, name, value) =>
   });
 // export module
 exports.applyFilterToMany = applyFilterToMany;
+
