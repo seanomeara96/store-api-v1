@@ -11,7 +11,7 @@ const removeLineFromBrandProducts = (brandName, lineToRemove) =>
     let promises = [];
     getProductsByBrand(brandName)
       .then((products) => {
-        console.log("products", products)
+        products.forEach(({description}) => console.log(description))
         products.forEach(({ id }) => {
           promises.push(removeLine(id, lineToRemove));
         });
