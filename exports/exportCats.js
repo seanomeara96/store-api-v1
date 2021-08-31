@@ -1,4 +1,4 @@
-const store = "bf";
+const store = "ih";
 require("../config/config").config(store);
 const { getAllCategories } = require("../categories/getAllCategories");
 const { getAllProducts } = require("../products/getAllProducts");
