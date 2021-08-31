@@ -1,19 +1,16 @@
-require("../config/config").config("bsk");
+require("../config/config").config("bf");
 const { getProductById } = require("../products/getProductById");
 const { removeCatFromProduct } = require("../products/removeCatFromProduct");
 /**
  * issue with this script is that its prematurely returning an empty array and not the expected output from promise allsettled
  */
 const productIds = [
-  { "Product ID": 500 },
-  { "Product ID": 501 },
-  { "Product ID": 502 },
-  { "Product ID": 503 },
-  { "Product ID": 504 },
-  { "Product ID": 505 },
-  { "Product ID": 506 },
+  { "Product ID": 3698 },
+  { "Product ID": 3725 },
+  { "Product ID": 3727 },
+  { "Product ID": 3624 },
 ];
-const catId = 98;
+const catId = 617;
 /**
  * This needs to be tested before using
  * @param {*} productIds
@@ -25,22 +22,8 @@ const removeCategoryFromSpecificProducts = (productIds, categoryId) =>
     let promises = [];
     productIds.forEach((productId) => {
       let id = productId[Object.keys(productId)[0]];
-      if (typeof id !== "number") {
-        reject("product id must be a number");
-      }
-      getProductById(id)
-        .then((product) => {
-          const { categories } = product;
-          if (categories.includes(categoryId)) {
-            promises.push(removeCatFromProduct(id, categoryId));
-          } else {
-            console.log(`product ${id} is already not in that category`);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          reject(err);
-        });
+      if (typeof id !== "number") return reject("product id must be a number");
+      promises.push(removeCatFromProduct(id, categoryId));
     });
     Promise.allSettled(promises)
       .then((res) => resolve(res))
@@ -48,5 +31,7 @@ const removeCategoryFromSpecificProducts = (productIds, categoryId) =>
   });
 
 removeCategoryFromSpecificProducts(productIds, catId)
-  .then((res) => console.log("removeCategoryFromSpecificProducts response",res))
+  .then((res) =>
+    console.log("removeCategoryFromSpecificProducts response", res)
+  )
   .catch((err) => console.log(err));
