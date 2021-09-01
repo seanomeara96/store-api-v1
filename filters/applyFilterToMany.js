@@ -19,4 +19,3 @@ const applyFilterToMany = (productIds, name, value) =>
   });
 // export module
 exports.applyFilterToMany = applyFilterToMany;
-
