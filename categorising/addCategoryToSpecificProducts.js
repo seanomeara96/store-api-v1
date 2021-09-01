@@ -1,4 +1,4 @@
-require("../config/config").config("bf");
+
 const { addCatToProduct } = require("../products/addCatToProduct");
 /**
  * issue with this script is that its prematurely returning an empty array and not the expected output from promise allsettled
