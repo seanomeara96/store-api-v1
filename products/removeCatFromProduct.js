@@ -8,6 +8,7 @@ const { getProductById } = require("../products/getProductById");
  */
 exports.removeCatFromProduct = (productId, catIdToRemove) => {
   return new Promise((resolve, reject) => {
+    if (typeof productId !== "number") return reject("product id must be a number");
     // get product categories
     getProductById(productId).then((product) => {
       // check if already in category

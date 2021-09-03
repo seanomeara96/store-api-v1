@@ -16,7 +16,7 @@ const removeCategoryFromSpecificProducts = (productIds, categoryId) =>
     let promises = [];
     productIds.forEach((productId) => {
       let id = productId[Object.keys(productId)[0]];
-      if (typeof id !== "number") return reject("product id must be a number");
+      
       promises.push(removeCatFromProduct(id, categoryId));
     });
     Promise.allSettled(promises)
