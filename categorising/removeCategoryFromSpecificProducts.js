@@ -17,19 +17,19 @@ const removeCategoryFromSpecificProducts = (productIds, categoryId) =>
       let id = productId[Object.keys(productId)[0]];
       promises.push(removeCatFromProduct(id, categoryId));
     });
-    Promise.allSettled(promises)
-      .then((res) => resolve(res))
-      .catch((err) => reject(err));
+    Promise.allSettled(promises).then(resolve).catch(reject);
   });
-  const productIds = [{"Product ID":3085},
-  {"Product ID":3086},
-  {"Product ID":5316},
-  {"Product ID":5317},
-  {"Product ID":5318},
-  {"Product ID":5319},
-  {"Product ID":5320},
-  {"Product ID":5322}]
-  const catId = 620;
+const productIds = [
+  { "Product ID": 3085 },
+  { "Product ID": 3086 },
+  { "Product ID": 5316 },
+  { "Product ID": 5317 },
+  { "Product ID": 5318 },
+  { "Product ID": 5319 },
+  { "Product ID": 5320 },
+  { "Product ID": 5322 },
+];
+const catId = 620;
 removeCategoryFromSpecificProducts(productIds, catId)
   .then((res) =>
     console.log("removeCategoryFromSpecificProducts response", res)
