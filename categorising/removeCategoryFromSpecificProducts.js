@@ -1,5 +1,4 @@
 require("../config/config").config("bf");
-const { getProductById } = require("../products/getProductById");
 const { removeCatFromProduct } = require("../products/removeCatFromProduct");
 /**
  * issue with this script is that its prematurely returning an empty array and not the expected output from promise allsettled
