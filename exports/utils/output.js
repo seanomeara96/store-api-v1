@@ -9,7 +9,7 @@ const output = (name, content, header = true) => {
     if (err) {
       throw new Error(err);
     }
-    fs.writeFile(`./${name}-ouput.csv`, output, (err) => {
+    fs.writeFile(`./${name}-ouput.csv`, output, {encoding: "utf8"}, (err) => {
       if (err) {
         throw new Error(err);
       }

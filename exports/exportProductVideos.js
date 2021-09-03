@@ -1,18 +1,21 @@
-require("../config/config").config("ih")
+const store = "huk";
+require("../config/config").config(store);
 const {
-  getProductVideosOfMany,
-} = require("../products/getProductVideosOfMany");
+  getAllProductVideosOfAllProducts,
+} = require("../videos/getAllProductVideosOfAllProducts");
+const { getSiteUrl } = require("../utils/getSiteUrl");
 const output = require("./utils/output");
-const productIds = [];
-const exportProductVideos = async (product_ids) => {
+const exportProductVideos = async () => {
   try {
-    const productVideos = await getProductVideosOfMany(product_ids);
+    const siteUrl = getSiteUrl(store);
+    const productVideos = await getAllProductVideosOfAllProducts();
     productVideos.forEach((item) => {
       item.videos = item.videos.length;
+      item.url = siteUrl + item.url;
     });
     output("videos", productVideos);
   } catch (err) {
     console.log(err);
   }
 };
-exportProductVideos(productIds);
+exportProductVideos();
