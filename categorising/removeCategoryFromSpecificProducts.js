@@ -19,17 +19,29 @@ const removeCategoryFromSpecificProducts = (productIds, categoryId) =>
     });
     Promise.allSettled(promises).then(resolve).catch(reject);
   });
-const productIds = [
-  { "Product ID": 3085 },
-  { "Product ID": 3086 },
-  { "Product ID": 5316 },
-  { "Product ID": 5317 },
-  { "Product ID": 5318 },
-  { "Product ID": 5319 },
-  { "Product ID": 5320 },
-  { "Product ID": 5322 },
-];
-const catId = 620;
+const productIds = [{"Product ID":3057},
+{"Product ID":3066},
+{"Product ID":3068},
+{"Product ID":3069},
+{"Product ID":3070},
+{"Product ID":3543},
+{"Product ID":3546},
+{"Product ID":3553},
+{"Product ID":3648},
+{"Product ID":3711},
+{"Product ID":3828},
+{"Product ID":4021},
+{"Product ID":4028},
+{"Product ID":4032},
+{"Product ID":4033},
+{"Product ID":4034},
+{"Product ID":4081},
+{"Product ID":4087},
+{"Product ID":4088},
+{"Product ID":4090},
+{"Product ID":4091},
+{"Product ID":4136}]
+const catId = 514;
 removeCategoryFromSpecificProducts(productIds, catId)
   .then((res) =>
     console.log("removeCategoryFromSpecificProducts response", res)
