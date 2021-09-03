@@ -1,4 +1,4 @@
-const store = "huk";
+const store = "bf";
 require("../config/config").config(store);
 const {
   getAllProductVideosOfAllProducts,
