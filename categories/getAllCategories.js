@@ -4,6 +4,6 @@ const {getAll} = require("../utils/getAll");
  * @param {*} params
  * @returns
  */
-exports.getAllCategories = getAll("/catalog/categories");
-
+const getAllCategories = getAll("/catalog/categories");
+exports.getAllCategories = getAllCategories;
 //require("../config/config").config("bf");getAllCategories().then(res => console.log(res))
