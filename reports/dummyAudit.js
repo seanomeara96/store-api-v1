@@ -5,7 +5,7 @@ const { log, error } = console;
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 function checkInStockDummy(storeInit) {
-  require("./config/config").config(storeInit);
+  require("../config/config").config(storeInit);
   return new Promise(async (resolve, reject) => {
     try {
       const products = await getAllProducts();
