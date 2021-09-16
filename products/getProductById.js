@@ -1,4 +1,3 @@
-const store = require("../config/axios-config");
 /**
  *
  * @param {*} productId
@@ -6,9 +5,9 @@ const store = require("../config/axios-config");
  */
 const getProductById = (productId) =>
   new Promise((resolve, reject) =>
-    store
-      .get(`/catalog/products/${productId}`)
+    require("../config/config")
+      .store.get(`/catalog/products/${productId}`)
       .then((response) => resolve(response.data.data))
-      .catch((err) => reject(err))
+      .catch(({ response }) => reject(response.data))
   );
 exports.getProductById = getProductById;

@@ -32,7 +32,7 @@ exports.getAll =
             resolve(aggregatedData);
           }
         } catch (err) {
-          reject(err);
+          reject(err.response.data);
         }
       }
       getData();

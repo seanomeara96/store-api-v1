@@ -3,7 +3,7 @@ const getProductVideos = (product_id) => {
     require("../config/config")
       .store.get(`/catalog/products/${product_id}/videos`)
       .then((res) => resolve({ product_id, videos: res.data.data }))
-      .catch((err) => reject(err));
+      .catch(({response}) => reject(response.data));
   });
 };
 exports.getProductVideos = getProductVideos;
