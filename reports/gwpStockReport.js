@@ -10,7 +10,8 @@ let skuArray = [
   { sku: "8702" }, // clay cleanser
   { sku: "9013" }, // tummy rub butter
   { sku: "10356" }, // NUXE Reve De Miel Lip Balm 15g GWP
-  {sku: "10402"} // carter beauty sponge
+  { sku: "10402" }, // carter beauty sponge
+  { sku: "5011" } // redken one united
 ];
 
 getManyProductsBySKU(skuArray)
