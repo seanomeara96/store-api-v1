@@ -19,7 +19,7 @@ const output = (name, content, header = true) =>
             return reject(err);
           }
           console.log("write out complete");
-          resolve();
+          resolve(output);
         }
       );
     });
