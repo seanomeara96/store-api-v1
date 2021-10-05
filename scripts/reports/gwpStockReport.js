@@ -1,5 +1,5 @@
-require("../config/config").config("bf");
-const { getManyProductsBySKU } = require("../products/getManyProductsBySKU");
+require("../../config/config").config("bf");
+const { getManyProductsBySKU } = require("../../functions/products/getManyProductsBySKU");
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 let skuArray = [

@@ -8,7 +8,7 @@
     "dotenv": "^8.2.0"
   },
   "scripts": {
-    "report": "node ./reports/gwpStockReport.js",
-    "audit": "node ./reports/dummyAudit.js"
+    "report": "node ./scripts/reports/gwpStockReport.js",
+    "audit": "node ./scripts/reports/dummyAudit.js"
   }
 }
