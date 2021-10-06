@@ -1,5 +1,5 @@
 require("../config/config").config("bf")
-const { updateSearchKeywords } = require("./updateSearchKeywords");
+const { updateSearchKeywords } = require("../../functions/search/updateSearchKeywords");
 
 const bulkUpdateSearchKeywords = (productIds, searchKeywordsToAdd) => {
   return new Promise((resolve, reject) => {
