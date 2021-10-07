@@ -1,11 +1,11 @@
-const { getAllCategories } = require("../categories/getAllCategories");
-const { getAllProducts } = require("../products/getAllProducts");
-require("../config/config")
+const { getAllCategories } = require("../../functions/categories/getAllCategories");
+const { getAllProducts } = require("../../functions/products/getAllProducts");
+require("../../config/config")
 const { log, error } = console;
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 function checkInStockDummy(storeInit) {
-  require("../config/config").config(storeInit);
+  require("../../config/config").config(storeInit);
   return new Promise(async (resolve, reject) => {
     try {
       const products = await getAllProducts();
@@ -46,7 +46,7 @@ function sendInStockDummyAllStoresEmail(responses) {
     .catch(err => error(err.response.body.errors));
 }
 function checkInStockDummyAllStores() {
-  const allStores = ["bf", "bsk", "ah", "pb", "ih", "bs", "huk"];
+  const allStores = ["bf", "bsk", "ah", "pb", "ih", "bs", "huk", "hie"];
   const responses = [];
   let allStorePromises = allStores.map(
     (store) => () => checkInStockDummy(store)
