@@ -7,7 +7,7 @@
 const updateProduct = (productId, fieldToUpdate) =>
   new Promise((resolve, reject) => {
     if (typeof productId !== "number") reject("product id must be a number");
-    require("../config/config")
+    require("../../config/config")
       .store.put(`/catalog/products/${productId}`, {
         ...fieldToUpdate,
       })
