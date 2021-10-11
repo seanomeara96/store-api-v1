@@ -9,7 +9,7 @@ let skuArray = [
   { sku: "9357" }, // caudalie hand nail cream
   { sku: "8702" }, // clay cleanser
   { sku: "9013" }, // tummy rub butter
-  { sku: "10356" }, // NUXE Reve De Miel Lip Balm 15g GWP
+  { sku: "10442" }, // NUXE Very Rose 3-in-1 Soothing Micellar Water 100ml GWP
   { sku: "10402" }, // carter beauty sponge
   { sku: "5011" } // redken one united
 ];
