@@ -1,5 +1,5 @@
 const gtinMicroData = (barcode="") => {
-    return `<!--gtinMicroData--><meta itemprop="gtin14" content="${barcode}" /><!--gtinMicroData-->`
+    return `<!--gtinMicroData--><div style="display:none;" itemprop="gtin14" content="${barcode}"></div><!--gtinMicroData-->`
 }
 
 exports.gtinMicroData = gtinMicroData;
