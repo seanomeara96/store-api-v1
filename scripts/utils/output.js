@@ -25,4 +25,4 @@ const output = (name, content, header = true) =>
     });
   });
 
-exports.ouput = output;
+exports.output = output;
