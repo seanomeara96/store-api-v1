@@ -59,16 +59,14 @@ function checkSeo(storeInitials) {
       }
 
       let data = `<h1>${store}</h1>\n`;
-      if(brands.length){
-        data = data + `<h2>Brands</h2>` +
-        brands.join("\n") 
+      if (brands.length) {
+        data = data + `<h2>Brands</h2>` + brands.join("\n");
       }
-      if(cats.length){
-          data = data + `<h2>Categories</h2>` +
-          cats.join("\n");
+      if (cats.length) {
+        data = data + `<h2>Categories</h2>` + cats.join("\n");
       }
-      if(!brands.length && !cats.length){
-          data = data + `<h3>All Clear</h3>`
+      if (!brands.length && !cats.length) {
+        data = data + `<h3>All Clear</h3>`;
       }
       resolve(data);
     } catch (err) {
@@ -85,11 +83,10 @@ function checkAllSeo() {
       acc
         .then(cur)
         .then((res) => responses.push(res))
-        .then(() =>
-          indx === allStores.length - 1
-            ? sendInStockDummyAllStoresEmail(responses)
-            : null
-        ),
+        .then(() => {
+          if (indx === allStores.length - 1)
+            sendInStockDummyAllStoresEmail(responses);
+        }),
     Promise.resolve()
   );
 }
