@@ -17,7 +17,7 @@ async function exportUrls() {
     return { brand: url + brand.custom_url.url };
   });
   let cats = await getAllCategories();
-  cats = cats.filter(cat => cat.is_visible)
+  cats = cats.filter((cat) => cat.is_visible);
   cats = cats.map((cat) => {
     return { category: url + cat.custom_url.url };
   });
@@ -37,7 +37,7 @@ async function exportUrls() {
     resources[0][i][thirdColumnName] = correspondingObj2[thirdColumnName] || "";
   }
   const data = resources[0];
- await output(`${site}-urls`, data);
+  await output(`${site}-urls`, data);
 }
 
 exportUrls();
