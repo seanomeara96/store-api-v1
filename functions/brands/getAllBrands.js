@@ -1,7 +1,8 @@
 const { getAll } = require("../utils/getAll");
 /**
  * This function fetches all brands resolves with an array of objects
- * @param {*} params
+ * @param {object} params
  * @returns
  */
-exports.getAllBrands = getAll("/catalog/brands");
+const getAllBrands = getAll("/catalog/brands");
+exports.getAllBrands = getAllBrands;
