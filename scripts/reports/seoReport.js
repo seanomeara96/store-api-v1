@@ -2,7 +2,6 @@ const {
   getAllCategories,
 } = require("../../functions/categories/getAllCategories");
 const { getAllBrands } = require("../../functions/brands/getAllBrands");
-const { log } = console;
 require("../../config/config");
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -92,7 +91,6 @@ function checkAllSeo() {
 }
 function sendInStockDummyAllStoresEmail(responses) {
   const data = responses.join("\n");
-  log(data);
   const msg = {
     to: ["sean@beautyfeatures.ie"],
     from: "sean@beautyfeatures.ie",
@@ -102,7 +100,7 @@ function sendInStockDummyAllStoresEmail(responses) {
   };
   sgMail
     .send(msg)
-    .then(() => log("Email sent"))
+    .then(() => console.log("Email sent"))
     .catch((err) => error(err.response.body.errors));
 }
 checkAllSeo();
