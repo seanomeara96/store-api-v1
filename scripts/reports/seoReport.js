@@ -90,17 +90,22 @@ function checkAllSeo() {
   );
 }
 function sendInStockDummyAllStoresEmail(responses) {
-  const data = responses.join("\n");
-  const msg = {
-    to: ["sean@beautyfeatures.ie"],
-    from: "sean@beautyfeatures.ie",
-    subject: "Page Titles and Meta Descriptions",
-    text: "Page Titles and Meta Descriptions",
-    html: data,
-  };
-  sgMail
-    .send(msg)
-    .then(() => console.log("Email sent"))
-    .catch((err) => error(err.response.body.errors));
+  if (!responses) throw new Error("Either an html sstring or an array of such strings is expected to be passed in here"); 
+    let data = responses;
+    if (Array.isArray(responses)) {
+      data = responses.join("\n");
+    }
+    const msg = {
+      to: ["sean@beautyfeatures.ie"],
+      from: "sean@beautyfeatures.ie",
+      subject: "Page Titles and Meta Descriptions",
+      text: "Page Titles and Meta Descriptions",
+      html: data,
+    };
+    sgMail
+      .send(msg)
+      .then(() => console.log("Email sent"))
+      .catch((err) => error(err.response.body.errors));
+  
 }
 checkAllSeo();
