@@ -10,6 +10,8 @@
   },
   "scripts": {
     "report": "node ./scripts/reports/gwpStockReport.js",
-    "audit": "node ./scripts/reports/dummyAudit.js"
+    "audit": "node ./scripts/reports/dummyAudit.js",
+    "seo": "node ./scripts/reports/seoReport.js",
+    "reports": "npm run report && npm run audit && npm run seo"
   }
 }
