@@ -12,7 +12,7 @@ const applyFilter = (productId, name, value) =>
       value,
     };
     try {
-      const { status } = await require("../config/config").store.post(
+      const { status } = await require("../../config/config").store.post(
         `/catalog/products/${productId}/custom-fields`,
         data
       );
