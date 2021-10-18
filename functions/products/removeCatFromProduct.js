@@ -6,7 +6,7 @@ const { getProductById } = require("../products/getProductById");
  * @param {number} catIdToRemove
  * @returns promise
  */
-exports.removeCatFromProduct = (productId, catIdToRemove) => {
+const removeCatFromProduct = (productId, catIdToRemove) => {
   return new Promise((resolve, reject) => {
     if (typeof productId !== "number") return reject("product id must be a number");
     // get product categories
@@ -23,6 +23,7 @@ exports.removeCatFromProduct = (productId, catIdToRemove) => {
       updateProduct(productId, { categories: updatedCategories })
         .then((res) => resolve(res.status))
         .catch((err) => reject(err));
-    });
+    }).catch(reject)
   });
 };
+ exports.removeCatFromProduct = removeCatFromProduct;
