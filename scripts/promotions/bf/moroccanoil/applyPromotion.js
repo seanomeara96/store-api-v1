@@ -1,12 +1,14 @@
 // Moroccanoil GWP URL https://www.beautyfeatures.ie/free-moroccanoil-gift-with-purchase/
-require("../../../config/config").config("bf");
-const { addLineToBrandProducts } = require("../../../content/addLineToBrandProducts");
+require("../../../../config/config").config("bf");
+const {
+  addLineToBrandProducts,
+} = require("../../../../functions/content/addLineToBrandProducts");
 const { bfGwpTemplate } = require("../../../templates/bfGwpTemplate");
 const brandName = "Moroccanoil";
 const lineToAdd = bfGwpTemplate(
   brandName,
   "https://www.beautyfeatures.ie/free-moroccanoil-gift-with-purchase/",
-  "Moroccanoil Re-Energizing Spray 50ml",
+  "Hydrate Shampoo and Conditioner 70ml",
   80
 );
 addLineToBrandProducts(brandName, lineToAdd)
