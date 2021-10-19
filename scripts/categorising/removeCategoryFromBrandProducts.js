@@ -27,5 +27,5 @@ const removeCategoryFromBrandProducts = (brand, categoryId) =>
 const brand = "Olaplex";
 const catId = 173;
 removeCategoryFromBrandProducts(brand, catId)
-  .then((res) => console.log("removeCategoryFromAllProducts response", res))
+  .then((res) => console.log("removeCategoryFromBrandProducts response", res))
   .catch((err) => console.log(err));
