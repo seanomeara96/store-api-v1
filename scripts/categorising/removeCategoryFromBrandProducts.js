@@ -1,9 +1,10 @@
 require("../../config/config").config("ah");
-const { removeCatFromProduct } = require("../../functions/products/removeCatFromProduct");
+const {
+  removeCatFromProduct,
+} = require("../../functions/products/removeCatFromProduct");
 const {
   getProductsByBrand,
 } = require("../../functions/products/getProductsByBrand");
-
 
 /**
  * removes category from products by brand
@@ -19,13 +20,20 @@ const removeCategoryFromBrandProducts = (brand, categoryId) =>
       reject(e);
     }
     let promises = [];
-    products.forEach(({id}) => {
+    products.forEach(({ id }) => {
       promises.push(removeCatFromProduct(id, categoryId));
     });
     Promise.allSettled(promises).then(resolve).catch(reject);
   });
-const brand = "Olaplex";
-const catId = 173;
-removeCategoryFromBrandProducts(brand, catId)
+const brand = "Alfaparf";
+const catIds = [
+  160, // Shampoo & Conditioner
+  211, // gift sets
+  163, // Treatments & Masks
+  162, // Hair Oils
+  161, // Styling
+  206, // Mens Range
+];
+removeCategoryFromBrandProducts(brand, catIds[0])
   .then((res) => console.log("removeCategoryFromBrandProducts response", res))
   .catch((err) => console.log(err));
