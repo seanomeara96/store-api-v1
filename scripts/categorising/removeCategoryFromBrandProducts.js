@@ -34,6 +34,6 @@ const catIds = [
   161, // Styling
   206, // Mens Range
 ];
-removeCategoryFromBrandProducts(brand, catIds[0])
+removeCategoryFromBrandProducts(brand, catIds[2])
   .then((res) => console.log("removeCategoryFromBrandProducts response", res))
   .catch((err) => console.log(err));
