@@ -10,7 +10,10 @@ async function getCouponValues(coupons) {
     const matchingCoupon = systemCoupons.find((i) => {
       return i.code === coupon.couponDetails;
     });
-
+    if (!matchingCoupon)
+      console.log(
+        `Could not find a coupon in the system that matched code ${coupon.couponDetails}`
+      );
     if (matchingCoupon) {
       coupon.systemValue = matchingCoupon.amount;
     }
