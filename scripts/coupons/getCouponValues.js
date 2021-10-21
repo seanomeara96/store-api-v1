@@ -3,8 +3,9 @@ const { getAllCoupons } = require("../../functions/coupons/getAllCoupons");
 const { output } = require("../utils/output");
 
 async function getCouponValues(coupons) {
-  const systemCoupons = await getAllCoupons();
   if (!coupons) throw new Error("coupons is undefined");
+  const systemCoupons = await getAllCoupons();
+
   coupons.forEach((coupon) => {
     const matchingCoupon = systemCoupons.find((i) => {
       return i.code === coupon.couponDetails;
