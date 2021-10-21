@@ -1,5 +1,3 @@
-const removeAttributes = (html) => {
-  return html.replace(/<\s*(\w+).*?>/gi, "<$1>");
-};
+const removeAttributes = html => html.replace(/<\s*(\w+).*?>/gi, "<$1>");
 
 exports.removeAttributes = removeAttributes;

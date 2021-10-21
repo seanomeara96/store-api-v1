@@ -1,5 +1,5 @@
-require("../../../config/config").config("bf");
-const { removeLineFromBrandProducts } = require("../../../content/modules/update");
+require("../../../../config/config").config("bf");
+const { removePromotionFromBrandProducts } = require("../../../../functions/content/removePromotionFromBrandProducts");
 const brandName = "The Ordinary"
 const lineToRemove = `<!-- start promotion --><div
 style="
@@ -24,6 +24,6 @@ style="
   </p>
 </div>
 </div><!-- end promotion -->`;
-removeLineFromBrandProducts(brandName, lineToRemove)
+removePromotionFromBrandProducts(brandName)
   .then((res) => console.log(res))
   .catch("something went wrong");

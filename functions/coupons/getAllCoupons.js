@@ -1,4 +1,4 @@
-const { getAll } = require("../../utils/getAll");
+const { getAll } = require("../utils/getAll");
 /**
  * must use version 2 api
  */
