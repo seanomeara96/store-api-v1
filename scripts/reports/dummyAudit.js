@@ -36,8 +36,8 @@ function sendInStockDummyAllStoresEmail(responses) {
   const msg = {
     to: ["sean@beautyfeatures.ie", "john@beautyfeatures.ie"],
     from: "sean@beautyfeatures.ie",
-    subject: "In Stock & In Dummy",
-    text: "In Stock & In Dummy",
+    subject: "Live, In Stock & In Dummy",
+    text: "Live, In Stock & In Dummy",
     html: data,
   };
   sgMail
