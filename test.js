@@ -1,10 +1,5 @@
-
-require("./config/config").config("bf")
-const { getAllRedirects } = require("./redirects/getAllRedirects");
-
-async function main (){
-  const redirects = await getAllRedirects()
-  console.log(redirects.filter(i => i.from_path.includes("christmas-g")))
+function a (b){
+  b = 5;
+  console.log(b)
 }
-
-main()
+a(4)

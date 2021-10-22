@@ -13,5 +13,8 @@
     "audit": "node ./scripts/reports/dummyAudit.js",
     "seo": "node ./scripts/reports/seoReport.js",
     "reports": "npm run report && npm run audit && npm run seo"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.1"
   }
 }

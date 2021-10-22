@@ -1,5 +1,7 @@
 require("../../config/config").config("bf");
-const { getManyProductsBySKU } = require("../../functions/products/getManyProductsBySKU");
+const {
+  getManyProductsBySKU,
+} = require("../../functions/products/getManyProductsBySKU");
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 let skuArray = [
@@ -11,7 +13,7 @@ let skuArray = [
   { sku: "9013" }, // tummy rub butter
   { sku: "10442" }, // NUXE Very Rose 3-in-1 Soothing Micellar Water 100ml GWP
   { sku: "10402" }, // carter beauty sponge
-  { sku: "5011" } // redken one united
+  { sku: "5011" }, // redken one united
 ];
 
 getManyProductsBySKU(skuArray)
@@ -20,7 +22,9 @@ getManyProductsBySKU(skuArray)
       .sort((a, b) => a.inventory_level - b.inventory_level)
       .map(
         ({ name, sku, inventory_level }) =>
-          `<p>${name}<br>SKU: ${sku}<br>Inventory: <strong  ${inventory_level < 21 ? "style='color:red;'" : "" }>${inventory_level}</strong></p>`
+          `<p>${name}<br>SKU: ${sku}<br>Inventory: <strong  ${
+            inventory_level < 21 ? "style='color:red;'" : ""
+          }>${inventory_level}</strong></p>`
       )
       .join("\n");
     const msg = {
