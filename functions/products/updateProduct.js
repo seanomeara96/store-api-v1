@@ -8,11 +8,13 @@ const updateProduct = (productId, fieldToUpdate) =>
   new Promise((resolve, reject) => {
     if (typeof productId !== "number")
       return reject("product id must be a number");
+    if (typeof fieldToUpdate !== "object")
+      return reject("field to update must be an object");
     require("../../config/config")
       .store.put(`/catalog/products/${productId}`, {
         ...fieldToUpdate,
       })
-      .then((res) => resolve(res))
+      .then(resolve)
       .catch(({ response }) => reject(response.data));
   });
 exports.updateProduct = updateProduct;

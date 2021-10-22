@@ -15,12 +15,16 @@ const removePromotion = (productId) =>
         /<!-- start promotion -->(.|\n)*?<!-- end promotion -->/,
         ""
       );
+
+      if (productDescription === updatedProductDescription)
+        return reject(`Cant make change was made to product ${productId}`);
+
       await updateProductDescription(productId, updatedProductDescription);
-      if (productDescription == updatedProductDescription)
-        return reject("no change was made");
-      resolve("Promotion removed.");
+
+      resolve(`Promotion was removed from product ${productId}`);
     } catch (err) {
-      reject(err);
+      console.log(err)
+      reject(`An error occured when trying to remove promotion from product ${productId}`);
     }
   });
 
