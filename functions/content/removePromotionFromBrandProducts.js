@@ -1,3 +1,4 @@
+"use strict";
 const { getProductsByBrand } = require("../products/getProductsByBrand");
 const { removePromotion } = require("./removePromotion");
 /**
