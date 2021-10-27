@@ -1,5 +1,39 @@
-function a (b){
-  b = 5;
-  console.log(b)
-}
-a(4)
+const { removeLineFromMany } = require("./functions/content/removeLineFromMany")
+
+require("./config/config").config("bf")
+const products  = [{"Product ID":2541},
+{"Product ID":2542},
+{"Product ID":2543},
+{"Product ID":2545},
+{"Product ID":2546},
+{"Product ID":2547},
+{"Product ID":2596},
+{"Product ID":2598},
+{"Product ID":2600},
+{"Product ID":2601},
+{"Product ID":2602},
+{"Product ID":2691},
+{"Product ID":2697},
+{"Product ID":2698},
+{"Product ID":2699},
+{"Product ID":2700},
+{"Product ID":2701},
+{"Product ID":2816},
+{"Product ID":2817},
+{"Product ID":2832},
+{"Product ID":2833},
+{"Product ID":2834},
+{"Product ID":2835},
+{"Product ID":3007},
+{"Product ID":3008},
+{"Product ID":3103},
+{"Product ID":3104},
+{"Product ID":3128},
+{"Product ID":3344},
+{"Product ID":3345},
+{"Product ID":3346},
+{"Product ID":3347},
+{"Product ID":3348},
+{"Product ID":3350},
+{"Product ID":3735}]
+removeLineFromMany(products, "undefined").then(console.log).catch(console.log)

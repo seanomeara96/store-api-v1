@@ -1,7 +1,7 @@
-require("../../../config/config").config("bf");
+require("../../../../config/config").config("bf");
 const {
   addLineToBrandProducts,
-} = require("../../../content/addLineToBrandProducts");
+} = require("../../../../functions/content/addLineToBrandProducts");
 const brand = "Redken";
 const lineToAdd = `<!-- start promotion --><div
 style="

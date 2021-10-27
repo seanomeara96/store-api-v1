@@ -12,6 +12,7 @@ const removeLine = (productId, lineToRemove) =>
     validateParams(productId, reject, lineToRemove);
     try {
       const productDescription = await getProductDescription(productId);
+      console.log(productDescription)
       const updatedProductDescription = productDescription.replace(
         lineToRemove,
         ""
