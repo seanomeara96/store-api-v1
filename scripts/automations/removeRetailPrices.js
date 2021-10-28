@@ -7,7 +7,7 @@ const productPrices = ({ id, price, retail_price, sale_price }) => {
 };
 const nonZeroRetailPrice = ({ retail_price }) => retail_price;
 
-const setRetailProceToZero = ({ id }) =>
+const setRetailPriceToZero = ({ id }) =>
   updateProduct(id, { retail_price: "0" });
 
 function fetchNonZeroRetailPrices() {
@@ -27,7 +27,7 @@ function fetchNonZeroRetailPrices() {
 
 async function removeRetailPrices() {
   const nonZeroRetailPrices = await fetchNonZeroRetailPrices().catch(log);
-  const promises = nonZeroRetailPrices.map(setRetailProceToZero);
+  const promises = nonZeroRetailPrices.map(setRetailPriceToZero);
   const result = await Promise.allSettled(promises).catch(log);
   log(result.map(({ status }) => status));
   const secondCheck = await fetchNonZeroRetailPrices().catch(log);
