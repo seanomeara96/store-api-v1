@@ -3,17 +3,21 @@ const { addCatToProduct } = require("../../functions/products/addCatToProduct");
 /**
  * issue with this script is that its prematurely returning an empty array and not the expected output from promise allsettled
  */
-const productIds = [{"bf id":3541},
-{"bf id":3070},
-{"bf id":3068},
-{"bf id":4821},
-{"bf id":3069},
-{"bf id":4820},
-{"bf id":3540},
-{"bf id":3539}]
+const productIds = [{"Product ID":5395},
+{"Product ID":5396},
+{"Product ID":5397},
+{"Product ID":5398},
+{"Product ID":5399},
+{"Product ID":5400},
+{"Product ID":5401},
+{"Product ID":5402},
+{"Product ID":5403},
+{"Product ID":5404},
+{"Product ID":5405},
+{"Product ID":5406}]
 // alfaparf products with shampoo mentioned in cat field
 
-let catId = 640; 
+let catId = 529; // hair vegan
 /**
  * This needs to be tested before using
  * @param {object[]} productIds

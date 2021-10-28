@@ -1,4 +1,4 @@
-require("../../config/config").config("ah");
+require("../../config/config").config("bf");
 const {
   removeCatFromProduct,
 } = require("../../functions/products/removeCatFromProduct");
@@ -25,15 +25,8 @@ const removeCategoryFromBrandProducts = (brand, categoryId) =>
     });
     Promise.allSettled(promises).then(resolve).catch(reject);
   });
-const brand = "Alfaparf";
-const catIds = [
-  160, // Shampoo & Conditioner
-  211, // gift sets
-  163, // Treatments & Masks
-  162, // Hair Oils
-  161, // Styling
-  206, // Mens Range
-];
-removeCategoryFromBrandProducts(brand, catIds[2])
+const brand = "Olaplex";
+const catId = 515
+removeCategoryFromBrandProducts(brand, catId)
   .then((res) => console.log("removeCategoryFromBrandProducts response", res))
   .catch((err) => console.log(err));
