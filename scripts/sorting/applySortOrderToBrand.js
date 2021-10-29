@@ -21,4 +21,4 @@ async function applySortOrderToBrand(brand, sortOrderNumber) {
   });
   console.log(res);
 }
-applySortOrderToBrand("Dolce & Gabbana", 30);
+applySortOrderToBrand("ISSEY MIYAKE", 36);
