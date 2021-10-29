@@ -2,7 +2,7 @@ const { getBrandIdByName } = require("../brands/getBrandIdByName");
 const { getAllProducts } = require("./getAllProducts");
 /**
  * Fetches all products by brand name, resolves with an array of objects
- * @param {*} name
+ * @param {string} name name of brand
  * @returns
  */
 const getProductsByBrand = (name) =>
