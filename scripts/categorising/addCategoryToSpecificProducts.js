@@ -1,22 +1,32 @@
-require("../../config/config").config("ah");
+require("../../config/config").config("bf");
 const { addCatToProduct } = require("../../functions/products/addCatToProduct");
 /**
  * issue with this script is that its prematurely returning an empty array and not the expected output from promise allsettled
  */
-const productIds = [{"Product ID":677},
-{"Product ID":692},
-{"Product ID":1164},
-{"Product ID":1165},
-{"Product ID":1166},
-{"Product ID":1167},
-{"Product ID":1168},
-{"Product ID":1169},
-{"Product ID":1170},
-{"Product ID":1436},
-{"Product ID":661}]
+const productIds = [{"Product ID":222},
+{"Product ID":1534},
+{"Product ID":2346},
+{"Product ID":2401},
+{"Product ID":3972},
+{"Product ID":3973},
+{"Product ID":3996},
+{"Product ID":4472},
+{"Product ID":4622},
+{"Product ID":5040},
+{"Product ID":5133},
+{"Product ID":5332},
+{"Product ID":5380},
+{"Product ID":5382},
+{"Product ID":5411},
+{"Product ID":5422},
+{"Product ID":5451},
+{"Product ID":5456},
+{"Product ID":5457},
+{"Product ID":5471},
+{"Product ID":5478}]
 
 
-let catId = 219; // 
+let catId = 640; // 
 /**
  * This needs to be tested before using
  * @param {object[]} productIds

@@ -1,42 +1,13 @@
-const api = require("../config/config");
-const output = require("./utils/output");
-api.config("bf", 2);
-const instance = api.store;
-const getAll =
-  (URL) =>
-  (params = {}) =>
-    new Promise((resolve, reject) => {
-      let pageNumber = 1;
-      let aggregatedData = [];
-      async function getData() {
-        try {
-          const { data } = await instance.get(URL, {
-            params: {
-              limit: 250,
-              page: pageNumber,
-              ...params,
-            },
-          });
-          let dataArray = data;
-          if (dataArray.length) {
-            aggregatedData.push(...dataArray);
-            pageNumber++;
-            getData();
-          } else {
-            resolve(aggregatedData);
-          }
-        } catch (err) {
-          reject(err);
-        }
-      }
-      getData();
-    });
+const { getAllCoupons } = require("../../functions/coupons/getAllCoupons");
+const { output } = require("../utils/output");
 
-const getAllCoupons = getAll("/coupons");
+require("../../config/config").config("bf", 2);
 
-getAllCoupons()
-  .then((res) => {
-    console.log(res);
-    output("coupons", res);
-  })
-  .catch((err) => console.log(err));
+async function exportCoupons() {
+  const coupons = await getAllCoupons().catch((err) => {
+    throw new Error(err);
+  });
+
+  await output("bf-coupons", coupons)
+}
+exportCoupons()
