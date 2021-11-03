@@ -1,6 +1,6 @@
 require("../../config/config").config("bf");
-const { addCatToProduct } = require("../products/addCatToProduct");
-const { getProductsByBrand } = require("../products/getProductsByBrand");
+const { addCatToProduct } = require("../../functions/products/addCatToProduct");
+const { getProductsByBrand } = require("../../functions/products/getProductsByBrand");
 
 const addCatToProductsNotInCat = (products, catId) =>
   products.map((product) => {
@@ -20,7 +20,7 @@ async function addBrandToCat(brandName, catId) {
   console.log(res);
 }
 
-const brandName = "Eleven Australia";
-const catId = 592;
+const brandName = "Avant Skincare";
+const catId = 515;
 
 addBrandToCat(brandName, catId);
