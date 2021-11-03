@@ -19,6 +19,6 @@ async function applySortOrderToBrand(brand, sortOrderNumber) {
     console.log(err);
     throw new Error(err);
   });
-  console.log(res);
+  console.log(res.map(({status}) => status));
 }
-applySortOrderToBrand("ISSEY MIYAKE", 36);
+applySortOrderToBrand("ghost", 39);
