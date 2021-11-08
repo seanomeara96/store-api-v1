@@ -7,7 +7,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 let skuArray = [
   { sku: "GWP31" }, // hydrating essentials
   { sku: "9448" }, // cashmere cream
-  { sku: "10404" }, // Moroccanoil Re-Energizing Spray 50ml GWP
+  { sku: "10734" }, // Moroccanoil Hydrate Shampoo & Conditioner 70ml
   { sku: "9357" }, // caudalie hand nail cream
   { sku: "8702" }, // clay cleanser
   { sku: "9013" }, // tummy rub butter

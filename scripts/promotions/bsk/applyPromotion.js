@@ -1,7 +1,8 @@
-require("../../config/config").config("bsk");
-const { addLineToBrandProducts } = require("../../content/modules/update");
-const brand = "Dermalogica";
-const lineToAdd = `<div
+function applyPromotion() {
+  require("../../../config/config").config("bsk");
+  const { addLineToBrandProducts } = require("../../../functions/content/addLineToBrandProducts");
+  const brand = "Dermalogica";
+  const lineToAdd = `<!--startPromotion--><div
 style="
   padding: 12px 18px;
   margin-bottom: 12px;
@@ -19,11 +20,13 @@ style="
 </div>
 <div>
   <p style="margin-bottom: 0; color: #223f8e">
-    Free <a href="https://www.beautyskincare.ie/free-voucher-for-30-minute-skin-health-treatment/">Voucher for 30 Minute Skin Health Treatment</a> worth €56 with every order!
+    Free <a href="https://www.beautyskincare.ie/free-dermalogica-gift/">Free Multivitamin Essentials Kit</a> worth €72 when you spend €100 or more!
   </p>
 </div>
-</div>`;
+</div><!--endPromotion-->`;
 
-addLineToBrandProducts(brand, lineToAdd)
-  .then((res) => console.log(res))
-  .catch((err) => console.log(err));
+  addLineToBrandProducts(brand, lineToAdd)
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
+}
+applyPromotion();
