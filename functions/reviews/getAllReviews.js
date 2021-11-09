@@ -8,7 +8,6 @@ const getAllReviews = (product_id) =>
     require("../../config/config")
       .store.get(`/catalog/products/${product_id}/reviews`)
       .then((response) =>{
-        console.log(response.data)
         resolve({ product_id, reviews: response.data.data })
       })
       .catch(reject);

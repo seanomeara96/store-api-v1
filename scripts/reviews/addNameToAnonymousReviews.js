@@ -73,7 +73,7 @@ const filterNoNameReviews = (productReviews) => {
     .filter(({ reviews }) => reviews.length);
 };
 
-async function main() {
+async function addNameToAnonymousReviews() {
   const productReviews = await getAllProductReviews();
   const noNameReviews = filterNoNameReviews(productReviews);
   const nameUpdateRequests = [];
@@ -91,4 +91,4 @@ async function main() {
   console.log("updatedNoNameReviews", updatedNoNameReviews)
 }
 
-main();
+addNameToAnonymousReviews();
