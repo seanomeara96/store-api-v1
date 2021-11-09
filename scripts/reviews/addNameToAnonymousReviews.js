@@ -2,9 +2,9 @@ require("./config/config").config("bsk");
 
 // trybing to get reviews per product
 
-const { getAllProducts } = require("./functions/products/getAllProducts");
-const { getAllReviews } = require("./functions/reviews/getAllReviews");
-const { updateReviewName } = require("./functions/reviews/updateReview");
+const { getAllProducts } = require("../../functions/products/getAllProducts");
+const { getAllReviews } = require("../../functions/reviews/getAllReviews");
+const { updateReviewName } = require("../../functions/reviews/updateReview");
 
 const randomName = () => {
   let names = [
