@@ -5,9 +5,12 @@ require("./config/config").config("bsk");
 const { getAllProducts } = require("../../functions/products/getAllProducts");
 const { getAllReviews } = require("../../functions/reviews/getAllReviews");
 const { updateReviewName } = require("../../functions/reviews/updateReview");
-
-const randomName = () => {
-  let names = [
+/**
+ * @param {string[]} names array of names to choose from
+ * @returns an random name from an array
+ */
+const randomName = (
+  names = [
     "Grace",
     "Fiadh",
     "Emily",
@@ -32,15 +35,22 @@ const randomName = () => {
     "Evie",
     "Kate",
     "Aoife",
-  ];
-
-  return names[Math.floor(Math.random() * names.length)];
-};
-
+  ]
+) => names[Math.floor(Math.random() * names.length)];
+/**
+ * Promise all settled reponse filter for fulfilled
+ * @param {string} param0 
+ * @returns 
+ */
+const fulfilledStatuses = ({ status }) => status === "fulfilled";
+/**
+ * Map value to position in array, essentially removing status
+ * @param {any} param0 
+ * @returns 
+ */
+const promiseValues = ({ value }) => value;
 const pullProductReviewsFromResponses = (productReviewsResponses) =>
-  productReviewsResponses
-    .filter(({ status }) => status === "fulfilled")
-    .map(({ value }) => value);
+  productReviewsResponses.filter(fulfilledStatuses).map(promiseValues);
 
 const getAllProductReviews = () =>
   new Promise(async (resolve, reject) => {
@@ -58,20 +68,33 @@ const getAllProductReviews = () =>
       reject(err);
     }
   });
+/**
+ * filters products that have reviews
+ * @param {object} param0 object with reviews array
+ * @returns
+ */
+const productsWithReviews = ({ reviews }) => reviews.length;
+/**
+ * filter reviews that have an empty name string
+ * @param {object[]} review
+ * @returns
+ */
+const reviewsWithNoName = (review) => !review.name.length;
+/**
+ * returns products array with reviews that have an empty name
+ * @param {object} param0 object with product id and reviews array
+ * @returns
+ */
+const productsWithNoNameReviews = ({ product_id, reviews }) => ({
+  product_id,
+  reviews: reviews.filter(reviewsWithNoName),
+});
 
-const filterNoNameReviews = (productReviews) => {
-  const productsWithReviews = productReviews.filter(
-    ({ reviews }) => reviews.length
-  );
-  return productsWithReviews
-    .map(({ product_id, reviews }) => {
-      return {
-        product_id,
-        reviews: reviews.filter((review) => !review.name.length),
-      };
-    })
-    .filter(({ reviews }) => reviews.length);
-};
+const filterNoNameReviews = (productReviews) =>
+  productReviews
+    .filter(productsWithReviews) // remove products with no reviews
+    .map(productsWithNoNameReviews) // filter for reviews that have no name
+    .filter(productsWithReviews); // remove empty review arrays
 
 async function addNameToAnonymousReviews() {
   const productReviews = await getAllProductReviews();
@@ -88,7 +111,7 @@ async function addNameToAnonymousReviews() {
   console.log("nameUpdateResponses", nameUpdateResponses.length);
   const updatedProductReviews = await getAllProductReviews();
   const updatedNoNameReviews = filterNoNameReviews(updatedProductReviews);
-  console.log("updatedNoNameReviews", updatedNoNameReviews)
+  console.log("updatedNoNameReviews", updatedNoNameReviews);
 }
 
 addNameToAnonymousReviews();
