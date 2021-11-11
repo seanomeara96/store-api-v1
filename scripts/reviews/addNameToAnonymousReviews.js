@@ -50,24 +50,39 @@ const fulfilledStatuses = ({ status }) => status === "fulfilled";
 const promiseValues = ({ value }) => value;
 /**
  * When promise.allsettled has resolved we want to map the revews for the fulfilled promises
- * @param {*} productReviewsResponses 
- * @returns 
+ * @param {*} productReviewsResponses
+ * @returns
  */
 const pullProductReviewsFromResponses = (productReviewsResponses) =>
   productReviewsResponses.filter(fulfilledStatuses).map(promiseValues);
 
+const mapReviewRequestToProducts = (products) =>
+  products.map(({ id }) => getAllReviews(id));
+
+const resolveWithProductReviews = (
+  reviewRequests,
+  pullProductReviewsFromResponses,
+  resolve
+) =>
+  Promise.allSettled(reviewRequests)
+    .then((productReviewsResponses) =>
+      resolve(pullProductReviewsFromResponses(productReviewsResponses))
+    )
+    .catch((err) => console.log(err));
+
 const getAllProductReviews = () =>
   new Promise(async (resolve, reject) => {
     try {
-      const products = await getAllProducts().catch(console.log);
-      const reviewRequests = products.map(({ id }) => getAllReviews(id));
-      const productReviewsResponses = await Promise.allSettled(
-        reviewRequests
-      ).catch((err) => console.log(err));
-      const productReviews = pullProductReviewsFromResponses(
-        productReviewsResponses
-      );
-      resolve(productReviews);
+      getAllProducts()
+        .then(mapReviewRequestToProducts)
+        .then((reviewRequests) =>
+          resolveWithProductReviews(
+            reviewRequests,
+            pullProductReviewsFromResponses, // do i have to pass functions in as arguments in functional programming?
+            resolve
+          )
+        )
+        .catch(console.log);
     } catch (err) {
       reject(err);
     }
@@ -95,8 +110,8 @@ const productsWithNoNameReviews = ({ product_id, reviews }) => ({
 });
 /**
  * filter for reviews where the name field is empty
- * @param {object[]} productReviews 
- * @returns 
+ * @param {object[]} productReviews
+ * @returns
  */
 const filterNoNameReviews = (productReviews) =>
   productReviews
