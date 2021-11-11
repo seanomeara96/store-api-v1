@@ -1,16 +1,16 @@
 require("./config/config").config("bsk");
 
-// trybing to get reviews per product
+// trying to get reviews per product
 
 const { getAllProducts } = require("../../functions/products/getAllProducts");
 const { getAllReviews } = require("../../functions/reviews/getAllReviews");
 const { updateReviewName } = require("../../functions/reviews/updateReview");
 /**
- * @param {string[]} names array of names to choose from
+ * @param {string[]} names array of 24 names to choose from
  * @returns an random name from an array
  */
-const randomName = (
-  names = [
+const randomName = () =>
+  [
     "Grace",
     "Fiadh",
     "Emily",
@@ -35,20 +35,24 @@ const randomName = (
     "Evie",
     "Kate",
     "Aoife",
-  ]
-) => names[Math.floor(Math.random() * names.length)];
+  ][Math.floor(Math.random() * 24)];
 /**
  * Promise all settled reponse filter for fulfilled
- * @param {string} param0 
- * @returns 
+ * @param {string} param0
+ * @returns
  */
 const fulfilledStatuses = ({ status }) => status === "fulfilled";
 /**
  * Map value to position in array, essentially removing status
- * @param {any} param0 
- * @returns 
+ * @param {any} param0
+ * @returns
  */
 const promiseValues = ({ value }) => value;
+/**
+ * When promise.allsettled has resolved we want to map the revews for the fulfilled promises
+ * @param {*} productReviewsResponses 
+ * @returns 
+ */
 const pullProductReviewsFromResponses = (productReviewsResponses) =>
   productReviewsResponses.filter(fulfilledStatuses).map(promiseValues);
 
@@ -89,7 +93,11 @@ const productsWithNoNameReviews = ({ product_id, reviews }) => ({
   product_id,
   reviews: reviews.filter(reviewsWithNoName),
 });
-
+/**
+ * filter for reviews where the name field is empty
+ * @param {object[]} productReviews 
+ * @returns 
+ */
 const filterNoNameReviews = (productReviews) =>
   productReviews
     .filter(productsWithReviews) // remove products with no reviews
