@@ -8,7 +8,7 @@ const getAllProductImages = (product_id) =>
     if (typeof product_id !== "number") reject("product id must be a number");
     require("../../config/config")
       .store.get(`/catalog/products/${product_id}/images`)
-      .then((res) => resolve(res.data.data))
+      .then((res) => resolve({ product_id, images: res.data.data }))
       .catch((err) => reject(err));
   });
 
