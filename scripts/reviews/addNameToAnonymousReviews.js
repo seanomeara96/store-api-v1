@@ -108,14 +108,16 @@ const filterNoNameReviews = (productReviews) =>
 
 async function addNameToAnonymousReviews() {
   const productReviews = await getAllProductReviews();
-  console.log(productReviews)
+  productReviews.forEach(({reviews}) => reviews.forEach(review => console.log(review.name)))
   const noNameReviews = filterNoNameReviews(productReviews);
+  console.log("no name reviews", noNameReviews.length)
   const nameUpdateRequests = [];
   noNameReviews.forEach(({ product_id, reviews }) => {
     reviews.forEach(({ id }) =>
       nameUpdateRequests.push(updateReviewName(product_id, id, randomName()))
     );
   });
+  console.log("name update requests", nameUpdateRequests.length)
   const nameUpdateResponses = await Promise.allSettled(
     nameUpdateRequests
   ).catch((err) => console.log(err));
