@@ -54,6 +54,8 @@ function updateProductBarcodes(store) {
 }
 let stores = ["bf", "ah", "bsk", "pb", "bs", "huk"];
 
-stores = stores.map((store) => () => updateProductBarcodes(store));
+const storePromises = stores.map((store) => () => updateProductBarcodes(store));
 
-stores.reduce((acc, cur) => acc.then(cur), Promise.resolve());
+const promiseReducer = (acc, cur) => acc.then(cur)
+
+storePromises.reduce(promiseReducer, Promise.resolve());

@@ -59,34 +59,21 @@ const pullProductReviewsFromResponses = (productReviewsResponses) =>
 const mapReviewRequestToProducts = (products) =>
   products.map(({ id }) => getAllReviews(id));
 
-const resolveWithProductReviews = (
-  reviewRequests,
-  pullProductReviewsFromResponses,
-  resolve
-) =>
-  Promise.allSettled(reviewRequests)
-    .then((productReviewsResponses) =>
-      resolve(pullProductReviewsFromResponses(productReviewsResponses))
-    )
-    .catch((err) => console.log(err));
+const fetchProductReviews = async (reviewRequests) => {
+  const productReviewsResponses = await Promise.allSettled(
+    reviewRequests
+  ).catch((err) => console.log(err));
+  return pullProductReviewsFromResponses(productReviewsResponses);
+};
 
 const getAllProductReviews = () =>
-  new Promise(async (resolve, reject) => {
-    try {
-      getAllProducts()
-        .then(mapReviewRequestToProducts)
-        .then((reviewRequests) =>
-          resolveWithProductReviews(
-            reviewRequests,
-            pullProductReviewsFromResponses, // do i have to pass functions in as arguments in functional programming?
-            resolve
-          )
-        )
-        .catch(console.log);
-    } catch (err) {
-      reject(err);
-    }
-  });
+  new Promise((resolve, reject) =>
+    getAllProducts()
+      .then(mapReviewRequestToProducts)
+      .then(fetchProductReviews)
+      .then(resolve)
+      .catch(reject)
+  );
 /**
  * filters products that have reviews
  * @param {object} param0 object with reviews array
