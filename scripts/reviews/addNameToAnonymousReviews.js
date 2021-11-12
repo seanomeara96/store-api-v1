@@ -1,4 +1,4 @@
-require("./config/config").config("bsk");
+require("../../config/config").config("bsk");
 
 // trying to get reviews per product
 
