@@ -108,6 +108,7 @@ const filterNoNameReviews = (productReviews) =>
 
 async function addNameToAnonymousReviews() {
   const productReviews = await getAllProductReviews();
+  console.log(productReviews)
   const noNameReviews = filterNoNameReviews(productReviews);
   const nameUpdateRequests = [];
   noNameReviews.forEach(({ product_id, reviews }) => {
