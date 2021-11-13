@@ -1,7 +1,7 @@
-const { getAllCoupons } = require("./functions/coupons/getAllCoupons");
-const { updateCoupon } = require("./functions/coupons/updateCoupon");
+const { getAllCoupons } = require("../functions/coupons/getAllCoupons");
+const { updateCoupon } = require("../functions/coupons/updateCoupon");
 
-require("./config/config").config("bf", 2);
+require("../config/config").config("bf", 2);
 async function applyCouponRestriction() {
   /**
    * const coupons = await getAllCoupons().catch((err) => {
