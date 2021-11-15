@@ -72,10 +72,14 @@ const mapImagesToProducts = (images, products) => {
 };
 
 const getImages = async (products) => {
-  const imageResponses = await Promise.allSettled(
-    products.map(({ id }) => getAllProductImages(id))
-  );
-  return mapImagesToProducts(imagesFromResponses(imageResponses), products);
+  try {
+    const imageResponses = await Promise.allSettled(
+      products.map(({ id }) => getAllProductImages(id))
+    );
+    return mapImagesToProducts(imagesFromResponses(imageResponses), products);
+  } catch (err) {
+    throw new Error(err);
+  }
 };
 
 const updateUrls = (products) =>
@@ -85,13 +89,17 @@ const updateUrls = (products) =>
   }));
 
 const mapBrandsToProducts = async (products) => {
-  const brands = await getAllBrands();
-  return products.map((product) => ({
-    ...product,
-    brand: (
-      brands.find((brand) => brand.id === product.brand_id) || { name: "" }
-    ).name,
-  }));
+  try {
+    const brands = await getAllBrands();
+    return products.map((product) => ({
+      ...product,
+      brand: (
+        brands.find((brand) => brand.id === product.brand_id) || { name: "" }
+      ).name,
+    }));
+  } catch (err) {
+    throw new Error(err);
+  }
 };
 
 const convertHtmlToPlainText = (products) => {
