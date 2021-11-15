@@ -1,4 +1,4 @@
-const store = "bf";
+const store = "bsk";
 require("../../config/config").config(store);
 const { convert } = require("html-to-text");
 const { getAllBrands } = require("../../functions/brands/getAllBrands");
@@ -9,8 +9,8 @@ const { getAllProducts } = require("../../functions/products/getAllProducts");
 const { getSiteUrl } = require("../../functions/utils/getSiteUrl");
 const { output } = require("../utils/output");
 
-const yotpoFormat = (products) => {
-  return products.map((product) => ({
+const yotpoFormat = (products) =>
+  products.map((product) => ({
     "Product ID": product.id, // required string
     "Product Name": product.name, // required string
     "Product Description": product.description, // string
@@ -28,32 +28,28 @@ const yotpoFormat = (products) => {
     Blacklisted: "FALSE", // boolean string
     "Product Group": "",
   }));
-};
 
 /**
  * this function only exists because bigcommerce's image sorting sytem is fucking stupid
  */
-const findFirstImage = (images, result = undefined, n = 0) => {
-  if (!images.length) {
-    return { url_standard: "" };
-  }
-  if (result) {
-    return result;
-  }
-  return findFirstImage(
-    images,
-    images.find((i) => i.sort_order === n),
-    n + 1
-  );
-};
+const findFirstImage = (images, result = undefined, n = 0) =>
+  !images.length
+    ? { url_standard: "" }
+    : result
+    ? result
+    : findFirstImage(
+        images,
+        images.find((i) => i.sort_order === n),
+        n + 1
+      );
 
 const fulfilledValues = (promiseResponses) =>
   promiseResponses
     .filter(({ status }) => status === "fulfilled")
     .map(({ value }) => value);
 
-const imagesFromResponses = (imageResponses) => {
-  return fulfilledValues(imageResponses)
+const imagesFromResponses = (imageResponses) =>
+  fulfilledValues(imageResponses)
     .map(({ product_id, images }) => ({
       product_id,
       firstImage: findFirstImage(images),
@@ -62,14 +58,12 @@ const imagesFromResponses = (imageResponses) => {
       product_id,
       image: firstImage.url_standard,
     }));
-};
 
-const mapImagesToProducts = (images, products) => {
-  return products.map((product) => ({
+const mapImagesToProducts = (images, products) =>
+  products.map((product) => ({
     ...product,
     image: images.find((i) => i.product_id === product.id).image,
   }));
-};
 
 const getImages = async (products) => {
   try {
@@ -102,12 +96,11 @@ const mapBrandsToProducts = async (products) => {
   }
 };
 
-const convertHtmlToPlainText = (products) => {
-  return products.map((product) => ({
+const convertHtmlToPlainText = (products) =>
+  products.map((product) => ({
     ...product,
     description: convert(product.description),
   }));
-};
 
 const writeYotpoFile = (products) => {
   output(`${store}-yotpo`, products);
