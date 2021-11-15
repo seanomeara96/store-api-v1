@@ -47,10 +47,13 @@ const findFirstImage = (images, result = undefined, n = 0) => {
   );
 };
 
+const fulfilledValues = (promiseResponses) =>
+  promiseResponses
+    .filter(({ status }) => status === "fulfilled")
+    .map(({ value }) => value);
+
 const imagesFromResponses = (imageResponses) => {
-  return imageResponses
-    .filter((ii) => ii.status === "fulfilled")
-    .map(({ value }) => value)
+  return fulfilledValues(imageResponses)
     .map(({ product_id, images }) => ({
       product_id,
       firstImage: findFirstImage(images),
