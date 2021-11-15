@@ -81,7 +81,7 @@ const updateUrls = (products) =>
     url: getSiteUrl(store) + product.custom_url.url,
   }));
 
-const getBrands = async (products) => {
+const mapBrandsToProducts = async (products) => {
   const brands = await getAllBrands();
   return products.map((product) => ({
     ...product,
@@ -104,7 +104,7 @@ const writeYotpoFile = (products) => {
 
 function main() {
   getAllProducts()
-    .then(getBrands)
+    .then(mapBrandsToProducts)
     .then(convertHtmlToPlainText)
     .then(getImages)
     .then(updateUrls)
