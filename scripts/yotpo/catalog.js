@@ -29,27 +29,26 @@ const yotpoFormat = (products) => {
     "Product Group": "",
   }));
 };
-const getImages = async (products) => {
-  const imageResponses = await Promise.allSettled(
-    products.map(({ id }) => getAllProductImages(id))
+
+/**
+ * this function only exists because bigcommerce's image sorting sytem is fucking stupid
+ */
+const findFirstImage = (images, result = undefined, n = 0) => {
+  if (!images.length) {
+    return { url_standard: "" };
+  }
+  if (result) {
+    return result;
+  }
+  return findFirstImage(
+    images,
+    images.find((i) => i.sort_order === n),
+    n + 1
   );
-  /**
-   * this function only exists because bigcommerce's image sorting sytem is fucking stupid
-   */
-  const findFirstImage = (images, result = undefined, n = 0) => {
-    if (!images.length) {
-      return { url_standard: "" };
-    }
-    if (result) {
-      return result;
-    }
-    return findFirstImage(
-      images,
-      images.find((i) => i.sort_order === n),
-      n + 1
-    );
-  };
-  const images = imageResponses
+};
+
+const imagesFromResponses = (imageResponses) => {
+  return imageResponses
     .filter((ii) => ii.status === "fulfilled")
     .map(({ value }) => value)
     .map(({ product_id, images }) => ({
@@ -60,11 +59,22 @@ const getImages = async (products) => {
       product_id,
       image: images.url_standard,
     }));
+};
+
+const mapImagesToProducts = (images, products) => {
   return products.map((product) => ({
     ...product,
     image: images.find((i) => i.product_id === product.id).image,
   }));
 };
+
+const getImages = async (products) => {
+  const imageResponses = await Promise.allSettled(
+    products.map(({ id }) => getAllProductImages(id))
+  );
+  return mapImagesToProducts(imagesFromResponses(imageResponses), products);
+};
+
 const updateUrls = (products) =>
   products.map((product) => ({
     ...product,
