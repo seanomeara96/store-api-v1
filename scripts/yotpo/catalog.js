@@ -53,11 +53,11 @@ const imagesFromResponses = (imageResponses) => {
     .map(({ value }) => value)
     .map(({ product_id, images }) => ({
       product_id,
-      images: findFirstImage(images),
+      firstImage: findFirstImage(images),
     }))
-    .map(({ product_id, images }) => ({
+    .map(({ product_id, firstImage }) => ({
       product_id,
-      image: images.url_standard,
+      image: firstImage.url_standard,
     }));
 };
 
