@@ -102,9 +102,8 @@ const convertHtmlToPlainText = (products) =>
     description: convert(product.description),
   }));
 
-const writeYotpoFile = (products) => {
-  output(`${store}-yotpo`, products);
-};
+const writeYotpoFile = async (products) => await output(`${store}-yotpo`, products);
+
 
 function main() {
   getAllProducts()
