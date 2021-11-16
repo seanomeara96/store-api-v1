@@ -1,4 +1,4 @@
-require("../../config/config").config("bf");
+require("../../config/config").config("ih");
 const {
   getProductsByBrand,
 } = require("../../functions/products/getProductsByBrand");
@@ -21,4 +21,4 @@ async function applySortOrderToBrand(brand, sortOrderNumber) {
   });
   console.log(res.map(({status}) => status));
 }
-applySortOrderToBrand("ghost", 39);
+applySortOrderToBrand("colgate", 121);
