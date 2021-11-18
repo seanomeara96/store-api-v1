@@ -1,4 +1,4 @@
-require("../../config/config").config("ih");
+require("../../config/config").config("bf");
 const {
   getProductsByBrand,
 } = require("../../functions/products/getProductsByBrand");
@@ -19,6 +19,8 @@ async function applySortOrderToBrand(brand, sortOrderNumber) {
     console.log(err);
     throw new Error(err);
   });
-  console.log(res.map(({status}) => status));
+  const total = res.length
+  const fulfilled = res.filter(({status}) => status === "fulfilled")
+  console.log(`${fulfilled}/${total} sorted without issues`);
 }
-applySortOrderToBrand("colgate", 121);
+applySortOrderToBrand("Revolution", 600);
