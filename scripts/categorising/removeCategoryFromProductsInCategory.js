@@ -22,3 +22,15 @@ const removeCategoryFromProductsInCategory = (categoryId) =>
 
 exports.removeCategoryFromProductsInCategory =
   removeCategoryFromProductsInCategory;
+
+
+  
+removeCategoryFromProductsInCategory(28)
+.then((res) => {
+  const fulfilled = res.filter(({ status }) => status === "fulfilled").length;
+
+  const total = res.length;
+
+  console.log(`${fulfilled}/${total} successful`);
+})
+.catch(console.log);
