@@ -1,7 +1,4 @@
-require("../../../../config/config").config("bf");
-const {
-  removePromotionFromBrandProducts,
-} = require("../../../../functions/content/removePromotionFromBrandProducts");
-const brand = "Dermalogica";
+const { removePromotionFromBrandProducts } = require("../../../../functions/content/removePromotionFromBrandProducts")
 
-removePromotionFromBrandProducts(brand).then(console.log).catch(console.log);
+require("../../../../config/config").config("bf")
+removePromotionFromBrandProducts("Dermalogica").then((res) => console.log(`${res.filter(i => i.status === "rejected").length}/${res.length} items rejected. Will require manual check`)).catch(console.log)

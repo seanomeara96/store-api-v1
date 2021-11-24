@@ -12,7 +12,7 @@ const removePromotion = (productId) =>
     try {
       const productDescription = await getProductDescription(productId);
       const updatedProductDescription = productDescription.replace(
-        /<!-- start promotion -->(.|\n)*?<!-- end promotion -->/,
+        /<!-- start promotion -->(.|\n)*?<!-- end promotion -->/gi,
         ""
       );
 
