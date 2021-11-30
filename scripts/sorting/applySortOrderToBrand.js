@@ -20,7 +20,7 @@ async function applySortOrderToBrand(brand, sortOrderNumber) {
     throw new Error(err);
   });
   const total = res.length
-  const fulfilled = res.filter(({status}) => status === "fulfilled")
+  const fulfilled = res.filter(({status}) => status === "fulfilled").length
   console.log(`${fulfilled}/${total} sorted without issues`);
 }
-applySortOrderToBrand("Revolution", 600);
+applySortOrderToBrand("Cantu", 9720);
