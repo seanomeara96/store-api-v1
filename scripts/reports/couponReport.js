@@ -18,7 +18,7 @@ let monthsToTest = [
   { monthName: "November", month: 10, lastDay: 30, year: 2020 },
   { monthName: "December", month: 11, lastDay: 31, year: 2020 },
 ]; // month base 0
-const period = monthsToTest[9]
+const period = monthsToTest[10]
 const startDate = new Date(period.year, period.month, 1);
 const endDate = new Date(period.year, period.month, period.lastDay);
 getAllOrders({
