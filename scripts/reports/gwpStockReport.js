@@ -21,6 +21,9 @@ const emailFormat = ({ name, sku, inventory_level }) =>
   `<p>${name}<br>SKU: ${sku}<br>Inventory: <strong  ${
     inventory_level < 21 ? "style='color:red;'" : ""
   }>${inventory_level}</strong></p>`;
+const confirmEmailDespatch = () => console.log("Email sent");
+const flagEmailError = (error) => console.error(error);
+
 getManyProductsBySKU(skuArray)
   .then((res) => {
     const data = res.sort(ascendingInventory).map(emailFormat).join("\n");
@@ -31,13 +34,6 @@ getManyProductsBySKU(skuArray)
       text: "GWP Stock Report",
       html: data,
     };
-    sgMail
-      .send(msg)
-      .then(() => {
-        console.log("Email sent");
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    sgMail.send(msg).then(confirmEmailDespatch).catch(flagEmailError);
   })
   .catch((err) => console.log(err));
