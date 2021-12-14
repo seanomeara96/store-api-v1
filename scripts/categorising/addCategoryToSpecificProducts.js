@@ -3,47 +3,25 @@ const { addCatToProduct } = require("../../functions/products/addCatToProduct");
 /**
  * issue with this script is that its prematurely returning an empty array and not the expected output from promise allsettled
  */
-const productIds = [{"Product ID":2541},
-{"Product ID":4422},
-{"Product ID":2945},
-{"Product ID":247},
-{"Product ID":5418},
-{"Product ID":5427},
-{"Product ID":5516},
-{"Product ID":4403},
-{"Product ID":5417},
-{"Product ID":4172},
-{"Product ID":4174},
-{"Product ID":3746},
-{"Product ID":5121},
-{"Product ID":3580},
-{"Product ID":4401},
-{"Product ID":4195},
-{"Product ID":5126},
-{"Product ID":5395},
-{"Product ID":3625},
-{"Product ID":5248},
-{"Product ID":4402},
-{"Product ID":5397},
-{"Product ID":5400},
-{"Product ID":4334},
-{"Product ID":5525},
-{"Product ID":5526},
-{"Product ID":5518},
-{"Product ID":5519},
-{"Product ID":3099},
-{"Product ID":5523},
-{"Product ID":5524},
-{"Product ID":5396},
-{"Product ID":5520},
-{"Product ID":5398},
-{"Product ID":3328},
-{"Product ID":4196},
-{"Product ID":3582},
-{"Product ID":5399}]
+const productIds = [{"Product ID":203},
+{"Product ID":204},
+{"Product ID":224},
+{"Product ID":2160},
+{"Product ID":2163},
+{"Product ID":2719},
+{"Product ID":3009},
+{"Product ID":3010},
+{"Product ID":3011},
+{"Product ID":3012},
+{"Product ID":3976},
+{"Product ID":4128},
+{"Product ID":4272},
+{"Product ID":4273},
+{"Product ID":4274},
+{"Product ID":4610}]
 
 
-let catId = 647; // 
+let catId = 653; // 
 /**
  * This needs to be tested before using
  * @param {object[]} productIds
