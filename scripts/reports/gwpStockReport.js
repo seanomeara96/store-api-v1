@@ -16,18 +16,14 @@ let skuArray = [
   { sku: "10402" }, // carter beauty sponge
   { sku: "5011" }, // redken one united
 ];
-
+const ascendingInventory = (a, b) => a.inventory_level - b.inventory_level;
+const emailFormat = ({ name, sku, inventory_level }) =>
+  `<p>${name}<br>SKU: ${sku}<br>Inventory: <strong  ${
+    inventory_level < 21 ? "style='color:red;'" : ""
+  }>${inventory_level}</strong></p>`;
 getManyProductsBySKU(skuArray)
   .then((res) => {
-    const data = res
-      .sort((a, b) => a.inventory_level - b.inventory_level)
-      .map(
-        ({ name, sku, inventory_level }) =>
-          `<p>${name}<br>SKU: ${sku}<br>Inventory: <strong  ${
-            inventory_level < 21 ? "style='color:red;'" : ""
-          }>${inventory_level}</strong></p>`
-      )
-      .join("\n");
+    const data = res.sort(ascendingInventory).map(emailFormat).join("\n");
     const msg = {
       to: "sean@beautyfeatures.ie",
       from: "sean@beautyfeatures.ie",
