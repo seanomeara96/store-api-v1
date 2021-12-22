@@ -23,4 +23,4 @@ async function applySortOrderToBrand(brand, sortOrderNumber) {
   const fulfilled = res.filter(({status}) => status === "fulfilled").length
   console.log(`${fulfilled}/${total} sorted without issues`);
 }
-applySortOrderToBrand("Cantu", 9720);
+applySortOrderToBrand("Rebeluna", 1126);
