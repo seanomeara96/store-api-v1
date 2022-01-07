@@ -1,4 +1,4 @@
-const store = "ih";
+const store = "bf";
 require("../../config/config").config(store);
 const { convert } = require("html-to-text");
 const { getAllBrands } = require("../../functions/brands/getAllBrands");
@@ -62,7 +62,7 @@ const imagesFromResponses = (imageResponses) =>
 const mapImagesToProducts = (images, products) =>
   products.map((product) => ({
     ...product,
-    image: images.find((i) => i.product_id === product.id).image,
+    image: (images.find((i) => i.product_id === product.id) || {image: ""}).image,
   }));
 
 const getImages = async (products) => {
@@ -102,8 +102,16 @@ const convertHtmlToPlainText = (products) =>
     description: convert(product.description),
   }));
 
-const writeYotpoFile = async (products) => await output(`${store}-yotpo`, products);
+const writeYotpoFile = async (products) =>
+  await output(`${store}-yotpo`, products);
 
+/**
+ * products without brands are discontinued
+ * @param {*} products
+ * @returns
+ */
+const filterProductsWithBrand = (products) =>
+  products.filter(({ brand }) => brand !== "");
 
 function main() {
   getAllProducts()
@@ -111,10 +119,11 @@ function main() {
     .then(convertHtmlToPlainText)
     .then(getImages)
     .then(updateUrls)
+    .then(filterProductsWithBrand)
     .then(yotpoFormat)
     .then(writeYotpoFile);
 }
 function test() {
-  getAllProductImages(181).then(console.log);
+  getAllProductImages(5573).then(({images}) => console.log(findFirstImage(images)));
 }
-main();
+test();

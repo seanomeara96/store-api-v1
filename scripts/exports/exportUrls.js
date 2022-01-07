@@ -7,36 +7,55 @@ const {
   getAllCategories,
 } = require("../../functions/categories/getAllCategories");
 const { output } = require("../utils/output");
+const { getAllBlogs } = require("../../functions/blogs/getAllBlogs");
+const { getAllProducts } = require("../../functions/products/getAllProducts");
 /**
  * Exports urls for brands, categories,
  */
 async function exportUrls() {
   const url = getSiteUrl(site);
-  let brands = await getAllBrands();
-  brands = brands.map((brand) => {
-    return { brand: url + brand.custom_url.url };
+  /**
+   * get all brands
+   */
+  const brands = await getAllBrands().catch(()=>console.log("brands failed"))
+  const brandUrls = brands.map((brand) => {
+    return { type: "brand", url: url + brand.custom_url.url };
   });
-  let cats = await getAllCategories();
-  cats = cats.filter((cat) => cat.is_visible);
-  cats = cats.map((cat) => {
-    return { category: url + cat.custom_url.url };
+  /**
+   * get all categories
+   */
+  const cats = await getAllCategories().catch(()=>console.log("cats failed"))
+  /**
+   * filter only visible categories
+   */
+  const visibleCats = cats.filter((cat) => cat.is_visible);
+  const catUrls = visibleCats.map((cat) => {
+    return { type: "category", url: url + cat.custom_url.url };
   });
-  let pages = await getAllPages();
-  pages = pages.map((page) => {
-    return { page: url + page.url };
+  /**
+   * get all pages
+   */
+  const pages = await getAllPages().catch(()=>console.log("pages failed"))
+  const pageUrls = pages.map((page) => {
+    return { type: "page", url: url + page.url };
   });
-  const resources = [brands, cats, pages];
-  resources.sort((a, b) => b.length - a.length);
-  let secondColumnName = Object.keys(resources[1][0])[0];
-  let thirdColumnName = Object.keys(resources[2][0])[0];
-  for (let i = 0; i < resources[0].length; i++) {
-    let correspondingObj1 = resources[1][i] || {};
-    let correspondingObj2 = resources[2][i] || {};
-    resources[0][i][secondColumnName] =
-      correspondingObj1[secondColumnName] || "";
-    resources[0][i][thirdColumnName] = correspondingObj2[thirdColumnName] || "";
-  }
-  const data = resources[0];
+  /**
+   * get al priooduct urls
+   */
+  const products = await getAllProducts();
+  const productUrls = products.map((product) => {return {
+    type: "product",
+    url: url + product.custom_url.url
+  }})
+  require("../../config/config").config(site, 2);
+  /**
+   * get all blogs
+   */
+  const blogs = await getAllBlogs().catch(()=>console.log("blogs failed"))
+  const blogUrls = blogs.map(blog => {
+    return {type: "blog", url: blog.url}
+  })
+  const data = [...brandUrls, ...catUrls, ...pageUrls, ...blogUrls, ...productUrls]
   await output(`${site}-urls`, data);
 }
 
