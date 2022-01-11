@@ -21,7 +21,7 @@ const yotpoFormat = (products) =>
     "Spec UPC": product.upc, // string
     "Spec SKU": product.sku, // string
     "Spec Brand": product.brand, // string
-    "Spec MPN": "", // string
+    "Spec MPN": product.sku, // string
     "Spec ISBN": product.upc, // string
     "Spec EAN": product.upc, // string
     "Product Tags": "", // string one tag allowed not required / understtod leaving blank
@@ -126,4 +126,4 @@ function main() {
 function test() {
   getAllProductImages(5573).then(({images}) => console.log(findFirstImage(images)));
 }
-test();
+main();
