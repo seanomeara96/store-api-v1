@@ -8,6 +8,6 @@ const getProductById = (productId) =>
     require("../../config/config")
       .store.get(`/catalog/products/${productId}`)
       .then((response) => resolve(response.data.data))
-      .catch(({ response }) => reject(response.data))
+      .catch(({ response }) => reject(response))
   );
 exports.getProductById = getProductById;
