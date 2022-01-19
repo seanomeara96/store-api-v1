@@ -1,33 +1,33 @@
-const { getAllCategories } = require("./functions/categories/getAllCategories");
-const { getAllProducts } = require("./functions/products/getAllProducts");
-const { getSiteUrl } = require("./functions/utils/getSiteUrl");
-const { output } = require("./scripts/utils/output");
 const store = "ah";
 require("./config/config").config(store);
-
+const { output } = require("./scripts/utils/output");
+const { getFilters } = require("./functions/filters/getFilters");
+const { getAllProducts } = require("./functions/products/getAllProducts");
 async function main() {
-  const data = [];
-  const baseUrl = getSiteUrl(store);
-  const categories = await getAllCategories().catch(console.log);
   const products = await getAllProducts().catch(console.log);
-
-  categories.forEach((category) => {
-    const productsInCategory = products.filter(({ categories }) =>
-      categories.includes(category.id)
-    );
-    productsInCategory.forEach((product) => {
-      const row = {
-        "Category Name": category.name,
-        "Category URL": baseUrl + category.custom_url.url,
-        "Product Name": product.name,
-        "Product SKU": product.sku,
-        "Product URL": product.custom_url.url
-      };
-      data.push(row);
-    });
+  const productFilterRequests = products.map(({ id }) => getFilters(id));
+  const responses = await Promise.allSettled(productFilterRequests).catch(
+    console.log
+  );
+  const responseValues = responses.map(({ value }) => value);
+  console.log(responseValues);
+  const allFilterNames = responseValues
+    .map(({ filters }) => filters.map(({ name }) => name))
+    .flat();
+  const uniqueFilterNames = [...new Set(allFilterNames)];
+  console.log(uniqueFilterNames);
+  const filterDocs = responseValues.map((product) => {
+    const doc = {
+      "Product ID": product.product_id,
+    };
+    uniqueFilterNames.forEach((name) => (doc[name] = []));
+    product.filters.forEach((filter) => doc[filter.name].push(filter.value));
+    for (let key in doc) {
+      if (Array.isArray(doc[key])) doc[key] = doc[key].sort().join(", ")
+    }
+    return doc;
   });
-
-  await output(`${store}-category-products`, data).catch(console.log)
+  console.log(filterDocs);
+  await output(`${store}-product-filters`, filterDocs).catch(console.log);
 }
-
 main();

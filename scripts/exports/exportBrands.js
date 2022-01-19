@@ -1,11 +1,11 @@
-const api = require("../config/config");
+const api = require("../../config/config");
 const initials = "bf";
 api.config(initials);
-const { getAllBrands } = require("../brands/getAllBrands");
-const { getAllProducts } = require("../products/getAllProducts");
-const { getAllRedirects } = require("../redirects/getAllRedirects");
-const output = require("./utils/output");
-const { getSiteUrl } = require("../utils/getSiteUrl");
+const { getAllBrands } = require("../../functions/brands/getAllBrands");
+const { getAllProducts } = require("../../functions/products/getAllProducts");
+const { getAllRedirects } = require("../../functions/redirects/getAllRedirects");
+const {output} = require("../utils/output");
+const { getSiteUrl } = require("../../functions/utils/getSiteUrl");
 const { booleanString } = require("./utils/booleanString");
 const {
   getAssociatedBrandBanners,
@@ -46,7 +46,7 @@ const exportBrands = async () => {
 
     // require get all banners
     api.config(initials, 2);
-    const { getAllBanners } = require("../banners/getAllBanners"); // marketing -> banners is still in v2
+    const { getAllBanners } = require("../../functions/banners/getAllBanners"); // marketing -> banners is still in v2
 
     /**
      * all store banners
@@ -94,7 +94,7 @@ const exportBrands = async () => {
       brand["Products"] = brandProducts.length.toString();
       brand["Products In Stock"] = brandProductsInStock.length.toString();
     });
-
+/*
     // add brand banner details
     outputDoc.forEach((brand) => {
       // gets banners associated with brand
@@ -113,7 +113,7 @@ const exportBrands = async () => {
       siteUrl,
       getLiveAssociatedBrandBanners
     );
-
+*/
     // write to csv file
     output("brand", outputDoc);
   } catch (err) {
