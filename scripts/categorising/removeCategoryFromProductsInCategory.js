@@ -23,14 +23,16 @@ const removeCategoryFromProductsInCategory = (categoryId) =>
 exports.removeCategoryFromProductsInCategory =
   removeCategoryFromProductsInCategory;
 
+function main() {
+  removeCategoryFromProductsInCategory(658)
+    .then((res) => {
+      const fulfilled = res.filter(
+        ({ status }) => status === "fulfilled"
+      ).length;
 
-  
-removeCategoryFromProductsInCategory(28)
-.then((res) => {
-  const fulfilled = res.filter(({ status }) => status === "fulfilled").length;
+      const total = res.length;
 
-  const total = res.length;
-
-  console.log(`${fulfilled}/${total} successful`);
-})
-.catch(console.log);
+      console.log(`${fulfilled}/${total} successful`);
+    })
+    .catch(console.log);
+}

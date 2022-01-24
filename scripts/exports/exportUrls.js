@@ -1,4 +1,4 @@
-const site = "ah";
+const site = "bf";
 require("../../config/config").config(site);
 const { getAllBrands } = require("../../functions/brands/getAllBrands");
 const { getAllPages } = require("../../functions/pages/getAllPages");
@@ -17,45 +17,52 @@ async function exportUrls() {
   /**
    * get all brands
    */
-  const brands = await getAllBrands().catch(()=>console.log("brands failed"))
-  const brandUrls = brands.map((brand) => {
-    return { type: "brand", url: url + brand.custom_url.url };
-  });
+  const brands = await getAllBrands().catch(() => console.log("brands failed"));
+  const brandUrls = brands.map((brand) => ({
+    type: "brand",
+    url: url + brand.custom_url.url,
+  }));
   /**
    * get all categories
    */
-  const cats = await getAllCategories().catch(()=>console.log("cats failed"))
+  const cats = await getAllCategories().catch(() => console.log("cats failed"));
   /**
    * filter only visible categories
    */
   const visibleCats = cats.filter((cat) => cat.is_visible);
-  const catUrls = visibleCats.map((cat) => {
-    return { type: "category", url: url + cat.custom_url.url };
-  });
+  const catUrls = visibleCats.map((cat) => ({
+    type: "category",
+    url: url + cat.custom_url.url,
+  }));
   /**
    * get all pages
    */
-  const pages = await getAllPages().catch(()=>console.log("pages failed"))
-  const pageUrls = pages.map((page) => {
-    return { type: "page", url: url + page.url };
-  });
+  const pages = await getAllPages().catch(() => console.log("pages failed"));
+  const pageUrls = pages.map((page) => ({ type: "page", url: url + page.url }));
   /**
    * get al priooduct urls
    */
   const products = await getAllProducts();
-  const productUrls = products.map((product) => {return {
+  const productUrls = products.map((product) => ({
     type: "product",
-    url: url + product.custom_url.url
-  }})
+    url: url + product.custom_url.url,
+  }));
   require("../../config/config").config(site, 2);
   /**
    * get all blogs
    */
-  const blogs = await getAllBlogs().catch(()=>console.log("blogs failed"))
-  const blogUrls = blogs.map(blog => {
-    return {type: "blog", url: blog.url}
-  })
-  const data = [...brandUrls, ...catUrls, ...pageUrls, ...blogUrls, ...productUrls]
+  const blogs = await getAllBlogs().catch(() => console.log("blogs failed"));
+  const blogUrls = blogs.map((blog) => ({
+    type: "blog",
+    url: blog.url,
+  }));
+  const data = [
+    ...brandUrls,
+    ...catUrls,
+    ...pageUrls,
+    ...blogUrls,
+    ...productUrls,
+  ];
   await output(`${site}-urls`, data);
 }
 
