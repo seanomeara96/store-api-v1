@@ -4,10 +4,13 @@ const {
 
 require("../../config/config").config("bf");
 
-const products = [
-  { "Product ID": 464 },
-  { "Product ID": 2061 },
-  { "Product ID": 5434 },
-];
+function deleteMany() {
+  const products = [
+    { "Product ID": 4958 },
+    { "Product ID": 4959 },
+    { "Product ID": 4961 },
+  ];
 
-deleteManyProducts(products).then(console.log).catch(console.log);
+  deleteManyProducts(products).then(console.log).catch(console.log);
+}
+deleteMany()

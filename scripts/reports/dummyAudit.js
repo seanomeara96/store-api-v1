@@ -39,7 +39,7 @@ function sendInStockDummyAllStoresEmail(responses) {
   const data = responses.join("\n");
   log(data);
   const msg = {
-    to: ["sean@beautyfeatures.ie", "john@beautyfeatures.ie"],
+    to: "sean@beautyfeatures.ie",
     from: "sean@beautyfeatures.ie",
     subject: "Live, In Stock & In Dummy",
     text: "Live, In Stock & In Dummy",

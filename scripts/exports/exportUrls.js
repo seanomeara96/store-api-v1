@@ -21,6 +21,7 @@ async function exportUrls() {
   const brandUrls = brands.map((brand) => ({
     type: "brand",
     url: url + brand.custom_url.url,
+    sku:""
   }));
   /**
    * get all categories
@@ -33,12 +34,13 @@ async function exportUrls() {
   const catUrls = visibleCats.map((cat) => ({
     type: "category",
     url: url + cat.custom_url.url,
+    sku:""
   }));
   /**
    * get all pages
    */
   const pages = await getAllPages().catch(() => console.log("pages failed"));
-  const pageUrls = pages.map((page) => ({ type: "page", url: url + page.url }));
+  const pageUrls = pages.map((page) => ({ type: "page", url: url + page.url, sku:"" }));
   /**
    * get al priooduct urls
    */
@@ -46,6 +48,7 @@ async function exportUrls() {
   const productUrls = products.map((product) => ({
     type: "product",
     url: url + product.custom_url.url,
+    sku: product.sku
   }));
   require("../../config/config").config(site, 2);
   /**
@@ -55,6 +58,7 @@ async function exportUrls() {
   const blogUrls = blogs.map((blog) => ({
     type: "blog",
     url: blog.url,
+    sku:""
   }));
   const data = [
     ...brandUrls,

@@ -17,14 +17,11 @@ async function applySortOrderToMany(productIds, sortOrderNumber) {
   console.log(`${fulfilled}/${total} sorted without issues`);
 }
 
-const productIds = [
-  { "Product ID": 5616 },
-  { "Product ID": 5617 },
-  { "Product ID": 5618 },
-  { "Product ID": 5619 },
-  { "Product ID": 5620 },
-  { "Product ID": 5621 },
-  { "Product ID": 5622 },
-];
+const productIds = [{"Product ID":5630},
+{"Product ID":5631},
+{"Product ID":5632},
+{"Product ID":5633},
+{"Product ID":5634},
+{"Product ID":5635}];
 
-applySortOrderToMany(productIds, 26);
+applySortOrderToMany(productIds, 618);

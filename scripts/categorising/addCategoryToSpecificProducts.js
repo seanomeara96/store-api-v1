@@ -1,10 +1,17 @@
+require("../../config/config").config("bf")
 const { addCatToProduct } = require("../../functions/products/addCatToProduct");
 /**
  * issue with this script is that its prematurely returning an empty array and not the expected output from promise allsettled
  */
-const productIds = [];
+const productIds = [{"Product ID":5616},
+{"Product ID":5617},
+{"Product ID":5618},
+{"Product ID":5619},
+{"Product ID":5620},
+{"Product ID":5621},
+{"Product ID":5622}];
 
-let catId = 668; //
+let catId = 676; //
 /**
  * This needs to be tested before using
  * @param {object[]} productIds
@@ -34,3 +41,4 @@ function main() {
     )
     .catch(console.log);
 }
+main()
