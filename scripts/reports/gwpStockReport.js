@@ -5,7 +5,7 @@ const {
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 let skuArray = [
-  { sku: "GWP31" }, // intensive moisture trio
+  { sku: "10643" }, // mutli masque kit
   //{ sku: "GWP35" }, // hydrating essentials
   { sku: "9448" }, // cashmere cream
   { sku: "10403" }, // gym bottle blue cap

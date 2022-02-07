@@ -1,35 +1,39 @@
-require("../../config/config").config("bf")
-const { addCatToProduct } = require("../../functions/products/addCatToProduct");
+require("../../config/config").config("bf");
+const {
+  addCategoryToSpecificProducts,
+} = require("../../functions/products/addCategoryToSpecificProducts");
 /**
  * issue with this script is that its prematurely returning an empty array and not the expected output from promise allsettled
  */
-const productIds = [{"Product ID":5616},
-{"Product ID":5617},
-{"Product ID":5618},
-{"Product ID":5619},
-{"Product ID":5620},
-{"Product ID":5621},
-{"Product ID":5622}];
+const productIds = [
+  { "Product ID": 1772 },
+  { "Product ID": 2054 },
+  { "Product ID": 2315 },
+  { "Product ID": 2324 },
+  { "Product ID": 2401 },
+  { "Product ID": 2547 },
+  { "Product ID": 2596 },
+  { "Product ID": 2598 },
+  { "Product ID": 2694 },
+  { "Product ID": 2805 },
+  { "Product ID": 2807 },
+  { "Product ID": 3307 },
+  { "Product ID": 3404 },
+  { "Product ID": 3455 },
+  { "Product ID": 3711 },
+  { "Product ID": 4163 },
+  { "Product ID": 5256 },
+  { "Product ID": 5257 },
+  { "Product ID": 5332 },
+  { "Product ID": 5333 },
+  { "Product ID": 5357 },
+  { "Product ID": 5501 },
+  { "Product ID": 5543 },
+  { "Product ID": 5544 },
+];
 
-let catId = 676; //
-/**
- * This needs to be tested before using
- * @param {object[]} productIds
- * @param {number} categoryId
- * @returns
- */
-const addCategoryToSpecificProducts = (productIds, categoryId) =>
-  new Promise((resolve, reject) => {
-    if (!Array.isArray(productIds) || typeof categoryId !== "number")
-      return reject("please check paramters");
-    const promises = productIds.map((productId) => {
-      const id = productId[Object.keys(productId)[0]];
-      if (typeof id !== "number") return reject("product id must be a number");
-      return addCatToProduct(id, categoryId);
-    });
-    Promise.allSettled(promises).then(resolve).catch(reject);
-  });
-exports.addCategoryToSpecificProducts = addCategoryToSpecificProducts;
+let catId = 680; //
+
 function main() {
   addCategoryToSpecificProducts(productIds, catId)
     .then((res) =>
@@ -41,4 +45,4 @@ function main() {
     )
     .catch(console.log);
 }
-main()
+main();

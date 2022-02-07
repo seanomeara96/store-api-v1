@@ -23,23 +23,7 @@ const pairs = [
 
 const bfNewAndTrending = async () => {
   const products = await getAllProducts().catch(console.lo)
-  await removeCategoryFromProductsInCategory(newAndTrending).catch(console.log);
-  pairs.forEach(async ({ origin, destination }) => {
-    const productsInCategory = products
-      .filter(({ categories }) => categories.includes(origin)) // in cat
-      .sort((a, b) => b.id - a.id) // descending id
-      .slice(0, 101);
-    //console.log(productsInCategory.length);
-    await removeCategoryFromProductsInCategory(destination).catch(console.log);
-    const productIds = productsInCategory.map(({ id }) => ({ id }));
-    // console.log(productIds);
-    await addCategoryToSpecificProducts(productIds, destination).catch(
-      console.log
-    );
-    await addCategoryToSpecificProducts(productIds, newAndTrending).catch(
-      console.log
-    );
-    // console.log(res);
-  });
+  await removeCategoryFromProductsInCategory(669).catch(console.log);
+  
 };
 bfNewAndTrending();

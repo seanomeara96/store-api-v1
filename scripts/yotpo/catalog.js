@@ -1,4 +1,4 @@
-const store = "bf";
+const store = "bsk";
 require("../../config/config").config(store);
 const { convert } = require("html-to-text");
 const { getAllBrands } = require("../../functions/brands/getAllBrands");

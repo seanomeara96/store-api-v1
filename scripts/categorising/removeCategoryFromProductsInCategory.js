@@ -1,3 +1,4 @@
+// require("../../config/config").config("bf");
 const { getAllProducts } = require("../../functions/products/getAllProducts");
 const {
   removeCatFromProduct,
@@ -24,7 +25,7 @@ exports.removeCategoryFromProductsInCategory =
   removeCategoryFromProductsInCategory;
 
 function main() {
-  removeCategoryFromProductsInCategory(658)
+  removeCategoryFromProductsInCategory(596)
     .then((res) => {
       const fulfilled = res.filter(
         ({ status }) => status === "fulfilled"
@@ -36,3 +37,4 @@ function main() {
     })
     .catch(console.log);
 }
+// main();
