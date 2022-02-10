@@ -5,34 +5,33 @@ const {
 /**
  * issue with this script is that its prematurely returning an empty array and not the expected output from promise allsettled
  */
-const productIds = [
-  { "Product ID": 1772 },
-  { "Product ID": 2054 },
-  { "Product ID": 2315 },
-  { "Product ID": 2324 },
-  { "Product ID": 2401 },
-  { "Product ID": 2547 },
-  { "Product ID": 2596 },
-  { "Product ID": 2598 },
-  { "Product ID": 2694 },
-  { "Product ID": 2805 },
-  { "Product ID": 2807 },
-  { "Product ID": 3307 },
-  { "Product ID": 3404 },
-  { "Product ID": 3455 },
-  { "Product ID": 3711 },
-  { "Product ID": 4163 },
-  { "Product ID": 5256 },
-  { "Product ID": 5257 },
-  { "Product ID": 5332 },
-  { "Product ID": 5333 },
-  { "Product ID": 5357 },
-  { "Product ID": 5501 },
-  { "Product ID": 5543 },
-  { "Product ID": 5544 },
-];
+const productIds = [{"Product ID":5257},
+{"Product ID":5333},
+{"Product ID":5332},
+{"Product ID":5256},
+{"Product ID":2959},
+{"Product ID":2960},
+{"Product ID":3414},
+{"Product ID":5334},
+{"Product ID":5255},
+{"Product ID":2956},
+{"Product ID":3415},
+{"Product ID":2954},
+{"Product ID":5337},
+{"Product ID":2955},
+{"Product ID":3085},
+{"Product ID":2952},
+{"Product ID":5336},
+{"Product ID":3418},
+{"Product ID":3417},
+{"Product ID":3022},
+{"Product ID":3660},
+{"Product ID":2950},
+{"Product ID":5258},
+{"Product ID":5316},
+{"Product ID":3416}]
 
-let catId = 680; //
+let catId = 540; //
 
 function main() {
   addCategoryToSpecificProducts(productIds, catId)
