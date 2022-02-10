@@ -1,4 +1,4 @@
-const site = "bsk";
+const site = "pb";
 require("../../config/config").config(site);
 const { getAllBrands } = require("../../functions/brands/getAllBrands");
 const { getAllPages } = require("../../functions/pages/getAllPages");
@@ -18,7 +18,7 @@ const {
 async function exportUrls() {
   const redirects = await getAllRedirects().catch("redirects failed");
   const discontinuedUrls = redirects.map(({ from_path }) => from_path);
-  console.log(discontinuedUrls);
+  // console.log(discontinuedUrls);
   const url = getSiteUrl(site);
   /**
    * get all brands
@@ -57,7 +57,7 @@ async function exportUrls() {
   /**
    * get al priooduct urls
    */
-  const products = await getAllProducts();
+  const products = await getAllProducts().catch(err => console.log("products failed"))
   const productUrls = products.map((product) => ({
     type: "product",
     url: url + product.custom_url.url,
@@ -72,7 +72,7 @@ async function exportUrls() {
   const blogUrls = blogs.map((blog) => ({
     type: "blog",
     url: url + blog.url,
-    slug: product.custom_url.url,
+    slug: blog.url,
     sku: "",
   }));
   const data = [
@@ -92,9 +92,9 @@ async function exportUrls() {
       return item;
     });
 
-  const cleanseData = (data) => removeSlugs(removeDiscontinuedUrls(data));
+  const cleanseData = (data, discontinuedUrls) => removeSlugs(removeDiscontinuedUrls(data, discontinuedUrls));
 
-  const cleansedData = cleanseData(data);
+  const cleansedData = cleanseData(data, discontinuedUrls);
   await output(`${site}-urls`, cleansedData);
 }
 
