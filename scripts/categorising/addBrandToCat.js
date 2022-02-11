@@ -20,7 +20,7 @@ async function addBrandToCat(brandName, catId) {
   console.log(res);
 }
 
-const brandName = "Avant Skincare";
-const catId = 515;
+const brandName = "Alfaparf";
+const catId = 456;
 
 addBrandToCat(brandName, catId);
