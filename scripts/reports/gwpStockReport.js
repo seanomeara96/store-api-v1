@@ -14,7 +14,9 @@ let skuArray = [
   { sku: "9013" }, // tummy rub butter
   { sku: "10442" }, // NUXE Very Rose 3-in-1 Soothing Micellar Water 100ml GWP
   { sku: "10402" }, // carter beauty sponge
-  { sku: "5011" }, // redken one united
+  //{ sku: "5011" }, // redken one united
+  {sku: "11152"}, // nak trio
+  {sku: "11099"} // redken travel set
 ];
 const ascendingInventory = (a, b) => a.inventory_level - b.inventory_level;
 const emailFormat = ({ name, sku, inventory_level }) =>

@@ -1,11 +1,11 @@
-const { getAllCategories } = require("./functions/categories/getAllCategories");
-const { getAllProducts } = require("./functions/products/getAllProducts");
-const { getSiteUrl } = require("./functions/utils/getSiteUrl");
-const { output } = require("./scripts/utils/output");
-const store = "ah";
-require("./config/config").config(store);
+const { getAllCategories } = require("../../functions/categories/getAllCategories");
+const { getAllProducts } = require("../../functions/products/getAllProducts");
+const { getSiteUrl } = require("../../functions/utils/getSiteUrl");
+const { output } = require("../../scripts/utils/output");
+const store = "bf";
+require("../../config/config").config(store);
 
-async function main() {
+async function productAndCategory() {
   const data = [];
   const baseUrl = getSiteUrl(store);
   const categories = await getAllCategories().catch(console.log);
@@ -30,4 +30,4 @@ async function main() {
   await output(`${store}-category-products`, data).catch(console.log)
 }
 
-main();
+productAndCategory();
