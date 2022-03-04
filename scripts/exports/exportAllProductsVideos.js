@@ -1,7 +1,7 @@
-const { getAllProducts } = require("../products/getAllProducts");
-const { getProductVideos } = require("../products/getProductVideos");
-const output = require("./utils/output");
-require("../config/config").config("ih")
+const { getAllProducts } = require("../../functions/products/getAllProducts");
+const { getProductVideos } = require("../../functions/products/getProductVideos");
+const {output} = require("../utils/output");
+require("../../config/config").config("bsk")
 const exportAllProductsVideos = async () => {
   try {
     const promises = [];
