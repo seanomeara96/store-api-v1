@@ -3,7 +3,7 @@ const { productIsVisible } = require("./productIsVisible");
  * set visibility of many products to either true (visible) or false (not visible)
  * @param {object[]} productIds 
  * @param {boolean} is_visible 
- * @returns 
+ * @returns promise
  */
 const setVisibilityOfMany = (productIds, is_visible) =>
   new Promise((resolve, reject) =>
