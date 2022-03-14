@@ -1,29 +1,31 @@
 const { getAllProducts } = require("../../functions/products/getAllProducts");
-const { getProductVideos } = require("../../functions/products/getProductVideos");
-const {output} = require("../utils/output");
-require("../../config/config").config("bsk")
+const {
+  getProductVideos,
+} = require("../../functions/products/getProductVideos");
+const { output } = require("../utils/output");
+require("../../config/config").config("bsk");
+
+function mapResolvedValues(responses) {
+  return responses.filter(({ status }) => status === "fulfilled").map((i) => i.value);
+}
 const exportAllProductsVideos = async () => {
   try {
-    const promises = [];
     const products = await getAllProducts();
-    products.forEach((product) => {
-      promises.push(getProductVideos(product.id));
+    const responses = await Promise.allSettled(
+      products.map((product) => getProductVideos(product.id))
+    );
+    const outputDoc = mapResolvedValues(responses).map((value) => {
+      const { id, name, sku } = products.find(
+        (product) => product.id === value.product_id
+      );
+      const { videos } = value;
+      return {
+        id,
+        name,
+        sku,
+        "#videos": videos.length,
+      };
     });
-    const responses = await Promise.allSettled(promises);
-    let outputDoc = responses
-      .filter(({status}) => status === "fulfilled")
-      .map(({ value }) => {
-        let { id, name, sku } = products.find(
-          (product) => product.id === value.product_id
-        );
-        let { videos } = value;
-        return {
-          id,
-          name,
-          sku,
-          "#videos": videos.length,
-        };
-      });
     output("all-videos", outputDoc);
   } catch (err) {
     console.log(err);

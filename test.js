@@ -1,33 +1,31 @@
-const store = "ah";
+const { setVisibilityOfMany } = require("./functions/products/setVisibilityOfMany");
+
+const store = "ih";
 require("./config/config").config(store);
-const { output } = require("./scripts/utils/output");
-const { getFilters } = require("./functions/filters/getFilters");
-const { getAllProducts } = require("./functions/products/getAllProducts");
-async function main() {
-  const products = await getAllProducts().catch(console.log);
-  const productFilterRequests = products.map(({ id }) => getFilters(id));
-  const responses = await Promise.allSettled(productFilterRequests).catch(
-    console.log
-  );
-  const responseValues = responses.map(({ value }) => value);
-  console.log(responseValues);
-  const allFilterNames = responseValues
-    .map(({ filters }) => filters.map(({ name }) => name))
-    .flat();
-  const uniqueFilterNames = [...new Set(allFilterNames)];
-  console.log(uniqueFilterNames);
-  const filterDocs = responseValues.map((product) => {
-    const doc = {
-      "Product ID": product.product_id,
-    };
-    uniqueFilterNames.forEach((name) => (doc[name] = []));
-    product.filters.forEach((filter) => doc[filter.name].push(filter.value));
-    for (let key in doc) {
-      if (Array.isArray(doc[key])) doc[key] = doc[key].sort().join(", ")
-    }
-    return doc;
-  });
-  console.log(filterDocs);
-  await output(`${store}-product-filters`, filterDocs).catch(console.log);
+const products = [{"Product ID":4141},
+{"Product ID":4142},
+{"Product ID":4143},
+{"Product ID":4144},
+{"Product ID":4145},
+{"Product ID":4146},
+{"Product ID":4147},
+{"Product ID":4148},
+{"Product ID":4149},
+{"Product ID":4150},
+{"Product ID":4151},
+{"Product ID":4152},
+{"Product ID":4153},
+{"Product ID":4154},
+{"Product ID":4155},
+{"Product ID":4156},
+{"Product ID":4157},
+{"Product ID":4158},
+{"Product ID":4159},
+{"Product ID":4160},
+{"Product ID":4161},
+{"Product ID":4162}]
+function main (){
+  setVisibilityOfMany(products, true).then(console.log).catch(console.log)
 }
+
 main();
