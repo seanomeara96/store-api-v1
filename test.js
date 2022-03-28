@@ -1,31 +1,52 @@
-const { setVisibilityOfMany } = require("./functions/products/setVisibilityOfMany");
+require("./config/config").config("bf", 2);
+const { getAllOrders } = require("./functions/orders/getAllOrders");
+const { getOrderProducts } = require("./functions/orders/getOrderProducts");
+const startDate = new Date(2022, 1, 15);
+const endDate = new Date(2022, 2, 15);
 
-const store = "ih";
-require("./config/config").config(store);
-const products = [{"Product ID":4141},
-{"Product ID":4142},
-{"Product ID":4143},
-{"Product ID":4144},
-{"Product ID":4145},
-{"Product ID":4146},
-{"Product ID":4147},
-{"Product ID":4148},
-{"Product ID":4149},
-{"Product ID":4150},
-{"Product ID":4151},
-{"Product ID":4152},
-{"Product ID":4153},
-{"Product ID":4154},
-{"Product ID":4155},
-{"Product ID":4156},
-{"Product ID":4157},
-{"Product ID":4158},
-{"Product ID":4159},
-{"Product ID":4160},
-{"Product ID":4161},
-{"Product ID":4162}]
-function main (){
-  setVisibilityOfMany(products, true).then(console.log).catch(console.log)
-}
+const promiseReducer = (arr) =>
+  new Promise((res, rej) => {
+    arr.push(() => res());
+    arr.reduce((a, c) => {
+      return a.then(() => c());
+    }, Promise.resolve());
+  });
 
-main();
+const batchPromises = (promiseArr, chunkSize = 440) => {
+  return new Promise(async(resolve, reject) => {
+    const responses = [];
+    const batchPromises = [];
+    for (let i = 0; i < promiseArr.length; i += chunkSize) {
+      let temporary = promiseArr.slice(i, i + chunkSize);
+      batchPromises.push(() => Promise.allSettled(temporary.map((fn,idx) => {
+        console.log("map is called", idx);
+        return fn();
+      })).then((results) =>
+      responses.push(results)
+    ))
+    }
+    await promiseReducer(batchPromises);
+    resolve(responses);
+  });
+};
+
+getAllOrders({
+  min_date_created: startDate.toISOString(),
+  max_date_created: endDate.toISOString(),
+})
+  .then(async (orders) => {
+    console.log(orders.length);
+    const requests = orders.map(
+      (order) => () =>
+        getOrderProducts(order)
+          .then((products) => (order.order_products = products))
+          .catch(console.log)
+    );
+    await batchPromises(requests, 4400 / 5)
+    console.log(orders);
+    return;
+    await promiseReducer(requests);
+
+    console.log(orders);
+  })
+  .catch(console.log);
