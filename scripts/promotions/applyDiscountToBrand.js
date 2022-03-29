@@ -3,14 +3,16 @@ const { updateProduct } = require("./functions/products/updateProduct");
 
 require("./config/config").config("bf");
 
-async function main() {
-  const fitFlops = await getAllProducts({ brand_id: 21 }).catch(console.log);
+async function main(brand_id, discount) {
+  const products = await getAllProducts({ brand_id: brand_id }).catch(
+    console.log
+  );
 
-  const prices = fitFlops.map((el) => ({
+  const prices = products.map((el) => ({
     id: el.id,
     retail_price: el.retail_price,
     sale_price: el.sale_price,
-    promo_price: Math.round(el.retail_price * 0.8 * 100) / 100,
+    promo_price: Math.round(el.retail_price * (1 - discount) * 100) / 100,
   }));
 
   const promises = prices.map((price) =>
