@@ -2,24 +2,29 @@ require("../../config/config").config("bf");
 const {
   addCategoryToSpecificProducts,
 } = require("../../functions/products/addCategoryToSpecificProducts");
-/**
- * issue with this script is that its prematurely returning an empty array and not the expected output from promise allsettled
- */
-const productIds = [{"Product ID":3436},
-{"Product ID":3440},
-{"Product ID":3441},
-{"Product ID":3451},
-{"Product ID":3455},
-{"Product ID":3460},
-{"Product ID":3483},
-{"Product ID":3509},
-{"Product ID":3658},
-{"Product ID":3713},
-{"Product ID":3944},
-{"Product ID":4931},
-{"Product ID":5488}]
 
-let catId = 686; //
+
+
+const productIds = [
+  { "Product ID": 2401 },
+  { "Product ID": 3155 },
+  { "Product ID": 3156 },
+  { "Product ID": 3638 },
+  { "Product ID": 3785 },
+  { "Product ID": 3786 },
+  { "Product ID": 3980 },
+  { "Product ID": 4052 },
+  { "Product ID": 4053 },
+  { "Product ID": 4054 },
+  { "Product ID": 4809 },
+  { "Product ID": 4926 },
+  { "Product ID": 4927 },
+  { "Product ID": 5357 },
+  { "Product ID": 5376 },
+  { "Product ID": 5412 },
+];
+
+let catId = 640; //
 
 function main() {
   addCategoryToSpecificProducts(productIds, catId)

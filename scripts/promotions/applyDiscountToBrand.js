@@ -1,9 +1,9 @@
-const { getAllProducts } = require("./functions/products/getAllProducts");
-const { updateProduct } = require("./functions/products/updateProduct");
+const { getAllProducts } = require("../../functions/products/getAllProducts");
+const { updateProduct } = require("../../functions/products/updateProduct");
 
-require("./config/config").config("bf");
+require("../../config/config").config("bf");
 
-async function main(brand_id, discount) {
+async function main(brand_id) {
   const products = await getAllProducts({ brand_id: brand_id }).catch(
     console.log
   );
@@ -12,8 +12,10 @@ async function main(brand_id, discount) {
     id: el.id,
     retail_price: el.retail_price,
     sale_price: el.sale_price,
-    promo_price: Math.round(el.retail_price * (1 - discount) * 100) / 100,
+    promo_price: el.retail_price - 5,
   }));
+  
+  console.log(prices);
 
   const promises = prices.map((price) =>
     updateProduct(price.id, { sale_price: price.promo_price })
@@ -24,4 +26,4 @@ async function main(brand_id, discount) {
   console.log(responses);
 }
 
-main();
+main(141);
