@@ -1,5 +1,5 @@
-const { getAllCoupons } = require("./functions/coupons/getAllCoupons");
-const { updateCoupon } = require("./functions/coupons/updateCoupon");
+import { getAllCoupons } from "../../functions/coupons/getAllCoupons";
+import { updateCoupon } from "../../functions/coupons/updateCoupon";
 
 require("./config/config").config("bf", 2);
 
@@ -36,7 +36,7 @@ async function updateInfluencerCodes() {
     )
   ).catch(console.log);
 
-  console.log(responses)
+  console.log(responses);
 }
 
 updateInfluencerCodes();

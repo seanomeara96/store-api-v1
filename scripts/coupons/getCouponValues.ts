@@ -22,4 +22,4 @@ async function getCouponValues(coupons) {
   await output("coupon-values", coupons);
   console.log("done");
 }
-getCouponValues();
+
