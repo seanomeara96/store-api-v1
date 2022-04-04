@@ -1,13 +1,14 @@
-var createCoupon = require("./functions/coupons/createCoupon").createCoupon;
 // create coupon on all stores
+var createCoupon = require("./functions/coupons/createCoupon").createCoupon;
 /**
  *
- * @param {string} name
- * @param {string} code
- * @param {string} type per_item_discount| per_total_discount | shipping_discount | free_shipping | percentage_discount | promotion
- * @param {string} amount
- * @param {object} applies_to
- * @param {{ dayAbbr, dd, monthAbbr, yyyy }} expires
+ * @param name
+ * @param code
+ * @param type
+ * @param amount
+ * @param expires
+ * @param applies_to
+ * @param enabled
  * @returns
  */
 function createCouponData(name, code, type, amount, expires, applies_to, enabled) {
