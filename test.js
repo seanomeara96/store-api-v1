@@ -1,25 +1,53 @@
-const { getAllProducts } = require("./functions/products/getAllProducts");
-const { updateProduct } = require("./functions/products/updateProduct");
+const { createCoupon } = require("./functions/coupons/createCoupon");
 
-require("./config/config").config("bf");
+// create coupon on all stores
 
-async function main() {
-  const fitFlops = await getAllProducts({ brand_id: 21 }).catch(console.log);
-
-  const prices = fitFlops.map((el) => ({
-    id: el.id,
-    retail_price: el.retail_price,
-    sale_price: el.sale_price,
-    promo_price: Math.round(el.retail_price * 0.8 * 100) / 100,
-  }));
-
-  const promises = prices.map((price) =>
-    updateProduct(price.id, { sale_price: price.promo_price })
-  );
-
-  const responses = await Promise.allSettled(promises);
-
-  console.log(responses);
+/**
+ *
+ * @param {string} name
+ * @param {string} code
+ * @param {string} type per_item_discount| per_total_discount | shipping_discount | free_shipping | percentage_discount | promotion
+ * @param {string} amount
+ * @param {object} applies_to
+ * @param {{ dayAbbr, dd, monthAbbr, yyyy }} expires
+ * @returns
+ */
+function createCouponData(
+  name,
+  code,
+  type,
+  amount,
+  expires,
+  applies_to = {
+    entity: "categories",
+    ids: [0],
+  },
+  enabled = true
+) {
+  const { dayAbbr, dd, monthAbbr, yyyy } = expires;
+  return {
+    name,
+    code,
+    type,
+    amount,
+    applies_to,
+    expires: `${dayAbbr}, ${dd} ${monthAbbr} ${yyyy} 00:00:00 +0000`,
+    enabled
+  };
 }
+const couponData = createCouponData(
+  "AUTOMATION TEST",
+  "SEANTEST",
+  "percentage_discount",
+  "10",
+  { dayAbbr: "Tue", dd: "05", monthAbbr: "Apr", yyyy: "2022" }
+);
 
-main();
+const stores = ["bf","bsk", "ah", "ih", "bs", "pb"];
+
+const promises = stores.map((store) => {
+  require("./config/config").config(store, 2);
+  return createCoupon(couponData)
+});
+
+Promise.allSettled(promises).then(console.log)
