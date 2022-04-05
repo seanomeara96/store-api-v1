@@ -22,6 +22,8 @@ const getSiteUrl = (storeInitials) => {
       return "https://www.haakaa.ie";
     case "huk":
       return "https://www.haakaaofficial.co.uk";
+    case "ds":
+      return "https://dogspace.ie";
     default:
       return ""
   }

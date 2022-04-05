@@ -1,4 +1,4 @@
-const site = "ih";
+const site = "ds";
 require("../../config/config").config(site);
 const { getAllBrands } = require("../../functions/brands/getAllBrands");
 const { getAllPages } = require("../../functions/pages/getAllPages");
