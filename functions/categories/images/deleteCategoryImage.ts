@@ -1,9 +1,9 @@
 /**
  * deletes a category's image by id
- * @param {number} category_id 
+ * @param {number} category_id
  * @returns promise containing success / failure status
  */
-const deleteCategoryImage = (category_id) =>
+export const deleteCategoryImage = (category_id: number) =>
   new Promise((resolve, reject) => {
     if (typeof category_id !== "number")
       return reject("cat id must be a number");
@@ -16,4 +16,3 @@ const deleteCategoryImage = (category_id) =>
       )
       .catch(reject);
   });
-exports.deleteCategoryImage = deleteCategoryImage
