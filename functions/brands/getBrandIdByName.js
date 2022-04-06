@@ -1,16 +1,15 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.getBrandIdByName = void 0;
-var getBrandByName_1 = require("./getBrandByName");
+const getBrandByName_1 = require("./getBrandByName");
 /**
  * Fetches brand id by name & resolves with a number
  * @param {*} name
  * @returns
  */
-var getBrandIdByName = function (name) {
-    return new Promise(function (resolve, reject) {
-        (0, getBrandByName_1.getBrandByName)(name)
-            .then(function (i) { return resolve(i.id); })["catch"](function (err) { return reject(err); });
-    });
-};
+const getBrandIdByName = (name) => new Promise((resolve, reject) => {
+    (0, getBrandByName_1.getBrandByName)(name)
+        .then((i) => resolve(i.id))
+        .catch((err) => reject(err));
+});
 exports.getBrandIdByName = getBrandIdByName;

@@ -1,11 +1,8 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.getCategoryIdByName = void 0;
-var getCategoryByName_1 = require("./getCategoryByName");
-var getCategoryIdByName = function (name) {
-    return new Promise(function (resolve, reject) {
-        return (0, getCategoryByName_1.getCategoryByName)(name)
-            .then(function (i) { return resolve(i.id); })["catch"](function (err) { return reject(err); });
-    });
-};
+const getCategoryByName_1 = require("./getCategoryByName");
+const getCategoryIdByName = (name) => new Promise((resolve, reject) => (0, getCategoryByName_1.getCategoryByName)(name)
+    .then((i) => resolve(i.id))
+    .catch((err) => reject(err)));
 exports.getCategoryIdByName = getCategoryIdByName;
