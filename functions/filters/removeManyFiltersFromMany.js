@@ -30,10 +30,9 @@ const filters = [
  * @returns
  */
 const removeManyFiltersFromMany = (productIds, filters) => new Promise((resolve, reject) => {
-    let promises = [];
-    productIds.forEach((product) => {
+    let promises = productIds.map((product) => {
         let idNumber = Object.values(product)[0];
-        promises.push((0, removeManyFilters_1.removeManyFilters)(idNumber, filters));
+        return (0, removeManyFilters_1.removeManyFilters)(idNumber, filters);
     });
     Promise.allSettled(promises).then(resolve).catch(reject);
 });

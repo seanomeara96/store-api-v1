@@ -12,14 +12,11 @@ export const applyFilterToMany = (
   value: string
 ) =>
   new Promise((resolve, reject) => {
-    let promises = [];
-    productIds.forEach((product) => {
+    let promises = productIds.map((product) => {
       const idNumber: number = Object.values(product)[0];
-      promises.push(applyFilter(idNumber, name, value));
+      return applyFilter(idNumber, name, value);
     });
     Promise.allSettled(promises)
       .then((results) => resolve(results))
       .catch(reject);
   });
-
-

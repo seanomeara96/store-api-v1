@@ -16,8 +16,8 @@ const removeFilter = (productId, name, value) => new Promise((resolve, reject) =
     try {
         const filters = yield require("./getFilters")(productId);
         const filterToDelete = filters.find((filter) => filter.name === name && filter.value === value);
-        require("../config/config").store
-            .delete(`/catalog/products/${productId}/custom-fields/${filterToDelete.id}`)
+        require("../config/config")
+            .store.delete(`/catalog/products/${productId}/custom-fields/${filterToDelete.id}`)
             .then(resolve)
             .catch((err) => {
             console.log(err);

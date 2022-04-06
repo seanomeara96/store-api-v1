@@ -5,7 +5,7 @@
  */
 export const getAll =
   (URL:string) =>
-  (params = {}) =>
+  (params = {}):Promise<any[]> =>
     new Promise((resolve, reject) => {
       let pageNumber = 1;
       let aggregatedData:any[] = [];

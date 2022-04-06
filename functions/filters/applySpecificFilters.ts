@@ -1,10 +1,10 @@
 import { getProductIdByName } from "../products/getProductIdByName";
 import { applyFilter } from "./applyFilter";
-type applyBoolean = "" | "x"
+type applyBoolean = "" | "x";
 interface specificFilters {
-  [key:string]: string | applyBoolean;
+  [key: string]: string | applyBoolean;
 }
-const data:specificFilters[] = [
+const data: specificFilters[] = [
   {
     Key: "Skin Concerns",
     Value: "Acne / Blemish",
@@ -36,7 +36,7 @@ const data:specificFilters[] = [
  */
 export const applySpecificFilters = (data: specificFilters[]) =>
   new Promise((resolve, reject) => {
-    let promises = [];
+    let promises: any[] = [];
     data.forEach((item) => {
       if (!item["Key"]) return reject("No Key Heading");
       if (!item["Value"]) return reject("No Value heading");
@@ -49,7 +49,7 @@ export const applySpecificFilters = (data: specificFilters[]) =>
       for (var name in productNames) {
         if (item[productNames[name]].toUpperCase() === "X") {
           getProductIdByName(productNames[name])
-            .then((id:number) => {
+            .then((id: number) => {
               promises.push(
                 applyFilter(id, key, value).catch((err) => console.log(err))
               );
