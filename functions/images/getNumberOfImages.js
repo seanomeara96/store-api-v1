@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getNumberOfImages = void 0;
 const getAllProductImages_1 = require("./getAllProductImages");
 /**
  * returns the number of images a product has
@@ -14,5 +15,4 @@ const getNumberOfImages = (product_id) => new Promise((resolve, reject) => {
     }))
         .catch(reject);
 });
-// exports gteNumberOfImages
 exports.getNumberOfImages = getNumberOfImages;

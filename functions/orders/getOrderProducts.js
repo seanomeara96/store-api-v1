@@ -1,3 +1,6 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getOrderProducts = void 0;
 /**
  * gets the products in an order
  * requires v2
@@ -5,26 +8,24 @@
  * @param {string} resource
  * @returns
  */
-const getOrderProducts = (order) =>
-  new Promise((resolve, reject) => {
+const getOrderProducts = (order) => new Promise((resolve, reject) => {
     const orderId = order.id;
     const { resource } = order.products;
     console.log("requesting products from order:", orderId);
     if (typeof orderId !== "number") {
-      console.log("typeof orderId", typeof orderId);
-      return reject("order id must be a number");
+        console.log("typeof orderId", typeof orderId);
+        return reject("order id must be a number");
     }
     if (typeof resource !== "string") {
-      console.log("typeof resource", typeof resource);
-      return reject("resource must be a path string");
+        console.log("typeof resource", typeof resource);
+        return reject("resource must be a path string");
     }
     require("../../config/config")
-      .store.get(resource)
-      .then((e) => {
+        .store.get(resource)
+        .then((e) => {
         console.log("success");
         resolve(e.data);
-      })
-      .catch(reject);
-  });
-
+    })
+        .catch(reject);
+});
 exports.getOrderProducts = getOrderProducts;
