@@ -1,5 +1,8 @@
 import { getFilters } from "./getFilters";
-const productIds = [{ "Product ID": 2541 }, { "Product ID": 2542 }];
+interface productId{
+  "Product ID": number;
+}
+const productIds: productId[] = [{ "Product ID": 2541 }, { "Product ID": 2542 }];
 
 /**
  * Supply product Ids and receive associated filters in a
@@ -7,7 +10,7 @@ const productIds = [{ "Product ID": 2541 }, { "Product ID": 2542 }];
  * @param {object[]} productIds
  * @returns
  */
-const getFiltersOfMany = (productIds) =>
+export const getFiltersOfMany = (productIds: productId[]) =>
   new Promise((resolve, reject) => {
     let promises = [];
     productIds.forEach((product) =>
@@ -15,11 +18,11 @@ const getFiltersOfMany = (productIds) =>
   )
     Promise.allSettled(promises)
       .then((res) => {
-        const fulfilled = res.filter(({status}) => status === "fulfilled")
-        const filters = fulfilled.map(({value})=>value)
+        // I dont know how I got this to stop throwing a type error
+        const fulfilled: PromiseFulfilledResult<any>[] = res.filter(({status}) => status === "fulfilled") as PromiseFulfilledResult<any>[]
+        const filters = fulfilled.map((res)=>res.value)
         resolve(filters)
       })
       .catch(reject);
   });
 
-exports.getFiltersOfMany = getFiltersOfMany;

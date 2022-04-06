@@ -6,16 +6,18 @@
  * @param {string} value
  * @returns
  */
-const updateFilter = (product_id, custom_field_id, name, value) =>
+export const updateFilter = (
+  product_id: number,
+  custom_field_id: number,
+  name: string,
+  value: string
+) =>
   new Promise((resolve, reject) => {
     require("../config/config")
       .store.put(
         `/catalog/products/${product_id}/custom-fields/${custom_field_id}`,
-        {name,
-        value}
+        { name, value }
       )
       .then(resolve)
       .catch(reject);
   });
-
-exports.updateFilter = updateFilter;

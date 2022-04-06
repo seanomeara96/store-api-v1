@@ -1,4 +1,4 @@
-const removeManyFilters = require("./removeManyFilters")
+import { removeManyFilters } from "./removeManyFilters";
 
 const productIDs = [
   { "Product ID": 177 },
@@ -24,19 +24,19 @@ const filters = [
 ];
 /**
  * Takes product Ids JSON and an Objetc with name and value properties for filters
- * @param {object} productIds 
- * @param {object} filters 
- * @returns 
+ * @param {object} productIds
+ * @param {object} filters
+ * @returns
  */
-const removeManyFiltersFromMany = (productIds, filters) =>
+export const removeManyFiltersFromMany = (
+  productIds: { [key: string]: number }[],
+  filters: { name: string; value: string }[]
+) =>
   new Promise((resolve, reject) => {
     let promises = [];
     productIds.forEach((product) => {
-      let idKey = Object.keys(product)[0];
-      promises.push(removeManyFilters(product[idKey], filters));
+      let idNumber = Object.values(product)[0];
+      promises.push(removeManyFilters(idNumber, filters));
     });
     Promise.allSettled(promises).then(resolve).catch(reject);
   });
-
-
-  exports.removeManyFiltersFromMany = removeManyFiltersFromMany
