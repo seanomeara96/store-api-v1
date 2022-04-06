@@ -7,10 +7,10 @@ import { getAllCategories } from "./getAllCategories";
 export const getCategoryByName = (name: string) =>
   new Promise((resolve, reject) =>
     getAllCategories({ name })
-      .then((res) => {
+      .then((res:any) => {
         if (res.length > 1)
           return reject("there are multiple categories with this name");
         resolve(res[0]);
       })
-      .catch((err) => reject(err))
+      .catch((err:any) => reject(err))
   );
