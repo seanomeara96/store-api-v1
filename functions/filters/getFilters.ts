@@ -3,7 +3,7 @@
  * @param {number} productId
  * @returns
  */
-const getFilters = (productId) =>
+export const getFilters = (productId) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await require("../../config/config").store.get(
@@ -14,5 +14,3 @@ const getFilters = (productId) =>
       reject(err);
     }
   });
-// export module
-exports.getFilters = getFilters;

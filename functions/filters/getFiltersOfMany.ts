@@ -1,4 +1,4 @@
-const { getFilters } = require("./getFilters");
+import { getFilters } from "./getFilters";
 const productIds = [{ "Product ID": 2541 }, { "Product ID": 2542 }];
 
 /**

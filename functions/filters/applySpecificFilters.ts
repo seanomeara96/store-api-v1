@@ -1,6 +1,10 @@
-const { getProductIdByName } = require("../products/getProductIdByName");
-const { applyFilter } = require("./applyFilter");
-const data = [
+import { getProductIdByName } from "../products/getProductIdByName";
+import { applyFilter } from "./applyFilter";
+type applyBoolean = "" | "x"
+interface specificFilters {
+  [key:string]: string | applyBoolean;
+}
+const data:specificFilters[] = [
   {
     Key: "Skin Concerns",
     Value: "Acne / Blemish",
@@ -30,7 +34,7 @@ const data = [
  * @param {array} data
  * @returns promise
  */
-const applySpecificFilters = (data) =>
+export const applySpecificFilters = (data: specificFilters[]) =>
   new Promise((resolve, reject) => {
     let promises = [];
     data.forEach((item) => {
@@ -45,7 +49,7 @@ const applySpecificFilters = (data) =>
       for (var name in productNames) {
         if (item[productNames[name]].toUpperCase() === "X") {
           getProductIdByName(productNames[name])
-            .then((id) => {
+            .then((id:number) => {
               promises.push(
                 applyFilter(id, key, value).catch((err) => console.log(err))
               );
@@ -58,5 +62,3 @@ const applySpecificFilters = (data) =>
         .catch((err) => reject(err));
     });
   });
-
-exports.applySpecificFilters = applySpecificFilters;

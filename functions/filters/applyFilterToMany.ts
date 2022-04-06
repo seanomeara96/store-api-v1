@@ -1,4 +1,4 @@
-const { applyFilter } = require("./applyFilter");
+import { applyFilter } from "./applyFilter";
 /**
  * applies a field (name) and value to multiple products by id
  * @param {object[]} productIds
@@ -6,16 +6,20 @@ const { applyFilter } = require("./applyFilter");
  * @param {string} value
  * @returns
  */
-const applyFilterToMany = (productIds, name, value) =>
+export const applyFilterToMany = (
+  productIds: { [key: string]: number }[],
+  name: string,
+  value: string
+) =>
   new Promise((resolve, reject) => {
     let promises = [];
     productIds.forEach((product) => {
-      const idKey = Object.keys(product)[0];
-      promises.push(applyFilter(product[idKey], name, value));
+      const idNumber: number = Object.values(product)[0];
+      promises.push(applyFilter(idNumber, name, value));
     });
     Promise.allSettled(promises)
       .then((results) => resolve(results))
       .catch(reject);
   });
-// export module
-exports.applyFilterToMany = applyFilterToMany;
+
+

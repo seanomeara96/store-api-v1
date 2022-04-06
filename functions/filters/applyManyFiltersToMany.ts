@@ -1,4 +1,4 @@
-const { applyManyFilters } = require("./applyManyFilters");
+import { applyManyFilters } from "./applyManyFilters";
 
 /**
  * for each product this function applies many filters
@@ -6,19 +6,19 @@ const { applyManyFilters } = require("./applyManyFilters");
  * @param {object[]} filters
  * @returns
  */
-const applyManyFiltersToMany = (productIds, filters) =>
+export const applyManyFiltersToMany = (
+  productIds: { [key: string]: number }[],
+  filters: { [key: string]: string }[]
+) =>
   new Promise((resolve, reject) => {
-    let promises = [];
-    productIds.forEach((product) => {
-      const idKey = Object.keys(product);
-      promises.push(applyManyFilters(product[idKey], filters));
+    let promises = productIds.map((product) => {
+      const idNumber = Object.values(product)[0];
+      return applyManyFilters(idNumber, filters);
     });
     Promise.allSettled(promises)
       .then((results) => resolve(results))
       .catch(reject);
   });
-// export module
-exports.applyManyFiltersToMany = applyManyFiltersToMany;
 
 const productIDs = [
   { "Product ID": 177 },

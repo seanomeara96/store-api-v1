@@ -1,3 +1,4 @@
+// TODO move to scripts
 require("../config/config").config("bf");
 const { getAllProducts } = require("../products/getAllProducts");
 const { getFiltersOfMany } = require("./getFiltersOfMany");

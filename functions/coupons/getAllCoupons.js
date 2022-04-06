@@ -1,7 +1,8 @@
-const { getAll } = require("../utils/getAll");
+"use strict";
+exports.__esModule = true;
+exports.getAllCoupons = void 0;
+var getAll_1 = require("../utils/getAll");
 /**
  * must use version 2 api
  */
-const getAllCoupons = getAll("/coupons");
-// export module
-exports.getAllCoupons = getAllCoupons;
+exports.getAllCoupons = (0, getAll_1.getAll)("/coupons");

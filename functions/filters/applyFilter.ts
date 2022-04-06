@@ -5,7 +5,7 @@
  * @param {string} value 
  * @returns 
  */
-const applyFilter = (productId, name, value) =>
+export const applyFilter = (productId: number, name: string, value: string) =>
   new Promise(async (resolve, reject) => {
     const data = {
       name,
@@ -21,5 +21,4 @@ const applyFilter = (productId, name, value) =>
       reject(err);
     }
   });
-// export module
-  exports.applyFilter = applyFilter;
+

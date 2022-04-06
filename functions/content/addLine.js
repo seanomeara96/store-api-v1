@@ -1,3 +1,4 @@
+// TODO move to scripts
 const { validateParams } = require("./utils/validateParams");
 const { getProductDescription } = require("./getProductDescription");
 const { updateProductDescription } = require("./updateProductDescription");
