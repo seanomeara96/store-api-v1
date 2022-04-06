@@ -1,8 +1,8 @@
 import { getAllCategories } from "./getAllCategories";
 /**
  * Fetches a category object by name, if there are multiple it will reject
- * @param name 
- * @returns 
+ * @param name
+ * @returns
  */
 export const getCategoryByName = (name: string) =>
   new Promise((resolve, reject) =>

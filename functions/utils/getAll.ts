@@ -3,12 +3,12 @@
  * @param {string} URL supply url for get request
  * @returns
  */
-exports.getAll =
-  (URL) =>
+export const getAll =
+  (URL:string) =>
   (params = {}) =>
     new Promise((resolve, reject) => {
       let pageNumber = 1;
-      let aggregatedData = [];
+      let aggregatedData:any[] = [];
       async function getData() {
         try {
           const { data } = await require("../../config/config").store.get(URL, {
@@ -31,7 +31,7 @@ exports.getAll =
           } else {
             resolve(aggregatedData);
           }
-        } catch (err) {
+        } catch (err:any) {
           if (err.response) return reject(err.response.data);
           return reject(err);
         }
