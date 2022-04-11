@@ -5,9 +5,18 @@ const { readFileSync } = require("fs"), {
   getAllCategories,
 } = require("../../functions/categories/getAllCategories"), { getAllBrands } = require("../../functions/brands/getAllBrands");
 const { getSiteUrl } = require("../../functions/utils/getSiteUrl");
+const { store } = require("../../config/config");
 
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+function needsSEO(page) {
+  return (page.meta_description.length < 1 || page.page_title.length < 1)
+}
+
+function visibleButNeedsSEO(page) {
+  return needsSEO(page) && page.is_visible
+}
 
 function renderNotification(storeUrl, storeName, type, storeHash, id, slug) {
   return ejs.render(readFileSync("./seoReport/notification.ejs", {
@@ -41,11 +50,7 @@ function checkSeo(store) {
           brand.meta_description = "";
         }
       });
-      brands = brands.filter((brand) => {
-        if (brand.meta_description.length < 1 || brand.page_title.length < 1) {
-          return brand;
-        }
-      });
+      brands = brands.filter(needsSEO);
 
       let cats = await getAllCategories();
       cats.forEach((cat) => {
@@ -57,16 +62,10 @@ function checkSeo(store) {
           cat.meta_description = "";
         }
       });
-      cats = cats.filter((cat) => {
-        if (cat.meta_description.length < 1 || cat.page_title.length < 1) {
-          if (cat.is_visible) {
-            return cat;
-          }
-        }
-      });
+      cats = cats.filter(visibleButNeedsSEO);
 
       const data = brands.concat(cats).map(page => renderNotification(
-        getSiteUrl(store.initial),
+        store.url,
         store.name,
         page.pageType,
         storeHash,
@@ -92,12 +91,20 @@ function checkAllSeo() {
     { initial: "hie", name: "Haakaa Ireland" },
   ];
   /**
-   * add store hash to each store
+   * add store hash & url to each store
    */
   allStores.forEach(
-    (store) =>
-    (store.storeHash =
-      process.env[`${store.initial.toUpperCase()}_STORE_HASH`])
+    (store) => {
+      /**
+       * add store hash
+       */
+      store.storeHash =
+        process.env[`${store.initial.toUpperCase()}_STORE_HASH`];
+      /**
+       * add store Url
+       */
+      store.url = getSiteUrl(store.initial);
+    }
   );
 
   const responses = [];
