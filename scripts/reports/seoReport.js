@@ -5,7 +5,7 @@ const { readFileSync } = require("fs"), {
   getAllCategories,
 } = require("../../functions/categories/getAllCategories"), { getAllBrands } = require("../../functions/brands/getAllBrands");
 const { getSiteUrl } = require("../../functions/utils/getSiteUrl");
-const { store } = require("../../config/config");
+
 
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
