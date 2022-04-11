@@ -65,7 +65,15 @@ function checkSeo(store) {
         }
       });
 
-      const data = brands.concat(cats).map(page => renderNotification(getSiteUrl(store.initial), store.name, page.pageType, storeHash, page.id, page.custom_url.url));
+      const data = brands.concat(cats).map(page => renderNotification(
+        getSiteUrl(store.initial),
+        store.name,
+        page.pageType,
+        storeHash,
+        page.id,
+        page.custom_url.url
+      ));
+
       resolve(data);
     } catch (err) {
       reject(err);
