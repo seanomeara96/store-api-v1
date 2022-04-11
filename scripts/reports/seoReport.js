@@ -1,18 +1,39 @@
-const {
-  getAllCategories,
-} = require("../../functions/categories/getAllCategories");
-const { getAllBrands } = require("../../functions/brands/getAllBrands");
 require("../../config/config");
+const ejs = require("ejs");
 const sgMail = require("@sendgrid/mail");
+const { readFileSync } = require("fs"), {
+  getAllCategories,
+} = require("../../functions/categories/getAllCategories"), { getAllBrands } = require("../../functions/brands/getAllBrands");
+const { getSiteUrl } = require("../../functions/utils/getSiteUrl");
+
+
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-function checkSeo(storeInitials) {
-  const store = storeInitials;
-  require("../../config/config").config(store);
-  const storeHash = process.env[`${store.toUpperCase()}_STORE_HASH`];
+
+function renderNotification(storeUrl, storeName, type, storeHash, id, slug) {
+  return ejs.render(readFileSync("./seoReport/notification.ejs", {
+    encoding: "utf8"
+  }), {
+    storeUrl, storeName, type, storeHash, id, slug
+  });
+}
+
+
+/**
+ * 
+ * @param {checkTheSEO} storeInitials 
+ * @returns 
+ */
+function checkSeo(store) {
+
+  require("../../config/config").config(store.initial);
+
+  const { storeHash } = store;
+
   return new Promise(async (resolve, reject) => {
     try {
       let brands = await getAllBrands();
       brands.forEach((brand) => {
+        brand.pageType = "brand"
         if (!brand.page_title) {
           brand.page_title = "";
         }
@@ -28,6 +49,7 @@ function checkSeo(storeInitials) {
 
       let cats = await getAllCategories();
       cats.forEach((cat) => {
+        cat.pageType = "category";
         if (!cat.page_title) {
           cat.page_title = "";
         }
@@ -43,30 +65,7 @@ function checkSeo(storeInitials) {
         }
       });
 
-      if (brands.length) {
-        brands = brands.map(
-          (brand) =>
-            `<p><a href="https://store-${storeHash}.mybigcommerce.com/manage/products/brands/${brand.id}/edit">${brand.name}</a></p>`
-        );
-      }
-
-      if (cats.length) {
-        cats = cats.map(
-          (cat) =>
-            `<p><a href="https://store-${storeHash}.mybigcommerce.com/manage/products/categories/${cat.id}/edit">${cat.name}</a></p>`
-        );
-      }
-
-      let data = `<h1>${store}</h1>\n`;
-      if (brands.length) {
-        data = data + `<h2>Brands</h2>` + brands.join("\n");
-      }
-      if (cats.length) {
-        data = data + `<h2>Categories</h2>` + cats.join("\n");
-      }
-      if (!brands.length && !cats.length) {
-        data = data + `<h3>All Clear</h3>`;
-      }
+      const data = brands.concat(cats).map(page => renderNotification(getSiteUrl(store.initial), store.name, page.pageType, store.storeHash, page.id, page.custom_url.url));
       resolve(data);
     } catch (err) {
       reject(err);
@@ -89,13 +88,17 @@ function checkAllSeo() {
    */
   allStores.forEach(
     (store) =>
-      (store.storeHash =
-        process.env[`${store.initial.toUpperCase()}_STORE_HASH`])
+    (store.storeHash =
+      process.env[`${store.initial.toUpperCase()}_STORE_HASH`])
   );
-  console.log(allStores)
+
   const responses = [];
+
+  /**
+   * check seo for each store one by one
+   */
   let allStorePromises = allStores.map(
-    (store) => () => checkSeo(store.initial)
+    (store) => () => checkSeo(store)
   );
   allStorePromises.reduce(
     (acc, cur, indx) =>
@@ -103,16 +106,20 @@ function checkAllSeo() {
         .then(cur)
         .then((res) => responses.push(res))
         .then(() => {
-          if (indx === allStores.length - 1)
-            sendInStockDummyAllStoresEmail(responses);
+          /**
+           * when all stores have been checked send an email with the data
+           */
+          if (indx === allStores.length - 1 && responses.length)
+            sendMail(responses);
         }),
     Promise.resolve()
   );
 }
-function sendInStockDummyAllStoresEmail(responses) {
+
+function sendMail(responses) {
   if (!responses)
     throw new Error(
-      "Either an html sstring or an array of such strings is expected to be passed in here"
+      "Either an html string or an array of such strings is expected to be passed in here"
     );
   let data = responses;
   if (Array.isArray(responses)) {
@@ -121,7 +128,7 @@ function sendInStockDummyAllStoresEmail(responses) {
   const msg = {
     to: ["sean@beautyfeatures.ie"],
     from: "sean@beautyfeatures.ie",
-    subject: "Page Titles and Meta Descriptions",
+    subject: "These Pages Require Page Titles & Meta Descriptions",
     text: "Page Titles and Meta Descriptions",
     html: data,
   };
