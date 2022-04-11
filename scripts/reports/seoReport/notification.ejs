@@ -1,0 +1,74 @@
+
+    <div
+      style="
+        max-width: 475px;
+        width: 100%;
+        background-color: lightblue;
+        padding: 20px;
+        border-radius: 20px;
+        margin: 1rem 0;
+        border: 1px solid blue;
+      "
+    >
+      <div>
+        <h4 style="margin: 0.3em 0">
+          <a
+            href="<%= storeUrl %>"
+            style="font-weight: 100; color: inherit; text-decoration: none"
+            ><svg
+              version="1.1"
+              id="Capa_1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              x="0px"
+              y="0px"
+              viewBox="0 0 483.1 483.1"
+              style="
+                enable-background: new 0 0 483.1 483.1;
+                height: 1em;
+                margin-right: 5px;
+              "
+              xml:space="preserve"
+            >
+              <g>
+                <path
+                  d="M434.55,418.7l-27.8-313.3c-0.5-6.2-5.7-10.9-12-10.9h-58.6c-0.1-52.1-42.5-94.5-94.6-94.5s-94.5,42.4-94.6,94.5h-58.6
+              c-6.2,0-11.4,4.7-12,10.9l-27.8,313.3c0,0.4,0,0.7,0,1.1c0,34.9,32.1,63.3,71.5,63.3h243c39.4,0,71.5-28.4,71.5-63.3
+              C434.55,419.4,434.55,419.1,434.55,418.7z M241.55,24c38.9,0,70.5,31.6,70.6,70.5h-141.2C171.05,55.6,202.65,24,241.55,24z
+               M363.05,459h-243c-26,0-47.2-17.3-47.5-38.8l26.8-301.7h47.6v42.1c0,6.6,5.4,12,12,12s12-5.4,12-12v-42.1h141.2v42.1
+              c0,6.6,5.4,12,12,12s12-5.4,12-12v-42.1h47.6l26.8,301.8C410.25,441.7,389.05,459,363.05,459z"
+                />
+              </g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g>
+              <g></g></svg><%= storeName %></a
+          >
+        </h4>
+        <h3 style="margin: 0.5em 0"><%= type[0].toUpperCase()+type.substring(1) %> Dry Shampoo</h3>
+      </div>
+      <div style="margin-bottom: .5rem">
+        <span><a href="<% if(type === "brand") { %> 
+                <%= "https://store-" + storeHash + ".mybigcommerce.com/manage/products/brands/" + id + "/edit" %>
+            <% } else if(type === "category") { %>
+                <%= "https://store-" + storeHash + ".mybigcommerce.com/manage/products/categories/" + id + "/edit" %>
+            <% } %>">Edit Page Title / Meta Description</a>
+        </span>
+      </div>
+      <div>
+        <span><a href="<%= storeUrl+slug %>">View on storefront</a></span>
+      </div>
+    </div>
+
+  
