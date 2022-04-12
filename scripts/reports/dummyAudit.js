@@ -1,47 +1,77 @@
-const {
-  getAllCategories,
-} = require("../../functions/categories/getAllCategories");
-const { getAllProducts } = require("../../functions/products/getAllProducts");
 require("../../config/config");
 const { log, error } = console;
+const {
+    getAllCategories,
+  } = require("../../functions/categories/getAllCategories"),
+  { getAllProducts } = require("../../functions/products/getAllProducts");
+const { getSiteUrl } = require("../../functions/utils/getSiteUrl");
+const ejs = require("ejs");
+const fs = require("fs");
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-function checkInStockDummy(storeInit) {
-  require("../../config/config").config(storeInit);
+
+function checkInStockDummy(store) {
+  require("../../config/config").config(store.initial);
+
   return new Promise(async (resolve, reject) => {
     try {
       const products = await getAllProducts();
       const categories = await getAllCategories();
+      /**
+       * find dummy category
+       */
       const dummyCategoryId = categories.find(
         ({ name }) => name.toLowerCase() === "dummy"
       ).id;
+      /**
+       * find products in dummy category and visible on front end
+       */
       const liveProductsInDummy = products.filter(
         ({ categories, is_visible }) =>
           categories.includes(dummyCategoryId) && is_visible
       );
+      /**
+       * filter dummy, visible & in stock (high priority)
+       */
       const productsInDummyAndInStockArray = liveProductsInDummy.filter(
         ({ inventory_level }) => inventory_level > 0
       );
-      const productsInDummyAndInStockString = productsInDummyAndInStockArray
-        .map(({ name, sku }) => `<div><p>Name: ${name} (${sku})</p></div>`)
-        .join("\n");
-      const finalHtml = productsInDummyAndInStockString.length
-        ? productsInDummyAndInStockString
-        : `<div><p>All Clear</p></div>`;
-      let storeInitials = `<div><strong>Store: ${storeInit.toUpperCase()}</strong></div>`;
-      resolve(storeInitials + "\n" + finalHtml);
+      /**
+       * Render notification oreach products
+       */
+      const productsInDummyAndInStockNotifications =
+        productsInDummyAndInStockArray.map((product) =>
+          ejs.render(
+            fs.readFileSync("./dummyAudit/notification.ejs", { encoding: "utf8" }),
+            {
+              productId: product.id,
+              storeHash: store.storeHash,
+              name: product.name,
+              editUrl: store.store,
+              storeName: store.name,
+              storeUrl: store.url,
+              slug: product.custom_url.url,
+            }
+          )
+        );
+
+      resolve(productsInDummyAndInStockNotifications);
     } catch (err) {
       reject(err);
     }
   });
 }
 function sendInStockDummyAllStoresEmail(responses) {
-  const data = responses.join("\n");
+  console.log(responses)
+  let data = responses;
+  if(Array.isArray(responses)){
+    data = responses.join("\n");
+  }
   log(data);
   const msg = {
     to: "sean@beautyfeatures.ie",
     from: "sean@beautyfeatures.ie",
-    subject: "Live, In Stock & In Dummy",
+    subject: "Urgently Need to be Categorised",
     text: "Live, In Stock & In Dummy",
     html: data,
   };
@@ -51,7 +81,31 @@ function sendInStockDummyAllStoresEmail(responses) {
     .catch((err) => error(err.response.body.errors));
 }
 function checkInStockDummyAllStores() {
-  const allStores = ["bf", "bsk", "ah", "pb", "ih", "bs", "huk", "hie"];
+  const allStores = [
+    { initial: "bf", name: "BeautyFeatures" },
+    { initial: "bsk", name: "BeautySkincare" },
+    { initial: "ah", name: "AllHair" },
+    { initial: "pb", name: "Pregnancy&Baby" },
+    { initial: "ih", name: "InHealth" },
+    { initial: "bs", name: "BeautySkincare" },
+    { initial: "huk", name: "Haakaa UK" },
+    { initial: "hie", name: "Haakaa IE" },
+  ];
+
+  /**
+   * add store hash & url to each store
+   */
+  allStores.forEach((store) => {
+    /**
+     * add store hash
+     */
+    store.storeHash = process.env[`${store.initial.toUpperCase()}_STORE_HASH`];
+    /**
+     * add store Url
+     */
+    store.url = getSiteUrl(store.initial);
+  });
+
   const responses = [];
   let allStorePromises = allStores.map(
     (store) => () => checkInStockDummy(store)
@@ -60,10 +114,12 @@ function checkInStockDummyAllStores() {
     (acc, cur, indx) =>
       acc
         .then(cur)
-        .then((res) => responses.push(res))
+        .then((resArr) => resArr.forEach((res) => responses.push(res)))
         .then(() => {
-          if (indx === allStores.length - 1)
-            sendInStockDummyAllStoresEmail(responses);
+          if (indx === allStores.length - 1 && responses.length) {
+            const emailContent = responses.join("\n");
+            sendInStockDummyAllStoresEmail(emailContent);
+          }
         }),
     Promise.resolve()
   );
