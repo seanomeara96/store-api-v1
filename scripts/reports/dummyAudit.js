@@ -1,8 +1,8 @@
 require("../../config/config");
 const { log, error } = console;
 const {
-    getAllCategories,
-  } = require("../../functions/categories/getAllCategories"),
+  getAllCategories,
+} = require("../../functions/categories/getAllCategories"),
   { getAllProducts } = require("../../functions/products/getAllProducts");
 const { getSiteUrl } = require("../../functions/utils/getSiteUrl");
 const ejs = require("ejs");
@@ -12,7 +12,6 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 function checkInStockDummy(store) {
   require("../../config/config").config(store.initial);
-
   return new Promise(async (resolve, reject) => {
     try {
       const products = await getAllProducts();
@@ -40,8 +39,9 @@ function checkInStockDummy(store) {
        * Render notification oreach products
        */
       const productsInDummyAndInStockNotifications =
-        productsInDummyAndInStockArray.map((product) =>
-          ejs.render(
+        productsInDummyAndInStockArray.map((product) => {
+          console.log(product.name, store.name)
+          return ejs.render(
             fs.readFileSync("./dummyAudit/notification.ejs", { encoding: "utf8" }),
             {
               productId: product.id,
@@ -53,6 +53,7 @@ function checkInStockDummy(store) {
               slug: product.custom_url.url,
             }
           )
+        }
         );
 
       resolve(productsInDummyAndInStockNotifications);
@@ -64,7 +65,7 @@ function checkInStockDummy(store) {
 function sendInStockDummyAllStoresEmail(responses) {
   console.log(responses)
   let data = responses;
-  if(Array.isArray(responses)){
+  if (Array.isArray(responses)) {
     data = responses.join("\n");
   }
   log(data);
@@ -87,9 +88,11 @@ function checkInStockDummyAllStores() {
     { initial: "ah", name: "AllHair" },
     { initial: "pb", name: "Pregnancy&Baby" },
     { initial: "ih", name: "InHealth" },
-    { initial: "bs", name: "BeautySkincare" },
+    { initial: "bs", name: "BabySafety" },
     { initial: "huk", name: "Haakaa UK" },
     { initial: "hie", name: "Haakaa IE" },
+    { initial: "ds", name: "DogSpace" },
+    { initial: "stie", name: "SleepyTots IE" }
   ];
 
   /**
@@ -124,4 +127,5 @@ function checkInStockDummyAllStores() {
     Promise.resolve()
   );
 }
+
 checkInStockDummyAllStores();
