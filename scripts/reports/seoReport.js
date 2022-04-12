@@ -18,11 +18,11 @@ function visibleButNeedsSEO(page) {
   return needsSEO(page) && page.is_visible
 }
 
-function renderNotification(storeUrl, storeName, type, storeHash, id, slug) {
+function renderNotification(name, storeUrl, storeName, type, storeHash, id, slug) {
   return ejs.render(readFileSync("./seoReport/notification.ejs", {
     encoding: "utf8"
   }), {
-    storeUrl, storeName, type, storeHash, id, slug
+    name, storeUrl, storeName, type, storeHash, id, slug
   });
 }
 
@@ -65,6 +65,7 @@ function checkSeo(store) {
       cats = cats.filter(visibleButNeedsSEO);
 
       const data = brands.concat(cats).map(page => renderNotification(
+        page.name,
         store.url,
         store.name,
         page.pageType,
@@ -119,19 +120,26 @@ function checkAllSeo() {
     (acc, cur, indx) =>
       acc
         .then(cur)
-        .then((res) => responses.push(res))
+        .then((resArr) => resArr.forEach(res => responses.push(res)))
         .then(() => {
           /**
            * when all stores have been checked send an email with the data
            */
           if (indx === allStores.length - 1 && responses.length)
-            sendMail(responses);
+            {
+              const emailContent = responses.filter(arr => arr.length)
+              console.log(emailContent)
+              if(responses.length){
+                sendMail(responses);
+              }
+            }
         }),
     Promise.resolve()
   );
 }
 
 function sendMail(responses) {
+  
   if (!responses)
     throw new Error(
       "Either an html string or an array of such strings is expected to be passed in here"
