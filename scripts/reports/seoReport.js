@@ -90,6 +90,8 @@ function checkAllSeo() {
     { initial: "bs", name: "BabySafety" },
     { initial: "huk", name: "Haakaa Uk" },
     { initial: "hie", name: "Haakaa Ireland" },
+    {initial: "ds", name: "DogSpace"},
+    {initial: "stie", name: "Sleepytot IE"}
   ];
   /**
    * add store hash & url to each store

@@ -3,7 +3,7 @@
  * @returns url string of current site
  */
 const getSiteUrl = (storeInitials) => {
-  switch(storeInitials.toLowerCase()){
+  switch (storeInitials.toLowerCase()) {
     case "bf":
       return "https://www.beautyfeatures.ie";
     case "ih":
@@ -24,8 +24,10 @@ const getSiteUrl = (storeInitials) => {
       return "https://www.haakaaofficial.co.uk";
     case "ds":
       return "https://dogspace.ie";
+    case "stie":
+      return "https://sleepytot.ie/";
     default:
-      return ""
+      return "";
   }
 };
-exports.getSiteUrl = getSiteUrl
+exports.getSiteUrl = getSiteUrl;

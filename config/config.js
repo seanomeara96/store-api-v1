@@ -19,7 +19,8 @@ let api = {
       "BS",
       "PB",
       "FS",
-      "DS"
+      "DS",
+      "STIE",
     ];
 
     if (!stores.includes(storeInitials))
