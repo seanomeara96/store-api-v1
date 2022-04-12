@@ -1,17 +1,12 @@
-require("../../config/config").config("bf");
+// require("../../config/config").config("bf");
 
 const {
   setVisibilityOfMany,
 } = require("../../functions/products/setVisibilityOfMany");
 
-const products = [{"Product ID":5830},
-{"Product ID":5832},
-{"Product ID":5833},
-{"Product ID":5834},
-{"Product ID":5835},
-{"Product ID":5836},
-{"Product ID":5837},
-{"Product ID":5838}]
+const products = [{"Product ID":5869},
+{"Product ID":5870},
+{"Product ID":5871}]
 
 function main() {
   setVisibilityOfMany(products, true)
