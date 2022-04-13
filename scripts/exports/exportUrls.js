@@ -1,5 +1,7 @@
-const site = "ds";
+const site = "stie";
 require("../../config/config").config(site);
+const sgMail = require("@sendgrid/mail");
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const { getAllBrands } = require("../../functions/brands/getAllBrands");
 const { getAllPages } = require("../../functions/pages/getAllPages");
 const { getSiteUrl } = require("../../functions/utils/getSiteUrl");
@@ -12,6 +14,7 @@ const { getAllProducts } = require("../../functions/products/getAllProducts");
 const {
   getAllRedirects,
 } = require("../../functions/redirects/getAllRedirects");
+const { stringify } = require("csv-stringify");
 /**
  * Exports urls for brands, categories,
  */
@@ -57,7 +60,9 @@ async function exportUrls() {
   /**
    * get al priooduct urls
    */
-  const products = await getAllProducts().catch(err => console.log("products failed"))
+  const products = await getAllProducts().catch((err) =>
+    console.log("products failed")
+  );
   const productUrls = products.map((product) => ({
     type: "product",
     url: url + product.custom_url.url,
@@ -92,10 +97,30 @@ async function exportUrls() {
       return item;
     });
 
-  const cleanseData = (data, discontinuedUrls) => removeSlugs(removeDiscontinuedUrls(data, discontinuedUrls));
+  const cleanseData = (data, discontinuedUrls) =>
+    removeSlugs(removeDiscontinuedUrls(data, discontinuedUrls));
 
   const cleansedData = cleanseData(data, discontinuedUrls);
-  await output(`${site}-urls`, cleansedData);
+  stringify(cleansedData, (err, csvFile) => {
+    if(err) throw "Something went wrong"
+    const attachment = Buffer.from(csvFile).toString("base64");
+    const subj = `All Urls for ${site.toUpperCase()}`;
+    const msg = {
+      to: "sean@beautyfeatures.ie",
+      from: "sean@beautyfeatures.ie",
+      subject: subj,
+      text: subj,
+      attachments: [
+        {
+          content: attachment,
+          filename: `${site.toUpperCase()}-URLS.csv`,
+          type: "text/csv",
+          disposition: "attachment",
+        },
+      ],
+    };
+    sgMail.send(msg).catch((err) => console.log(err.response.body));
+  });
 }
 
 exportUrls();
