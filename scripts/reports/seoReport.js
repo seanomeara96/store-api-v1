@@ -1,39 +1,52 @@
 require("../../config/config");
 const ejs = require("ejs");
 const sgMail = require("@sendgrid/mail");
-const { readFileSync } = require("fs"), {
-  getAllCategories,
-} = require("../../functions/categories/getAllCategories"), { getAllBrands } = require("../../functions/brands/getAllBrands");
+const { readFileSync } = require("fs"),
+  { getAllCategories } = require("../../functions/categories/getAllCategories"),
+  { getAllBrands } = require("../../functions/brands/getAllBrands");
 const { getSiteUrl } = require("../../functions/utils/getSiteUrl");
-
-
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 function needsSEO(page) {
-  return (page.meta_description.length < 1 || page.page_title.length < 1)
+  return page.meta_description.length < 1 || page.page_title.length < 1;
 }
 
 function visibleButNeedsSEO(page) {
-  return needsSEO(page) && page.is_visible
+  return needsSEO(page) && page.is_visible;
 }
 
-function renderNotification(name, storeUrl, storeName, type, storeHash, id, slug) {
-  return ejs.render(readFileSync("./seoReport/notification.ejs", {
-    encoding: "utf8"
-  }), {
-    name, storeUrl, storeName, type, storeHash, id, slug
-  });
+function renderNotification(
+  name,
+  storeUrl,
+  storeName,
+  type,
+  storeHash,
+  id,
+  slug
+) {
+  return ejs.render(
+    readFileSync("./seoReport/notification.ejs", {
+      encoding: "utf8",
+    }),
+    {
+      name,
+      storeUrl,
+      storeName,
+      type,
+      storeHash,
+      id,
+      slug,
+    }
+  );
 }
-
 
 /**
- * 
- * @param {checkTheSEO} storeInitials 
- * @returns 
+ *
+ * @param {checkTheSEO} storeInitials
+ * @returns
  */
 function checkSeo(store) {
-
   require("../../config/config").config(store.initial);
 
   const { storeHash } = store;
@@ -42,7 +55,7 @@ function checkSeo(store) {
     try {
       let brands = await getAllBrands();
       brands.forEach((brand) => {
-        brand.pageType = "brand"
+        brand.pageType = "brand";
         if (!brand.page_title) {
           brand.page_title = "";
         }
@@ -64,15 +77,19 @@ function checkSeo(store) {
       });
       cats = cats.filter(visibleButNeedsSEO);
 
-      const data = brands.concat(cats).map(page => renderNotification(
-        page.name,
-        store.url,
-        store.name,
-        page.pageType,
-        storeHash,
-        page.id,
-        page.custom_url.url
-      ));
+      const data = brands
+        .concat(cats)
+        .map((page) =>
+          renderNotification(
+            page.name,
+            store.url,
+            store.name,
+            page.pageType,
+            storeHash,
+            page.id,
+            page.custom_url.url
+          )
+        );
 
       resolve(data);
     } catch (err) {
@@ -90,58 +107,52 @@ function checkAllSeo() {
     { initial: "bs", name: "BabySafety" },
     { initial: "huk", name: "Haakaa Uk" },
     { initial: "hie", name: "Haakaa Ireland" },
-    {initial: "ds", name: "DogSpace"},
-    {initial: "stie", name: "Sleepytot IE"}
+    { initial: "ds", name: "DogSpace" },
+    { initial: "stie", name: "Sleepytot IE" },
+    { initial: "beuk", name: "BeautiEdit UK" },
   ];
   /**
    * add store hash & url to each store
    */
-  allStores.forEach(
-    (store) => {
-      /**
-       * add store hash
-       */
-      store.storeHash =
-        process.env[`${store.initial.toUpperCase()}_STORE_HASH`];
-      /**
-       * add store Url
-       */
-      store.url = getSiteUrl(store.initial);
-    }
-  );
+  allStores.forEach((store) => {
+    /**
+     * add store hash
+     */
+    store.storeHash = process.env[`${store.initial.toUpperCase()}_STORE_HASH`];
+    /**
+     * add store Url
+     */
+    store.url = getSiteUrl(store.initial);
+  });
 
   const responses = [];
 
   /**
    * check seo for each store one by one
    */
-  let allStorePromises = allStores.map(
-    (store) => () => checkSeo(store)
-  );
+  let allStorePromises = allStores.map((store) => () => checkSeo(store));
   allStorePromises.reduce(
     (acc, cur, indx) =>
       acc
         .then(cur)
-        .then((resArr) => resArr.forEach(res => responses.push(res)))
+        .then((resArr) => resArr.forEach((res) => responses.push(res)))
         .then(() => {
           /**
            * when all stores have been checked send an email with the data
            */
-          if (indx === allStores.length - 1 && responses.length)
-            {
-              const emailContent = responses.filter(arr => arr.length)
-              console.log(emailContent)
-              if(responses.length){
-                sendMail(responses);
-              }
+          if (indx === allStores.length - 1 && responses.length) {
+            const emailContent = responses.filter((arr) => arr.length);
+            console.log(emailContent);
+            if (responses.length) {
+              sendMail(responses);
             }
+          }
         }),
     Promise.resolve()
   );
 }
 
 function sendMail(responses) {
-  
   if (!responses)
     throw new Error(
       "Either an html string or an array of such strings is expected to be passed in here"

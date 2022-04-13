@@ -1,8 +1,8 @@
 require("../../config/config");
 const { log, error } = console;
 const {
-  getAllCategories,
-} = require("../../functions/categories/getAllCategories"),
+    getAllCategories,
+  } = require("../../functions/categories/getAllCategories"),
   { getAllProducts } = require("../../functions/products/getAllProducts");
 const { getSiteUrl } = require("../../functions/utils/getSiteUrl");
 const ejs = require("ejs");
@@ -40,9 +40,11 @@ function checkInStockDummy(store) {
        */
       const productsInDummyAndInStockNotifications =
         productsInDummyAndInStockArray.map((product) => {
-          console.log(product.name, store.name)
+          console.log(product.name, store.name);
           return ejs.render(
-            fs.readFileSync("./dummyAudit/notification.ejs", { encoding: "utf8" }),
+            fs.readFileSync("./dummyAudit/notification.ejs", {
+              encoding: "utf8",
+            }),
             {
               productId: product.id,
               storeHash: store.storeHash,
@@ -52,9 +54,8 @@ function checkInStockDummy(store) {
               storeUrl: store.url,
               slug: product.custom_url.url,
             }
-          )
-        }
-        );
+          );
+        });
 
       resolve(productsInDummyAndInStockNotifications);
     } catch (err) {
@@ -63,7 +64,7 @@ function checkInStockDummy(store) {
   });
 }
 function sendInStockDummyAllStoresEmail(responses) {
-  console.log(responses)
+  console.log(responses);
   let data = responses;
   if (Array.isArray(responses)) {
     data = responses.join("\n");
@@ -92,7 +93,8 @@ function checkInStockDummyAllStores() {
     { initial: "huk", name: "Haakaa UK" },
     { initial: "hie", name: "Haakaa IE" },
     { initial: "ds", name: "DogSpace" },
-    { initial: "stie", name: "SleepyTots IE" }
+    { initial: "stie", name: "SleepyTots IE" },
+    { initial: "beuk", name: "BeautiEdit UK" },
   ];
 
   /**

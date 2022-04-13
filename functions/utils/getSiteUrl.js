@@ -26,6 +26,8 @@ const getSiteUrl = (storeInitials) => {
       return "https://dogspace.ie";
     case "stie":
       return "https://sleepytot.ie/";
+    case "beuk":
+      return "https://beautiedit.co.uk/";
     default:
       return "";
   }
