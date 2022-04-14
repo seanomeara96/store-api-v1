@@ -1,16 +1,16 @@
 require("../../config/config");
 const { log, error } = console;
 const {
-    getAllCategories,
-  } = require("../../functions/categories/getAllCategories"),
+  getAllCategories,
+} = require("../../functions/categories/getAllCategories"),
   { getAllProducts } = require("../../functions/products/getAllProducts");
 const { getSiteUrl } = require("../../functions/utils/getSiteUrl");
 const ejs = require("ejs");
 const fs = require("fs");
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
-const template = fs.readFileSync("./dummyAudit/notification.ejs", {
+const path = require("path");
+const template = fs.readFileSync(path.resolve(__dirname, "./dummyAudit/notification.ejs"), {
   encoding: "utf8",
 });
 
