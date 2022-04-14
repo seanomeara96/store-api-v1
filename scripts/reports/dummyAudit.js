@@ -10,6 +10,10 @@ const fs = require("fs");
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
+const template = fs.readFileSync("./dummyAudit/notification.ejs", {
+  encoding: "utf8",
+});
+
 function checkInStockDummy(store) {
   require("../../config/config").config(store.initial);
   return new Promise(async (resolve, reject) => {
@@ -41,20 +45,15 @@ function checkInStockDummy(store) {
       const productsInDummyAndInStockNotifications =
         productsInDummyAndInStockArray.map((product) => {
           console.log(product.name, store.name);
-          return ejs.render(
-            fs.readFileSync("./dummyAudit/notification.ejs", {
-              encoding: "utf8",
-            }),
-            {
-              productId: product.id,
-              storeHash: store.storeHash,
-              name: product.name,
-              editUrl: store.store,
-              storeName: store.name,
-              storeUrl: store.url,
-              slug: product.custom_url.url,
-            }
-          );
+          return ejs.render(template, {
+            productId: product.id,
+            storeHash: store.storeHash,
+            name: product.name,
+            editUrl: store.store,
+            storeName: store.name,
+            storeUrl: store.url,
+            slug: product.custom_url.url,
+          });
         });
 
       resolve(productsInDummyAndInStockNotifications);

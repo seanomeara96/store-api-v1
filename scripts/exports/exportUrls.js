@@ -1,4 +1,4 @@
-const site = "stie";
+const site = "beuk";
 require("../../config/config").config(site);
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -8,7 +8,6 @@ const { getSiteUrl } = require("../../functions/utils/getSiteUrl");
 const {
   getAllCategories,
 } = require("../../functions/categories/getAllCategories");
-const { output } = require("../utils/output");
 const { getAllBlogs } = require("../../functions/blogs/getAllBlogs");
 const { getAllProducts } = require("../../functions/products/getAllProducts");
 const {

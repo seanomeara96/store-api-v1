@@ -8,11 +8,15 @@ const { getSiteUrl } = require("../../functions/utils/getSiteUrl");
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
+const template = readFileSync("./seoReport/notification.ejs", {
+  encoding: "utf8",
+});
+
 function needsSEO(page) {
   return page.meta_description.length < 1 || page.page_title.length < 1;
 }
 
-function visibleButNeedsSEO(page) {
+function visibleAndNeedsSEO(page) {
   return needsSEO(page) && page.is_visible;
 }
 
@@ -25,20 +29,15 @@ function renderNotification(
   id,
   slug
 ) {
-  return ejs.render(
-    readFileSync("./seoReport/notification.ejs", {
-      encoding: "utf8",
-    }),
-    {
-      name,
-      storeUrl,
-      storeName,
-      type,
-      storeHash,
-      id,
-      slug,
-    }
-  );
+  return ejs.render(template, {
+    name,
+    storeUrl,
+    storeName,
+    type,
+    storeHash,
+    id,
+    slug,
+  });
 }
 
 /**
@@ -54,28 +53,36 @@ function checkSeo(store) {
   return new Promise(async (resolve, reject) => {
     try {
       let brands = await getAllBrands();
+
       brands.forEach((brand) => {
         brand.pageType = "brand";
+
         if (!brand.page_title) {
           brand.page_title = "";
         }
+
         if (!brand.meta_description) {
           brand.meta_description = "";
         }
       });
+
       brands = brands.filter(needsSEO);
 
       let cats = await getAllCategories();
+
       cats.forEach((cat) => {
         cat.pageType = "category";
+
         if (!cat.page_title) {
           cat.page_title = "";
         }
+
         if (!cat.meta_description) {
           cat.meta_description = "";
         }
       });
-      cats = cats.filter(visibleButNeedsSEO);
+
+      cats = cats.filter(visibleAndNeedsSEO);
 
       const data = brands
         .concat(cats)
@@ -114,7 +121,7 @@ function checkAllSeo() {
   /**
    * add store hash & url to each store
    */
-  allStores.forEach((store) => {
+  allStores.forEach(function addStoreDetails(store) {
     /**
      * add store hash
      */
@@ -130,21 +137,34 @@ function checkAllSeo() {
   /**
    * check seo for each store one by one
    */
-  let allStorePromises = allStores.map((store) => () => checkSeo(store));
+  let allStorePromises = allStores.map(function checkSEOPromise(store) {
+    return function initCheckSEO() {
+      return checkSeo(store);
+    };
+  });
+
   allStorePromises.reduce(
     (acc, cur, indx) =>
       acc
         .then(cur)
-        .then((resArr) => resArr.forEach((res) => responses.push(res)))
-        .then(() => {
+        .then(function pushAllResponsesToArr(resArr) {
+          resArr.forEach(function pushResponseToArr(res) {
+            responses.push(res);
+          });
+        })
+        .then(function finishHandler() {
           /**
            * when all stores have been checked send an email with the data
            */
           if (indx === allStores.length - 1 && responses.length) {
-            const emailContent = responses.filter((arr) => arr.length);
+            const emailContent = responses.filter(function arraysWithCotents(
+              arr
+            ) {
+              return arr.length;
+            });
             console.log(emailContent);
-            if (responses.length) {
-              sendMail(responses);
+            if (emailContent.length) {
+              sendMail(emailContent);
             }
           }
         }),
