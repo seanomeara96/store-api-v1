@@ -19,13 +19,16 @@ const { stringify } = require("csv-stringify");
  */
 async function exportUrls() {
   const redirects = await getAllRedirects().catch("redirects failed");
-  const discontinuedUrls = redirects.map(({ from_path }) => from_path);
+  function fromPath(el) {
+    return el.from_path;
+  }
+  const discontinuedUrls = redirects.map(fromPath);
   // console.log(discontinuedUrls);
   const url = getSiteUrl(site);
   /**
    * get all brands
    */
-  const brands = await getAllBrands().catch(() => console.log("brands failed"));
+  const brands = await getAllBrands().catch("brands failed");
   const brandUrls = brands.map((brand) => ({
     type: "brand",
     url: url + brand.custom_url.url,
@@ -35,7 +38,7 @@ async function exportUrls() {
   /**
    * get all categories
    */
-  const cats = await getAllCategories().catch(() => console.log("cats failed"));
+  const cats = await getAllCategories().catch("cats failed");
   /**
    * filter only visible categories
    */
@@ -49,7 +52,7 @@ async function exportUrls() {
   /**
    * get all pages
    */
-  const pages = await getAllPages().catch(() => console.log("pages failed"));
+  const pages = await getAllPages().catch("pages failed");
   const pageUrls = pages.map((page) => ({
     type: "page",
     url: url + (page.url || ""),
@@ -59,9 +62,7 @@ async function exportUrls() {
   /**
    * get al priooduct urls
    */
-  const products = await getAllProducts().catch((err) =>
-    console.log("products failed")
-  );
+  const products = await getAllProducts().catch("products failed");
   const productUrls = products.map((product) => ({
     type: "product",
     url: url + product.custom_url.url,
@@ -79,6 +80,7 @@ async function exportUrls() {
     slug: blog.url,
     sku: "",
   }));
+
   const data = [
     ...brandUrls,
     ...catUrls,
@@ -90,18 +92,19 @@ async function exportUrls() {
   const removeDiscontinuedUrls = (data, discontinuedUrls) =>
     data.filter(({ slug }) => !discontinuedUrls.includes(slug));
 
-  const removeSlugs = (data) =>
-    data.map((item) => {
-      delete item.slug;
-      return item;
-    });
+  function removeSlug(item) {
+    delete item.slug;
+    return item;
+  }
+
+  const removeSlugs = (data) => data.map(removeSlug);
 
   const cleanseData = (data, discontinuedUrls) =>
     removeSlugs(removeDiscontinuedUrls(data, discontinuedUrls));
 
   const cleansedData = cleanseData(data, discontinuedUrls);
   stringify(cleansedData, (err, csvFile) => {
-    if(err) throw "Something went wrong"
+    if (err) throw "Something went wrong";
     const attachment = Buffer.from(csvFile).toString("base64");
     const subj = `All Urls for ${site.toUpperCase()}`;
     const msg = {
@@ -118,7 +121,10 @@ async function exportUrls() {
         },
       ],
     };
-    sgMail.send(msg).catch((err) => console.log(err.response.body));
+    function logErrResponseBody(err) {
+      return console.log(err.response.body);
+    }
+    sgMail.send(msg).catch(logErrResponseBody);
   });
 }
 
