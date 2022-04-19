@@ -11,25 +11,25 @@ const products = [
   { "Product ID": 5856 },
 ];
 
-/**
- *
- * @param {{status: "fulfilled" | "rejected";}[]} allSettledResult
- * @returns {number}
- */
-function countFulfilled(allSettledResult) {
+function notifyFulfillmentStatus(res) {
   /**
    *
-   * @param {number} a
-   * @param {{status: "fulfilled" | "rejected";}} c
-   * @returns
+   * @param {{status: "fulfilled" | "rejected";}[]} allSettledResult
+   * @returns {number}
    */
-  function countIfFulfilled(a, c) {
-    return c.status === "fulfilled" ? a + 1 : a;
+  function countFulfilled(allSettledResult) {
+    /**
+     *
+     * @param {number} a
+     * @param {{status: "fulfilled" | "rejected";}} c
+     * @returns
+     */
+    function countIfFulfilled(a, c) {
+      return c.status === "fulfilled" ? a + 1 : a;
+    }
+    return allSettledResult.reduce(countIfFulfilled, 0);
   }
-  return allSettledResult.reduce(countIfFulfilled, 0);
-}
 
-function notifyFulfillmentStatus(res) {
   console.log(`${countFulfilled(res)}/${res.length} fulfilled`);
 }
 
