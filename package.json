@@ -11,6 +11,7 @@
     "html-to-text": "^8.1.0"
   },
   "scripts": {
+    "cap": "node ./scripts/products/applyMaxOrderQtyToBrand.js",
     "report": "node ./scripts/reports/gwpStockReport.js",
     "audit": "node ./scripts/reports/dummyAudit.js",
     "seo": "node ./scripts/reports/seoReport.js",
