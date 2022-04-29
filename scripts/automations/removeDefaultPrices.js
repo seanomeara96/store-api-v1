@@ -1,4 +1,4 @@
-require("./config/config").config("hie");
+require("../../config/config").config("pb");
 const { getAllProducts } = require("../../functions/products/getAllProducts");
 const { updateProduct } = require("../../functions/products/updateProduct");
 const { log } = console;
@@ -10,21 +10,15 @@ const productPrices = ({ id, price, retail_price, sale_price }) => {
  * @param {number} param0
  * @returns
  */
-const nonZeroRetailPrice = ({ retail_price }) => retail_price;
+const _price = ({ price }) => price;
 
-/**
- * returns price
- * @param {*} param0 
- * @returns 
- */
-const price = ({ price }) => price;
 
 /**
  * returns a function that sets a retial price to 0
  * @param {number} param0 product id
  * @returns
  */
-const setRetailPriceToZero = ({ id }) => updateProduct(id, { retail_price: 0 });
+const setDefaultPriceToZero = ({ id }) => updateProduct(id, { price: 0 });
 
 /**
  * throws an err
@@ -38,32 +32,39 @@ const throwErr = (err) => {
  * resolves with an array of all products with a non-zero retail price
  * @returns
  */
-function fetchNonZeroRetailPrices() {
+function fetch_prices() {
   return new Promise(async (resolve, reject) => {
     try {
-      const allHaakaaProducts = await getAllProducts();
+      const products = await getAllProducts();
       // retail price must be zero
-      const prices = allHaakaaProducts.map(productPrices);
+      const prices = products.map(productPrices);
 
-      const nonZeroRetailPrices = prices.filter(nonZeroRetailPrice);
-      resolve(nonZeroRetailPrices);
+      const _prices = prices.filter(_price);
+      resolve(_prices);
     } catch (err) {
       reject(err);
     }
   });
 }
-
+function fulfillmentStatus (arr){
+    return `${arr.reduce(function countIfFulfilled (a,c){
+        if(c.status === "fulfilled"){
+            return a + 1;
+        }
+        return a;
+    }, 0)}/${arr.length}`
+}
 /**
  * removes retail prices
  */
-async function removeRetailPrices() {
-  const nonZeroRetailPrices = await fetchNonZeroRetailPrices().catch(log);
-  log("first check", nonZeroRetailPrices);
-  const promises = nonZeroRetailPrices.map(setRetailPriceToZero);
+async function removeDefaultPrices() {
+  const _prices = await fetch_prices().catch(log);
+  log("first check", _prices);
+  const promises = _prices.map(setDefaultPriceToZero);
   const result = await Promise.allSettled(promises).catch(throwErr);
-  log(result.map(({ status }) => status));
-  const secondCheck = await fetchNonZeroRetailPrices().catch(throwErr);
+  log(fulfillmentStatus(result));
+  const secondCheck = await fetch_prices().catch(throwErr);
   log("secondCheck", secondCheck);
 }
 
-removeRetailPrices();
+removeDefaultPrices();

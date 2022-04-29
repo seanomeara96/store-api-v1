@@ -4,14 +4,11 @@ const {
   applySortOrderToMany,
 } = require("../../functions/products/applySortOrderToMany");
 
-const productIds = [{"Product ID":5851},
-{"Product ID":5857},
-{"Product ID":5859},
-{"Product ID":5861},
-{"Product ID":5862},
-{"Product ID":5863},
-{"Product ID":5864},
-{"Product ID":5866},
-{"Product ID":5867}]
+const productIds = [{"Product ID":5875},
+{"Product ID":5888},
+{"Product ID":5889},
+{"Product ID":5890},
+{"Product ID":5891},
+{"Product ID":5893}]
 
-applySortOrderToMany(productIds, 1621).then(console.log).catch(console.log);
+applySortOrderToMany(productIds, 26).then(console.log).catch(console.log);
