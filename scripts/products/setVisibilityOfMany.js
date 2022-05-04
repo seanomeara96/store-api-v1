@@ -12,13 +12,11 @@ const products = [{"Product ID":5875},
 {"Product ID":5893}]
 function notifyFulfillmentStatus(res) {
   /**
-   *
    * @param {{status: "fulfilled" | "rejected";}[]} allSettledResult
    * @returns {number}
    */
   function countFulfilled(allSettledResult) {
     /**
-     *
      * @param {number} a
      * @param {{status: "fulfilled" | "rejected";}} c
      * @returns
