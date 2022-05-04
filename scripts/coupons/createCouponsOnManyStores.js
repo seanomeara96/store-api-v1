@@ -1,5 +1,5 @@
 // create coupon on all stores
-const { createCoupon } = require("./functions/coupons/createCoupon");
+const { createCoupon } = require("../../functions/coupons/createCoupon");
 /**type discountTypes =
   | "per_item_discount"
   | "per_total_discount"
@@ -24,8 +24,11 @@ function createCouponData(
   type,
   amount,
   expires,
-  applies_to,
-  enabled,
+  applies_to = {
+    entity: "categories",
+    ids: [0],
+  },
+  enabled = true
 ) {
   const { dayAbbr, dd, monthAbbr, yyyy } = expires;
   return {
@@ -39,18 +42,28 @@ function createCouponData(
   };
 }
 const couponData = createCouponData(
-  "AUTOMATION TEST",
-  "SEANTEST",
+  "May Thank You",
+  "MAY10",
   "percentage_discount",
   "10",
-  { dayAbbr: "Tue", dd: "05", monthAbbr: "Apr", yyyy: "2022" }
+  { dayAbbr: "Mon", dd: "06", monthAbbr: "Jun", yyyy: "2022" },
+  {
+    entity: "categories",
+    ids: [0],
+  }
 );
 
-const stores = ["bf", "bsk", "ah", "ih", "bs", "pb"];
+const stores = ["ah", "bs", "pb"];
 
 const promises = stores.map((store) => {
-  require("./config/config").config(store, 2);
+  require("../../config/config").config(store, 2);
   return createCoupon(couponData);
 });
 
-Promise.allSettled(promises).then(console.log);
+function logReasons(arr) {
+  arr.forEach((res) => {
+    if (res.status === "rejected") console.log(res.reason);
+  });
+}
+
+Promise.allSettled(promises).then(logReasons);
