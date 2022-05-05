@@ -5,22 +5,24 @@ const {
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 let skuArray = [
-  { sku: "10643" }, // mutli masque kit
-  //{ sku: "GWP35" }, // hydrating essentials
-  { sku: "9448" }, // cashmere cream
-  { sku: "10403" }, // gym bottle blue cap
-  { sku: "9357" }, // caudalie hand nail cream
-  { sku: "8702" }, // clay cleanser
-  { sku: "9013" }, // tummy rub butter
-  { sku: "10442" }, // NUXE Very Rose 3-in-1 Soothing Micellar Water 100ml GWP
-  { sku: "10402" }, // carter beauty sponge
-  //{ sku: "5011" }, // redken one united
-  { sku: "11152" }, // nak trio
-  { sku: "11099" }, // redken travel set
-  { sku: "11099a" },
+  { sku: "9053" },
+  { sku: "11370" },
+  { sku: "9764" },
   { sku: "11099c" },
+  { sku: "11099a" },
   { sku: "11099e" },
-  { sku: "9764" }, // can only send 100 of these 03/05/2021 been used 90 times already
+  { sku: "10354" },
+  { sku: "10354a" },
+  { sku: "GWP36" },
+  { sku: "8755" },
+  { sku: "11178" },
+  { sku: "11051" },
+  { sku: "11100" },
+  { sku: "11152" },
+  { sku: "10662" },
+  { sku: "10442" },
+  { sku: "10403" },
+  { sku: "6481A" },
 ];
 const ascendingInventory = (a, b) => a.inventory_level - b.inventory_level;
 const emailFormat = ({ name, sku, inventory_level }) =>
