@@ -22,15 +22,28 @@ let skuArray = [
   { sku: "10662" },
   { sku: "10442" },
   { sku: "10403" },
-  { sku: "6481A" },
+  // { sku: "6481A" },
 ];
-const ascendingInventory = (a, b) => a.inventory_level - b.inventory_level;
-const emailFormat = ({ name, sku, inventory_level }) =>
-  `<p>${name}<br>SKU: ${sku}<br>Inventory: <strong  ${
-    inventory_level < 21 ? "style='color:red;'" : ""
-  }>${inventory_level}</strong></p>`;
-const confirmEmailDespatch = () => console.log("Email sent");
-const flagEmailError = (error) => console.error(error);
+
+function ascendingInventory(a, b) {
+  return a.inventory_level - b.inventory_level;
+}
+
+function emailFormat({ name, sku, inventory_level }) {
+  return `<p>
+    ${name}<br>
+    SKU: ${sku}<br>
+    Inventory: <strong ${
+      inventory_level < 21 ? "style='color:red;'" : ""
+    }>${inventory_level}</strong>
+  </p>`;
+}
+function confirmEmailDespatch() {
+  console.log("Email sent");
+}
+function flagEmailError(error) {
+  console.error(error);
+}
 
 getManyProductsBySKU(skuArray)
   .then((res) => {
