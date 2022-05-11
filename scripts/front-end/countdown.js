@@ -38,7 +38,7 @@ setInterval(() => {
       );
     document.querySelector(
       ".countdown"
-    ).innerHTML = `<span style="background-color:#EE1D56; padding:1px; border-radius:1.5px; display:inline-block; width: 55px;">${hoursUntil2}hrs</span> <span style="background-color:#EE1D56; padding:1px; border-radius:1.5px; display:inline-block; width: 60px;">${minutesUntil2}mins</span> <span style="background-color:#EE1D56; padding:1px; border-radius:1.5px; display:inline-block; width: 65px;">${secondsRemaining} secs</span> left for next day delivery`;
+    ).innerHTML = `&#128666; ${hoursUntil2} hrs ${minutesUntil2} mins ${secondsRemaining} secs left for next day delivery`;
   } else {
     document.querySelector(".countdown").innerHTML =
       "Free shipping over 69 Euro - Code: IRISH";
