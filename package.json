@@ -15,14 +15,19 @@
     "report": "node ./scripts/reports/gwpStockReport.js",
     "audit": "node ./scripts/reports/dummyAudit.js",
     "seo": "node ./scripts/reports/seoReport.js",
-    "reports": "npm run report && npm run audit && npm run seo"
+    "reports": "npm run report && npm run audit && npm run seo",
+    "countdown": "webpack"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.17.10",
     "@types/node": "^17.0.23",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
+    "babel-loader": "^8.2.5",
     "eslint": "^8.13.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.26.0"
+    "eslint-plugin-import": "^2.26.0",
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2"
   }
 }

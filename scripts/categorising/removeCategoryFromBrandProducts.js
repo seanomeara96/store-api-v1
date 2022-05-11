@@ -1,4 +1,4 @@
-require("../../config/config").config("ah");
+require("../../config/config").config("bf");
 const {
   removeCatFromProduct,
 } = require("../../functions/products/removeCatFromProduct");
@@ -25,8 +25,8 @@ const removeCategoryFromBrandProducts = (brand, categoryId) =>
     });
     Promise.allSettled(promises).then(resolve).catch(reject);
   });
-const brand = "Moroccanoil";
-const catId = null;
+const brand = "Olaplex";
+const catId = 640;
 removeCategoryFromBrandProducts(brand, catId)
   .then((res) => console.log(`${res.filter(({status}) => status === "fulfilled").length} removed from cat ${catId}`))
   .catch((err) => console.log(err));
