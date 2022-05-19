@@ -31,7 +31,7 @@ const productIds = [
   { "Product ID": 5822 },
 ];
 
-let catId = 692;
+let catId = 21;
 
 addCategoryToSpecificProducts(productIds, catId)
   .then((res) =>
