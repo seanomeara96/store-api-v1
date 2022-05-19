@@ -24,7 +24,7 @@ setInterval(() => {
         .toString()
         .replace(
           /[0-9]+:[0-9]+:[0-9]+/,
-          today.getDay() === 1 ? "14:00:00" : "15:00:00"
+          today.getDay() === 1 ? "14:00:00" : "14:00:00"
         )}`
     ),
     currentTime = new Date().getTime(),
