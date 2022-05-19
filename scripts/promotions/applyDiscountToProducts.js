@@ -14,6 +14,7 @@ function applyDiscount(id, discountFn, discount) {
   return new Promise(async function (resolve, reject) {
     const product = await getProductById(id).catch(reject);
     const prices = getPrices(product, discountFn, discount);
+    // return 
     const updateReponse = await updateProduct(id, {
       sale_price: prices.promo_price,
     }).catch(reject);
