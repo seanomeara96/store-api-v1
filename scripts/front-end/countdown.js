@@ -41,6 +41,6 @@ setInterval(() => {
     ).innerHTML = `&#128666; ${hoursUntil2} hrs ${minutesUntil2} mins ${secondsRemaining} secs left for next day delivery`;
   } else {
     document.querySelector(".countdown").innerHTML =
-      "&#128666; Order before 2pm for next day deliver";
+      "&#128666; Order before 2pm for next day delivery";
   }
 }, 1000);
