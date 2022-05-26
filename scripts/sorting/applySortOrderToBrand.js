@@ -1,4 +1,4 @@
-require("../../config/config").config("bf");
+require("../../config/config").config("ih");
 const {
   getProductsByBrand,
 } = require("../../functions/products/getProductsByBrand");
@@ -23,4 +23,4 @@ async function applySortOrderToBrand(brand, sortOrderNumber) {
   const fulfilled = res.filter(({status}) => status === "fulfilled").length
   console.log(`${fulfilled}/${total} sorted without issues`);
 }
-applySortOrderToBrand("Inglot", 1125);
+applySortOrderToBrand("Ultrasun", 100);
