@@ -28,6 +28,8 @@ const getSiteUrl = (storeInitials) => {
       return "https://sleepytot.ie";
     case "beuk":
       return "https://beautiedit.co.uk";
+    case "ha":
+      return "https://www.hireall.ie";
     default:
       return "";
   }

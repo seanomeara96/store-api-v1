@@ -1,33 +1,30 @@
 const store = "bf";
-require("./config/config").config(store);
-const { output } = require("./scripts/utils/output");
-const { getFilters } = require("./functions/filters/getFilters");
-const { getAllProducts } = require("./functions/products/getAllProducts");
+require("../../config/config").config(store);
+const { output } = require("../utils/output");
+const { getFilters } = require("../../functions/filters/getFilters");
+const { getAllProducts } = require("../../functions/products/getAllProducts");
 async function main() {
   const products = await getAllProducts().catch(console.log);
-  const productFilterRequests = products.map(({ id }) => getFilters(id));
-  const responses = await Promise.allSettled(productFilterRequests).catch(
-    console.log
+  const productFilterRequests = products.map((product) =>
+    getFilters(product.id).then(
+      (res) => console.log(res)
+    )
   );
-  const responseValues = responses.map(({ value }) => value);
-  console.log(responseValues);
-  const allFilterNames = responseValues
-    .map(({ filters }) => filters.map(({ name }) => name))
-    .flat();
-  const uniqueFilterNames = [...new Set(allFilterNames)];
-  console.log(uniqueFilterNames);
-  const filterDocs = responseValues.map((product) => {
-    const doc = {
-      "Product ID": product.product_id,
+
+  await Promise.allSettled(productFilterRequests);
+
+  const essentialDetails = products.map((product) => {
+    return {
+      id: product.id,
+      sku: product.sku,
+      name: product.name,
+      brand: product.brand,
+      filters: product.filters.filters,
     };
-    uniqueFilterNames.forEach((name) => (doc[name] = []));
-    product.filters.forEach((filter) => doc[filter.name].push(filter.value));
-    for (let key in doc) {
-      if (Array.isArray(doc[key])) doc[key] = doc[key].sort().join(", ")
-    }
-    return doc;
   });
-  console.log(filterDocs);
-  await output(`${store}-product-filters`, filterDocs).catch(console.log);
+
+  console.log(essentialDetails);
+
+  //await output(`${store}-product-filters`, filterDocs).catch(console.log);
 }
 main();

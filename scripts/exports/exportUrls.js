@@ -1,4 +1,4 @@
-const site = "beuk";
+const site = "ha";
 require("../../config/config").config(site);
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
