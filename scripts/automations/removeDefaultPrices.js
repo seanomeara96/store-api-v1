@@ -1,4 +1,4 @@
-require("../../config/config").config("pb");
+require("../../config/config").config("beuk");
 const { getAllProducts } = require("../../functions/products/getAllProducts");
 const { updateProduct } = require("../../functions/products/updateProduct");
 const { log } = console;
