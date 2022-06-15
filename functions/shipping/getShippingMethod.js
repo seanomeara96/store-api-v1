@@ -5,7 +5,7 @@ function getShippingMethod(zone_id, method_id) {
     return new Promise((resolve, reject) => {
         require("../../config/config")
             .store(`/shipping/zones/${zone_id}/methods/${method_id}`)
-            .then(({ data }) => resolve(data))
+            .then((response) => resolve(response.data))
             .catch(reject);
     });
 }
