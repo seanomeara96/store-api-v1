@@ -9,6 +9,7 @@ const campaigns = [
     type: "brand",
     store: "bf",
     limit: "stock",
+    uses: "-",
     identifier: "Alfaparf",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/attribute_rule_images/4652_source_1618495687.jpg",
@@ -26,6 +27,7 @@ const campaigns = [
     type: "brand",
     store: "bf",
     limit: "stock",
+    uses: "-",
     identifier: "Dermalogica",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5874/11225/Template__49690.1649932314.jpg",
@@ -43,6 +45,7 @@ const campaigns = [
     type: "brand",
     store: "bf",
     limit: "280",
+    uses: "179",
     identifier: "Dermalogica",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/3944/7919/Dermalogica_Hydro_Masque_Exfoliant_50ml__26998.1597734770.jpg",
@@ -60,6 +63,7 @@ const campaigns = [
     type: "brand",
     store: "bf",
     limit: "100",
+    uses: "106",
     identifier: "Redken",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/4676/9011/Redken_Acidic_Perfecting_Concentrate_Leave-In_Treatment_150ml__80796.1616597014.jpg",
@@ -71,13 +75,14 @@ const campaigns = [
     condition: "When you spend €100 on Redken",
     sku: "9764",
     sku_type: "product",
-    display: "TRUE",
+    display: "FALSE",
     destination_url: "https://www.beautyfeatures.ie/brands/redken",
   },
   {
     type: "tag",
     store: "bf",
     limit: "stock",
+    uses: "-",
     identifier: "redken-extreme",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/395/9605/Redken_-_Extreme_Shampoo_300ml__40188.1623162199.jpg",
@@ -95,6 +100,7 @@ const campaigns = [
     type: "tag",
     store: "bf",
     limit: "stock",
+    uses: "-",
     identifier: "redken-all-soft",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5917/11577/Redken_-_All_Soft_Shampoo_300ml__47580.1620983464.1280.1280__46003.1651581747.jpg",
@@ -112,6 +118,7 @@ const campaigns = [
     type: "tag",
     store: "bf",
     limit: "stock",
+    uses: "-",
     identifier: "redken-color-extend",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5918/11579/Redken_-_Colour_Extend_Shampoo_300ml__31943.1622627138.1280.1280__35477.1651582462.jpg",
@@ -129,6 +136,7 @@ const campaigns = [
     type: "brand",
     store: "bf",
     limit: "18",
+    uses: "1",
     identifier: "Pestle & Mortar",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5943/12321/Chocolate_Bronze__47559.1653643497.jpg?c=2&imbypass=on",
@@ -147,6 +155,7 @@ const campaigns = [
     type: "brand",
     store: "bf",
     limit: "100",
+    uses: "28",
     identifier: "Kerastase",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/4207/11244/Kerastase_Nutritive_Nectar_Thermique_Blow-Dry_Primer_150ml_1__95211.1650028222.jpg",
@@ -164,6 +173,7 @@ const campaigns = [
     type: "brand",
     store: "bf",
     limit: "stock",
+    uses: "-",
     identifier: "Kerastase",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5892/11581/Kerastase_Resistance_Masque_Extentioniste_75ml_1__48084.1651588521.jpg",
@@ -181,6 +191,7 @@ const campaigns = [
     type: "brand",
     store: "bf",
     limit: "stock",
+    uses: "-",
     identifier: "Pureology",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5876/12105/Pureology_Color_Fanatic_Leave-In_Spray_30ml_1_1__65886.1652780450.jpg?c=2&imbypass=on",
@@ -198,6 +209,7 @@ const campaigns = [
     type: "brand",
     store: "bf",
     limit: "33",
+    uses: "8",
     identifier: "Pureology",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5251/11245/Pureology_Color_Fanatic_Leave-In_Spray_200ml_1__40670.1650028399.jpg",
@@ -214,7 +226,62 @@ const campaigns = [
   {
     type: "brand",
     store: "bf",
+    limit: "139",
+    uses: "-",
+    identifier: "Moroccanoil",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5115/9368/moro-comb__36575.1620814825.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/5115/9368/moro-comb__36575.1620814825.jpg?c=2&imbypass=on",
+    headline: "Free Moroccanoil Detangling Comb Worth €20",
+    worth: 20,
+    condition: "When you spend €100 or more on Moroccanoil",
+    sku: "10151",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/brands/Moroccanoil.html",
+  },
+  {
+    type: "brand",
+    store: "bf",
     limit: "stock",
+    uses: "-",
+    identifier: "Moroccanoil",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5275/9883/Moroccanoil_Gym_Bottle_GWP_1__55837.1628669225.png",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/5275/9883/Moroccanoil_Gym_Bottle_GWP_1__55837.1628669225.png",
+    headline: "Free Moroccanoil Gym Bottle",
+    worth: null,
+    condition: "When you spend €100 or more on Moroccanoil",
+    sku: "10403",
+    sku_type: "product",
+    display: "FALSE",
+    destination_url: "https://www.beautyfeatures.ie/brands/Moroccanoil.html",
+  },
+  {
+    type: "brand",
+    store: "bf",
+    limit: "19",
+    uses: "-",
+    identifier: "Caudalie",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6062/13304/caudalie_gwp__55233.1654870532.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6062/13304/caudalie_gwp__55233.1654870532.jpg?c=2&imbypass=on",
+    headline: "Free Caudalie Vinoperfect Skincare Trio worth €20",
+    worth: 20,
+    condition: "When you spend €60 on Caudalie",
+    sku: "11554",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/caudalie/",
+  },
+  {
+    type: "brand",
+    store: "bf",
+    limit: "stock",
+    uses: "57",
     identifier: "Decleor",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5723/11585/Decleor_Hydrate_Glow_GWP_1__42110.1651667588.jpg",
@@ -232,6 +299,7 @@ const campaigns = [
     type: "brand",
     store: "bf",
     limit: "stock",
+    uses: "2",
     identifier: "Carter Beauty",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5611/10596/Carter_Beauty_Revitalise_Retinol_Collagen_Mask__55306.1643022301.png",
@@ -249,6 +317,7 @@ const campaigns = [
     type: "brand",
     store: "bf",
     limit: "stock",
+    uses: "-",
     identifier: "Issey Miyake",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5636/10623/Issey_Miyake_Pour_Homme_Toiletry_Bag_and_Shower_Gel_GWP__32404.1643801777.png",
@@ -266,6 +335,7 @@ const campaigns = [
     type: "brand",
     store: "bf",
     limit: "stock",
+    uses: "-",
     identifier: "Thalgo",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5686/10649/Thalgo_Exotic_Island_Body_Scrub_70g_GWP_1__39509.1644405661.png",
@@ -283,6 +353,7 @@ const campaigns = [
     type: "brand",
     store: "bf",
     limit: "stock",
+    uses: "-",
     identifier: "NAK",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5709/10693/NAK_Platinum_Blonde_Anti-Yellow_Shampoo_100ml_4_1__75150.1645707093.png",
@@ -300,6 +371,7 @@ const campaigns = [
     type: "brand",
     store: "bf",
     limit: "stock",
+    uses: "-",
     identifier: "SVR",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5508/11746/Gift_with_purchase_20__24675.1651824657.jpg",
@@ -317,6 +389,7 @@ const campaigns = [
     type: "brand",
     store: "bf",
     limit: "stock",
+    uses: "-",
     identifier: "NUXE",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5310/9925/NUXE_Very_Rose_3-in-1_Soothing_Micellar_Water_100ml_1__81400.1629367978.png",
@@ -332,25 +405,9 @@ const campaigns = [
   },
   {
     type: "brand",
-    store: "bf",
-    limit: "stock",
-    identifier: "Moroccanoil",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5275/9883/Moroccanoil_Gym_Bottle_GWP_1__55837.1628669225.png",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/5275/9883/Moroccanoil_Gym_Bottle_GWP_1__55837.1628669225.png",
-    headline: "Free Moroccanoil Gym Bottle",
-    worth: null,
-    condition: "When you spend €100 or more on Moroccanoil",
-    sku: "10403",
-    sku_type: "product",
-    display: "TRUE",
-    destination_url: "https://www.beautyfeatures.ie/brands/Moroccanoil.html",
-  },
-  {
-    type: "brand",
     store: "bsk",
     limit: "647",
+    uses: "",
     identifier: "Dermalogica",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5874/11225/Template__49690.1649932314.jpg",
@@ -368,6 +425,7 @@ const campaigns = [
     type: "brand",
     store: "bsk",
     limit: "280",
+    uses: "179",
     identifier: "Dermalogica",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/3944/7919/Dermalogica_Hydro_Masque_Exfoliant_50ml__26998.1597734770.jpg",
