@@ -12,8 +12,30 @@ window.addEventListener("DOMContentLoaded", async () => {
     "30 June 2022",
   ];
 
-  const container = document.querySelector(".countdown");
-  
+  // this should work
+  function getContainer() {
+    return new Promise((resolve) => {
+      let count = 0;
+      const qry = () => document.querySelector(".countdown");
+      let cntnr = qry();
+      if (cntnr) return resolve(cntnr);
+      const itr = setInterval(() => {
+        cntnr = qry();
+        if (cntnr) {
+          clearInterval(itr);
+          return resolve(cntnr);
+        }
+        if (count === 4) {
+          clearInterval(itr);
+          resolve(undefined);
+        }
+        count++;
+      }, 2000);
+    });
+  }
+
+  const container = await getContainer();
+
   const today = new Date();
 
   const todayIsNotWeekend = ![0, 5, 6].includes(today.getDay());
@@ -52,6 +74,6 @@ window.addEventListener("DOMContentLoaded", async () => {
       }
     }, 1000);
   } else {
-    container.innerHTML = "&#128666; Order before 2pm for next day delivery";
+    container.innerHTML = "&#128666; Order before 12am for next day delivery";
   }
 });
