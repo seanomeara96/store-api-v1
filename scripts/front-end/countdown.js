@@ -1,4 +1,4 @@
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("DOMContentLoaded", async () => {
   const publicHolidays = [
     "1 January 2022",
     "17 March 2022",
@@ -9,10 +9,11 @@ window.addEventListener("DOMContentLoaded", () => {
     "31 October 2022",
     "25 December 2022",
     "26 December 2022",
+    "30 June 2022",
   ];
 
   const container = document.querySelector(".countdown");
-
+  
   const today = new Date();
 
   const todayIsNotWeekend = ![0, 5, 6].includes(today.getDay());

@@ -450,7 +450,7 @@ function ascendingInventory(a, b) {
 }
 
 function emailFormat({ name, sku, inventory_level }) {
-  return `<p>
+  return /*html*/`<p>
     ${name}<br>
     SKU: ${sku}<br>
     Inventory: <strong ${
