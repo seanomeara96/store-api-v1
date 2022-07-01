@@ -74,6 +74,6 @@ window.addEventListener("DOMContentLoaded", async () => {
       }
     }, 1000);
   } else {
-    container.innerHTML = "&#128666; Order before 12am for next day delivery";
+    container.innerHTML = "&#128666; Order before 2pm for next day delivery";
   }
 });
