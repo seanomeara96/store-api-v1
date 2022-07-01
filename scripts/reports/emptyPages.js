@@ -1,8 +1,7 @@
 const allStores = [
   { initial: "bf", name: "BeautyFeatures" },
   { initial: "bsk", name: "BeautySkincare" },
-  /**
-   * { initial: "ah", name: "AllHair" },
+  { initial: "ah", name: "AllHair" },
   { initial: "pb", name: "Pregnancy&Baby" },
   { initial: "ih", name: "InHealth" },
   { initial: "bs", name: "BabySafety" },
@@ -11,7 +10,6 @@ const allStores = [
   { initial: "ds", name: "DogSpace" },
   { initial: "stie", name: "Sleepytot IE" },
   { initial: "beuk", name: "BeautiEdit UK" },
-   */
 ];
 const { getAllProducts } = require("../../functions/products/getAllProducts");
 const { getAllBrands } = require("../../functions/brands/getAllBrands");
@@ -20,6 +18,9 @@ const {
 } = require("../../functions/categories/getAllCategories");
 const { stringify } = require("csv-stringify");
 const { getSiteUrl } = require("../../functions/utils/getSiteUrl");
+const {
+  getAllRedirects,
+} = require("../../functions/redirects/getAllRedirects");
 
 const sgMail = require("@sendgrid/mail");
 
@@ -32,6 +33,13 @@ function getSiteEmptyPages(site) {
     const brands = await getAllBrands().catch(reject);
 
     const categories = await getAllCategories().catch(reject);
+
+    function fromPathUrl(redirects) {
+      return redirects.map((i) => i.from_path);
+    }
+
+    const redirects = fromPathUrl((await getAllRedirects().catch(reject)))
+
 
     const issues = [];
 
@@ -58,11 +66,19 @@ function getSiteEmptyPages(site) {
       if (!visibleProducts.length && category.is_visible) issues.push(category);
     }
 
+    function removeRedirectedUrls(pages) {
+      return pages.filter((page) => !redirects.includes(page.custom_url.url));
+    }
+
+    function addDomain(slugs) {
+      return slugs.map(
+        (page) => getSiteUrl(site.initial) + page.custom_url.url
+      );
+    }
+
     resolve({
       name: site.name,
-      emptyPages: issues.map(
-        (page) => getSiteUrl(site.initial) + page.custom_url.url
-      ),
+      emptyPages: addDomain(removeRedirectedUrls(issues)),
     });
   });
 }
@@ -77,9 +93,8 @@ function getSiteEmptyPages(site) {
 async function getAllEmptyPages() {
   const emptyPages = [];
   for (const store of allStores) {
-    const pages =
-      (await getSiteEmptyPages(store).catch(console.log)) || undefined;
-    pages && emptyPages.push(pages);
+    const pages = await getSiteEmptyPages(store).catch(console.log)
+    if(pages.emptyPages.length) emptyPages.push(pages);
   }
   return emptyPages;
 }
@@ -121,25 +136,29 @@ function convertToCsvCompatibleFormat(emptyStorePages) {
 (async function () {
   const emptyPages = await getAllEmptyPages();
   const email = renderEmail(emptyPages);
-  stringify(convertToCsvCompatibleFormat(emptyPages), (err, out) => {
-    if (err) return;
-    const attachment = Buffer.from(out).toString("base64");
+  stringify(
+    convertToCsvCompatibleFormat(emptyPages),
+    { header: true },
+    (err, out) => {
+      if (err) return console.log(err);
+      const attachment = Buffer.from(out).toString("base64");
 
-    const msg = {
-      to: "sean@beautyfeatures.ie",
-      from: "sean@beautyfeatures.ie",
-      subject: `Empty Categories and Brands Report`,
-      text: out,
-      html: email,
-      attachments: [
-        {
-          content: attachment,
-          filename: "empty-pages.csv",
-          type: "text/csv",
-          disposition: "attachment",
-        },
-      ],
-    };
-    sgMail.send(msg).catch((err) => console.log(err.response.body));
-  });
+      const msg = {
+        to: "sean@beautyfeatures.ie",
+        from: "sean@beautyfeatures.ie",
+        subject: `Empty Categories and Brands Report`,
+        text: out,
+        html: email,
+        attachments: [
+          {
+            content: attachment,
+            filename: "empty-pages.csv",
+            type: "text/csv",
+            disposition: "attachment",
+          },
+        ],
+      };
+      sgMail.send(msg).catch((err) => console.log(err.response.body));
+    }
+  );
 })();
