@@ -3,14 +3,14 @@ const {
   addCategoryToSpecificProducts,
 } = require("../../functions/products/addCategoryToSpecificProducts");
 
-const productIds = [{"Product ID":6018},
-{"Product ID":6019},
-{"Product ID":6020},
-{"Product ID":6021},
-{"Product ID":6022},
-{"Product ID":6028}]
+const productIds = [,
+{"Product ID":1534},
+{"Product ID":1772},
+{"Product ID":2058},
+{"Product ID":2674},
+]
 
-let catId = 696;
+let catId = 697;
 
 addCategoryToSpecificProducts(productIds, catId)
   .then((res) =>
