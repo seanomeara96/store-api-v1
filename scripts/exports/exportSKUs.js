@@ -45,7 +45,10 @@ async function main() {
     const storeSKUs = await getStoreSKUs(store, 250).catch(console.log);
     skus.push(...storeSKUs);
   }
-  const uniqueSkus = new Set(skus);
-  console.log(uniqueSkus);
+  const uniqueSkus = [...new Set(skus)];
+
+  const skuJSON = uniqueSkus.map((sku) => ({ sku }));
+  const { output } = require("../utils/output");
+  await output("allSKUs", skuJSON).catch(console.log)
 }
 main();
