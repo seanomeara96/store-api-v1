@@ -1,5 +1,3 @@
-require("./config/config").config("bf");
+require("./config/config").config("bf", 2);
 
-const {getProductById} = require("./functions/products/getProductById");
-
-getProductById(5358).then(console.log)
+require("./config/config").store.get('/payments/methods').then(console.log).catch(console.log)
