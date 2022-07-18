@@ -121,7 +121,7 @@ function convertToCsvCompatibleFormat(emptyStorePages) {
     .flat();
 }
 
-(async function () {
+const emptyPages = async function (...emails) {
   const emptyPages = await getAllEmptyPages();
   const email = renderEmail(emptyPages);
   stringify(
@@ -129,10 +129,12 @@ function convertToCsvCompatibleFormat(emptyStorePages) {
     { header: true },
     (err, out) => {
       if (err) return console.log(err);
+
+
       const attachment = Buffer.from(out).toString("base64");
 
       const msg = {
-        to: "sean@beautyfeatures.ie",
+        to: emails,
         from: "sean@beautyfeatures.ie",
         subject: `Empty Categories and Brands Report`,
         text: out,
@@ -149,4 +151,8 @@ function convertToCsvCompatibleFormat(emptyStorePages) {
       sgMail.send(msg).catch((err) => console.log(err.response.body));
     }
   );
-})();
+}
+
+exports.emptyPages = emptyPages;
+
+
