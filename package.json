@@ -19,6 +19,7 @@
     "emptiesCron": "node ./scripts/reports/emptyPages/emptiesCron.js",
     "empties": "node ./scripts/reports/emptyPages/empties.js",
     "reports": "npm run report && npm run audit && npm run seo",
+    "bfOffers": "node ./scripts/automations/saleCategory.js",
     "countdown": "webpack"
   },
   "devDependencies": {

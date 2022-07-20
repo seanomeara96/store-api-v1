@@ -49,9 +49,9 @@ export const applySpecificFilters = (data: specificFilters[]) =>
       for (var name in productNames) {
         if (item[productNames[name]].toUpperCase() === "X") {
           getProductIdByName(productNames[name])
-            .then((id: number) => {
+            .then((id: number | string) => {
               promises.push(
-                applyFilter(id, key, value).catch((err) => console.log(err))
+                applyFilter(id as number, key, value).catch((err) => console.log(err))
               );
             })
             .catch((err) => console.log(err));

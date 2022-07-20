@@ -15,6 +15,6 @@ const getProductByName = (productName) => new Promise((resolve, reject) => {
             resolve(products[0]);
         }
     })
-        .catch((err) => console.log("Error in getProductByName", err));
+        .catch((err) => reject("Error in getProductByName"));
 });
 exports.getProductByName = getProductByName;
