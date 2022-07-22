@@ -11,7 +11,8 @@ const mapPromiseToId = (ids: number[], categoryId: number) =>
 
 export function removeCategoryFromProductsInCategory(categoryId: number) {
   return new Promise(async (resolve, reject) => {
-    const products = await getAllProducts().catch(reject);
+    if(typeof categoryId !== "number") return reject("id must be number");
+    const products = await getAllProducts({"categories:in": categoryId}).catch(reject);
     const producsInCat = filterProductsInCat(products!, categoryId);
     const productIds = mapProductIds(producsInCat);
     const promises = mapPromiseToId(productIds, categoryId);

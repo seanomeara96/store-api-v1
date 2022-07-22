@@ -1,3 +1,5 @@
-require("./config/config").config("bf", 2);
+require("./config/config").config("bf");
 
-require("./config/config").store.get('/payments/methods').then(console.log).catch(console.log)
+const { getAllProducts } = require("./functions/products/getAllProducts");
+
+getAllProducts({"categories:in": 702}).then(res => console.log(res.map(p => p.id)))

@@ -17,7 +17,9 @@ const mapProductIds = (products) => products.map(({ id }) => id);
 const mapPromiseToId = (ids, categoryId) => ids.map((id) => (0, removeCatFromProduct_1.removeCatFromProduct)(id, categoryId));
 function removeCategoryFromProductsInCategory(categoryId) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const products = yield (0, getAllProducts_1.getAllProducts)().catch(reject);
+        if (typeof categoryId !== "number")
+            return reject("id must be number");
+        const products = yield (0, getAllProducts_1.getAllProducts)({ "categories:in": categoryId }).catch(reject);
         const producsInCat = filterProductsInCat(products, categoryId);
         const productIds = mapProductIds(producsInCat);
         const promises = mapPromiseToId(productIds, categoryId);
