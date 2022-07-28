@@ -1,10 +1,9 @@
 const { default: getStoreSKUs } = require("../../functions/products/getStoreSKUs");
+const { output } = require("../utils/output");
 
-const allSKUs = [];
+const stores = ["bf"];
 
-const stores = ["bsk", "bf", "ah", "ih", "pb", "bs", "fs", "hie", "stie", "ds"];
-
-async function main() {
+(async () => {
   const skus = [];
   for (const store of stores) {
     require("../../config/config").config(store);
@@ -14,7 +13,6 @@ async function main() {
   const uniqueSkus = [...new Set(skus)];
 
   const skuJSON = uniqueSkus.map((sku) => ({ sku }));
-  const { output } = require("../utils/output");
+  
   await output("allSKUs", skuJSON).catch(console.log);
-}
-main();
+})();

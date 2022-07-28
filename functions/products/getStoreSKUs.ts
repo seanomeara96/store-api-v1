@@ -2,9 +2,9 @@ import { getAllProducts } from "../../functions/products/getAllProducts";
 
 import { getProductVariants } from "./getProductVariants";
 
-function getStoreSKUs(interval: number) {
+function getStoreSKUs(interval: number, filterLive: boolean = false) {
   return new Promise(async (resolve, reject) => {
-    const products = await getAllProducts();
+    const products = filterLive ? (await getAllProducts()).filter(product => product.is_visible) : (await getAllProducts());
     const variants = [];
     const batches = [];
 

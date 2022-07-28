@@ -11,9 +11,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const getAllProducts_1 = require("../../functions/products/getAllProducts");
 const getProductVariants_1 = require("./getProductVariants");
-function getStoreSKUs(interval) {
+function getStoreSKUs(interval, filterLive = false) {
     return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-        const products = yield (0, getAllProducts_1.getAllProducts)();
+        const products = filterLive ? (yield (0, getAllProducts_1.getAllProducts)()).filter(product => product.is_visible) : (yield (0, getAllProducts_1.getAllProducts)());
         const variants = [];
         const batches = [];
         for (let i = 0; i < products.length; i += interval) {
