@@ -2,7 +2,7 @@ require("../../config/config").config("bf");
 const { removeCategoryFromProductsInCategory } = require("../../functions/products/removeCategoryFromProductsInCategory");
 
 function main() {
-  removeCategoryFromProductsInCategory(595)
+  removeCategoryFromProductsInCategory(702)
     .then((res) => {
       const fulfilled = res.filter(
         ({ status }) => status === "fulfilled"
