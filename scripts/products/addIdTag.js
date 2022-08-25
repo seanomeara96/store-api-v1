@@ -1,29 +1,22 @@
 require("../../config/config").config("bf");
 const { addLine } = require("../../functions/content/addLine");
+const { getProductsByCategory } = require("../../functions/products/getProductsByCategory");
 
-const products = [{"Product ID":389},
-{"Product ID":390},
-{"Product ID":2340},
-{"Product ID":2341},
-{"Product ID":2622},
-{"Product ID":3125},
-{"Product ID":3126},
-{"Product ID":3380},
-{"Product ID":3381},
-{"Product ID":3681},
-{"Product ID":3682},
-{"Product ID":3824},
-{"Product ID":3838},
-{"Product ID":4161},
-{"Product ID":4162},
-{"Product ID":4655},
-{"Product ID":4656},
-{"Product ID":5312},
-{"Product ID":5315},
-{"Product ID":5505}]
+const idString = `loreal-metal-detox`;
+const catId = 704;
 
-async function addIdTag(productsIds, idString) {
+
+
+async function addIdTag() {
+  const products = await getProductsByCategory(catId).catch(()=> {
+    throw new Error("Cant get products in category")
+  });
+
+  const productsIds = products.map(p => ({id: p.id}))
+
   const script = `<!--start-${idString}--><script id="${idString}" type="text/javascript"></script><!--end-${idString}-->`;
+
+
   const promises = productsIds.map((p) => {
     return addLine(Object.values(p)[0], script);
   });
@@ -35,4 +28,4 @@ async function addIdTag(productsIds, idString) {
   if (fulfilled !== res.length) console.log(res);
 }
 
-addIdTag(products, "redken-color-extend");
+addIdTag();

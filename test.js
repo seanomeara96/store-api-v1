@@ -1,9 +1,6 @@
-require("./config/config").config("fs");
-const { getAllProducts } = require("./functions/products/getAllProducts");
-(async () => {
-  const products = await getAllProducts();
+require("./config/config").config("ih",2);
+// 138
 
-  for(const p of products){
-    console.log((new Date(p.date_created)).toLocaleDateString())
-  }
-})();
+const {getCoupon} = require("./functions/coupons/getCoupon")
+
+getCoupon(138).then(console.log).catch(console.log)
