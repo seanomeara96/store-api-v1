@@ -14,7 +14,7 @@ export const updateProduct = (productId: number, fieldToUpdate: any) =>
       .store.put(`/catalog/products/${productId}`, {
         ...fieldToUpdate,
       })
-      .then(resolve)
+      .then((res: any) => resolve(res.data.data))
       .catch((err:any) => reject(err.response.data));
   });
 

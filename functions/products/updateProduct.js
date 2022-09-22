@@ -14,7 +14,7 @@ const updateProduct = (productId, fieldToUpdate) => new Promise((resolve, reject
         return reject("field to update must be an object");
     require("../../config/config")
         .store.put(`/catalog/products/${productId}`, Object.assign({}, fieldToUpdate))
-        .then(resolve)
+        .then((res) => resolve(res.data.data))
         .catch((err) => reject(err.response.data));
 });
 exports.updateProduct = updateProduct;
