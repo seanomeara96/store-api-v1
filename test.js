@@ -1,10 +1,11 @@
-// 1086 Wingback Armchair Red remove option set 18
+require("./config/config").config("ss");
+const { getAllProducts } = require("./functions/products/getAllProducts");
+const { updateProduct } = require("./functions/products/updateProduct");
+getAllProducts().then(main);
 
-const {config} = require("./config/config")
-
-config("ha", 2);
-
-
-const {store} = require("./config/config")
-
-store.get(`/option_sets`).then(res => console.log(res.data));
+async function main(products) {
+  for(const p of products){
+    await updateProduct(p.id, {description: p.description.replace('<h2>Description</h2>', "")}).catch(console.log)
+  }
+  console.log("done")
+}

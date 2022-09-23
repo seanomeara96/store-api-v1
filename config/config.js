@@ -22,7 +22,8 @@ let api = {
       "DS",
       "STIE",
       "BEUK",
-      "HA"
+      "HA",
+      "SS"
     ];
 
     if (!stores.includes(storeInitials))

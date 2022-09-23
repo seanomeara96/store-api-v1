@@ -10,6 +10,7 @@
     "googleapis": "^88.2.0",
     "html-to-text": "^8.1.0",
     "image-downloader": "^4.3.0",
+    "jsdom": "^20.0.0",
     "lighthouse": "^9.6.4",
     "puppeteer": "^15.5.0"
   },
