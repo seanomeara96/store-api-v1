@@ -1,15 +1,41 @@
-require("./config/config");
-const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+require("./config/config").config("ha");
+const { output } = require("./scripts/utils/output");
+const { getAllCategories } = require("./functions/categories/getAllCategories");
 
-(async function () {
-  const msg = {
-    to: "david@dcphysiotherapy.ie",
-    from: "info@dcphysiotherapy.ie",
-    cc: "sean@beautyfeatures.ie",
-    subject: "Site Updates",
-    text: "Hi David, I'm doing some site updates over the next few days. I'm currently testing out this new email client to make sure this reaches you without being filtered out by anti-spam tools.",
-    // html: data,
-  };
-  sgMail.send(msg).then(console.log).catch(console.log);
+(async () => {
+  const categories = await getAllCategories().catch(console.log);
+
+  const duplicates = [];
+
+  for (const cat of categories) {
+    const nameCount = categories.reduce((a, c) => {
+      // console.log(c.name, cat.name)
+      return c.name === cat.name ? a + 1 : a;
+    }, 0);
+    if (nameCount > 1) {
+      duplicates.push(cat);
+    }
+  }
+
+  const data = [];
+
+  for (const d of duplicates) {
+    const excludes = duplicates.filter((i) => i.id !== d.id);
+    const match = excludes.find((ii) => ii.name === d.name);
+    const doc = {
+      old: undefined,
+      new: undefined,
+      old_edit: undefined,
+      new_edit: undefined,
+    };
+    const editPage = (id) =>
+      `https://store-o8co022yz5.mybigcommerce.com/manage/products/categories/${id}/edit`;
+    doc.old = d.parent_id === 24 ? d.custom_url.url : match.custom_url.url;
+    doc.new = d.parent_id !== 24 ? d.custom_url.url : match.custom_url.url;
+    doc.old_edit = d.parent_id === 24 ? editPage(d.id) : editPage(match.id);
+    doc.new_edit = d.parent_id !== 24 ? editPage(d.id) : editPage(match.id);
+    data.push(doc);
+  }
+
+  await output("hireall-duplicates", data);
 })();
