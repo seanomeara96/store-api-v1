@@ -1,17 +1,18 @@
-const site = "ha";
-require("../../config/config").config(site);
-const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const site = "bs";
 const { stringify } = require("csv-stringify");
 const { getAllLiveUrls } = require("../urls/getAllLiveUrls");
 /**
  * Exports urls for brands, categories,
  */
-async function exportUrls() {
-  const cleansedData = await getAllLiveUrls();
+async function main() {
+  const cleansedData = await getAllLiveUrls(site).catch(console.log)
 
   stringify(cleansedData, (err, csvFile) => {
     if (err) throw "Something went wrong";
+
+    const sgMail = require("@sendgrid/mail");
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
     const attachment = Buffer.from(csvFile).toString("base64");
     const subj = `All Urls for ${site.toUpperCase()}`;
     const msg = {
@@ -35,4 +36,4 @@ async function exportUrls() {
   });
 }
 
-exportUrls();
+main();

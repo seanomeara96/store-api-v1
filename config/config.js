@@ -6,6 +6,9 @@ let api = {
   store: undefined,
   config: (storeInitials, version = 3) => {
     api.store = undefined;
+    if(typeof storeInitials !== "string"){
+      throw new Error(`Must supply store initials of type string. Recieved type ${typeof storeInitials} instead...`)
+    }
     console.log("config called")
     storeInitials = storeInitials.toUpperCase();
     let stores = [
