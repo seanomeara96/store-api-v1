@@ -4,7 +4,7 @@
  * @param {object} fieldToUpdate
  * @returns promise
  */
- export const updateBrand = (catId: number, fieldToUpdate: any) =>
+ export const updateCategory = (catId: number, fieldToUpdate: any) =>
  new Promise((resolve, reject) => {
    if (typeof catId !== "number")
      return reject("product id must be a number");
