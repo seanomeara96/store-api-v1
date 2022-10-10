@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateBrand = void 0;
 /**
- * updates a product. must supply a valid field
- * @param {number} productId
+ * updates a brand. must supply a valid field
+ * @param {number} brandId
  * @param {object} fieldToUpdate
  * @returns promise
  */
