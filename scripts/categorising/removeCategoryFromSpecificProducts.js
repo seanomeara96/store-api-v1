@@ -23,10 +23,20 @@ const removeCategoryFromSpecificProducts = (productIds, categoryId) =>
   });
 
 
-const productIds = [];
+const productIds = [
+  { "Product ID": 6285 },
+  { "Product ID": 6286 },
+  { "Product ID": 6287 },
+  { "Product ID": 6288 },
+  { "Product ID": 6289 },
+  { "Product ID": 6290 },
+  { "Product ID": 6291 },
+  { "Product ID": 6292 },
+  { "Product ID": 6293 },
+];
 
 
-const catId = 517;
+const catId = 548;
 removeCategoryFromSpecificProducts(productIds, catId)
   .then((res) =>
     console.log("removeCategoryFromSpecificProducts response", res)

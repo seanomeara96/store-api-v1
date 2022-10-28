@@ -2,104 +2,81 @@ const puppeteer = require("puppeteer");
 (async () => {
   const data = [
     {
-      url: "https://dcphysiotherapy.ie/team/",
-      name: "team",
+      name: "BeautyFeatures.ie",
+      storeHash: "63354",
+      xAuth: "hlt382l5le9phaqwwjyjrf5fsr46h32",
+      url: "https://www.beautyfeatures.ie",
+      dummy_id: 548,
     },
     {
-      url: "https://dcphysiotherapy.ie/book-an-appointment/",
-      name: "book-an-appointment",
+      name: "BeautySkincare.ie",
+      storeHash: "7f87b",
+      xAuth: "oixypiux7apjmvud0kghb2v4rwbuhl5",
+      url: "https://www.beautyskincare.ie",
+      dummy_id: 85,
     },
     {
-      url: "https://dcphysiotherapy.ie/pf/chronic-pain/",
-      name: "chronic-pain",
+      name: "AllHair.ie",
+      storeHash: "d5068dtk11",
+      xAuth: "7zaa6z7qqndushxm8h9yg1rzu5hyih3",
+      url: "https://www.allhair.ie",
+      dummy_id: 190,
     },
     {
-      url: "https://dcphysiotherapy.ie/conditions-we-treat/",
-      name: "conditions-we-treat",
+      name: "InHealth.ie",
+      storeHash: "1jn0h8pjbp",
+      xAuth: "b1k44jj0l8sa5eutjpy8a4xpbog2hkg",
+      url: "https://www.inhealth.ie",
+      dummy_id: 1469,
     },
     {
-      url: "https://dcphysiotherapy.ie/pf/sports-physiotherapy/",
-      name: "sports-physiotherapy",
+      name: "PregnancyAndBaby.ie",
+      storeHash: "5rdxj17",
+      xAuth: "2o5vdhajv4idtl4jbcm4l1qt486fubm",
+      url: "https://www.pregnancyandbaby.ie",
+      dummy_id: 165,
     },
     {
-      url: "https://dcphysiotherapy.ie/pf/spinal-mobilisations/",
-      name: "spinal-mobilisations",
+      name: "BabySafety.ie",
+      storeHash: "egiahb",
+      xAuth: "lxyqtdvbsqcuke7t3lgfahguqm4p53b",
+      url: "https://www.babysafety.ie",
+      dummy_id: 81,
     },
     {
-      url: "https://dcphysiotherapy.ie/pf/arthritis-osteoarthritis/",
-      name: "arthritis-osteoarthritis",
+      name: "HaakaaOfficial.co.uk",
+      storeHash: "xxj4tzwboh",
+      xAuth: "nx5g7ol59osblpcnzd0jme6d94820ic",
+      url: "https://www.haakaaofficial.co.uk",
+      dummy_id: 67,
     },
     {
-      url: "https://dcphysiotherapy.ie/pf/sciatica/",
-      name: "sciatica",
+      name: "Haakaa.ie",
+      storeHash: "5d0pjlwy5c",
+      xAuth: "6mpsm1gd9vf1fcc6ipho75nw0jil1nf",
+      url: "https://www.haakaa.ie",
+      dummy_id: 38,
     },
     {
-      url: "https://dcphysiotherapy.ie/pf/degenerative-disc-disease/",
-      name: "degenerative-disc-disease",
+      name: "DogSpace.ie",
+      storeHash: "imyjwz3oie",
+      xAuth: "3swo6lbxgqulmogqn43ipcbwm3b7yen",
+      url: "https://www.dogspace.ie",
+      dummy_id: 24,
     },
     {
-      url: "https://dcphysiotherapy.ie/pf/tendonitis/",
-      name: "tendonitis",
+      name: "Sleepytot.ie",
+      storeHash: "su70uzfhmn",
+      xAuth: "4jf8ifqhw47p3egl0jgugmfcxmuneif",
+      url: "https://www.sleepytot.ie",
+      dummy_id: 24,
     },
     {
-      url: "https://dcphysiotherapy.ie/pf/ankle-sprain/",
-      name: "ankle-sprain",
-    },
-    {
-      url: "https://dcphysiotherapy.ie/",
-      name: "dcphysiotherapy.ie",
-    },
-    {
-      url: "https://dcphysiotherapy.ie/pricing/",
-      name: "pricing",
-    },
-    {
-      url: "https://dcphysiotherapy.ie/pf/occupational-injuries/",
-      name: "occupational-injuries",
-    },
-    {
-      url: "https://dcphysiotherapy.ie/about-us/",
-      name: "about-us",
-    },
-    {
-      url: "https://dcphysiotherapy.ie/pf/low-back-pain/",
-      name: "low-back-pain",
-    },
-    {
-      url: "https://dcphysiotherapy.ie/contact/",
-      name: "contact",
-    },
-    {
-      url: "https://dcphysiotherapy.ie/pf/deep-tissue-massage/",
-      name: "deep-tissue-massage",
-    },
-    {
-      url: "https://dcphysiotherapy.ie/pf/lumbar-disc-herniation/",
-      name: "lumbar-disc-herniation",
-    },
-    {
-      url: "https://dcphysiotherapy.ie/pf/neck-pain/",
-      name: "neck-pain",
-    },
-    {
-      url: "https://dcphysiotherapy.ie/pf/spinal-manipulation/",
-      name: "spinal-manipulation",
-    },
-    {
-      url: "https://dcphysiotherapy.ie/pf/dry-needling-trigger-point-therapy/",
-      name: "dry-needling-trigger-point-therapy",
-    },
-    {
-      url: "https://dcphysiotherapy.ie/pf/whiplash/",
-      name: "whiplash",
-    },
-    {
-      url: "https://dcphysiotherapy.ie/pf/non-surgical-spinal-decompression/",
-      name: "non-surgical-spinal-decompression",
-    },
-    {
-      url: "https://dcphysiotherapy.ie/pf/bulging-discs/",
-      name: "bulging-discs",
+      name: "FertilityStore.ie",
+      storeHash: "c7kc4",
+      xAuth: "2u1uzh9b52ncuz0mrdkqmyblx3ncpo2",
+      url: "https://www.fertilitystore.ie",
+      dummy_id: 27,
     },
   ];
 
@@ -108,8 +85,8 @@ const puppeteer = require("puppeteer");
     timeout: 100000,
   });
 
-  function runTest(url, name) {
-    return new Promise(async (resolve, reject) => {
+  function saveScreenshot(url, name) {
+    return new Promise(async (resolve) => {
       const page = await browser.newPage();
       await page.setViewport({ width: 1920, height: 1080 });
 
@@ -119,16 +96,16 @@ const puppeteer = require("puppeteer");
       //await page.waitFor(500);
 
       await page.screenshot({
-        path: `./dcphysio-shots/${name}.png`,
-        fullPage: true,
+        path: `./images/${name}.png`,
+        fullPage: false,
       });
-      resolve()
+      resolve();
     });
   }
 
   for (const page of data) {
-    await runTest(page.url, page.name);
+    await saveScreenshot(page.url, page.name);
   }
 
- await browser.close();
+  browser.close();
 })();
