@@ -33,23 +33,23 @@ const campaigns = [
     uses: "0",
     identifier: "Dermalogica",
     thumbnail:
-      "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/75x75/products/535/1086/resurface_and_replenish__78180.1656491703.jpg?c=2&imbypass=on",
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6453/14399/Dermalogica_Meet_Dermalogica_Amenity_Pack__71372__45368.1666781201.jpg?c=2&imbypass=on",
     full_img:
-      "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/300x300/products/535/1086/resurface_and_replenish__78180.1656491703.jpg?c=2&imbypass=on",
-    headline: "Free Dermalogica Resurface & Replenish Kit worth €35",
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6453/14399/Dermalogica_Meet_Dermalogica_Amenity_Pack__71372__45368.1666781201.jpg?c=2&imbypass=on",
+    headline: "Free Meet Dermalogica Amenity Kit worth €35",
     worth: 35,
     condition: "When you spend €85 on Dermalogica",
-    sku: "GWP37",
+    sku: "GWP13 ",
     sku_type: "product",
     display: "TRUE",
     destination_url: "https://www.beautyfeatures.ie/brands/Dermalogica.html",
   },
   {
-    type: "tag",
+    type: "category",
     store: "bf",
     limit: "stock",
     uses: "-",
-    identifier: "redken-extreme",
+    identifier: "Top Brands/Redken/Extreme",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/395/9605/Redken_-_Extreme_Shampoo_300ml__40188.1623162199.jpg",
     full_img:
@@ -63,11 +63,11 @@ const campaigns = [
     destination_url: "https://www.beautyfeatures.ie/brands/redken",
   },
   {
-    type: "tag",
+    type: "category",
     store: "bf",
     limit: "stock",
     uses: "-",
-    identifier: "redken-all-soft",
+    identifier: "Top Brands/Redken/All Soft",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5917/11577/Redken_-_All_Soft_Shampoo_300ml__47580.1620983464.1280.1280__46003.1651581747.jpg",
     full_img:
@@ -81,11 +81,11 @@ const campaigns = [
     destination_url: "https://www.beautyfeatures.ie/brands/redken",
   },
   {
-    type: "tag",
+    type: "category",
     store: "bf",
     limit: "stock",
     uses: "-",
-    identifier: "redken-color-extend",
+    identifier: "Top Brands/Redken/Color Extend",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5918/11579/Redken_-_Colour_Extend_Shampoo_300ml__31943.1622627138.1280.1280__35477.1651582462.jpg",
     full_img:
@@ -95,7 +95,7 @@ const campaigns = [
     condition: "When you spend €40 on the Redken Color Extend range",
     sku: "11099c",
     sku_type: "product",
-    display: "TRUE",
+    display: "FALSE",
     destination_url: "https://www.beautyfeatures.ie/brands/redken",
   },
   {
@@ -117,11 +117,11 @@ const campaigns = [
     destination_url: "https://www.beautyfeatures.ie/brands/Decleor.html",
   },
   {
-    type: "tag",
+    type: "category",
     store: "bf",
     limit: "52",
     uses: "-",
-    identifier: "loreal-pro-longer",
+    identifier: "Top Brands/L'Oreal/Pro Longer",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6237/13700/Pro_Longer_Shampoo__39476.1658476870.jpg?c=2&imbypass=on",
     full_img:
@@ -135,11 +135,11 @@ const campaigns = [
     destination_url: "https://www.beautyfeatures.ie/pro-longer/",
   },
   {
-    type: "tag",
+    type: "category",
     store: "bf",
     limit: "200",
     uses: "",
-    identifier: "loreal-absolut-repair",
+    identifier: "Top Brands/L'Oreal/Absolut Repair",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6236/13701/Absolut_Repair_Shampoo__26110.1658477016.jpg?c=2&imbypass=on",
     full_img:
@@ -153,11 +153,11 @@ const campaigns = [
     destination_url: "https://www.beautyfeatures.ie/absolut-repair/",
   },
   {
-    type: "tag",
+    type: "category",
     store: "bf",
     limit: "300",
     uses: "",
-    identifier: "loreal-vitamino-color",
+    identifier: "Top Brands/L'Oreal/Vitamino Color",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6235/13702/Vitamino_Color_Shampoo__70909.1658477078.jpg?c=2&imbypass=on",
     full_img:
@@ -171,11 +171,11 @@ const campaigns = [
     destination_url: "https://www.beautyfeatures.ie/vitamino-color/",
   },
   {
-    type: "tag",
+    type: "category",
     store: "bf",
     limit: "200",
     uses: "",
-    identifier: "loreal-metal-detox",
+    identifier: "Top Brands/L'Oreal/Metal Detox",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6233/13659/Copy_of_Copy_of_Template_49_1__06600.1658409766.jpg?c=2&imbypass=on",
     full_img:
@@ -222,7 +222,7 @@ const campaigns = [
     condition: "When you spend €40 on Pureology",
     sku: "10354a",
     sku_type: "product",
-    display: "TRUE",
+    display: "FALSE",
     destination_url: "https://www.beautyfeatures.ie/brands/pureology",
   },
   {
@@ -276,7 +276,7 @@ const campaigns = [
     condition: "When you spend €60 on Caudalie",
     sku: "11554",
     sku_type: "product",
-    display: "TRUE",
+    display: "FALSE",
     destination_url: "https://www.beautyfeatures.ie/caudalie/",
   },
   {
@@ -294,8 +294,26 @@ const campaigns = [
     condition: "When you spend €100 or more on Moroccanoil",
     sku: "10151",
     sku_type: "product",
-    display: "TRUE",
+    display: "FALSE",
     destination_url: "https://www.beautyfeatures.ie/brands/Moroccanoil.html",
+  },
+  {
+    type: "brand",
+    store: "bf",
+    limit: "30",
+    uses: "",
+    identifier: "Carter Beauty",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6139/13493/Carter_Beauty_Wispie_False_Lashes_GWP_1__24409.1656402643.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6139/13493/Carter_Beauty_Wispie_False_Lashes_GWP_1__24409.1656402643.jpg?c=2&imbypass=on",
+    headline: "Free Carter Beauty Wispie False Lashes worth €5",
+    worth: 5,
+    condition: "When you spend €10 on Carter Beauty",
+    sku: "11649",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/carter-beauty/",
   },
   {
     type: "brand",
@@ -389,24 +407,6 @@ const campaigns = [
   },
   {
     type: "brand",
-    store: "bsk",
-    limit: "800",
-    uses: "0",
-    identifier: "Dermalogica",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/75x75/products/535/1086/resurface_and_replenish__78180.1656491703.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/300x300/products/535/1086/resurface_and_replenish__78180.1656491703.jpg?c=2&imbypass=on",
-    headline: "Free Dermalogica Resurface & Replenish Kit worth €35",
-    worth: 35,
-    condition: "When you spend €85 on Dermalogica",
-    sku: "GWP37",
-    sku_type: "product",
-    display: "TRUE",
-    destination_url: "https://www.beautyskincare.ie/dermalogica",
-  },
-  {
-    type: "brand",
     store: "bf",
     limit: "103",
     uses: "",
@@ -422,6 +422,24 @@ const campaigns = [
     sku_type: "product",
     display: "TRUE",
     destination_url: "https://www.beautyfeatures.ie/brands/Mama-Mio/",
+  },
+  {
+    type: "brand",
+    store: "bsk",
+    limit: "800",
+    uses: "0",
+    identifier: "Dermalogica",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6453/14399/Dermalogica_Meet_Dermalogica_Amenity_Pack__71372__45368.1666781201.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6453/14399/Dermalogica_Meet_Dermalogica_Amenity_Pack__71372__45368.1666781201.jpg?c=2&imbypass=on",
+    headline: "Free Meet Dermalogica Amenity Kit worth €35",
+    worth: 35,
+    condition: "When you spend €85 on Dermalogica",
+    sku: "GWP13 ",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyskincare.ie/dermalogica",
   },
 ];
 

@@ -22,7 +22,7 @@ const removeCatFromProduct = (productId, catIdToRemove) => {
             const updatedCategories = product.categories.filter((catId) => catId !== catIdToRemove);
             // remove category
             (0, updateProduct_1.updateProduct)(productId, { categories: updatedCategories })
-                .then((res) => resolve(res.status))
+                .then((res) => resolve(res.status)) // ??  does this return undefined?
                 .catch((err) => reject(err));
         })
             .catch(reject);

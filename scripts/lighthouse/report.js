@@ -5,20 +5,19 @@ const { output } = require("../utils/output");
 // const { getAllLiveUrls } = require("../urls/getAllLiveUrls"); // (await getAllLiveUrls("fs")).map((r) => r.url);
 
 const urls = [
-  "https://www.beautyfeatures.ie/",
-  "https://www.inhealth.ie/",
-  "https://www.beautiedit.com/",
-  "https://www.beautyskincare.ie/",
-  "https://www.allhair.ie/",
-  "https://www.pregnancyandbaby.ie/",
-  "https://www.babysafety.ie/",
-  "https://www.haakaa.ie/",
-  "https://haakaaofficial.co.uk/",
-  "https://www.fertilitystore.ie/",
-  "https://beautiedit.co.uk/",
-  "https://sleepytot.ie/",
-  "https://dogspace.ie/",
-  "https://dcphysiotherapy.ie/",
+  "https://www.hireall.ie/",
+
+  "https://www.hireall.ie/conference-exhibitions/",
+  "https://www.hireall.ie/corporate-hospitality/",
+  "https://www.hireall.ie/event-seating/",
+  "https://www.hireall.ie/exam-furniture/",
+  "https://www.hireall.ie/hotel-venues/",
+  "https://www.hireall.ie/live-events/",
+  "https://www.hireall.ie/private-parties-weddings/",
+  "https://www.hireall.ie/?ctk=197906db-8f17-4092-8ac5-a181e8fe1c5c#",
+  "https://www.hireall.ie/event-kitchens/",
+  "https://www.hireall.ie/?ctk=197906db-8f17-4092-8ac5-a181e8fe1c5c#",
+  "https://www.hireall.ie/the-irish-open-gallery/",
 ];
 
 const desktopConfig = {
