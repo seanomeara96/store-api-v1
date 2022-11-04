@@ -1,9 +1,8 @@
-const store = "bf";
-require("./config/config").config(store);
-const { getAllProducts } = require("./functions/products/getAllProducts");
-const { getProductById } = require("./functions/products/getProductById");
-const { getSiteUrl } = require("./functions/utils/getSiteUrl");
-const { sendMail } = require("./scripts/utils/sendMail");
+require("../../config/config")
+const { getAllProducts } = require("../../functions/products/getAllProducts");
+//const { getProductById } = require("../../functions/products/getProductById");
+const { getSiteUrl } = require("../../functions/utils/getSiteUrl");
+const { sendMail } = require("../../scripts/utils/sendMail");
 
 const filterProductsWithOptionSets = (products) => {
   return products.filter(({ option_set_id }) => option_set_id);
@@ -13,7 +12,7 @@ const filterInventoryTrackingNotVariant = (products) => {
     ({ inventory_tracking }) => inventory_tracking !== "variant"
   );
 };
-const formatProductHTMLBlocks = (products) => {
+const formatProductHTMLBlocks = (products, store) => {
   return products.map(
     (product) =>
       `<p><a href="${getSiteUrl(store) + product.custom_url.url}">${
@@ -29,17 +28,23 @@ const formatEmail = (htmlBlocks) => {
     ...htmlBlocks,
   ].join("\n");
 };
-function main() {
-  getAllProducts()
-    .then(filterProductsWithOptionSets)
-    .then(filterInventoryTrackingNotVariant)
-    .then(formatProductHTMLBlocks)
-    .then(formatEmail)
-    .then((configs) =>
-      sendMail("Config Inventory Tracking", configs, [
-        "sean@beautyfeatures.ie",
-        "brendan@beautyfeatures.ie",
-      ])
-    );
-}
-main();
+
+(async () => {
+  const htmlBlocks = [];
+  async function report(store) {
+    require("../../config/config").config(store);
+    await getAllProducts()
+      .then(filterProductsWithOptionSets)
+      .then(filterInventoryTrackingNotVariant)
+      .then((data) => htmlBlocks.push(...formatProductHTMLBlocks(data, store)));
+  }
+
+  for (const store of ["bf", "ih", "bsk", "bs", "pb", "hie"]) {
+    await report(store);
+  }
+
+  sendMail("Config Inventory Tracking", formatEmail(htmlBlocks), [
+    "sean@beautyfeatures.ie",
+    // "brendan@beautyfeatures.ie",
+  ])
+})();
