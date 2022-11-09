@@ -19,6 +19,19 @@ async function getAllLiveUrls(site) {
   const discontinuedUrls = redirects.map(fromPath);
   // console.log(discontinuedUrls);
   const url = getSiteUrl(site);
+
+  /**
+   * get al priooduct urls
+   */
+  const products = await getAllProducts().catch("products failed");
+  const productUrls = products.map((product) => ({
+    type: "product",
+    url: url + product.custom_url.url,
+    slug: product.custom_url.url,
+    sku: product.sku,
+    product_count: null,
+  }));
+
   /**
    * get all brands
    */
@@ -28,6 +41,9 @@ async function getAllLiveUrls(site) {
     url: url + brand.custom_url.url,
     slug: brand.custom_url.url,
     sku: "",
+    product_count: products.reduce((a, c) => {
+      return brand.id === c.brand_id ? a + 1 : a;
+    }, 0),
   }));
   /**
    * get all categories
@@ -42,6 +58,9 @@ async function getAllLiveUrls(site) {
     url: url + cat.custom_url.url,
     slug: cat.custom_url.url,
     sku: "",
+    product_count: products.reduce((a, c) => {
+      return c.categories.includes(cat.id) ? a + 1 : a;
+    }, 0),
   }));
   /**
    * get all pages
@@ -52,17 +71,9 @@ async function getAllLiveUrls(site) {
     url: url + (page.url || ""),
     slug: page.url || "",
     sku: "",
+    product_count: null,
   }));
-  /**
-   * get al priooduct urls
-   */
-  const products = await getAllProducts().catch("products failed");
-  const productUrls = products.map((product) => ({
-    type: "product",
-    url: url + product.custom_url.url,
-    slug: product.custom_url.url,
-    sku: product.sku,
-  }));
+
   require("../../config/config").config(site, 2);
   /**
    * get all blogs
@@ -73,6 +84,7 @@ async function getAllLiveUrls(site) {
     url: url + blog.url,
     slug: blog.url,
     sku: "",
+    product_count: null,
   }));
 
   if (!url) throw new Error("URL is undefined");
@@ -83,6 +95,7 @@ async function getAllLiveUrls(site) {
       url,
       slug: "/",
       sku: "",
+      product_count: null,
     },
     ...brandUrls,
     ...catUrls,
@@ -91,10 +104,9 @@ async function getAllLiveUrls(site) {
     ...productUrls,
   ];
 
-  console.log(data);
-
-  const removeDiscontinuedUrls = (data, discontinuedUrls) =>
-    data.filter(({ slug }) => !discontinuedUrls.includes(slug));
+  const removeDiscontinuedUrls = (data, discontinuedUrls) => {
+    return data.filter(({ slug }) => !discontinuedUrls.includes(slug));
+  };
 
   function removeSlug(item) {
     delete item.slug;
@@ -103,8 +115,9 @@ async function getAllLiveUrls(site) {
 
   const removeSlugs = (data) => data.map(removeSlug);
 
-  const cleanseData = (data, discontinuedUrls) =>
-    removeSlugs(removeDiscontinuedUrls(data, discontinuedUrls));
+  const cleanseData = (data, discontinuedUrls) => {
+    return removeSlugs(removeDiscontinuedUrls(data, discontinuedUrls))
+  };
 
   const cleansedData = cleanseData(data, discontinuedUrls);
   return cleansedData;
