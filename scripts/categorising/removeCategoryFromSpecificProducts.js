@@ -9,14 +9,15 @@ const {
  * @param {*} categoryName
  * @returns
  */
-const removeCategoryFromSpecificProducts = (productIds, categoryId) =>
-  new Promise((resolve, reject) => {
-    const promises = productIds.map((productId) => {
+function removeCategoryFromSpecificProducts(productIds, categoryId) {
+  return new Promise(function (resolve, reject) {
+    const promises = productIds.map(function (productId) {
       const id = Object.values(productId)[0];
       return removeCatFromProduct(id, categoryId);
     });
     Promise.allSettled(promises).then(resolve).catch(reject);
   });
+}
 
 const catId = 514;
 
