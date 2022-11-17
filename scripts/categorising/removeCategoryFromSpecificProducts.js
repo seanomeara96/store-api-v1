@@ -2,9 +2,6 @@ require("../../config/config").config("bf");
 const {
   removeCatFromProduct,
 } = require("../../functions/products/removeCatFromProduct");
-/**
- * issue with this script is that its prematurely returning an empty array and not the expected output from promise allsettled
- */
 
 /**
  * This needs to be tested before using
@@ -33,7 +30,5 @@ const productIds = [
 ];
 
 removeCategoryFromSpecificProducts(productIds, catId)
-  .then((res) =>
-    console.log("removeCategoryFromSpecificProducts response", res)
-  )
-  .catch((err) => console.log(err));
+  .then(console.log)
+  .catch(console.log);
