@@ -10,8 +10,8 @@ const {
  * @returns
  */
 function removeCategoryFromSpecificProducts(productIds, categoryId) {
-  return new Promise(function (resolve, reject) {
-    const promises = productIds.map(function (productId) {
+  return new Promise(function removalPromise (resolve, reject) {
+    const promises = productIds.map(function removeCatFromProductById (productId) {
       const id = Object.values(productId)[0];
       return removeCatFromProduct(id, categoryId);
     });
