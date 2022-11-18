@@ -1,43 +1,128 @@
+const { getAllProductVariants } = require("./functions/products/getAllProductVariants");
+
 require("./config/config").config("bf");
-const { getProductBySKU } = require("./functions/products/getProductBySKU");
-const fs = require("fs");
-function simplePrint(text, filename="out"){
-    fs.writeFile(`${filename}.txt`, text, (err) => {
-        if(err) console.log(err);
-        console.log("printed")
-    })
-}
 
+const skus = [
+  "9563",
+  "9562",
+  "9561",
+  "9560",
+  "9558",
+  "10418",
+  "10023",
+  "10010",
+  "10011",
+  "6899",
+  "6901",
+  "6881",
+  "6906",
+  "6930",
+  "10120",
+  "6878",
+  "6940",
+  "6904",
+  "6873",
+  "6957",
+  "6927",
+  "5160",
+  "6947",
+  "6885",
+  "6922",
+  "9780",
+  "8215",
+  "9070A",
+  "9072A",
+  "9502",
+  "9521",
+  "9505",
+  "9174",
+  "9181",
+  "10239",
+  "10155",
+  "10153",
+  "9352",
+  "9347",
+  "8575",
+  "7986",
+  "10187",
+  "7000",
+  "5352",
+  "8341",
+  "8373",
+  "8439",
+  "8435",
+  "8374",
+  "8370",
+  "8344",
+  "8314",
+  "9992",
+  "9991",
+  "9990",
+  "9989",
+  "9993",
+  "9999",
+  "9996",
+  "7246",
+  "9629",
+  "9571",
+  "9570",
+  "9568",
+  "10112",
+  "10111",
+  "11830A",
+  "9125",
+  "9126",
+  "KER_E1043100",
+  "9123",
+  "KER_E007710",
+  "9662",
+  "10489",
+  "10488",
+  "10469",
+  "10464",
+  "8779A",
+  "9679",
+  "9673",
+  "10374",
+  "10758",
+  "8053A",
+  "10484",
+  "8605",
+  "8606",
+  "10615",
+  "8810",
+  "10245",
+  "10244",
+  "10242",
+  "10241",
+  "10253",
+  "10249",
+  "10248",
+  "10246",
+  "10243",
+  "10250",
+  "10247",
+  "10356",
+  "9822",
+  "9821",
+  "8896",
+  "9279",
+  "10183",
+  "9288",
+  "9269",
+  "9297",
+  "9292",
+  "9434",
+  "8800",
+  "8822",
+  "9112",
+  "9117",
+  "10516",
+  "10532",
+  "10526",
+  "9188",
+  "10204",
+  "9417"
+];
 
-(async () => {
-  const skus = [
-    { SKU: "7657" },
-    { SKU: "10492" },
-    { SKU: "10358" },
-    { SKU: "MOR_MOISTURE" },
-    { SKU: "7180" },
-    { SKU: "110631" },
-    { SKU: "110700" },
-    { SKU: "KER_E022410" },
-    { SKU: "11393" },
-    { SKU: "12000" },
-    { SKU: "11256" },
-    { SKU: "9209" },
-  ];
-  const out = []
-  for (const {SKU} of skus) {
-    const res = await getProductBySKU(SKU).catch(console.log);
-    if(!res.length) {
-        console.log(`no products`);
-        break;
-    }
-    if (res.length !== 1) {
-        console.log(`multiple products with that sku: ${SKU}`);
-        break;
-    };
-    const product = res[0];
-    out.push(product.custom_url.url);
-
-  }
-  simplePrint(out.join("\n"));
-})();
+getAllProductVariants().then(console.log)
