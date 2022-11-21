@@ -77,7 +77,7 @@ const campaigns = [
     condition: "When you spend €40 on the Redken All Soft range",
     sku: "11099a",
     sku_type: "product",
-    display: "TRUE",
+    display: "FALSE",
     destination_url: "https://www.beautyfeatures.ie/brands/redken",
   },
   {
@@ -210,24 +210,6 @@ const campaigns = [
   {
     type: "brand",
     store: "bf",
-    limit: "stock",
-    uses: "-",
-    identifier: "Pureology",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5876/12105/Pureology_Color_Fanatic_Leave-In_Spray_30ml_1_1__65886.1652780450.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/5876/12105/Pureology_Color_Fanatic_Leave-In_Spray_30ml_1_1__65886.1652780450.jpg?c=2&imbypass=on",
-    headline: "Free Pureology Color Fanatic Travel Size",
-    worth: 4,
-    condition: "When you spend €40 on Pureology",
-    sku: "10354a",
-    sku_type: "product",
-    display: "FALSE",
-    destination_url: "https://www.beautyfeatures.ie/brands/pureology",
-  },
-  {
-    type: "brand",
-    store: "bf",
     limit: "100",
     uses: "0",
     identifier: "Hollywood Browzer",
@@ -278,24 +260,6 @@ const campaigns = [
     sku_type: "product",
     display: "FALSE",
     destination_url: "https://www.beautyfeatures.ie/caudalie/",
-  },
-  {
-    type: "brand",
-    store: "bf",
-    limit: "139",
-    uses: "-",
-    identifier: "Moroccanoil",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5115/9368/moro-comb__36575.1620814825.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/5115/9368/moro-comb__36575.1620814825.jpg?c=2&imbypass=on",
-    headline: "Free Moroccanoil Detangling Comb Worth €20",
-    worth: 20,
-    condition: "When you spend €100 or more on Moroccanoil",
-    sku: "10151",
-    sku_type: "product",
-    display: "FALSE",
-    destination_url: "https://www.beautyfeatures.ie/brands/Moroccanoil.html",
   },
   {
     type: "brand",
@@ -422,24 +386,6 @@ const campaigns = [
     sku_type: "product",
     display: "TRUE",
     destination_url: "https://www.beautyfeatures.ie/brands/Mama-Mio/",
-  },
-  {
-    type: "brand",
-    store: "bsk",
-    limit: "800",
-    uses: "0",
-    identifier: "Dermalogica",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6453/14399/Dermalogica_Meet_Dermalogica_Amenity_Pack__71372__45368.1666781201.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6453/14399/Dermalogica_Meet_Dermalogica_Amenity_Pack__71372__45368.1666781201.jpg?c=2&imbypass=on",
-    headline: "Free Meet Dermalogica Amenity Kit worth €35",
-    worth: 35,
-    condition: "When you spend €85 on Dermalogica",
-    sku: "GWP13 ",
-    sku_type: "product",
-    display: "TRUE",
-    destination_url: "https://www.beautyskincare.ie/dermalogica",
   },
 ];
 
