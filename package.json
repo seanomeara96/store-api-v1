@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@sendgrid/mail": "^7.4.4",
+    "@types/csv-stringify": "^3.1.0",
     "axios": "^0.21.4",
     "colors": "^1.4.0",
     "csv-stringify": "^6.0.5",

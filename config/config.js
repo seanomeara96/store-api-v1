@@ -6,37 +6,24 @@ let api = {
   store: undefined,
   config: (storeInitials, version = 3) => {
     api.store = undefined;
-    if(typeof storeInitials !== "string"){
-      throw new Error(`Must supply store initials of type string. Recieved type ${typeof storeInitials} instead...`)
+    if (typeof storeInitials !== "string") {
+      throw new Error(
+        `Must supply store initials of type string. Recieved type ${typeof storeInitials} instead...`
+      );
     }
-    console.log("config called")
+    console.log("config called");
     storeInitials = storeInitials.toUpperCase();
-    let stores = [
-      "BF",
-      "BSK",
-      "AH",
-      "AS",
-      "HUK",
-      "HIE",
-      "IH",
-      "BS",
-      "PB",
-      "FS",
-      "DS",
-      "STIE",
-      "BEUK",
-      "HA",
-      "SS"
-    ];
+    const storeToken = process.env[`${storeInitials}_XAUTHTOKEN`];
+    const storeHash = process.env[`${storeInitials}_STORE_HASH`];
 
-    if (!stores.includes(storeInitials))
-      throw new Error("Provide a valid store");
-
+    if (!storeHash || !storeToken) {
+      throw new Error(
+        `You Dont Have keys for store wih initials of ${storeInitials}`
+      );
+    }
     api.store = axios.create({
-      baseURL: `https://api.bigcommerce.com/stores/${
-        process.env[`${storeInitials}_STORE_HASH`]
-      }/v${version}`,
-      headers: { "x-auth-token": process.env[`${storeInitials}_XAUTHTOKEN`] },
+      baseURL: `https://api.bigcommerce.com/stores/${storeHash}/v${version}`,
+      headers: { "x-auth-token": storeToken },
     });
   },
 };
