@@ -7,9 +7,11 @@ const { allStores } = require("../../scripts/vars/allStores");
 
 (async () => {
   const out = [];
-  for (const store of allStores) {
+  for (const x of allStores) {
+    const store = x.initial;
     require("../../config/config").config(store);
-    const products = await getAllProducts();
+    const products = await getAllProducts().catch(console.log)
+    if(!products) continue;
     const batches = [];
     const batch_size = 100;
     for (let i = 0; i < products.length; i += batch_size) {
