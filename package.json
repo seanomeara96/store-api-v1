@@ -26,7 +26,8 @@
     "bfOffers": "node ./scripts/automations/saleCategory.js",
     "countdown": "webpack",
     "updateNewIn": "node ./scripts/automations/updateNewIn.js",
-    "inventoryTracking": "node ./scripts/reports/inventoryTrackingReport.js"
+    "inventoryTracking": "node ./scripts/reports/inventoryTrackingReport.js",
+    "needsContent": "node ./scripts/reports/inStockNeedsContent.js"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.17.10",
