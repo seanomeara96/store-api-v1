@@ -12,7 +12,6 @@ const campaigns = [
     type: "brand",
     store: "bf",
     limit: "stock",
-    uses: "-",
     identifier: "Alfaparf",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/attribute_rule_images/4652_source_1618495687.jpg",
@@ -30,7 +29,6 @@ const campaigns = [
     type: "brand",
     store: "bf",
     limit: "800",
-    uses: "0",
     identifier: "Dermalogica",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6453/14399/Dermalogica_Meet_Dermalogica_Amenity_Pack__71372__45368.1666781201.jpg?c=2&imbypass=on",
@@ -48,7 +46,6 @@ const campaigns = [
     type: "category",
     store: "bf",
     limit: "stock",
-    uses: "-",
     identifier: "Top Brands/Redken/Extreme",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/395/9605/Redken_-_Extreme_Shampoo_300ml__40188.1623162199.jpg",
@@ -66,7 +63,6 @@ const campaigns = [
     type: "category",
     store: "bf",
     limit: "stock",
-    uses: "-",
     identifier: "Top Brands/Redken/All Soft",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5917/11577/Redken_-_All_Soft_Shampoo_300ml__47580.1620983464.1280.1280__46003.1651581747.jpg",
@@ -84,7 +80,6 @@ const campaigns = [
     type: "category",
     store: "bf",
     limit: "stock",
-    uses: "-",
     identifier: "Top Brands/Redken/Color Extend",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5918/11579/Redken_-_Colour_Extend_Shampoo_300ml__31943.1622627138.1280.1280__35477.1651582462.jpg",
@@ -102,7 +97,6 @@ const campaigns = [
     type: "brand",
     store: "bf",
     limit: "205",
-    uses: "",
     identifier: "Decleor",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6141/13492/Decleor_Essentials_to_Show_You_Care_GWP__89334.1656402224.jpg?c=2&imbypass=on",
@@ -120,7 +114,6 @@ const campaigns = [
     type: "category",
     store: "bf",
     limit: "52",
-    uses: "-",
     identifier: "Top Brands/L'Oreal/Pro Longer",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6237/13700/Pro_Longer_Shampoo__39476.1658476870.jpg?c=2&imbypass=on",
@@ -138,7 +131,6 @@ const campaigns = [
     type: "category",
     store: "bf",
     limit: "200",
-    uses: "",
     identifier: "Top Brands/L'Oreal/Absolut Repair",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6236/13701/Absolut_Repair_Shampoo__26110.1658477016.jpg?c=2&imbypass=on",
@@ -156,7 +148,6 @@ const campaigns = [
     type: "category",
     store: "bf",
     limit: "300",
-    uses: "",
     identifier: "Top Brands/L'Oreal/Vitamino Color",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6235/13702/Vitamino_Color_Shampoo__70909.1658477078.jpg?c=2&imbypass=on",
@@ -174,7 +165,6 @@ const campaigns = [
     type: "category",
     store: "bf",
     limit: "200",
-    uses: "",
     identifier: "Top Brands/L'Oreal/Metal Detox",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6233/13659/Copy_of_Copy_of_Template_49_1__06600.1658409766.jpg?c=2&imbypass=on",
@@ -192,7 +182,6 @@ const campaigns = [
     type: "brand",
     store: "bf",
     limit: "18",
-    uses: "2",
     identifier: "Pestle & Mortar",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5943/12321/Chocolate_Bronze__47559.1653643497.jpg?c=2&imbypass=on",
@@ -211,7 +200,6 @@ const campaigns = [
     type: "brand",
     store: "bf",
     limit: "100",
-    uses: "0",
     identifier: "Hollywood Browzer",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6185/13593/500_8__03915.1657876031.jpg?c=2&imbypass=on",
@@ -229,7 +217,6 @@ const campaigns = [
     type: "brand",
     store: "bf",
     limit: "100",
-    uses: "0",
     identifier: "Embryolisse",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6192/13599/Embryolisse_Tube_Squeezer_GWP_1__47566.1657879679.jpg?c=2&imbypass=on",
@@ -247,7 +234,6 @@ const campaigns = [
     type: "brand",
     store: "bf",
     limit: "19",
-    uses: "-",
     identifier: "Caudalie",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6062/13304/caudalie_gwp__55233.1654870532.jpg?c=2&imbypass=on",
@@ -265,7 +251,6 @@ const campaigns = [
     type: "brand",
     store: "bf",
     limit: "30",
-    uses: "",
     identifier: "Carter Beauty",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6139/13493/Carter_Beauty_Wispie_False_Lashes_GWP_1__24409.1656402643.jpg?c=2&imbypass=on",
@@ -283,7 +268,6 @@ const campaigns = [
     type: "brand",
     store: "bf",
     limit: "stock",
-    uses: "2",
     identifier: "Carter Beauty",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5611/10596/Carter_Beauty_Revitalise_Retinol_Collagen_Mask__55306.1643022301.png",
@@ -301,7 +285,6 @@ const campaigns = [
     type: "brand",
     store: "bf",
     limit: "stock",
-    uses: "-",
     identifier: "Issey Miyake",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5636/10623/Issey_Miyake_Pour_Homme_Toiletry_Bag_and_Shower_Gel_GWP__32404.1643801777.png",
@@ -319,7 +302,6 @@ const campaigns = [
     type: "brand",
     store: "bf",
     limit: "stock",
-    uses: "-",
     identifier: "NAK",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5709/10693/NAK_Platinum_Blonde_Anti-Yellow_Shampoo_100ml_4_1__75150.1645707093.png",
@@ -337,7 +319,6 @@ const campaigns = [
     type: "brand",
     store: "bf",
     limit: "stock",
-    uses: "-",
     identifier: "SVR",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5508/11746/Gift_with_purchase_20__24675.1651824657.jpg",
@@ -355,7 +336,6 @@ const campaigns = [
     type: "brand",
     store: "bf",
     limit: "stock",
-    uses: "-",
     identifier: "NUXE",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5310/9925/NUXE_Very_Rose_3-in-1_Soothing_Micellar_Water_100ml_1__81400.1629367978.png",
@@ -373,7 +353,6 @@ const campaigns = [
     type: "brand",
     store: "bf",
     limit: "103",
-    uses: "",
     identifier: "Mama Mio",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5143/9400/tummy_rub_butter_30ml__72562.1627456816.jpg?c=2&imbypass=on",
@@ -386,6 +365,40 @@ const campaigns = [
     sku_type: "product",
     display: "TRUE",
     destination_url: "https://www.beautyfeatures.ie/brands/Mama-Mio/",
+  },
+  {
+    type: "brand",
+    store: "bsk",
+    limit: "800",
+    identifier: "Dermalogica",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6453/14399/Dermalogica_Meet_Dermalogica_Amenity_Pack__71372__45368.1666781201.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6453/14399/Dermalogica_Meet_Dermalogica_Amenity_Pack__71372__45368.1666781201.jpg?c=2&imbypass=on",
+    headline: "Free Meet Dermalogica Amenity Kit worth €35",
+    worth: 35,
+    condition: "When you spend €85 on Dermalogica",
+    sku: "GWP13 ",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyskincare.ie/dermalogica",
+  },
+  {
+    type: "brand",
+    store: "bf",
+    limit: "47",
+    identifier: "Shiseido",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6480/14510/Shiseido_WASO_Shikulime_Mega_Hydrating_Moisturiser_15ml_GWP_1__29172.1671005916.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6480/14510/Shiseido_WASO_Shikulime_Mega_Hydrating_Moisturiser_15ml_GWP_1__29172.1671005916.jpg?c=2&imbypass=on",
+    headline: "Free WASO Shikulime Hydrating Moisturiser 15ml worrth €11",
+    worth: 11,
+    condition: "When you spend €80 on Shiseido",
+    sku: "12169",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/shiseido/",
   },
 ];
 
