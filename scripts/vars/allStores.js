@@ -12,4 +12,4 @@ const allStores = [
   { initial: "beuk", name: "BeautiEdit UK" },
 ];
 
-module.exports = { allStores };
+module.exports =  {allStores} ;

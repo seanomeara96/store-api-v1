@@ -1,4 +1,4 @@
-const allStores = require("./allStores");
+const { allStores } = require("../vars/allStores");
 const { getAllProducts } = require("../../functions/products/getAllProducts");
 const { getAllBrands } = require("../../functions/brands/getAllBrands");
 const {
@@ -26,8 +26,7 @@ function getSiteEmptyPages(site) {
       return redirects.map((i) => i.from_path);
     }
 
-    const redirects = fromPathUrl((await getAllRedirects().catch(reject)))
-
+    const redirects = fromPathUrl(await getAllRedirects().catch(reject));
 
     const issues = [];
 
@@ -81,8 +80,9 @@ function getSiteEmptyPages(site) {
 async function getAllEmptyPages() {
   const emptyPages = [];
   for (const store of allStores) {
-    const pages = await getSiteEmptyPages(store).catch(console.log)
-    if(pages.emptyPages.length) emptyPages.push(pages);
+    
+    const pages = await getSiteEmptyPages(store).catch(console.log);
+    if (pages.emptyPages.length) emptyPages.push(pages);
   }
   return emptyPages;
 }
@@ -130,7 +130,6 @@ const emptyPages = async function (...emails) {
     (err, out) => {
       if (err) return console.log(err);
 
-
       const attachment = Buffer.from(out).toString("base64");
 
       const msg = {
@@ -151,8 +150,6 @@ const emptyPages = async function (...emails) {
       sgMail.send(msg).catch((err) => console.log(err.response.body));
     }
   );
-}
+};
 
 exports.emptyPages = emptyPages;
-
-
