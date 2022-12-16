@@ -15,6 +15,6 @@ const updateProduct = (productId, fieldToUpdate) => new Promise((resolve, reject
     require("../../config/config")
         .store.put(`/catalog/products/${productId}`, Object.assign({}, fieldToUpdate))
         .then((res) => resolve(res.data.data))
-        .catch((err) => reject(err.response.data));
+        .catch((err) => reject(err));
 });
 exports.updateProduct = updateProduct;

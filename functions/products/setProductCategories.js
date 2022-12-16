@@ -9,26 +9,35 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteManyCategories = void 0;
-const deleteCategory_1 = require("./deleteCategory");
-/**
- * has failed by too many requests, do small batches
- * @param category_ids
- * @returns
- */
-function deleteManyCategories(category_ids) {
+exports.setProductCategories = void 0;
+const updateProduct_1 = require("./updateProduct");
+function setProductCategories(product_id, product_cats) {
     return new Promise(function (resolve, reject) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const ids = category_ids.map((obj) => Object.values(obj)[0]);
-                const promises = ids.map((id) => (0, deleteCategory_1.deleteCategory)(id));
-                const res = yield Promise.allSettled(promises);
+                if (typeof product_id !== "number") {
+                    throw `id must be a number`;
+                }
+                if (!product_cats.length) {
+                    throw `must supply at least one category`;
+                }
+                if (!Array.isArray(product_cats)) {
+                    throw `must supply an arrayof ids`;
+                }
+                for (const cat_id of product_cats) {
+                    if (typeof cat_id !== "number") {
+                        throw `category ids must all be numbers`;
+                    }
+                }
+                const res = yield (0, updateProduct_1.updateProduct)(product_id, {
+                    categories: product_cats
+                });
                 resolve(res);
             }
             catch (err) {
-                reject("error occured at deleteManyCategories");
+                reject(err);
             }
         });
     });
 }
-exports.deleteManyCategories = deleteManyCategories;
+exports.setProductCategories = setProductCategories;

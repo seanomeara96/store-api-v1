@@ -15,6 +15,6 @@ export const updateProduct = (productId: number, fieldToUpdate: any) =>
         ...fieldToUpdate,
       })
       .then((res: any) => resolve(res.data.data))
-      .catch((err:any) => reject(err.response.data));
+      .catch((err:any) => reject(err));
   });
 
