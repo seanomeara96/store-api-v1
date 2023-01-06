@@ -1,6 +1,10 @@
-const site = "ha";
+const site = "ch";
 const { stringify } = require("csv-stringify");
 const { getAllLiveUrls } = require("../urls/getAllLiveUrls");
+
+function logErrResponseBody(err) {
+  return console.log(err.response.body);
+}
 /**
  * Exports urls for brands, categories,
  */
@@ -36,9 +40,7 @@ async function main() {
           },
         ],
       };
-      function logErrResponseBody(err) {
-        return console.log(err.response.body);
-      }
+      
       sgMail.send(msg).catch(logErrResponseBody);
     }
   );

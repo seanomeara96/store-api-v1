@@ -26,7 +26,7 @@ export const removeCatFromProduct = (
 
         // remove category
         updateProduct(productId, { categories: updatedCategories })
-          .then((res: any) => resolve(res.status)) // ??  does this return undefined?
+          .then((res: any) => resolve(res)) // ??  does this return undefined?
           .catch((err: any) => reject(err));
       })
       .catch(reject);

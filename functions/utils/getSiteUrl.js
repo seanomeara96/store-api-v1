@@ -30,6 +30,8 @@ const getSiteUrl = (storeInitials) => {
       return "https://beautiedit.co.uk";
     case "ha":
       return "https://www.hireall.ie";
+    case "ch":
+      return "https://www.caterhire.ie";
     default:
       return "";
   }

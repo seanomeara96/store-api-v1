@@ -83,10 +83,10 @@ window.addEventListener("DOMContentLoaded", async () => {
           secondsUntilEnd - hoursUntilEnd * 60 * 60 - minutesUntilEnd * 60
         );
 
-        container.innerHTML = `&#128666; ${hoursUntilEnd} hrs ${minutesUntilEnd} mins ${secondsRemaining} secs left for 1-2 Day Delivery`;
+        container.innerHTML = `&#128666; ${hoursUntilEnd} hrs ${minutesUntilEnd} mins ${secondsRemaining} secs left for Next Day Delivery`;
       }
     }, 1000);
   } else {
-    container.innerHTML = "&#128666; Order before 2pm for 1-2 Day Delivery";
+    container.innerHTML = "&#128666; Order before 2pm for Next Day Delivery";
   }
 });
