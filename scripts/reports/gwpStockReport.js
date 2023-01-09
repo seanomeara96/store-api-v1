@@ -26,23 +26,6 @@ const campaigns = [
     destination_url: "https://www.beautyfeatures.ie/brands/Alfaparf.html",
   },
   {
-    type: "brand",
-    store: "bf",
-    limit: "800",
-    identifier: "Dermalogica",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6453/14399/Dermalogica_Meet_Dermalogica_Amenity_Pack__71372__45368.1666781201.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6453/14399/Dermalogica_Meet_Dermalogica_Amenity_Pack__71372__45368.1666781201.jpg?c=2&imbypass=on",
-    headline: "Free Meet Dermalogica Amenity Kit worth €35",
-    worth: 35,
-    condition: "When you spend €85 on Dermalogica",
-    sku: "GWP13 ",
-    sku_type: "product",
-    display: "TRUE",
-    destination_url: "https://www.beautyfeatures.ie/brands/Dermalogica.html",
-  },
-  {
     type: "category",
     store: "bf",
     limit: "stock",
@@ -92,23 +75,6 @@ const campaigns = [
     sku_type: "product",
     display: "FALSE",
     destination_url: "https://www.beautyfeatures.ie/brands/redken",
-  },
-  {
-    type: "brand",
-    store: "bf",
-    limit: "205",
-    identifier: "Decleor",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6141/13492/Decleor_Essentials_to_Show_You_Care_GWP__89334.1656402224.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6141/13492/Decleor_Essentials_to_Show_You_Care_GWP__89334.1656402224.jpg?c=2&imbypass=on",
-    headline: "Free Decleor Essentials to Show You Care Kit worth €78",
-    worth: 78,
-    condition: "When you spend €80 on Decleor",
-    sku: "11651",
-    sku_type: "product",
-    display: "TRUE",
-    destination_url: "https://www.beautyfeatures.ie/brands/Decleor.html",
   },
   {
     type: "category",
@@ -229,23 +195,6 @@ const campaigns = [
     sku_type: "product",
     display: "TRUE",
     destination_url: "https://www.beautyfeatures.ie/embryolisse/",
-  },
-  {
-    type: "brand",
-    store: "bf",
-    limit: "19",
-    identifier: "Caudalie",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6062/13304/caudalie_gwp__55233.1654870532.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6062/13304/caudalie_gwp__55233.1654870532.jpg?c=2&imbypass=on",
-    headline: "Free Caudalie Vinoperfect Skincare Trio worth €20",
-    worth: 20,
-    condition: "When you spend €60 on Caudalie",
-    sku: "11554",
-    sku_type: "product",
-    display: "FALSE",
-    destination_url: "https://www.beautyfeatures.ie/caudalie/",
   },
   {
     type: "brand",
@@ -380,7 +329,7 @@ const campaigns = [
     condition: "When you spend €85 on Dermalogica",
     sku: "GWP13 ",
     sku_type: "product",
-    display: "TRUE",
+    display: "FALSE",
     destination_url: "https://www.beautyskincare.ie/dermalogica",
   },
   {
