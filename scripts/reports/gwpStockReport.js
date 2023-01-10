@@ -147,6 +147,23 @@ const campaigns = [
   {
     type: "brand",
     store: "bf",
+    limit: "",
+    identifier: "The Inkey List",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6509/14665/Inkey_List_-_Oat_Cleansing_Balm_50ml_GWP_1__09100.1673354704.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6509/14665/Inkey_List_-_Oat_Cleansing_Balm_50ml_GWP_1__09100.1673354704.jpg?c=2&imbypass=on",
+    headline: "Free Inkey List Oat Cleansing Balm 50ml worth €6",
+    worth: 6,
+    condition: "When you spend €25 on The Inkey List",
+    sku: "12207",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/the-inkey-list/",
+  },
+  {
+    type: "brand",
+    store: "bf",
     limit: "18",
     identifier: "Pestle & Mortar",
     thumbnail:
@@ -229,6 +246,23 @@ const campaigns = [
     sku_type: "product",
     display: "TRUE",
     destination_url: "https://www.beautyfeatures.ie/carter-beauty/",
+  },
+  {
+    type: "brand",
+    store: "bf",
+    limit: "47",
+    identifier: "Shiseido",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6480/14510/Shiseido_WASO_Shikulime_Mega_Hydrating_Moisturiser_15ml_GWP_1__29172.1671005916.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6480/14510/Shiseido_WASO_Shikulime_Mega_Hydrating_Moisturiser_15ml_GWP_1__29172.1671005916.jpg?c=2&imbypass=on",
+    headline: "Free WASO Shikulime Hydrating Moisturiser 15ml worrth €11",
+    worth: 11,
+    condition: "When you spend €80 on Shiseido",
+    sku: "12169",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/shiseido/",
   },
   {
     type: "brand",
@@ -335,19 +369,19 @@ const campaigns = [
   {
     type: "brand",
     store: "bf",
-    limit: "47",
-    identifier: "Shiseido",
+    limit: "300",
+    identifier: "Dermalogica",
     thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6480/14510/Shiseido_WASO_Shikulime_Mega_Hydrating_Moisturiser_15ml_GWP_1__29172.1671005916.jpg?c=2&imbypass=on",
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6584/14659/voucher__29582__33389.1673353277.jpg?c=2&imbypass=on",
     full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6480/14510/Shiseido_WASO_Shikulime_Mega_Hydrating_Moisturiser_15ml_GWP_1__29172.1671005916.jpg?c=2&imbypass=on",
-    headline: "Free WASO Shikulime Hydrating Moisturiser 15ml worrth €11",
-    worth: 11,
-    condition: "When you spend €80 on Shiseido",
-    sku: "12169",
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6584/14659/voucher__29582__33389.1673353277.jpg?c=2&imbypass=on",
+    headline: "Free Dermalogica Skin Therapy Voucher",
+    worth: null,
+    condition: "When you spend €1 on Dermalogica",
+    sku: "GWP34",
     sku_type: "product",
-    display: "TRUE",
-    destination_url: "https://www.beautyfeatures.ie/shiseido/",
+    display: "FALSE",
+    destination_url: "https://www.beautyskincare.ie/dermalogica",
   },
 ];
 
