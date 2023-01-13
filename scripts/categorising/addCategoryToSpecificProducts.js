@@ -4,32 +4,30 @@ const {
   addCategoryToSpecificProducts,
 } = require("../../functions/products/addCategoryToSpecificProducts");
 
-const catId = 515; //clearance
+const fulfilledReducer = (accumulator, current) =>
+  current.status === "fulfilled" ? accumulator + 1 : accumulator;
+
+const catId = 725; //clearance
 
 const productIds = [
-  { "Product ID": 5116 },
-  { "Product ID": 5117 },
-  { "Product ID": 5118 },
-  { "Product ID": 5119 },
-  { "Product ID": 5120 },
-  { "Product ID": 5121 },
-  { "Product ID": 5122 },
-  { "Product ID": 5123 },
-  { "Product ID": 5124 },
-  { "Product ID": 5125 },
-  { "Product ID": 5126 },
-  { "Product ID": 5185 },
-  { "Product ID": 5273 },
-  { "Product ID": 5611 },
-  { "Product ID": 6139 },
+  { "Product ID": 6557 },
+  { "Product ID": 6558 },
+  { "Product ID": 6559 },
+  { "Product ID": 6560 },
+  { "Product ID": 6561 },
+  { "Product ID": 6562 },
 ];
 
-addCategoryToSpecificProducts(productIds, catId)
-  .then((res) =>
-    console.log(
-      `${
-        res.filter(({ status }) => status === "fulfilled").length
-      } / ${productIds.length} added to cat ${catId}`
-    )
-  )
-  .catch(console.log);
+(async () => {
+  try {
+    const res = await addCategoryToSpecificProducts(productIds, catId);
+
+    const totalCount = productIds.length;
+    const fulfilledCount = res.reduce(fulfilledReducer, 0);
+
+    const info = `${fulfilledCount} / ${totalCount} added to cat ${catId}`;
+    console.log(info);
+  } catch (err) {
+    console.log(err);
+  }
+})();

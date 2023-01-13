@@ -12,20 +12,42 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAllProductVariants = void 0;
 const getProductVariants_1 = require("./getProductVariants");
 const getAllProducts_1 = require("./getAllProducts");
-function getAllProductVariants() {
+function getAllProductVariants(batchSize = 50) {
     return new Promise(function (resolve, reject) {
         return __awaiter(this, void 0, void 0, function* () {
-            const allVariants = [];
-            const products = (yield (0, getAllProducts_1.getAllProducts)().catch(reject));
-            for (let x = 0; x < products.length; x++) {
-                const product = products[x];
-                const variants = (yield (0, getProductVariants_1.getProductVariants)(product.id).catch(reject));
-                allVariants.push(...variants);
-                console.clear();
-                console.log(`${x}/${products.length}`);
+            try {
+                let count = 0;
+                const products = (yield (0, getAllProducts_1.getAllProducts)());
+                const batches = [];
+                const allVariants = [];
+                for (let x = 0; x < products.length; x += batchSize) {
+                    batches.push(products.slice(x, x + batchSize));
+                }
+                for (const productBatch of batches) {
+                    const promises = [];
+                    for (const product of productBatch) {
+                        console.clear();
+                        console.log(`fetching product variants ${count}/${products.length}`);
+                        promises.push((0, getProductVariants_1.getProductVariants)(product.id));
+                        count++;
+                    }
+                    const batchVars = yield Promise.all(promises);
+                    allVariants.push(...batchVars.flat());
+                }
+                resolve(allVariants);
             }
-            resolve(allVariants);
+            catch (err) {
+                console.log(err);
+                reject(err);
+            }
         });
     });
 }
 exports.getAllProductVariants = getAllProductVariants;
+/**
+ * const product = products[x];
+        const variants = (await getProductVariants(product.id)) as any[];
+        allVariants.push(...variants);
+        console.clear();
+        
+ */
