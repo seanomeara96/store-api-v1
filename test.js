@@ -1,15 +1,6 @@
-const store = "bs";
-require("./config/config").config(store);
-const { output } = require("./scripts/utils/output");
-const {
-  getAllProductVariants,
-} = require("./functions/products/getAllProductVariants");
+const { getMailchimpSegmentMembers } = require("./mailchimp/getMailchimpSegmentMembers");
 
-(async () => {
-  try {
-    const pvars = await getAllProductVariants();
-    console.log(pvars)
-  } catch (err) {
-    console.log(err);
-  }
-})();
+
+require("./config/config");
+
+getMailchimpSegmentMembers(219).then(console.log)
