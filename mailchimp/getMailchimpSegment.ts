@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Segment } from "./types";
 import { listId } from "./vars";
 
 export function getMailchimpSegment(
@@ -10,7 +11,7 @@ export function getMailchimpSegment(
     includeTransactional: true,
     includeUnsubscribed: true,
   }
-) {
+): Promise<Segment> {
   return new Promise(async function (resolve, reject) {
     try {
       const url = `https://${process.env.MAILCHIMP_DATACENTER}.api.mailchimp.com/3.0/lists/${listId}/segments/${segmentId}`;

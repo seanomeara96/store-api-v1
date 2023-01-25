@@ -34,6 +34,9 @@ function getMailchimpSegmentMembers(segmentId, defaultParams = {
                 const offsetLimit = Math.ceil(memberCount / 1000);
                 const url = `https://${process.env.MAILCHIMP_DATACENTER}.api.mailchimp.com/3.0/lists/${vars_1.listId}/segments/${segmentId}/members`;
                 for (let i = 0; i < offsetLimit; i++) {
+                    console.clear();
+                    console.log("members length", members.length);
+                    console.log("fetching page ", i + 1);
                     const res = yield axios_1.default.get(url, {
                         headers: {
                             Authorization: "Basic " +
@@ -41,9 +44,10 @@ function getMailchimpSegmentMembers(segmentId, defaultParams = {
                         },
                         params: Object.assign(Object.assign({}, defaultParams), { offset: i }),
                     });
-                    const members = res.data.members;
-                    members.push(members);
+                    const data = res.data.members;
+                    members.push(...data);
                 }
+                console.clear();
                 resolve(members);
             }
             catch (err) {
