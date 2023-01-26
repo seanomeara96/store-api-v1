@@ -26,15 +26,10 @@ function getMailchimpSegments() {
                             Buffer.from("anystring:" + process.env.MAILCHIMP_API_KEY).toString("base64"),
                     },
                 });
-                const { segments } = response.data;
+                const segments = response.data.segments;
                 console.log(segments.length);
                 console.log(Object.keys(segments[0]));
-                const str = segments.map((s) => {
-                    delete s._links;
-                    delete s.options;
-                    return s;
-                });
-                resolve(str);
+                resolve(segments);
             }
             catch (err) {
                 reject(err);

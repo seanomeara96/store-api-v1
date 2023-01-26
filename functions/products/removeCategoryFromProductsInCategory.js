@@ -20,10 +20,32 @@ function removeCategoryFromProductsInCategory(categoryId) {
         if (typeof categoryId !== "number")
             return reject("id must be number");
         const products = yield (0, getAllProducts_1.getAllProducts)({ "categories:in": categoryId }).catch(reject);
+        if (!products) {
+            reject("somehting went wrong");
+            return;
+        }
+        if (!products.length) {
+            resolve(0);
+            return;
+        }
         const producsInCat = filterProductsInCat(products, categoryId);
         const productIds = mapProductIds(producsInCat);
-        const promises = mapPromiseToId(productIds, categoryId);
-        Promise.allSettled(promises).then(resolve).catch(reject);
+        //const promises = mapPromiseToId(productIds, categoryId);
+        //Promise.allSettled(promises).then(resolve).catch(reject);
+        for (const id of productIds) {
+            yield (0, removeCatFromProduct_1.removeCatFromProduct)(id, categoryId);
+        }
+        const productsInCatAfterClean = yield (0, getAllProducts_1.getAllProducts)({ "categories:in": categoryId }).catch(reject);
+        if (productsInCatAfterClean) {
+            const productCount = productsInCatAfterClean.length;
+            if (productCount) {
+                reject("failed to remove all products");
+                return;
+            }
+            resolve(productCount);
+            return;
+        }
+        reject("something went wrong");
     }));
 }
 exports.removeCategoryFromProductsInCategory = removeCategoryFromProductsInCategory;

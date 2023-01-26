@@ -1,8 +1,7 @@
 import axios from "axios";
-import { Segment } from "./types";
 import { listId } from "./vars";
 
-export function getMailchimpSegments(): Promise<Segment[]> {
+export function getMailchimpSegments(): Promise<Segment.RootObject[]> {
   return new Promise(async function (resolve, reject) {
     try {
       const url = `https://${process.env.MAILCHIMP_DATACENTER}.api.mailchimp.com/3.0/lists/${listId}/segments?count=100`;
@@ -15,7 +14,7 @@ export function getMailchimpSegments(): Promise<Segment[]> {
             ),
         },
       });
-      const segments: Segment[] = response.data.segments;
+      const segments: Segment.RootObject[] = response.data.segments;
       console.log(segments.length);
       console.log(Object.keys(segments[0]));
       resolve(segments);

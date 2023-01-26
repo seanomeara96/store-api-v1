@@ -25,10 +25,9 @@ function getMailchimpLists() {
                             Buffer.from("anystring:" + process.env.MAILCHIMP_API_KEY).toString("base64"),
                     },
                 });
-                const { lists } = response.data;
+                const lists = response.data.lists;
                 console.log(Object.keys(lists[0]));
-                const str = lists.map((list) => ({ id: list.id, name: list.name }));
-                resolve(str);
+                resolve(lists);
             }
             catch (err) {
                 reject(err);
