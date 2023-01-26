@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getMailchimpSegment } from "./getMailchimpSegment";
+import { Member } from "./Member";
 import { listId } from "./vars";
 
 export function getMailchimpSegmentMembers(
@@ -13,7 +14,7 @@ export function getMailchimpSegmentMembers(
     includeTransactional: true,
     includeUnsubscribed: true,
   }
-): Promise<Member.RootObject[]> {
+): Promise<Member[]> {
   return new Promise(async function (resolve, reject) {
     try {
       const members: any[] = [];
