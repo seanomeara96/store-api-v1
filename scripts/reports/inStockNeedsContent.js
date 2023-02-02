@@ -42,8 +42,8 @@ const { allStores } = require("../../scripts/vars/allStores");
           id,
           name,
           sku,
-          needs_content: description.length ? "true" : "false",
-          needs_images: images.length ? "true" : "false",
+          needs_content: description.length ? "false" : "true",
+          needs_images: images.length ? "false" : "true",
           inventory_level,
         }))
     );
