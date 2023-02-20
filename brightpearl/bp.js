@@ -11,27 +11,34 @@
   let count = 0;
 
   for (let i = 0; i < 7500; i += 500) {
-    const e = await axios
-      .get(
+    try {
+      const e = await axios.get(
         `https://${DATACENTER}.brightpearlconnect.com/public-api/${ACCOUNT}` +
           `/product-service/product-search`,
         {
           headers: {
-            "brightpearl-app-ref": process.env.BP_APP_REF,
+            "brightpearl-app-ref": process.env.BP_APP_REFF,
             "brightpearl-staff-token": process.env.BP_STAFF_TOKEN,
           },
           params: {
             productId: `${i}-${i + 500}`,
           },
         }
-      )
-      .catch((err) => console.log(err));
-      //console.log("i", i)
-    count += e.data.response.results.length;
-    //console.log(count)
-    sumThis.push(...e.data.response.results);
+      );
+      console.log(e.data.response.results.length)
+      
+      const product = e.data.response.results
+      count += e.data.response.results.length;
+      //console.log(count)
+      sumThis.push(product)
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response);
+      } else {
+        console.log(err);
+      }
+      continue;
+    }
   }
-  const barcodes = sumThis.map(i => i[3]);
-  console.log(barcodes.length)
-  console.log("final sum", barcodes.includes('3598381955905'));
+  console.log(sumThis);
 })();

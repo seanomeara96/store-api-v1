@@ -13,7 +13,7 @@ export const updateFilter = (
   value: string
 ) =>
   new Promise((resolve, reject) => {
-    require("../config/config")
+    require("../../config/config")
       .store.put(
         `/catalog/products/${product_id}/custom-fields/${custom_field_id}`,
         { name, value }

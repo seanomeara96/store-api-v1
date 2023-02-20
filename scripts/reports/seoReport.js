@@ -112,11 +112,9 @@ function checkAllSeo() {
     { initial: "pb", name: "Pregnancy&Baby" },
     { initial: "ih", name: "InHealth" },
     { initial: "bs", name: "BabySafety" },
-    { initial: "huk", name: "Haakaa Uk" },
     { initial: "hie", name: "Haakaa Ireland" },
     { initial: "ds", name: "DogSpace" },
     { initial: "stie", name: "Sleepytot IE" },
-    { initial: "beuk", name: "BeautiEdit UK" },
   ];
   /**
    * add store hash & url to each store
@@ -182,7 +180,7 @@ function sendMail(responses) {
     data = responses.join("\n");
   }
   const msg = {
-    to: ["sean@beautyfeatures.ie"],
+    to: ["sean@beautyfeatures.ie", "shannon@beautyfeatures.ie", "daryl@beautyfeatures.ie"],
     from: "sean@beautyfeatures.ie",
     subject: "These Pages Require Page Titles & Meta Descriptions",
     text: "Page Titles and Meta Descriptions",

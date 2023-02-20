@@ -7,15 +7,21 @@ const {
 const fulfilledReducer = (accumulator, current) =>
   current.status === "fulfilled" ? accumulator + 1 : accumulator;
 
-const catId = 725; //clearance
+const catId = 736;
 
 const productIds = [
-  { "Product ID": 6557 },
-  { "Product ID": 6558 },
-  { "Product ID": 6559 },
-  { "Product ID": 6560 },
-  { "Product ID": 6561 },
-  { "Product ID": 6562 },
+  { "Product ID": 5460 },
+  { "Product ID": 5461 },
+  { "Product ID": 5462 },
+  { "Product ID": 5463 },
+  { "Product ID": 5482 },
+  { "Product ID": 5713 },
+  { "Product ID": 5799 },
+  { "Product ID": 5871 },
+  { "Product ID": 6131 },
+  { "Product ID": 6454 },
+  { "Product ID": 6499 },
+  { "Product ID": 6500 },
 ];
 
 (async () => {

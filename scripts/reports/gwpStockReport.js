@@ -26,6 +26,23 @@ const campaigns = [
     destination_url: "https://www.beautyfeatures.ie/brands/Alfaparf.html",
   },
   {
+    type: "brand",
+    store: "bf",
+    limit: "199",
+    identifier: "Dermalogica",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/4330/8602/Dermalogica_Neck_Fit_Contour_Serum_50ml__20896__26176.1612291880.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/4330/8602/Dermalogica_Neck_Fit_Contour_Serum_50ml__20896__26176.1612291880.jpg?c=2&imbypass=on",
+    headline: "Free Neck Fit Contour Serum 50ml",
+    worth: 99,
+    condition: "When you spend €120 on Dermalogica",
+    sku: "9193A",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/brands/Dermalogica.html",
+  },
+  {
     type: "category",
     store: "bf",
     limit: "stock",
@@ -171,7 +188,7 @@ const campaigns = [
     full_img:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/5943/12321/Chocolate_Bronze__47559.1653643497.jpg?c=2&imbypass=on",
     headline: "Free Pestle &amp; Mortar Glow Drops worth €40",
-    worth: 40,
+    worth: 21,
     condition: "When you spend €120 on Pestle &amp; Mortar",
     sku: "11417",
     sku_type: "product",
@@ -352,35 +369,18 @@ const campaigns = [
   {
     type: "brand",
     store: "bsk",
-    limit: "800",
+    limit: "199",
     identifier: "Dermalogica",
     thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6453/14399/Dermalogica_Meet_Dermalogica_Amenity_Pack__71372__45368.1666781201.jpg?c=2&imbypass=on",
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/4330/8602/Dermalogica_Neck_Fit_Contour_Serum_50ml__20896__26176.1612291880.jpg?c=2&imbypass=on",
     full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6453/14399/Dermalogica_Meet_Dermalogica_Amenity_Pack__71372__45368.1666781201.jpg?c=2&imbypass=on",
-    headline: "Free Meet Dermalogica Amenity Kit worth €35",
-    worth: 35,
-    condition: "When you spend €85 on Dermalogica",
-    sku: "GWP13 ",
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/4330/8602/Dermalogica_Neck_Fit_Contour_Serum_50ml__20896__26176.1612291880.jpg?c=2&imbypass=on",
+    headline: "Free Neck Fit Contour Serum 50ml",
+    worth: 99,
+    condition: "When you spend €120 on Dermalogica",
+    sku: "9193A",
     sku_type: "product",
-    display: "FALSE",
-    destination_url: "https://www.beautyskincare.ie/dermalogica",
-  },
-  {
-    type: "brand",
-    store: "bf",
-    limit: "300",
-    identifier: "Dermalogica",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6584/14659/voucher__29582__33389.1673353277.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6584/14659/voucher__29582__33389.1673353277.jpg?c=2&imbypass=on",
-    headline: "Free Dermalogica Skin Therapy Voucher",
-    worth: null,
-    condition: "When you spend €1 on Dermalogica",
-    sku: "GWP34",
-    sku_type: "product",
-    display: "FALSE",
+    display: "TRUE",
     destination_url: "https://www.beautyskincare.ie/dermalogica",
   },
 ];
