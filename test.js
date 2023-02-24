@@ -43,11 +43,13 @@ async function searchList() {
         (link) => link.rel === "update"
       );
       const updateLink = updateLinkData.href;
-      const updated_marketing_permissions = {
-        ...member.marketing_permissions,
-      };
+      const updated_marketing_permissions = structuredClone(
+        member.marketing_permissions
+      );
       updated_marketing_permissions[0].enabled = true;
-
+      console.log(
+        "#####" + JSON.stringify(updated_marketing_permissions) + "#####"
+      );
       axios
         .patch(updateLink, {
           user: {
@@ -63,7 +65,11 @@ async function searchList() {
         .catch((err) => console.log(err.response.data));
     })
     .catch((error) => {
-      console.error(error.response.data);
+      if (error.response?.data) {
+        console.error(error.response.data);
+        return;
+      }
+      console.log(error);
     });
 }
 searchList();
