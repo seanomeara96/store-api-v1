@@ -3,17 +3,19 @@ import { getMailchimpSegment } from "./getMailchimpSegment";
 import { Member } from "./Member";
 import { listId } from "./vars";
 
+type EmailListParams = {
+  fields?: string[];
+  excludeFields?: string[];
+  count?: number;
+  offset?: number;
+  includeCleaned?: boolean;
+  includeTransactional?: boolean;
+  includeUnsubscribed?: boolean;
+};
+
 export function getMailchimpSegmentMembers(
   segmentId: number,
-  defaultParams = {
-    fields: [],
-    excludeFields: [],
-    count: 1000,
-    offset: 0,
-    includeCleaned: true,
-    includeTransactional: true,
-    includeUnsubscribed: true,
-  }
+  customParams: EmailListParams
 ): Promise<Member[]> {
   return new Promise(async function (resolve, reject) {
     try {
@@ -34,7 +36,14 @@ export function getMailchimpSegmentMembers(
                 "anystring:" + process.env.MAILCHIMP_API_KEY
               ).toString("base64"),
           },
-          params: { ...defaultParams, offset: i },
+          params: {
+            count: 1000,
+            offset: i,
+            includeCleaned: true,
+            includeTransactional: true,
+            includeUnsubscribed: true,
+            ...customParams,
+          },
         });
         const data = res.data.members;
         members.push(...data);

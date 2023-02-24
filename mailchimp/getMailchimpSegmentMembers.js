@@ -16,15 +16,7 @@ exports.getMailchimpSegmentMembers = void 0;
 const axios_1 = __importDefault(require("axios"));
 const getMailchimpSegment_1 = require("./getMailchimpSegment");
 const vars_1 = require("./vars");
-function getMailchimpSegmentMembers(segmentId, defaultParams = {
-    fields: [],
-    excludeFields: [],
-    count: 1000,
-    offset: 0,
-    includeCleaned: true,
-    includeTransactional: true,
-    includeUnsubscribed: true,
-}) {
+function getMailchimpSegmentMembers(segmentId, customParams) {
     return new Promise(function (resolve, reject) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -42,7 +34,7 @@ function getMailchimpSegmentMembers(segmentId, defaultParams = {
                             Authorization: "Basic " +
                                 Buffer.from("anystring:" + process.env.MAILCHIMP_API_KEY).toString("base64"),
                         },
-                        params: Object.assign(Object.assign({}, defaultParams), { offset: i }),
+                        params: Object.assign({ count: 1000, offset: i, includeCleaned: true, includeTransactional: true, includeUnsubscribed: true }, customParams),
                     });
                     const data = res.data.members;
                     members.push(...data);

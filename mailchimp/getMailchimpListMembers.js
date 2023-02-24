@@ -16,36 +16,17 @@ exports.getMailchimpListMembers = void 0;
 const axios_1 = __importDefault(require("axios"));
 const getMailchimpList_1 = require("./getMailchimpList");
 const vars_1 = require("./vars");
-const dParams = {
-    fields: [],
-    exclude_fields: [],
-    count: 1000,
-    offset: 0,
-    email_type: "",
-    status: "",
-    since_timestamp_opt: "",
-    before_timestamp_opt: "",
-    since_last_changed: "",
-    before_last_changed: "",
-    unique_email_id: "",
-    vip_only: false,
-    interest_category_id: "",
-    interest_ids: "",
-    interest_match: "all",
-    sort_field: "",
-    sort_dir: "",
-    since_last_campaign: false,
-    unsubscribed_since: "",
-};
-function getMailchimpListMembers(defaultParams = dParams) {
+function getMailchimpListMembers(customParams) {
     return new Promise(function (resolve, reject) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const members = [];
                 const ListData = yield (0, getMailchimpList_1.getMailchimpList)();
                 const memberCount = ListData.stats.member_count;
+                console.log(`there are ${memberCount} members in this list`);
                 const offsetLimit = Math.ceil(memberCount / 1000);
                 for (let i = 0; i < offsetLimit; i++) {
+                    const rParams = Object.assign({ count: 1000, offset: i }, customParams);
                     console.clear();
                     console.log("members length", members.length);
                     console.log("fetching page ", i + 1);
@@ -54,16 +35,16 @@ function getMailchimpListMembers(defaultParams = dParams) {
                             Authorization: "Basic " +
                                 Buffer.from("anystring:" + process.env.MAILCHIMP_API_KEY).toString("base64"),
                         },
-                        params: { count: defaultParams.count, offset: i },
+                        params: rParams,
                     });
                     console.clear();
                     const fetchedMembers = res.data.members;
                     members.push(...fetchedMembers);
-                    resolve(members);
                 }
+                resolve(members);
             }
             catch (err) {
-                reject(err);
+                return reject(err);
             }
         });
     });
