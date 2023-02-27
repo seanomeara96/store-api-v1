@@ -18,12 +18,19 @@ const {
 
   console.log("empty cats");
   for (const id of [shopByOffer, save50, save40, save30, save20, save10]) {
-    await removeCategoryFromProductsInCategory(id).catch(console.log);
+    try {
+      console.log(`removing products from category with id of ${id}...`);
+      await removeCategoryFromProductsInCategory(id).catch(console.log);
+      console.log(`removed products from category with id of ${id}`);
+    } catch (err) {
+      console.log(err);
+      return;
+    }
   }
 
   const products = await getAllProducts().catch(console.log);
 
-  if(!products) return console.log("No products")
+  if (!products) return console.log("No products");
 
   function currentDiscount(product) {
     return Math.round(
@@ -56,7 +63,7 @@ const {
   );
   console.log(`${save30Products.length} with > 30% off`);
 
-  const save20Products =  productIds(
+  const save20Products = productIds(
     products.filter(
       (product) =>
         20 <= currentDiscount(product) && currentDiscount(product) < 30
@@ -64,7 +71,7 @@ const {
   );
   console.log(`${save30Products.length} with > 20% off`);
 
-  const save10Products =  productIds(
+  const save10Products = productIds(
     products.filter(
       (product) =>
         10 <= currentDiscount(product) && currentDiscount(product) < 20
@@ -72,27 +79,30 @@ const {
   );
   console.log(`${save30Products.length} with > 10% off`);
 
-  const allOffers = [...save50Products, ...save40Products, ...save30Products, ...save20Products, ...save10Products];
+  const allOffers = [
+    ...save50Products,
+    ...save40Products,
+    ...save30Products,
+    ...save20Products,
+    ...save10Products,
+  ];
 
-  if(!allOffers.length) return console.log("no offers");
+  if (!allOffers.length) return console.log("no offers");
 
   await addCategoryToSpecificProducts(allOffers, shopByOffer).catch(
     console.log
   );
   console.log("all offers updated");
 
-
   await addCategoryToSpecificProducts(save50Products, save50).catch(
     console.log
   );
   console.log("50% offers updated");
 
-
   await addCategoryToSpecificProducts(save40Products, save40).catch(
     console.log
   );
   console.log("40% offers updated");
-
 
   await addCategoryToSpecificProducts(save30Products, save30).catch(
     console.log
@@ -104,13 +114,10 @@ const {
   );
   console.log("20% offers updated");
 
-
   await addCategoryToSpecificProducts(save10Products, save10).catch(
     console.log
   );
   console.log("10% offers updated");
-
-
 
   console.log("done");
 })();
