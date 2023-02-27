@@ -15,6 +15,8 @@ const {
   const save30 = 662;
   const save20 = 705;
   const save10 = 706;
+  const products = await getAllProducts().catch(console.log);
+  if (!products) return console.log("No products");
 
   console.log("empty cats");
   for (const id of [shopByOffer, save50, save40, save30, save20, save10]) {
@@ -28,9 +30,9 @@ const {
     }
   }
 
-  const products = await getAllProducts().catch(console.log);
+  
 
-  if (!products) return console.log("No products");
+  
 
   function currentDiscount(product) {
     return Math.round(

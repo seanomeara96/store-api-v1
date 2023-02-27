@@ -1,27 +1,26 @@
-require("../../config/config").config("bf");
+require("../../config/config").config("ih");
 
 const {
   addCategoryToSpecificProducts,
 } = require("../../functions/products/addCategoryToSpecificProducts");
 
-const fulfilledReducer = (accumulator, current) =>
-  current.status === "fulfilled" ? accumulator + 1 : accumulator;
+const fulfilledReducerParams = [
+  function (accumulator, current) {
+    return current.status === "fulfilled" ? accumulator + 1 : accumulator;
+  },
+  0,
+];
 
-const catId = 736;
+const catId = 1485;
 
 const productIds = [
-  { "Product ID": 5460 },
-  { "Product ID": 5461 },
-  { "Product ID": 5462 },
-  { "Product ID": 5463 },
-  { "Product ID": 5482 },
-  { "Product ID": 5713 },
-  { "Product ID": 5799 },
-  { "Product ID": 5871 },
-  { "Product ID": 6131 },
-  { "Product ID": 6454 },
-  { "Product ID": 6499 },
-  { "Product ID": 6500 },
+  { "Product ID": 4197 },
+  { "Product ID": 4198 },
+  { "Product ID": 4199 },
+  { "Product ID": 4200 },
+  { "Product ID": 4201 },
+  { "Product ID": 4202 },
+  { "Product ID": 4203 },
 ];
 
 (async () => {
@@ -29,7 +28,7 @@ const productIds = [
     const res = await addCategoryToSpecificProducts(productIds, catId);
 
     const totalCount = productIds.length;
-    const fulfilledCount = res.reduce(fulfilledReducer, 0);
+    const fulfilledCount = res.reduce(...fulfilledReducerParams);
 
     const info = `${fulfilledCount} / ${totalCount} added to cat ${catId}`;
     console.log(info);
