@@ -5,12 +5,15 @@ const { readFileSync } = require("fs"),
   { getAllCategories } = require("../../functions/categories/getAllCategories"),
   { getAllBrands } = require("../../functions/brands/getAllBrands");
 const { getSiteUrl } = require("../../functions/utils/getSiteUrl");
-const path = require("path")
+const path = require("path");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-const template = readFileSync(path.resolve(__dirname, "./seoReport/notification.ejs"), {
-  encoding: "utf8",
-});
+const template = readFileSync(
+  path.resolve(__dirname, "./seoReport/notification.ejs"),
+  {
+    encoding: "utf8",
+  }
+);
 
 function needsSEO(page) {
   return page.meta_description.length < 1 || page.page_title.length < 1;
@@ -104,18 +107,7 @@ function checkSeo(store) {
     }
   });
 }
-function checkAllSeo() {
-  const allStores = [
-    { initial: "bf", name: "BeautyFeatures" },
-    { initial: "bsk", name: "BeautySkincare" },
-    { initial: "ah", name: "AllHair" },
-    { initial: "pb", name: "Pregnancy&Baby" },
-    { initial: "ih", name: "InHealth" },
-    { initial: "bs", name: "BabySafety" },
-    { initial: "hie", name: "Haakaa Ireland" },
-    { initial: "ds", name: "DogSpace" },
-    { initial: "stie", name: "Sleepytot IE" },
-  ];
+function checkAllSeo(allStores, recipients) {
   /**
    * add store hash & url to each store
    */
@@ -162,7 +154,7 @@ function checkAllSeo() {
             });
             console.log(emailContent);
             if (emailContent.length) {
-              sendMail(emailContent);
+              sendMail(emailContent, recipients);
             }
           }
         }),
@@ -170,7 +162,7 @@ function checkAllSeo() {
   );
 }
 
-function sendMail(responses) {
+function sendMail(responses, recipients) {
   if (!responses)
     throw new Error(
       "Either an html string or an array of such strings is expected to be passed in here"
@@ -180,7 +172,7 @@ function sendMail(responses) {
     data = responses.join("\n");
   }
   const msg = {
-    to: ["sean@beautyfeatures.ie", "shannon@beautyfeatures.ie", "daryl@beautyfeatures.ie"],
+    to: recipients,
     from: "sean@beautyfeatures.ie",
     subject: "These Pages Require Page Titles & Meta Descriptions",
     text: "Page Titles and Meta Descriptions",
@@ -191,4 +183,29 @@ function sendMail(responses) {
     .then(() => console.log("Email sent"))
     .catch((err) => error(err.response.body.errors));
 }
-checkAllSeo();
+checkAllSeo(
+  [
+    { initial: "bf", name: "BeautyFeatures" },
+    { initial: "bsk", name: "BeautySkincare" },
+    { initial: "ah", name: "AllHair" },
+    { initial: "pb", name: "Pregnancy&Baby" },
+    { initial: "ih", name: "InHealth" },
+    { initial: "bs", name: "BabySafety" },
+    { initial: "hie", name: "Haakaa Ireland" },
+    { initial: "ds", name: "DogSpace" },
+    { initial: "stie", name: "Sleepytot IE" },
+  ],
+  [
+    "sean@beautyfeatures.ie",
+    "shannon@beautyfeatures.ie",
+    "daryl@beautyfeatures.ie",
+  ]
+);
+
+checkAllSeo(
+  [
+    { initial: "ch", name: "Caterhire" },
+    { initial: "ha", name: "HireAll" },
+  ],
+  ["sean@beautyfeatures.ie", "daryl@beautyfeatures.ie"]
+);

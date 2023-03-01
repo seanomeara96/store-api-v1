@@ -28,6 +28,23 @@ const campaigns = [
   {
     type: "brand",
     store: "bf",
+    limit: "250",
+    identifier: "Kerastase",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6455/14693/Kerastase_Genesis_Bain_Hydra-Fortifiant_80ml_GWP__90016.1673432977.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6455/14693/Kerastase_Genesis_Bain_Hydra-Fortifiant_80ml_GWP__90016.1673432977.jpg?c=2&imbypass=on",
+    headline: "Free Genesis Bain Hydra-Fortifiant 80ml",
+    worth: 10,
+    condition: "When you spend €60 or more on Kerastase",
+    sku: "8779B",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/brands/kerastase",
+  },
+  {
+    type: "brand",
+    store: "bf",
     limit: "199",
     identifier: "Dermalogica",
     thumbnail:
