@@ -34,16 +34,18 @@ function getSiteEmptyPages(site) {
       product.inventory_level > 0 && product.is_visible;
 
     for (const brand of brands) {
+      brand.type = "brand";
       const brandProducts = products.filter(
         (product) => product.brand_id === brand.id
       );
-
+      
       const visibleProducts = brandProducts.filter(productIsVisible);
-
+      
       if (!visibleProducts.length) issues.push(brand);
     }
 
     for (const category of categories) {
+      category.type = "category";
       const categoryProducts = products.filter((product) =>
         product.categories.includes(category.id)
       );
@@ -57,10 +59,12 @@ function getSiteEmptyPages(site) {
       return pages.filter((page) => !redirects.includes(page.custom_url.url));
     }
 
-    function addDomain(slugs) {
-      return slugs.map(
-        (page) => getSiteUrl(site.initial) + page.custom_url.url
-      );
+    function addDomain(pags) {
+      return pags.map((page) => {
+        const url = getSiteUrl(site.initial) + page.custom_url.url;
+        page.url = url;
+        return page;
+      });
     }
 
     resolve({
@@ -80,7 +84,6 @@ function getSiteEmptyPages(site) {
 async function getAllEmptyPages() {
   const emptyPages = [];
   for (const store of allStores) {
-    
     const pages = await getSiteEmptyPages(store).catch(console.log);
     if (pages.emptyPages.length) emptyPages.push(pages);
   }
@@ -98,7 +101,7 @@ function renderEmail(emptyStorePages) {
             .map((page) => {
               return /*html*/ `
               <li>
-                <a href="${page}">${page}</a>
+                <a href="${page.url}">${page.type}: ${page.name}</a>
               </li>
             `;
             })
@@ -115,7 +118,10 @@ function convertToCsvCompatibleFormat(emptyStorePages) {
     .map((store) =>
       store.emptyPages.map((page) => ({
         store: store.name,
-        page,
+        id: page.id,
+        name: page.name,
+        type: page.type,
+        url: page.url
       }))
     )
     .flat();

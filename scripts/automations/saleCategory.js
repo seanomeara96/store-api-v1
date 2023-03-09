@@ -8,6 +8,16 @@ const {
   removeCategoryFromProductsInCategory,
 } = require("../../functions/products/removeCategoryFromProductsInCategory");
 
+function currentDiscount(product) {
+  return Math.round(
+    ((product.price - product.sale_price) / product.price) * 100
+  );
+}
+
+function productIds(products) {
+  return products.map((product) => ({ id: product.id }));
+}
+
 (async function () {
   const shopByOffer = 668;
   const save50 = 660;
@@ -28,20 +38,6 @@ const {
       console.log(err);
       return;
     }
-  }
-
-  
-
-  
-
-  function currentDiscount(product) {
-    return Math.round(
-      ((product.price - product.sale_price) / product.price) * 100
-    );
-  }
-
-  function productIds(products) {
-    return products.map((product) => ({ id: product.id }));
   }
 
   const save50Products = productIds(
@@ -82,12 +78,12 @@ const {
   console.log(`${save30Products.length} with > 10% off`);
 
   const allOffers = [
-    ...save50Products,
-    ...save40Products,
-    ...save30Products,
-    ...save20Products,
-    ...save10Products,
-  ];
+    save50Products,
+    save40Products,
+    save30Products,
+    save20Products,
+    save10Products,
+  ].flat()
 
   if (!allOffers.length) return console.log("no offers");
 

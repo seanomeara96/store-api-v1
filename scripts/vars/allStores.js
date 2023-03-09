@@ -10,6 +10,8 @@ const allStores = [
   { initial: "ds", name: "DogSpace" },
   { initial: "stie", name: "Sleepytot IE" },
   { initial: "beuk", name: "BeautiEdit UK" },
+  { initial: "ch", name: "Caterhire" },
+  { initial: "ha", name: "Hireall" },
 ];
 
-module.exports =  {allStores} ;
+module.exports = { allStores };

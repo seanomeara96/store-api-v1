@@ -5,185 +5,122 @@ const { readFileSync } = require("fs"),
   { getAllCategories } = require("../../functions/categories/getAllCategories"),
   { getAllBrands } = require("../../functions/brands/getAllBrands");
 const { getSiteUrl } = require("../../functions/utils/getSiteUrl");
+const { stringify } = require("csv-stringify");
 const path = require("path");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const templatepath = path.resolve(__dirname, "./seoReport/notification.ejs");
+const template = readFileSync(templatepath, {
+  encoding: "utf8",
+});
 
-const template = readFileSync(
-  path.resolve(__dirname, "./seoReport/notification.ejs"),
-  {
-    encoding: "utf8",
-  }
-);
-
-function needsSEO(page) {
-  return page.meta_description.length < 1 || page.page_title.length < 1;
-}
-
-function visibleAndNeedsSEO(page) {
-  return needsSEO(page) && page.is_visible;
-}
-
-function renderNotification(
-  name,
-  storeUrl,
-  storeName,
-  type,
-  storeHash,
-  id,
-  slug
-) {
-  return ejs.render(template, {
-    name,
-    storeUrl,
-    storeName,
-    type,
-    storeHash,
-    id,
-    slug,
-  });
-}
-
-/**
- *
- * @param {checkTheSEO} storeInitials
- * @returns
- */
-function checkSeo(store) {
-  require("../../config/config").config(store.initial);
-
-  const { storeHash } = store;
-
-  return new Promise(async (resolve, reject) => {
-    try {
-      let brands = await getAllBrands();
-
-      brands.forEach((brand) => {
-        brand.pageType = "brand";
-
-        if (!brand.page_title) {
-          brand.page_title = "";
-        }
-
-        if (!brand.meta_description) {
-          brand.meta_description = "";
-        }
-      });
-
-      brands = brands.filter(needsSEO);
-
-      let cats = await getAllCategories();
-
-      cats.forEach((cat) => {
-        cat.pageType = "category";
-
-        if (!cat.page_title) {
-          cat.page_title = "";
-        }
-
-        if (!cat.meta_description) {
-          cat.meta_description = "";
-        }
-      });
-
-      cats = cats.filter(visibleAndNeedsSEO);
-
-      const data = brands
-        .concat(cats)
-        .map((page) =>
-          renderNotification(
-            page.name,
-            store.url,
-            store.name,
-            page.pageType,
-            storeHash,
-            page.id,
-            page.custom_url.url
-          )
-        );
-
-      resolve(data);
-    } catch (err) {
-      reject(err);
-    }
-  });
-}
-function checkAllSeo(allStores, recipients) {
-  /**
-   * add store hash & url to each store
-   */
-  allStores.forEach(function addStoreDetails(store) {
-    /**
-     * add store hash
-     */
-    store.storeHash = process.env[`${store.initial.toUpperCase()}_STORE_HASH`];
-    /**
-     * add store Url
-     */
-    store.url = getSiteUrl(store.initial);
-  });
-
+async function checkAllSeo(allStores, recipients) {
   const responses = [];
-
-  /**
-   * check seo for each store one by one
-   */
-  let allStorePromises = allStores.map(function checkSEOPromise(store) {
-    return function initCheckSEO() {
-      return checkSeo(store);
-    };
-  });
-
-  allStorePromises.reduce(
-    (acc, cur, indx) =>
-      acc
-        .then(cur)
-        .then(function pushAllResponsesToArr(resArr) {
-          resArr.forEach(function pushResponseToArr(res) {
-            responses.push(res);
-          });
-        })
-        .then(function finishHandler() {
-          /**
-           * when all stores have been checked send an email with the data
-           */
-          if (indx === allStores.length - 1 && responses.length) {
-            const emailContent = responses.filter(function arraysWithCotents(
-              arr
+  for (const store of allStores) {
+    store.storeHash = process.env[`${store.initial.toUpperCase()}_STORE_HASH`];
+    store.url = getSiteUrl(store.initial);
+    console.log("scanning store", store.url);
+    let storeSEO;
+    try {
+      require("../../config/config").config(store.initial);
+      storeSEO = await new Promise(async (resolve, reject) => {
+        try {
+          let brands = await getAllBrands();
+          const brandsNeedUpdate = [];
+          for (const brand of brands) {
+            brand.pageType = "brand";
+            if (!brand.page_title) brand.page_title = "";
+            if (!brand.meta_description) brand.meta_description = "";
+            if (
+              brand.meta_description.length < 1 ||
+              brand.page_title.length < 1
             ) {
-              return arr.length;
-            });
-            console.log(emailContent);
-            if (emailContent.length) {
-              sendMail(emailContent, recipients);
+              brandsNeedUpdate.push(brand);
             }
           }
-        }),
-    Promise.resolve()
-  );
+
+          let cats = await getAllCategories();
+          const catNeedsUpdate = [];
+          for (const cat of cats) {
+            cat.pageType = "category";
+            if (!cat.page_title) cat.page_title = "";
+            if (!cat.meta_description) cat.meta_description = "";
+            if (
+              (cat.meta_description.length < 1 || cat.page_title.length < 1) &&
+              cat.is_visible
+            ) {
+              catNeedsUpdate.push(cat);
+            }
+          }
+
+          const data = brandsNeedUpdate.concat(...catNeedsUpdate);
+          for (const page of data) {
+            page.storeHash = store.storeHash;
+            page.storeName = store.name;
+            page.storeUrl = store.url;
+          }
+
+          resolve(data);
+        } catch (err) {
+          reject(err);
+        }
+      });
+      console.log(storeSEO.length, "responses on this site");
+    } catch (err) {
+      console.log(err);
+      continue;
+    }
+    responses.push(storeSEO);
+  }
+  const issues = responses.filter((arr) => arr.length);
+  if (!issues.length) return;
+
+  if (!issues) return console.log("something wrong with issues");
+
+  const toStringify = issues.map((r) => ({
+    id: r.id,
+    storeName: r.storeName,
+    type: r.pageType,
+    name: r.name,
+    url: r.storeUrl + r.custom_url.url,
+    edit: `https://store-${r.storeHash}.mybigcommerce.com/manage/products/${
+      r.pageType === "brand" ? "brands" : "categories"
+    }/${r.id}/edit`,
+  }));
+  stringify(toStringify, { header: true }, (err, out) => {
+    if (err) return console.log(err);
+    const msg = {
+      to: recipients,
+      from: "sean@beautyfeatures.ie",
+      subject: "These Pages Require Page Titles & Meta Descriptions",
+      text: "Page Titles and Meta Descriptions",
+      html: ejs.render(template, {
+        pages: issues.map((page) => ({
+          name: page.name,
+          storeUrl: page.storeUrl,
+          storeName: page.storeName,
+          type: page.pageType,
+          storeHash: page.storeHash,
+          id: page.id,
+          url: page.storeUrl + page.custom_url.url,
+        })),
+      }),
+      attachments: [
+        {
+          content: Buffer.from(out).toString("base64"),
+          filename: "need-seo.csv",
+          type: "text/csv",
+          disposition: "attachment",
+        },
+      ],
+    };
+    sgMail
+      .send(msg)
+      .then(() => console.log("Email sent"))
+      .catch((err) => console.log(err.response.body.errors));
+  });
 }
 
-function sendMail(responses, recipients) {
-  if (!responses)
-    throw new Error(
-      "Either an html string or an array of such strings is expected to be passed in here"
-    );
-  let data = responses;
-  if (Array.isArray(responses)) {
-    data = responses.join("\n");
-  }
-  const msg = {
-    to: recipients,
-    from: "sean@beautyfeatures.ie",
-    subject: "These Pages Require Page Titles & Meta Descriptions",
-    text: "Page Titles and Meta Descriptions",
-    html: data,
-  };
-  sgMail
-    .send(msg)
-    .then(() => console.log("Email sent"))
-    .catch((err) => error(err.response.body.errors));
-}
-checkAllSeo(
+/**checkAllSeo(
   [
     { initial: "bf", name: "BeautyFeatures" },
     { initial: "bsk", name: "BeautySkincare" },
@@ -200,12 +137,12 @@ checkAllSeo(
     "shannon@beautyfeatures.ie",
     "daryl@beautyfeatures.ie",
   ]
-);
+); */
 
 checkAllSeo(
   [
     { initial: "ch", name: "Caterhire" },
     { initial: "ha", name: "HireAll" },
   ],
-  ["sean@beautyfeatures.ie", "daryl@beautyfeatures.ie"]
+  ["sean@beautyfeatures.ie" /*"daryl@beautyfeatures.ie"*/]
 );

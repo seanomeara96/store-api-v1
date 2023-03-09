@@ -1,3 +1,4 @@
+<% for (const page of pages) { %>
 <div
   style="
     box-sizing: border-box;
@@ -13,24 +14,25 @@
   <div>
     <h4 style="margin: 0.3em 0">
       <a
-        href="<%= storeUrl %>"
+        href="<%= page.storeUrl %>"
         style="font-weight: 100; color: inherit; text-decoration: none"
-        >&#128722; <%= storeName %></a
+        >&#128722; <%= page.storeName %></a
       >
     </h4>
     <h3 style="margin: 0.5em 0">
-      <%= type[0].toUpperCase() + type.substring(1)+": " + name %>
+      <%= page.type[0].toUpperCase() + page.type.substring(1)+": " + page.name %>
     </h3>
   </div>
   <div style="margin-bottom: 0.5rem">
     <span>
       <a
-        href="https://store-<%= storeHash %>.mybigcommerce.com/manage/products/<%= type === 'brand' ? 'brands' : 'categories' %>/<%= id %>/edit"
+        href="https://store-<%= page.storeHash %>.mybigcommerce.com/manage/products/<%= page.type === 'brand' ? 'brands' : 'categories' %>/<%= page.id %>/edit"
         >Edit Page Title / Meta Description</a
       >
     </span>
   </div>
   <div>
-    <span><a href="<%= storeUrl + slug %>">View on storefront</a></span>
+    <span><a href="<%= page.url %>">View on storefront</a></span>
   </div>
 </div>
+<% } %>
