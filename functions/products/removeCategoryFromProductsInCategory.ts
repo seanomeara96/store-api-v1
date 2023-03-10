@@ -1,70 +1,57 @@
 import { getAllProducts } from "./getAllProducts";
 import { removeCatFromProduct } from "./removeCatFromProduct";
 
-const filterProductsInCat = (products: any[], categoryId: number) =>
-  products.filter((product) => product.categories.includes(categoryId));
+function filterProductsInCat(products: any[], categoryId: number) {
+  return products.filter((product) => product.categories.includes(categoryId));
+}
 
-const mapProductIds = (products: any[]) => products.map(({ id }) => id);
-
-const mapPromiseToId = (ids: number[], categoryId: number) =>
-  ids.map((id) => removeCatFromProduct(id, categoryId));
+function mapProductIds(products: any[]) {
+  return products.map((product) => product.id);
+}
 
 export function removeCategoryFromProductsInCategory(
   categoryId: number,
   suppliedProducts: any[] | undefined
-): Promise<unknown> {
+) {
   return new Promise(async (resolve, reject) => {
-    if (typeof categoryId !== "number") {
-      return reject("id must be number");
-    }
-
-    let products: any[];
-    if (suppliedProducts) {
-      products = suppliedProducts.filter((p) =>
-        p.categories.includes(categoryId)
-      );
-    } else {
-      try {
-        products = await getAllProducts({ "categories:in": categoryId });
-      } catch (err) {
-        console.log(err);
-      }
-    }
-
-    if (!products!) {
-      reject("somehting went wrong");
-      return;
-    }
-    if (!products.length) {
-      resolve(0);
-      return;
-    }
-    const producsInCat = filterProductsInCat(products!, categoryId);
-    const productIds = mapProductIds(producsInCat);
-    //const promises = mapPromiseToId(productIds, categoryId);
-    //Promise.allSettled(promises).then(resolve).catch(reject);
-    for (const id of productIds) {
-      await removeCatFromProduct(id, categoryId);
-    }
-    let productsInCatAfterClean;
     try {
-      productsInCatAfterClean = await getAllProducts({
+      if (typeof categoryId !== "number") {
+        return reject("id must be number");
+      }
+      const queryParam = {
         "categories:in": categoryId,
-      });
-    } catch (err) {
-      console.log(err);
-      reject(err);
-      return;
-    }
-    if (productsInCatAfterClean) {
+      };
+
+      const products = suppliedProducts
+        ? suppliedProducts.filter((p) => p.categories.includes(categoryId))
+        : await getAllProducts(queryParam);
+
+      if (!products) return reject("somehting went wrong");
+      if (!products.length) return resolve(products.length); // category is already empty
+
+      const producsInCat = filterProductsInCat(products, categoryId);
+      const productIds = mapProductIds(producsInCat);
+      console.log(`${productIds.length} to remove`);
+      for (let x = 0; x < productIds.length; x += 25) {
+        console.log(`removing ${x} - ${x + 25}...`);
+        await Promise.all(
+          productIds
+            .slice(x, x + 25)
+            .map((id) => removeCatFromProduct(id, categoryId))
+        );
+        console.log(`removed ${x} - ${x + 25}`);
+      }
+
+      const productsInCatAfterClean = await getAllProducts(queryParam);
+
       const productCount = productsInCatAfterClean.length;
       if (productCount) {
         reject("failed to remove all products");
         return;
       }
       resolve(productCount);
-      return;
+    } catch (err) {
+      reject(err);
     }
-    reject("something went wrong");
   });
 }

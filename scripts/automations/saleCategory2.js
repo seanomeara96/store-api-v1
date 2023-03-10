@@ -46,45 +46,40 @@ function currentDiscount(product) {
 
   for (const product of products) {
     try {
-      switch (product) {
-        case currentDiscount(product) >= 50:
-          console.log(`${product.name} is > 50% off`);
-          await Promise.all([
-            addCatToProduct(product.id, shopByOffer),
-            addCatToProduct(product.id, save50),
-          ]);
-          break;
-        case 40 <= currentDiscount(product) && currentDiscount(product) < 50:
-          console.log(`${product.name} is > 40% off`);
-          await Promise.all([
-            addCatToProduct(product.id, shopByOffer),
-            addCatToProduct(product.id, save40),
-          ]);
-          break;
-        case 30 <= currentDiscount(product) && currentDiscount(product) < 40:
-          console.log(`${product.name} is > 30% off`);
-          await Promise.all([
-            addCatToProduct(product.id, shopByOffer),
-            addCatToProduct(product.id, save30),
-          ]);
-          break;
-        case 20 <= currentDiscount(product) && currentDiscount(product) < 30:
-          console.log(`${product.name} is > 20% off`);
-          await Promise.all([
-            addCatToProduct(product.id, shopByOffer),
-            addCatToProduct(product.id, save20),
-          ]);
-          break;
-        case 10 <= currentDiscount(product) && currentDiscount(product) < 20:
-          console.log(`${product.name} is > 10% off`);
-          await Promise.all([
-            addCatToProduct(product.id, shopByOffer),
-            addCatToProduct(product.id, save10),
-          ]);
-          break;
-        default:
-          console.log(`${product.name} has no discount`);
-          continue;
+      if (currentDiscount(product) >= 50) {
+        console.log(`${product.name} is > 50% off`);
+        await Promise.all([
+          addCatToProduct(product.id, shopByOffer),
+          addCatToProduct(product.id, save50),
+        ]);
+      }
+      if (40 <= currentDiscount(product) && currentDiscount(product) < 50) {
+        console.log(`${product.name} is > 40% off`);
+        await Promise.all([
+          addCatToProduct(product.id, shopByOffer),
+          addCatToProduct(product.id, save40),
+        ]);
+      }
+      if (30 <= currentDiscount(product) && currentDiscount(product) < 40) {
+        console.log(`${product.name} is > 30% off`);
+        await Promise.all([
+          addCatToProduct(product.id, shopByOffer),
+          addCatToProduct(product.id, save30),
+        ]);
+      }
+      if (20 <= currentDiscount(product) && currentDiscount(product) < 30) {
+        console.log(`${product.name} is > 20% off`);
+        await Promise.all([
+          addCatToProduct(product.id, shopByOffer),
+          addCatToProduct(product.id, save20),
+        ]);
+      }
+      if (10 <= currentDiscount(product) && currentDiscount(product) < 20) {
+        console.log(`${product.name} is > 10% off`);
+        await Promise.all([
+          addCatToProduct(product.id, shopByOffer),
+          addCatToProduct(product.id, save10),
+        ]);
       }
     } catch (err) {
       console.log(err);
