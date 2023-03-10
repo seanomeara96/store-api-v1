@@ -9,16 +9,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getProductBySku = void 0;
-const getProductById_1 = require("./getProductById");
-const getProductIdFromSku_1 = require("./getProductIdFromSku");
-function getProductBySku(sku) {
+exports.getProductIdFromSku = void 0;
+function getProductIdFromSku(sku) {
     return new Promise(function (resolve, reject) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const id = (yield (0, getProductIdFromSku_1.getProductIdFromSku)(sku));
-                const product = yield (0, getProductById_1.getProductById)(id);
-                resolve(product);
+                const res = yield require("../../config/config").store.get("/catalog/variants", {
+                    params: { sku },
+                });
+                if (!res.data.data.length) {
+                    throw "no matching variants";
+                }
+                resolve(res.data.data[0].product_id);
             }
             catch (err) {
                 reject(err);
@@ -26,4 +28,4 @@ function getProductBySku(sku) {
         });
     });
 }
-exports.getProductBySku = getProductBySku;
+exports.getProductIdFromSku = getProductIdFromSku;
