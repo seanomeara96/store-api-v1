@@ -11,17 +11,23 @@ const fulfilledReducerParams = [
   0,
 ];
 
-const catId = 1485;
+const catId = 1461;
 
-const productIds = [
-  { "Product ID": 4197 },
-  { "Product ID": 4198 },
-  { "Product ID": 4199 },
-  { "Product ID": 4200 },
-  { "Product ID": 4201 },
-  { "Product ID": 4202 },
-  { "Product ID": 4203 },
-];
+const productIds = [{"Product ID":3576},
+{"Product ID":3726},
+{"Product ID":3727},
+{"Product ID":3787},
+{"Product ID":3818},
+{"Product ID":3876},
+{"Product ID":3877},
+{"Product ID":3878},
+{"Product ID":3886},
+{"Product ID":4105},
+{"Product ID":4113},
+{"Product ID":4214},
+{"Product ID":4276},
+{"Product ID":4277},
+{"Product ID":4278}];
 
 (async () => {
   try {
