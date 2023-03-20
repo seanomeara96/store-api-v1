@@ -43,23 +43,6 @@ const campaigns = [
     destination_url: "https://www.beautyfeatures.ie/brands/kerastase",
   },
   {
-    type: "brand",
-    store: "bf",
-    limit: "199",
-    identifier: "Dermalogica",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/4330/8602/Dermalogica_Neck_Fit_Contour_Serum_50ml__20896__26176.1612291880.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/4330/8602/Dermalogica_Neck_Fit_Contour_Serum_50ml__20896__26176.1612291880.jpg?c=2&imbypass=on",
-    headline: "Free Neck Fit Contour Serum 50ml",
-    worth: 99,
-    condition: "When you spend €120 on Dermalogica",
-    sku: "9193A",
-    sku_type: "product",
-    display: "TRUE",
-    destination_url: "https://www.beautyfeatures.ie/brands/Dermalogica.html",
-  },
-  {
     type: "category",
     store: "bf",
     limit: "stock",
@@ -181,6 +164,23 @@ const campaigns = [
   {
     type: "brand",
     store: "bf",
+    limit: "199",
+    identifier: "Dermalogica",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6640/15170/Jocio_Weekend_Hair_Dry_Shampoo_53ml_1__54832.1676892656.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6640/15170/Jocio_Weekend_Hair_Dry_Shampoo_53ml_1__54832.1676892656.jpg?c=2&imbypass=on",
+    headline: "Free Dynamic Skin Recovery SPF50 7ml",
+    worth: 18,
+    condition: "When you spend €80 on Dermalogica",
+    sku: "7806A",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/brands/Dermalogica.html",
+  },
+  {
+    type: "brand",
+    store: "bf",
     limit: "",
     identifier: "The Inkey List",
     thumbnail:
@@ -198,6 +198,77 @@ const campaigns = [
   {
     type: "brand",
     store: "bf",
+    limit: "250",
+    identifier: "Matrix",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6421/14697/Matrix_Total_Results_Miracle_Creator_20_Multi-Tasking_Treatment_Spray30ml_GWP_1__21293.1673438853.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6421/14697/Matrix_Total_Results_Miracle_Creator_20_Multi-Tasking_Treatment_Spray30ml_GWP_1__21293.1673438853.jpg?c=2&imbypass=on",
+    headline: "Free Miracle Creator 20 Multi-Tasking Treatment 30ml",
+    worth: 2,
+    condition: "When you spend €40 on Matrix",
+    sku: "12108",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/matrix/",
+  },
+  {
+    type: "brand",
+    store: "bf",
+    limit: "250",
+    identifier: "Matrix",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6418/14694/Matrix_Total_Results_Brass_Off_Blue_Toning_Shampoo_50ml_GWP_1__38388.1673433375.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6418/14694/Matrix_Total_Results_Brass_Off_Blue_Toning_Shampoo_50ml_GWP_1__38388.1673433375.jpg?c=2&imbypass=on",
+    headline: "Free Total Results Brass Off Blue Toning Shampoo 50ml",
+    worth: 3,
+    condition: "When you buy the Blue Toning Shampoo & Conditioner",
+    sku: "12105",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url:
+      "https://www.beautyfeatures.ie/matrix-total-results-brass-off-blue-toning-trio-giftset/",
+  },
+  {
+    type: "brand",
+    store: "bf",
+    limit: "250",
+    identifier: "Matrix",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6419/14695/_Matrix_Total_Results_Dark_Envy_Toning_Shampoo_50ml_GWP_1__00484.1673433679.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6419/14695/_Matrix_Total_Results_Dark_Envy_Toning_Shampoo_50ml_GWP_1__00484.1673433679.jpg?c=2&imbypass=on",
+    headline: "Free Matrix Dark Envy Shampoo Travel Mini",
+    worth: 3,
+    condition: "When you buy a Dark Envy Shampoo",
+    sku: "12106",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url:
+      "https://www.beautyfeatures.ie/matrix-total-results-dark-envy-shampoo-300ml/",
+  },
+  {
+    type: "brand",
+    store: "bf",
+    limit: "250",
+    identifier: "Matrix",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6420/14696/Matrix_Total_Results_Dark_Envy_Conditioner_50ml_GWP_1__86685.1673438007.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6420/14696/Matrix_Total_Results_Dark_Envy_Conditioner_50ml_GWP_1__86685.1673438007.jpg?c=2&imbypass=on",
+    headline: "Free Matrix Dark Envy Conditioner Travel Mini",
+    worth: 3,
+    condition: "When you buy a Dark Envy Conditioner",
+    sku: "12107",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url:
+      "https://www.beautyfeatures.ie/matrix-total-results-dark-envy-conditioner-300ml/",
+  },
+  {
+    type: "brand",
+    store: "bf",
     limit: "18",
     identifier: "Pestle & Mortar",
     thumbnail:
@@ -209,7 +280,7 @@ const campaigns = [
     condition: "When you spend €120 on Pestle &amp; Mortar",
     sku: "11417",
     sku_type: "product",
-    display: "TRUE",
+    display: "FALSE",
     destination_url:
       "https://www.beautyfeatures.ie/brands/Pestle-%26-Mortar.html",
   },
@@ -261,7 +332,7 @@ const campaigns = [
     condition: "When you spend €10 on Carter Beauty",
     sku: "11649",
     sku_type: "product",
-    display: "TRUE",
+    display: "FALSE",
     destination_url: "https://www.beautyfeatures.ie/carter-beauty/",
   },
   {
@@ -295,7 +366,7 @@ const campaigns = [
     condition: "When you spend €80 on Shiseido",
     sku: "12169",
     sku_type: "product",
-    display: "TRUE",
+    display: "FALSE",
     destination_url: "https://www.beautyfeatures.ie/shiseido/",
   },
   {
@@ -329,7 +400,7 @@ const campaigns = [
     condition: "When you spend €80 or more on NAK",
     sku: "11152",
     sku_type: "product",
-    display: "TRUE",
+    display: "FALSE",
     destination_url: "https://www.beautyfeatures.ie/nak/",
   },
   {
@@ -389,13 +460,13 @@ const campaigns = [
     limit: "199",
     identifier: "Dermalogica",
     thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/4330/8602/Dermalogica_Neck_Fit_Contour_Serum_50ml__20896__26176.1612291880.jpg?c=2&imbypass=on",
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6640/15170/Jocio_Weekend_Hair_Dry_Shampoo_53ml_1__54832.1676892656.jpg?c=2&imbypass=on",
     full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/4330/8602/Dermalogica_Neck_Fit_Contour_Serum_50ml__20896__26176.1612291880.jpg?c=2&imbypass=on",
-    headline: "Free Neck Fit Contour Serum 50ml",
-    worth: 99,
-    condition: "When you spend €120 on Dermalogica",
-    sku: "9193A",
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6640/15170/Jocio_Weekend_Hair_Dry_Shampoo_53ml_1__54832.1676892656.jpg?c=2&imbypass=on",
+    headline: "Free Dynamic Skin Recovery SPF50 7ml",
+    worth: 18,
+    condition: "When you spend €80 on Dermalogica",
+    sku: "7806A",
     sku_type: "product",
     display: "TRUE",
     destination_url: "https://www.beautyskincare.ie/dermalogica",

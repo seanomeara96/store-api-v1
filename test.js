@@ -1,7 +1,7 @@
 const { updateProduct } = require("./functions/products/updateProduct");
 const { getAllProducts } = require("./functions/products/getAllProducts");
 (async () => {
-  require("./config/config").config("ha");
+  require("./config/config").config("ch");
   const products = await getAllProducts()
   if (!products){
      console.log("no products")
@@ -13,9 +13,9 @@ const { getAllProducts } = require("./functions/products/getAllProducts");
     console.log(`updating inventory tracking of product ${id}`);
     try {
       const res = await updateProduct(id, {
-        inventory_tracking: "none",
+        inventory_level: 2500,
       });
-      console.log(id, res.inventory_tracking);
+      console.log(id, res.inventory_level);
     } catch (err) {
       console.log(err);
       continue;
