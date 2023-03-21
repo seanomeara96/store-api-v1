@@ -1,24 +1,24 @@
-const { updateProduct } = require("./functions/products/updateProduct");
-const { getAllProducts } = require("./functions/products/getAllProducts");
-(async () => {
-  require("./config/config").config("ch");
-  const products = await getAllProducts()
-  if (!products){
-     console.log("no products")
-     return
-  }
-  console.log(`found ${products.length} products`);
+const { getProductsByBrand } = require("./functions/products/getProductsByBrand");
+const { getAllRedirects } = require("./functions/redirects/getAllRedirects");
+const { deleteRedirect } = require("./functions/redirects/deleteRedirect");
 
-  for (const { id } of products) {
-    console.log(`updating inventory tracking of product ${id}`);
-    try {
-      const res = await updateProduct(id, {
-        inventory_level: 2500,
-      });
-      console.log(id, res.inventory_level);
-    } catch (err) {
-      console.log(err);
-      continue;
+
+
+(async () => {
+  require("./config/config").config("pb");
+  const brandProducts = await getProductsByBrand(`Zita West`)
+  const redirects = await getAllRedirects();
+  for(const product of brandProducts){
+    const productUrl = product.custom_url.url
+    const matchingRedirect = redirects.find(r => r.from_path === productUrl)
+    if(matchingRedirect){
+      console.log(matchingRedirect)
+      try {
+        await deleteRedirect(matchingRedirect.id)
+        console.log("deleted redirect")
+      } catch (err) {
+        console.log(err)
+      }
     }
   }
 })();
