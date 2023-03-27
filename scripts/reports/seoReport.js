@@ -71,21 +71,27 @@ async function checkAllSeo(allStores, recipients) {
     }
     responses.push(storeSEO);
   }
-  const issues = responses.filter((arr) => arr.length);
+  const issues = responses.filter((arr) => arr.length).flat();
+
+
   if (!issues.length) return;
 
   if (!issues) return console.log("something wrong with issues");
 
-  const toStringify = issues.map((r) => ({
-    id: r.id,
-    storeName: r.storeName,
-    type: r.pageType,
-    name: r.name,
-    url: r.storeUrl + r.custom_url.url,
-    edit: `https://store-${r.storeHash}.mybigcommerce.com/manage/products/${
-      r.pageType === "brand" ? "brands" : "categories"
-    }/${r.id}/edit`,
-  }));
+  const toStringify = issues.map((r) => {
+    console.log(r);
+    return {
+      id: r.id,
+      storeName: r.storeName,
+      type: r.pageType,
+      name: r.name,
+      url: r.storeUrl + r.custom_url.url,
+      edit: `https://store-${r.storeHash}.mybigcommerce.com/manage/products/${
+        r.pageType === "brand" ? "brands" : "categories"
+      }/${r.id}/edit`,
+    };
+  });
+
   stringify(toStringify, { header: true }, (err, out) => {
     if (err) return console.log(err);
     const msg = {

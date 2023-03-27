@@ -1,4 +1,4 @@
-require("../../config/config").config("bs");
+require("../../config/config").config("ah");
 const { deleteProduct } = require("../../functions/products/deleteProduct");
-deleteProduct(1126).then((res) => console.log(res + "\n")).catch(console.log);
+deleteProduct(1603).then((res) => console.log(res + "\n")).catch(console.log);
 
