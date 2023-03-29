@@ -1,14 +1,9 @@
 (async () => {
   const { deleteProduct } = require("../../functions/products/deleteProduct");
 
-  require("../../config/config").config("pb");
+  require("../../config/config").config("bf");
 
-  const data = [
-    { bc_id: 1234 },
-    { bc_id: 1374 },
-    { bc_id: 1439 },
-    { bc_id: 1458 },
-  ];
+  const data = [{ "Product ID": 2976 }, { "Product ID": 3371 }];
 
   const { log } = console;
 
