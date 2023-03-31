@@ -164,6 +164,40 @@ const campaigns = [
   {
     type: "brand",
     store: "bf",
+    limit: "",
+    identifier: "Dermalogica",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6808/15881/White_FaceMapping_Headband__25954.1680180360.png?c=2",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6808/15881/White_FaceMapping_Headband__25954.1680180360.png?c=2",
+    headline: "Free White Face Mapping Head Band",
+    worth: 12,
+    condition: "When you spend €85 on Dermalogica",
+    sku: "9033",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/brands/Dermalogica.html",
+  },
+  {
+    type: "brand",
+    store: "bf",
+    limit: "",
+    identifier: "Dermalogica",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/75x75/products/463/1197/Dermalogica_Clear_and_Brighten_Essentials_GWP__46965.1679564568.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/300x300/products/463/1197/Dermalogica_Clear_and_Brighten_Essentials_GWP__46965.1679564568.jpg?c=2&imbypass=on",
+    headline: "Free Clear + Brighten Essentials Kit",
+    worth: 16,
+    condition: "When you spend €120 on Dermalogica",
+    sku: "8068A ",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/brands/Dermalogica.html",
+  },
+  {
+    type: "brand",
+    store: "bf",
     limit: "199",
     identifier: "Dermalogica",
     thumbnail:
@@ -175,7 +209,7 @@ const campaigns = [
     condition: "When you spend €80 on Dermalogica",
     sku: "7806A",
     sku_type: "product",
-    display: "TRUE",
+    display: "FALSE",
     destination_url: "https://www.beautyfeatures.ie/brands/Dermalogica.html",
   },
   {
@@ -453,23 +487,6 @@ const campaigns = [
     sku_type: "product",
     display: "TRUE",
     destination_url: "https://www.beautyfeatures.ie/brands/Mama-Mio/",
-  },
-  {
-    type: "brand",
-    store: "bsk",
-    limit: "199",
-    identifier: "Dermalogica",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6640/15170/Jocio_Weekend_Hair_Dry_Shampoo_53ml_1__54832.1676892656.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6640/15170/Jocio_Weekend_Hair_Dry_Shampoo_53ml_1__54832.1676892656.jpg?c=2&imbypass=on",
-    headline: "Free Dynamic Skin Recovery SPF50 7ml",
-    worth: 18,
-    condition: "When you spend €80 on Dermalogica",
-    sku: "7806A",
-    sku_type: "product",
-    display: "TRUE",
-    destination_url: "https://www.beautyskincare.ie/dermalogica",
   },
 ];
 

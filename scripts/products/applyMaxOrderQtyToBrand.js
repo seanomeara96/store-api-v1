@@ -10,12 +10,12 @@ const applyMaxOrderQty = (product_id, qty) =>
       .catch(reject)
   );
 
-const applyMaxFiveLimit = (products) =>
+const applyMaxLimit = (products, limit) =>
   new Promise((resolve, reject) => {
     const qualifiers = products.filter(function isOrderQtyLessThan5 (product) {
-      return product.order_quantity_maximum < 5;
+      return product.order_quantity_maximum < limit;
     });
-    Promise.allSettled(qualifiers.map(({ id }) => applyMaxOrderQty(id, 5)))
+    Promise.allSettled(qualifiers.map(({ id }) => applyMaxOrderQty(id, limit)))
       .then(resolve)
       .catch(reject);
   });
@@ -43,12 +43,12 @@ function notifyFulfillmentStatus(res) {
 }
 
 // add max 5 limit to products
-function applyMaxOderQtyToBrand(store, brandName) {
+function applyMaxOderQtyToBrand(store, brandName, limit) {
   return new Promise(function (resolve, reject) {
     require("../../config/config").config(store);
     getProductsByBrand(brandName)
       .then((products) => {
-        applyMaxFiveLimit(products)
+        applyMaxLimit(products, limit)
           .then(notifyFulfillmentStatus)
           .then(resolve)
           .catch(reject);
@@ -60,16 +60,12 @@ function applyMaxOderQtyToBrand(store, brandName) {
 const storeDetails = [
   {
     store: "bf",
-    brand: "Kerastase",
-  },
-  {
-    store: "ah",
-    brand: "Kerastase",
-  },
+    brand: "The Ordinary",
+  }
 ];
 
 const promises = storeDetails.map(function (dt) {
-  return () => applyMaxOderQtyToBrand(dt.store, dt.brand);
+  return () => applyMaxOderQtyToBrand(dt.store, dt.brand, 10);
 });
 
 promises.reduce(function promiseReducer(a, c) {
