@@ -1,480 +1,152 @@
-require("./config/config").config("ha");
-const { getAllRedirects } = require("./functions/redirects/getAllRedirects");
-const { output } = require("./scripts/utils/output");
-(async () => {
-  const data = [
-    { url: "/" },
-    { url: "/products/category/games-prop-hire/" },
-    { url: "/products/category/catering-equipment-hire/" },
-    { url: "/products/category/coloured-linen-for-hire/" },
-    { url: "/products/view/rustic-wooden-bench-with-foldable-legs-for-hire/" },
-    { url: "/products/category/charger-plates-for-hire/" },
-    { url: "/products/category/crockery-hire/" },
-    { url: "/products/category/gold-rim-for-hire/" },
-    { url: "/products/category/benches-for-hire/" },
-    {
-      url: "/products/category/chair-covers-chair-ties-table-runners-for-hire/",
-    },
-    { url: "/products/category/glassware-hire/" },
-    { url: "/products/category/hot-beverage-service-for-hire/" },
-    { url: "/products/category/outdoor-furniture-bbq-for-hire/" },
-    { url: "/products/category/wedding-chairs-for-hire/" },
-    { url: "/products/view/lady-victoria-chair-gold-for-hire/" },
-    { url: "/cart.php" },
-    { url: "/products/category/table-hire/" },
-    { url: "/products/view/flip-chart-stand-for-hire/" },
-    { url: "/products/view/wooden-easel-artist-easel-for-hire/" },
-    { url: "/about-us/" },
-    { url: "/products/category/banquet-dining-tables-for-hire/" },
-    { url: "/products/category/gazebos-parasols-for-hire/" },
-    { url: "/products/view/chrome-stanchion-pillar-for-hire/" },
-    { url: "/products/view/giant-connect-4-for-hire/" },
-    {
-      url: "/products/view/traditional-wooden-deckchair-blue-and-white-for-hire/",
-    },
-    { url: "/blog/dance-floor-styles-and-size-guide/" },
-    { url: "/lolliprops/" },
-    { url: "/meet-the-team/" },
-    { url: "/products/category/bar-stools-for-hire/" },
-    { url: "/products/category/chair-hire/" },
-    { url: "/products/category/cocktail-bistro-tables-for-hire/" },
-    { url: "/products/category/vintage-crockery-for-hire/" },
-    { url: "/products/view/wooden-barrel-pod-table-for-hire/" },
-    { url: "/collection-delivery/" },
-    { url: "/come-join-us/" },
-    { url: "/frequently-asked-questions/" },
-    { url: "/products/category/afternoon-tea-cake-stands-for-hire/" },
-    { url: "/products/category/bar-counters-for-hire/" },
-    { url: "/products/category/games-prop-hire/?page=1/" },
-    { url: "/products/category/illuminated-furniture-for-hire/" },
-    { url: "/products/category/napkins-for-hire/" },
-    { url: "/products/category/sofa-hire-for-hire/" },
-    { url: "/products/view/1-ring-burner-gas-for-hire/" },
-    { url: "/products/view/coat-clothes-rail-for-hire/" },
-    { url: "/products/view/combi-oven-10-rack-for-hire/" },
-    { url: "/products/view/giant-outdoor-chess-for-hire/" },
-    { url: "/products/view/hot-plate-griddle-52in-x-26in-elec-for-hire/" },
-    { url: "/products/view/john-rocha-red-wine-glass-20oz-for-hire/" },
-    { url: "/products/view/lectern-podium-with-black-top-for-hire/" },
-    { url: "/products/view/pod-table-glass-round-low-for-hire/" },
-    { url: "/products/view/pop-up-gin-bar-4-6ft-for-hire/" },
-    { url: "/products/view/portable-hot-cold-food-container-for-hire/" },
-    { url: "/products/view/regatta-outdoor-bistro-chair-for-hire/" },
-    { url: "/products/view/retractable-post-belt-black-for-hire/" },
-    { url: "/products/view/rustic-oak-table-6-6ft-for-hire/" },
-    { url: "/products/view/table-tennis-table-for-hire/" },
-    { url: "/contact-us/" },
-    { url: "/corporate-hospitality/" },
-    { url: "/event-seating/" },
-    { url: "/products/category/armchair-hire-for-hire/" },
-    { url: "/products/category/centerpieces-table-accessories-for-hire/" },
-    { url: "/products/category/champagne-glasses-for-hire/" },
-    { url: "/products/category/childrens-furniture-for-hire/" },
-    { url: "/products/category/conference-event-essentials-for-hire/" },
-    { url: "/products/category/cutlery-hire/" },
-    { url: "/products/category/platters-display-trays-for-hire/" },
-    { url: "/products/category/rent-now-for-hire/" },
-    { url: "/products/category/spandex-pod-table-covers-for-hire/" },
-    { url: "/products/category/wine-glasses-for-hire/" },
-    { url: "/products/view/alaska-2-seater-sofa-white-for-hire/" },
-    { url: "/products/view/alaska-armchair-white-for-hire/" },
-    { url: "/products/view/arctic-white-soup-bowl-for-hire/" },
-    { url: "/products/view/bain-marie-2-well-with-hot-plate-for-hire/" },
-    { url: "/products/view/cube-high-bar-table-white-frame-for-hire/" },
-    { url: "/products/view/diamond-green-wine-goblet-for-hire/" },
-    { url: "/products/view/giant-lego-blocks-for-hire/" },
-    { url: "/products/view/giant-scissors-hire-26in-for-hire/" },
-    { url: "/products/view/medieval-pillory-stocks-1-4m-for-hire/" },
-    { url: "/products/view/samsonite-folding-chair-red-blue-for-hire/" },
-    { url: "/products/view/table-square-2ft-x-24in-for-hire/" },
-    { url: "/products/view/traditional-wooden-bar-stool-for-hire/" },
-    { url: "/products/view/vintage-tea-cup-excludes-saucer-for-hire/" },
-    { url: "/what-we-do/" },
-    { url: "/blog/micro-weddings-ireland/" },
-    { url: "/flexfurn/" },
-    { url: "/private-parties-weddings/" },
-    { url: "/products/category/arctic-white-for-hire/?page=2/" },
-    { url: "/products/category/banquet-dining-chairs-for-hire/" },
-    { url: "/products/category/bar-counters-for-hire/?page=1/" },
-    { url: "/products/category/bbq-accessories-for-hire/" },
-    { url: "/products/category/black-crockery-for-hire/" },
-    { url: "/products/category/buffetware-table-service-hire/?page=2/" },
-    { url: "/products/category/catering-equipment-hire/?sort=bestselling/" },
-    { url: "/products/category/chair-hire/?page=6/" },
-    { url: "/products/category/coffee-table-hire-for-hire/" },
-    { url: "/products/category/conference-event-chairs-for-hire/" },
-    { url: "/products/category/conference-event-chairs-for-hire/?page=2/" },
-    { url: "/products/category/cooking-warming-equipment-for-hire/" },
-    { url: "/products/category/crockery-hire/?page=2/" },
-    { url: "/products/category/dancefloor-staging-lighting-for-hire/" },
-    { url: "/products/category/glassware-hire/?page=2/" },
-    { url: "/products/category/glassware-hire/?q=coupes/" },
-    { url: "/products/category/kitchen-utensils-for-hire/" },
-    { url: "/products/category/linen-hire/" },
-    { url: "/products/category/prop-hire-for-hire/" },
-    { url: "/products/category/refrigeration-hire/" },
-    { url: "/products/category/rent-now-for-hire/?page=2/" },
-    { url: "/products/category/rent-now-for-hire/?page=6/" },
-    { url: "/products/category/salad-bowls-serving-dishes-for-hire/" },
-    { url: "/products/category/spandex-pod-table-covers-for-hire/?page=2/" },
-    { url: "/products/category/speciality-glassware-for-hire/" },
-    { url: "/products/category/table-hire/?page=6/" },
-    { url: "/products/view/afternoon-tea-stand-silver-3-tier-for-hire/" },
-    { url: "/products/view/all-seasons-padded-chair-for-hire/" },
-    { url: "/products/view/aurora-bar-stool-white-for-hire/" },
-    { url: "/products/view/baby-high-chair-for-hire/" },
-    { url: "/products/view/bentwood-rustic-oak-chair-for-hire/" },
-    { url: "/products/view/bin-ring-refuse-sack-holder-for-hire/" },
-    { url: "/products/view/black-and-white-dance-floor-4ft-x-2ft-for-hire/" },
-    { url: "/products/view/black-round-tablecloth-132in-for-hire/" },
-    { url: "/products/view/black-soup-plate-9in-for-hire/" },
-    { url: "/products/view/black-velvet-rope-barrier-1-5m-for-hire/" },
-    { url: "/products/view/bratt-pan-50l-for-hire/" },
-    {
-      url: "/products/view/chameleon-chair-gold-bronze-with-brown-legs-for-hire/",
-    },
-    { url: "/products/view/chesterfield-armchair-oxblood-leather-for-hire/" },
-    { url: "/products/view/club-armchair-black-for-hire/" },
-    { url: "/products/view/croquet-set-for-hire/" },
-    { url: "/products/view/cube-high-bar-stool-white-frame-for-hire/" },
-    { url: "/products/view/electric-chafer-unit-for-hire/" },
-    { url: "/products/view/freestanding-mirror-chrome-frame-for-hire/" },
-    { url: "/products/view/giant-noughts-and-crosses-for-hire/" },
-    { url: "/products/view/giant-snakes-ladders-for-hire/" },
-    { url: "/products/view/globe-light-400mm-wireless-for-hire/" },
-    { url: "/products/view/goa-pink-gold-coffee-tea-spoon-for-hire/" },
-    { url: "/products/view/gold-rim-dinner-plate-10in-for-hire/" },
-    { url: "/products/view/gold-rim-dinner-plate-12in-for-hire/" },
-    { url: "/products/view/grass-3-seater-sofa-for-hire/" },
-    { url: "/products/view/hand-wash-unit-square-for-hire/" },
-    { url: "/products/view/industrial-6-ring-cooker-gas-for-hire/" },
-    { url: "/products/view/japan-lounge-chair-orange-for-hire/" },
-    { url: "/products/view/jet-pod-table-milky-white-for-hire/" },
-    { url: "/products/view/john-rocha-white-wine-glass-12oz-for-hire/" },
-    { url: "/products/view/linen-table-skirting-white-9ft-for-hire/" },
-    { url: "/products/view/linen-tablecloth-red-90in-x-90in-for-hire/" },
-    { url: "/products/view/mahogany-wooden-bar-unit-for-hire/" },
-    { url: "/products/view/mother-of-pearl-soup-spoon-for-hire/" },
-    { url: "/products/view/patio-heater-for-hire/" },
-    { url: "/products/view/peak-pod-table-black-for-hire/" },
-    { url: "/products/view/pedestal-bin-with-lid-for-hire/" },
-    { url: "/products/view/pod-table-white-round-for-hire/" },
-    { url: "/products/view/pump-action-flask-3-litre-for-hire/" },
-    { url: "/products/view/punch-bowl-for-hire/" },
-    { url: "/products/view/regency-soup-bowl-7oz-207ml-for-hire/" },
-    { url: "/products/view/room-divider-for-hire/" },
-    { url: "/products/view/room-divider-japan-style-for-hire/" },
-    { url: "/products/view/silver-candlestick-8-5in-for-hire/" },
-    { url: "/products/view/silver-square-cake-stand-16in-for-hire/" },
-    { url: "/products/view/stand-up-ashtray-stainless-steel-for-hire/" },
-    { url: "/products/view/tiered-bar-with-glass-top-for-hire/" },
-    { url: "/products/view/tiki-bamboo-barstool-for-hire/" },
-    { url: "/products/view/victoria-gold-starter-knife-side-knife-for-hire/" },
-    {
-      url: "/products/view/wedgwood-jasper-conran-peacock-tea-cup-saucer-for-hire/",
-    },
-    { url: "/products/view/white-candelabra-5-branch-31in-for-hire/" },
-    { url: "/products/view/wooden-garden-chair-for-hire/" },
-    { url: "/search.php?page=9&section=product&search_query=bowl/" },
-    { url: "/search.php?search_query=bell/" },
-    { url: "/search.php?search_query=CARRAFE/" },
-    { url: "/search.php?search_query=drawers/" },
-    { url: "/search.php?search_query=Gold+cutlery+&section=product/" },
-    { url: "/search.php?search_query=high+table/" },
-    { url: "/search.php?search_query=padded+blue/" },
-    { url: "/search.php?search_query=table+half/" },
-    { url: "/search.php?search_query=tea+stand/" },
-    { url: "/slide-design/" },
-    { url: "/steelite-international/?page=2/" },
-    { url: "/zanussi/" },
-    { url: "(not set)/" },
-    { url: "/blog/post/10-food-station-ideas-to-impress/" },
-    { url: "/blog/post/5-ways-to-fold-a-napkin/" },
-    { url: "/blog/post/first-holy-communion-party-packages-hire/" },
-    { url: "/blog/post/how-to-set-a-formal-table-setting/" },
-    { url: "/blog/post/napkin-etiquette/" },
-    { url: "/blog/post/top-5-outdoor-party-ideas-for-this-summer/" },
-    { url: "/contact/" },
-    { url: "/home/" },
-    {
-      url: "/home/products/view/6788/glassware/bar-speciality/1037-margarita-glass/",
-    },
-    { url: "/page/seasonal-offers/" },
-    { url: "/portfolio/" },
-    { url: "/portfolio/view/bloom-festival-2017/" },
-    { url: "/portfolio/view/bohemian-wedding/" },
-    { url: "/portfolio/view/guinness-corporate-party/" },
-    { url: "/portfolio/view/isle-of-man-wedding/" },
-    { url: "/portfolio/view/modern-shabby-chic-wedding/" },
-    { url: "/products/category/arctic-white-crockery-for-hire/" },
-    { url: "/products/category/armchairs-and-sofas-for-hire/" },
-    { url: "/products/category/bar-accessories-for-hire/" },
-    { url: "/products/category/bar-supplies-for-hire/" },
-    { url: "/products/category/bar-units-for-hire/" },
-    { url: "/products/category/bbq-equipment-for-hire/" },
-    { url: "/products/category/beer-glasses-for-hire/" },
-    { url: "/products/category/beverage-equipment-for-hire/" },
-    { url: "/products/category/black-stem-glassware-for-hire/" },
-    { url: "/products/category/buffetware-for-hire/" },
-    { url: "/products/category/buffetware-plates-bowls-for-hire/" },
-    { url: "/products/category/buffetware-stands-for-hire/" },
-    { url: "/products/category/catering-equipment-for-hire/" },
-    { url: "/products/category/chairs-for-hire/" },
-    { url: "/products/category/chairs-for-hire/P72/" },
-    { url: "/products/category/chairs-for-hire/price/40/" },
-    { url: "/products/category/childrens-chairs-for-hire/" },
-    { url: "/products/category/conference-office-chairs-for-hire/" },
-    { url: "/products/category/cooking-equipment-for-hire/" },
-    { url: "/products/category/crockery-for-hire/" },
-    { url: "/products/category/crockery-sets-for-hire/" },
-    { url: "/products/category/cutlery-sets-for-hire/" },
-    { url: "/products/category/dancefloor-staging-for-hire/" },
-    { url: "/products/category/festival-furniture-for-hire/" },
-    { url: "/products/category/folding-chairs-for-hire/" },
-    { url: "/products/category/foyer-for-hire/" },
-    { url: "/products/category/furniture-for-hire/" },
-    { url: "/products/category/glassware-by-type-for-hire/" },
-    { url: "/products/category/gold-rim-crockery-for-hire/" },
-    { url: "/products/category/hand-sanitisers-for-sale/" },
-    { url: "/products/category/holding-serving-for-hire/" },
-    { url: "/products/category/jasper-conran-peacock-for-hire/" },
-    { url: "/products/category/john-rocha-glassware-for-hire/" },
-    { url: "/products/category/linen-for-hire/" },
-    { url: "/products/category/lounge-furniture-for-hire/" },
-    { url: "/products/category/lounge-furniture-for-hire/P72/" },
-    { url: "/products/category/mydrap-napkins-for-hire/" },
-    { url: "/products/category/outdoor-furniture-and-bbq-for-hire/" },
-    { url: "/products/category/outdoor-furniture-for-hire/" },
-    { url: "/products/category/outdoor-giant-games-for-hire/" },
-    { url: "/products/category/pod-cocktail-table-for-hire/" },
-    { url: "/products/category/private-party-furniture-for-hire/" },
-    { url: "/products/category/private-party-furniture-for-hire/P24/" },
-    { url: "/products/category/refrigeration-for-hire/" },
-    {
-      url: "/products/category/Sanitising-and-Social-Distancing-Units-for-sale/",
-    },
-    { url: "/products/category/spandex-for-hire/" },
-    { url: "/products/category/table-service-presentation-for-hire/" },
-    { url: "/products/category/tables-for-hire/" },
-    { url: "/products/category/ties-runners-for-hire/" },
-    { url: "/products/category/water-glasses-for-hire/" },
-    { url: "/products/category/wedding-furniture-for-hire/" },
-    { url: "/products/view/afternoon-tea-stand-silver-3-tier-5in-for-hire/" },
-    { url: "/products/view/afternoon-tea-stand-vintage-blue-2-tier-for-hire/" },
-    { url: "/products/view/afternoon-tea-stand-vintage-pink-2-tier-for-hire/" },
-    {
-      url: "/products/view/afternoon-tea-stand-vintage-silver-3-tier-9in-for-hire/",
-    },
-    {
-      url: "/products/view/afternoon-tea-stand-vintage-silver3-tier-for-hire/",
-    },
-    { url: "/products/view/afternoon-tea-stand-white-3-tier-for-hire/" },
-    { url: "/products/view/afternoon-tea-stand-white-4-tier-for-hire/" },
-    { url: "/products/view/air-hockey-table-for-hire/" },
-    { url: "/products/view/alaska-2-seater-sofa-white-leather-for-hire/" },
-    { url: "/products/view/alaska-3-seater-sofa-white-leather-for-hire/" },
-    { url: "/products/view/arctic-white-crockery-set-for-hire/" },
-    { url: "/products/view/arctic-white-soup-bowl-saucer-for-hire/" },
-    { url: "/products/view/avocado-ottoman-lime-green-for-hire/" },
-    { url: "/products/view/baby-high-chairs-for-hire/" },
-    { url: "/products/view/Bain-Marie-4-Well-with-Hot-Plate-Gantry-Lights/" },
-    { url: "/products/view/bain-marie-hotplate-4-well-for-hire/" },
-    { url: "/products/view/bain-marie-tabletop-2-well-for-hire/" },
-    { url: "/products/view/bamboo-kidei-boat-3.5in-pack-of-50-for-hire/" },
-    { url: "/products/view/bamboo-tiki-bar-unit-for-hire/" },
-    { url: "/products/view/bash-back-bar-unit-for-hire/" },
-    { url: "/products/view/bash-bar-corner-unit-illuminated-for-hire/" },
-    { url: "/products/view/black-crockery-set-for-hire/" },
-    { url: "/products/view/black-retractable-belt-barrier-for-hire/" },
-    { url: "/products/view/blue-stoneware-round-dinner-plate-for-hire/" },
-    { url: "/products/view/branded-hands-free-sanitising-station-for-sale/" },
-    { url: "/products/view/buffet-bread-basket-wicker-for-hire/" },
-    { url: "/products/view/burger-griddle-29in-x-19in-elec-for-hire/" },
-    { url: "/products/view/button-bar-stool-red-for-hire/" },
-    { url: "/products/view/cake-stand-e-shape-3-tier-for-hire/" },
-    { url: "/products/view/cake-stand-s-shape-3-tier-for-hire/" },
-    {
-      url: "/products/view/carpet-walkway-all-weather-red-21ft-6.4m-for-hire/",
-    },
-    { url: "/products/view/carpet-walkway-red-33ft-10m-for-hire/" },
-    { url: "/products/view/carpet-walkway-salmon-pink-33ft-10m-for-hire/" },
-    { url: "/products/view/chafer-unit-electric-for-hire/" },
-    { url: "/products/view/chair-tie-table-runner-black-organza-for-hire/" },
-    { url: "/products/view/chair-tie-table-runner-ivory-satin-for-hire/" },
-    { url: "/products/view/chameleon-silver-back-chair/" },
-    { url: "/products/view/champagne-saucer-4oz-for-hire/" },
-    { url: "/products/view/charger-plate-gold-rim-12in-for-hire/" },
-    { url: "/products/view/chesterfield-armchair-tan-leather-for-hire/" },
-    { url: "/products/view/chiavari-bar-stool-for-hire/" },
-    { url: "/products/view/chiavari-chair-black-for-hire/" },
-    { url: "/products/view/chiavari-chair-crystal-for-hire/" },
-    { url: "/products/view/chiavari-chair-gold-for-hire/" },
-    { url: "/products/view/Chiavari-Chair-Lime-Wash-for-hire/" },
-    { url: "/products/view/chiavari-chair-pad-for-hire/" },
-    { url: "/products/view/chocolate-fountain-small-for-hire/" },
-    { url: "/products/view/cloche-stainless-steel-for-hire/" },
-    { url: "/products/view/Combi-Oven-on-Stand-for-hire/" },
-    {
-      url: "/products/view/conference-cloth-light-green-120in-x-60in-for-hire/",
-    },
-    { url: "/products/view/conical-strainer-for-hire/" },
-    { url: "/products/view/corian-wall-mounted-sanitiser-unit-a-for-sale/" },
-    { url: "/products/view/cube-dip-pot-white-2in-x-2in-for-hire/" },
-    { url: "/products/view/dance-floor-wooden-parquet-3ft-x-3ft-for-hire/" },
-    { url: "/products/view/deep-fat-fryer-2-basket-elec-for-hire/" },
-    {
-      url: "/products/view/dishwasher-unit-with-pre-rinse-sink-and-tables-for-hire/",
-    },
-    { url: "/products/view/fish-slice-plastic-for-hire/" },
-    { url: "/products/view/flow-network-table-large-white-tabletop-for-hire/" },
-    { url: "/products/view/folding-chair-teal-for-hire/" },
-    {
-      url: "/products/view/free-standing-hand-sanitizer-dispenser-unit-for-sale/",
-    },
-    { url: "/products/view/garden-table-and-chairs-set-wooden-for-hire/" },
-    { url: "/products/view/gazebo-black-20ft-x-10ft-for-hire/" },
-    { url: "/products/view/giant-piano-keyboard-playmat-for-hire/" },
-    { url: "/products/view/giant-scissors-26in-658mm-for-hire/" },
-    { url: "/products/view/glasswasher-for-hire/" },
-    { url: "/products/view/globe-light-wirelesss-500mm-for-hire/" },
-    { url: "/products/view/gravy-ladle-for-hire/" },
-    { url: "/products/view/hand-sanitiser-gel-5ltr-for-sale/" },
-    { url: "/products/view/hand-sanitizer-stand-for-sale/" },
-    { url: "/products/view/high-table-rectangular-white-for-hire/" },
-    { url: "/products/view/hopscotch-mat-for-hire/" },
-    { url: "/products/view/ice-bucket-wine-bucket-for-hire/" },
-    { url: "/products/view/ice-cube-bag-20lb-9kg-for-hire/" },
-    { url: "/products/view/insectazap-for-hire/" },
-    {
-      url: "/products/view/insert-gastronorm-pan-4in-full-perforated-for-hire/",
-    },
-    { url: "/products/view/jack-stack-plate-rack-for-hire/" },
-    { url: "/products/view/john-rocca-white-wine-glass-12-oz-for-hire/" },
-    { url: "/products/view/john-rocha-red-wine-glass-for-hire/" },
-    { url: "/products/view/lantern-white-17in-for-hire/" },
-    {
-      url: "/products/view/linen-tablecloth-white-ivy-leaf-54in-x-54in-for-hire/",
-    },
-    { url: "/products/view/linen-tablecloth-white-round-132in-for-hire/" },
-    { url: "/products/view/log-bench-1.6m/" },
-    { url: "/products/view/lux-registration-counter-bar-unit-white-for-hire/" },
-    { url: "/products/view/medieval-pillory-stocks-for-hire/" },
-    { url: "/products/view/Mighty-B-Beanbag-orange-for-hire/" },
-    { url: "/products/view/milan-white-high-back-bar-stool-to-hire/" },
-    { url: "/products/view/milano-chair-with-lecture-arm-for-hire/" },
-    { url: "/products/view/office-locker-4-drawer-for-hire/" },
-    { url: "/products/view/office-waste-bin-for-hire/" },
-    {
-      url: "/products/view/oxford-outdoor-table-set-table-with-2-chairs-cushions-to-hire/",
-    },
-    { url: "/products/view/paella-pan-burner-small-gas-for-hire/" },
-    { url: "/products/view/pallet-outdoor-sofa-and-chairs-set-for-hire/" },
-    { url: "/products/view/parry-mobile-sink-for-sale/" },
-    { url: "/products/view/patio-heater-gas-for-hire/" },
-    { url: "/products/view/pop-up-gin-bar-4.6ft/" },
-    {
-      url: "/products/view/rattan-bistro-outdoor-table-and-chairs-set-to-hire/",
-    },
-    { url: "/products/view/refuse-bin-with-lid-for-hire/" },
-    { url: "/products/view/refuse-sack-holder-for-hire/" },
-    { url: "/products/view/room-divider-japanese-brown-for-hire/" },
-    { url: "/products/view/Rope-Black-Velvet-1.5m-for-hire/" },
-    { url: "/products/view/rustic-oak-foldable-trestle-table-for-hire/" },
-    { url: "/products/view/salt-pepper-mill-set-clear-filled-for-hire/" },
-    { url: "/products/view/sherry-glass-2oz-for-hire/" },
-    { url: "/products/view/slim-jim-10oz-for-hire/" },
-    { url: "/products/view/smartie-bench-white-6ft-x-20in-for-hire/" },
-    { url: "/products/view/soho-combo-2-orange-for-hire/" },
-    { url: "/products/view/sorrento-3-seater-sofa-grass-for-hire/" },
-    { url: "/products/view/spandex-pod-table-cover-black-for-hire/" },
-    { url: "/products/view/standard-chiavari-chair-for-hire/" },
-    {
-      url: "/products/view/steel-barrel-pod-table-with-wooden-top-green-for-hire/",
-    },
-    {
-      url: "/products/view/steel-barrel-pod-table-with-wooden-top-yellow-for-hire/",
-    },
-    { url: "/products/view/table-numbers-for-hire/" },
-    { url: "/products/view/table-oval-10ft-x-5ft-for-hire/" },
-    { url: "/products/view/Table-Rectangular-6ft-x-36in-for-hire/" },
-    { url: "/products/view/table-round-3ft-for-hire/" },
-    { url: "/products/view/table-round-8ft-4-piece-for-hire/" },
-    { url: "/products/view/table-top-stainless-steel-6ft-x-30in-for-hire/" },
-    { url: "/products/view/tea-pot-coffee-pot-insulated-2-litre-for-hire/" },
-    { url: "/products/view/tea-pot-stainless-steel-large-for-hire/" },
-    {
-      url: "/products/view/traditional-wooden-deckchair-blue-and-yellow-for-hire/",
-    },
-    { url: "/products/view/triangle-ottoman-red-for-hire/" },
-    { url: "/products/view/tub-chair-black-leather-for-hire/" },
-    { url: "/products/view/tub-chair-brown-leather-for-hire/" },
-    { url: "/products/view/tub-chair-white-leather-for-hire/" },
-    { url: "/products/view/upright-cooler-cabintet-glass-door-for-hire/" },
-    { url: "/products/view/victoria-gold-cutlery-set-for-hire/" },
-    { url: "/products/view/victoria-gold-rim-red-wine-glass-for-hire/" },
-    { url: "/products/view/vintage-tea-cup-for-hire/" },
-    { url: "/products/view/water-jug-plain-1-litre-for-hire/" },
-    { url: "/products/view/Wedding-Cake-Knife-for-hire/" },
-    {
-      url: "/products/view/wedgwood-jasper-conran-dinner-plate-10.7in-for-hire/",
-    },
-    {
-      url: "/products/view/wedgwood-jasper-conran-peacock-side-plate-6.5in-for-hire/",
-    },
-    { url: "/products/view/wedgwood-pasta-plate-12in-for-hire/" },
-    { url: "/products/view/wedgwood-salt-pepper-set-for-hire/" },
-    { url: "/products/view/wedgwood-sugar-bowl-for-hire/" },
-    {
-      url: "/products/view/white-oval-plate-sauce-boat-underliner-8in-for-hire/",
-    },
-    { url: "/products/view/wingback-armchair-red-for-hire/" },
-    { url: "/products/view/wingback-armchair-yellow-for-hire/" },
-    { url: "/products/view/wooden-barrel-table-1m-for-hire/" },
-    { url: "/products/view/wooden-crate-for-hire/" },
-    { url: "/products/view/wooden-easel-for-hire/" },
-    { url: "/products/view/wooden-picnic-bench-for-hire/" },
-    { url: "/products/view/wow-bench-saffron-yellow-for-hire/" },
-    { url: "/products/view/zeus-bar-stool-cover-royal-blue/" },
-    { url: "/quote/" },
-    { url: "/quote/complete/" },
-    { url: "/search-results/eyJrZXl3b3JkcyI6IkNoYW1wYWduZSAifQ/P48/" },
-    { url: "/search-results/eyJrZXl3b3JkcyI6IlJlZnIifQ/" },
-    { url: "/search-results/eyJrZXl3b3JkcyI6IlNvZmEifQ/P24/" },
-    { url: "/search-results/eyJrZXl3b3JkcyI6ImJlZXIgZ2xhc3MifQ/" },
-    { url: "/search-results/eyJrZXl3b3JkcyI6ImNhbmRlbGFicmEifQ/" },
-    { url: "/search-results/eyJrZXl3b3JkcyI6ImNoYWZlciJ9/" },
-    { url: "/search-results/eyJrZXl3b3JkcyI6Imphc3BlciJ9/" },
-    { url: "/search-results/eyJrZXl3b3JkcyI6ImplbmdhIn/" },
-    { url: "/search-results/eyJrZXl3b3JkcyI6InJlZ2VuY3kgY2hhaXIifQ/" },
-  ];
+require("./config/config").config("bf")
+(async function () {
 
-  const redirects = await getAllRedirects();
-  for (let x = 0; x < data.length; x++) {
-    const d = data[x];
-    console.log(x + "/" + data.length);
+  const { Configuration, OpenAIApi } = require("openai");
+  const configuration = new Configuration({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
 
-    const r = redirects.find((i) => {
-      return i.from_path === d.url;
-    });
+  const oldContent = `<h1><span>Moroccanoil - Volumising Mousse 250ml</span></h1>
+  <p><span>For Fine to Medium Hair, Full Body. Medium Hold.</span></p>
+  <p>
+    <span
+      >Moroccanoil Volumising Mousse features a ‘weightless’, flexible polymer
+      which provides instant volume, maximum lift and a special “memory factor”
+      for hair that holds its shape and styles that last longer. Infused with
+      argan oil, it provides shine, manageability and extra hydration for
+      fuller, more voluminous hair.&nbsp;<br /><br />Moroccanoil Volumising
+      Mousse is enriched with added conditioners, which leave hair looking and
+      feeling healthy, silky, shiny and static-free.<br /><br />Moroccanoil
+      Volumising Mousse benefits:<br />- Builds Body<br />- Flexible Hold<br />-
+      Lift and Movement</span
+    >
+  </p>`;
 
-    if (r) console.log(r);
+  const newContent = `<p><strong>Who’s it For?</strong></p>
+  <p>
+    <span
+      >Every hair type can look and feel softer, smoother, stronger, and healthier
+      with more shine, body, and manageability.</span
+    >
+  </p>
+  <p><strong>Introduction</strong></p>
+  <p>
+    <span
+      >The Olaplex Discovery Kit is a hair care product that is designed for
+      anyone who wants to strengthen and protect their hair, especially those with
+      damaged, chemically treated, or coloured&nbsp;hair.</span
+    >
+  </p>
+  <p><strong>Set Contains:</strong></p>
+  <ul>
+    <li>
+      Nº.3 Hair Perfector™ (30 mL / 1 fl. oz.): It is a at-home treatment that
+      helps reduce breakage and strengthen hair. It is applied to damp hair, left
+      for 10 minutes, and then rinsed out.
+    </li>
+    <li>
+      Nº.4 Bond Maintenance® Shampoo (30 mL / 1 fl. oz.): This shampoo helps to
+      repair and protect hair bonds, reduce frizz and improve hair texture.
+    </li>
+    <li>
+      Nº.5 Bond Maintenance® Conditioner (30 mL / 1 fl. oz.): This conditioner
+      works in combination with the Bond Maintenance Shampoo to restore hair's
+      strength and manageability.
+    </li>
+    <li>
+      Nº.4C Bond Maintenance® Clarifying Shampoo (20 mL / .68 fl. oz.): This
+      clarifying shampoo helps remove product buildup and impurities while also
+      helping to strengthen and protect hair.
+    </li>
+    <li>
+      Nº.8 Bond Intense Moisture Mask (30 mL / 1 fl. oz.): This mask provides deep
+      hydration and nourishment to hair while also helping to repair and
+      strengthen bonds.
+    </li>
+    <li>
+      Nº.6 Bond Smoother® (20 mL / .68 fl. oz.): It is a leave-in styling cream
+      that helps to smooth and protect hair, reduce frizz, and add shine.
+    </li>
+    <li>
+      Nº.7 Bonding Oil™ (30 mL / 1 fl. oz.): This oil helps to nourish and protect
+      hair while also providing heat protection and reducing frizz.
+    </li>
+    <li>
+      Nº.9 Bond Protector Nourishing Hair Serum (20 mL / .68 fl. oz.): This serum
+      is formulated with a blend of vitamins and antioxidants to help protect hair
+      from environmental stressors and keep it healthy and shiny.
+    </li>
+  </ul>
+  <p><strong>How to use:</strong></p>
+  <ul>
+    <li>
+      Nº.3 Hair Perfector™: Apply to damp hair before shampooing. Work a generous
+      amount into the hair and leave on for a minimum of 10 minutes. Rinse out,
+      shampoo and condition as normal.
+    </li>
+    <li>
+      Nº.4 Bond Maintenance® Shampoo: Apply to wet hair and massage into a lather.
+      Rinse thoroughly and follow with Nº.5 Bond Maintenance® Conditioner.
+    </li>
+    <li>
+      Nº.5 Bond Maintenance® Conditioner: Apply to clean, damp hair and leave on
+      for 3 minutes. Rinse thoroughly.
+    </li>
+    <li>
+      Nº.4C Bond Maintenance® Clarifying Shampoo: Apply to wet hair and massage
+      into a lather. Rinse thoroughly and follow with Nº.5 Bond Maintenance®
+      Conditioner.
+    </li>
+    <li>
+      Nº.8 Bond Intense Moisture Mask: Apply to clean, damp hair and leave on for
+      a minimum of 10 minutes. Rinse thoroughly and style as desired.
+    </li>
+    <li>
+      Nº.6 Bond Smoother®: Apply a small amount to damp or dry hair, focusing on
+      mid-lengths and ends. Style as desired.
+    </li>
+    <li>
+      Nº.7 Bonding Oil™: Apply a small amount to damp or dry hair, focusing on
+      mid-lengths and ends. Style as desired.
+    </li>
+    <li>
+      Nº.9 Bond Protector Nourishing Hair Serum: Apply a small amount to clean,
+      damp hair before styling. Can also be used on dry hair to smooth and tame
+      flyaways.
+    </li>
+  </ul>
+  <p><strong>More Info</strong></p>
+  <ul>
+    <li>Cruelty Free</li>
+    <li>Gluten Free</li>
+    <li>Nut Free</li>
+    <li>Paraben Free</li>
+    <li>PH Balanced</li>
+    <li>Phosphate Free</li>
+    <li>Phthalate Free</li>
+    <li>Vegan</li>
+  </ul>
+  <p><strong>BeautyFeatures Style Guide:</strong></p>
+  <ul>
+    <li>
+      You may also like to try the&nbsp;<a
+        class="breadcrumb-label"
+        href="https://www.beautyfeatures.ie/olaplex-hair-repair-treatment-kit/"
+        data-instantload=""
+        >Olaplex Hair Repair Treatment Kit</a
+      >!
+    </li>
+  </ul>
+  <!-- snippet location product_description -->
+  `;
 
-    console.log(d.url);
-    try {
-      const res = await fetch("https://hireall.ie"+d.url);
-      d.status = res.status;
-    } catch (err) {
-      console.log(err);
-    }
+  const openai = new OpenAIApi(configuration);
+  const response = await openai.createCompletion({
+    model: "text-davinci-003",
+    prompt: `Rewrite this old html content "${oldContent}" in a structure similar to this new html content "${newContent}"`,
+    temperature: 0,
+    max_tokens: 1000,
+  });
 
-    if (r) {
-      d.is_redirected = "true";
-      d.is_redirected_to = r.to.url;
-      continue;
-    }
-
-    d.is_redirected = "false";
-  }
-
-  output("hireall-traffic", data);
+  console.log(response.data.choices[0].text);
 })();

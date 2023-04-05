@@ -72,15 +72,57 @@ interface productCreationFields {
   brand_name?: string;
   gtin?: string;
   mpn?: string;
-  reviews_rating_sum?:number;
+  reviews_rating_sum?: number;
   reviews_count?: number;
   total_sold?: number;
-    // TODO keep adding fields
+  custom_fields?: {
+    id: number;
+    name: string;
+    value: string;
+  }[];
+  bulk_pricing_rules?: {
+    id: number;
+    quantity_min: number;
+    quantity_max: number;
+    type: "price" | "percent" | "fixed";
+    amount: number;
+  }[];
+  images?: {
+    image_file: string; // the local path to the original image file uploaded to BigCommerce
+    is_thumbnail: boolean; // flag for identifying whether the image is used as the product's thumbnail
+    sort_order: number; // the order in which the image will be displayed on the product page
+    description?: string; // optional description for the image
+    image_url?: string; // a fully qualified URL path, including protocol, to the image
+    id: number; // the unique numeric ID of the image; increments sequentially
+    product_id: number; // the unique numeric identifier for the product with which the image is associated
+    url_zoom?: string; // the zoom URL for this image
+    url_standard?: string; // the standard URL for this image
+    url_thumbnail?: string; // the thumbnail URL for this image
+    url_tiny?: string; // the tiny URL for this image
+    date_modified?: string; // the date on which the product image was modified
+  }[];
+  videos: {
+    title: string;
+    description: string;
+    sort_order: number;
+    type: "youtube";
+    video_id: string;
+    id: number;
+    product_id: number;
+    length: string;
+  }[];
 }
-export const createProduct = (productCreationFields: productCreationFields) =>
-  new Promise((resolve, reject) => {
-    require("../../config/config")
-      .store.post("/catalog/products", productCreationFields)
-      .then((res: any) => resolve(res))
-      .catch((err: any) => reject(err));
+export function createProduct(productCreationFields: productCreationFields) {
+  return new Promise(async function (resolve, reject) {
+    try {
+      const res = await require("../../config/config").store.post(
+        "/catalog/products",
+        productCreationFields
+      );
+
+      resolve(res);
+    } catch (err) {
+      reject(err);
+    }
   });
+}
