@@ -1,27 +1,26 @@
-const { getAllProducts } = require("./functions/products/getAllProducts");
-require("./config/config").config("bf");
+const { getAllCategories } = require("./functions/categories/getAllCategories");
+const { updateCategory } = require("./functions/categories/updateCategory");
+require("./config/config").config("ff");
 async function main() {
-  const categoriesToFilterFor = [
-    12, 35, 36, 427, 445, 37, 435, 726, 39, 446, 438, 442, 38, 11, 22, 23, 21,
-    24, 232, 231, 25, 28, 641, 30, 508, 26, 27, 527, 613, 20, 553, 550, 551,
-    556, 554, 552, 555, 559, 557, 558,
-  ];
-  const products = await getAllProducts();
-  const productIds = [];
-  for (let i = 0; i < products.length; i++) {
-    console.log(`${i + 1}/${products.length}`);
-    const product = products[i];
-    const { categories } = product;
-    for (let ii = 0; ii < categoriesToFilterFor.length; ii++) {
-      const categoryToFilterFor = categoriesToFilterFor[ii];
-      if (categories.includes(categoryToFilterFor)) {
-        if(!productIds.includes(product.id)){
-          productIds.push(product.id);
-        }
+  const categories = await getAllCategories();
+
+  for (let i = 0; i < categories.length; i++) {
+    const category = categories[i];
+    console.log(`${i + 1}/${categories.length}`, category.id, category.name);
+
+    const update = category.custom_url.url.replace("-1", "")
+
+    console.log(category.custom_url.url)
+
+    const res = await updateCategory(category.id, {
+      custom_url: {
+        is_customized: true,
+        url: update
       }
-    }
+    }).catch(console.log)
+    
+    console.log(res.custom_url.url)
+    
   }
-  const { simplePrint } = require("./scripts/utils/simplePrint");
-  simplePrint(productIds.join("\n"), "productsToKeep");
 }
 main();
