@@ -1,33 +1,45 @@
-const allStores = require("./allStores");
+//const allStores = require("./allStores");
 require("../../config/config").config("bf");
 const { getAllProducts } = require("../../functions/products/getAllProducts");
 const {
   getAllProductImages,
 } = require("../../functions/images/getAllProductImages");
+const { writeFile } = require("fs");
 
 async function main() {
-  const products = await getAllProducts().catch(console.log);
+  try {
+    const products = await getAllProducts();
+    const readyButNotLive = [];
 
-  const productsWithContentNotLive = products.filter(
-    (product) =>
-      product.description.length &&
-      !product.is_visible &&
-      product.inventory_level
-  );
 
-  await Promise.allSettled(
-    productsWithContentNotLive.map((product) =>
-      getAllProductImages(product.id).then(
-        (res) => (product.image_count = res.images.length)
-      )
-    )
-  );
+    for (let x = 0; x < products.length; x++) {
+      // progress report
+      console.log(`${x + 1}/${products.length}`);
 
-  const readyButNotLive = productsWithContentNotLive.filter(
-    (product) => product.image_count
-  );
+      const product = products[x];
+      const hasDescription = !!product.description.length;
+      const isVisible = !product.is_visible;
+      const inStock = !!product.inventory_level;
 
-  console.log(readyButNotLive);
+      if (hasDescription && isVisible && inStock) {
+        console.log(`meets criteria, fetching images...`);
+        const res = await getAllProductImages(product.id);
+        product.image_count = res.images.length;
+        readyButNotLive.push(product);
+      }
+    }
+
+
+    console.log(readyButNotLive);
+    writeFile("readForLiveResult.json", JSON.stringify(readyButNotLive), {
+      encoding: "utf8",
+    }, function(err){
+      if (err) return console.log(err)
+      console.log("done")
+    });
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 main();
