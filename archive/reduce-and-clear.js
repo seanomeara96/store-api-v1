@@ -1,15 +1,15 @@
 const {
   updateProductVariant,
-} = require("./functions/product-variants/updateProductVariant");
+} = require("../functions/product-variants/updateProductVariant");
 const {
   getProductIdFromSku,
-} = require("./functions/products/getProductIdFromSku");
+} = require("../functions/products/getProductIdFromSku");
 const {
   getProductVariants,
-} = require("./functions/products/getProductVariants");
-const { updateProduct } = require("./functions/products/updateProduct");
+} = require("../functions/products/getProductVariants");
+const { updateProduct } = require("../functions/products/updateProduct");
 
-require("./config/config").config("fs");
+require("../config/config").config("fs");
 const data = [
   {
     sku: "8053A",

@@ -1,8 +1,8 @@
-const { getAllCategories } = require("./functions/categories/getAllCategories");
-const { getAllProducts } = require("./functions/products/getAllProducts");
-const { getAllRedirects } = require("./functions/redirects/getAllRedirects");
-const { output } = require("./scripts/utils/output");
-require("./config/config").config("ch");
+const { getAllCategories } = require("../functions/categories/getAllCategories");
+const { getAllProducts } = require("../functions/products/getAllProducts");
+const { getAllRedirects } = require("../functions/redirects/getAllRedirects");
+const { output } = require("../scripts/utils/output");
+require("../config/config").config("ch");
 (async () => {
   try {
     const [categories, products, redirects] = await Promise.all([
