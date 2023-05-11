@@ -7,8 +7,9 @@ export function getProductIdFromSku(sku: string) {
           params: { sku },
         }
       );
-      if(!res.data.data.length) {
-        throw "no matching variants"
+      if (!res.data.data.length) {
+        // "no matching variants"
+        throw null;
       }
       resolve(res.data.data[0].product_id);
     } catch (err) {

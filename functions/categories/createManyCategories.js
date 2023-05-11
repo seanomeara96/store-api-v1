@@ -9,19 +9,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getProductIdFromSku = void 0;
-function getProductIdFromSku(sku) {
+exports.createManyCategories = void 0;
+const createCategory_1 = require("./createCategory");
+function createManyCategories(categoriesToCreate) {
     return new Promise(function (resolve, reject) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const res = yield require("../../config/config").store.get("/catalog/variants", {
-                    params: { sku },
-                });
-                if (!res.data.data.length) {
-                    // "no matching variants"
-                    throw null;
+                const promises = [];
+                for (let i = 0; i < categoriesToCreate.length; i++) {
+                    const newCategory = categoriesToCreate[i];
+                    promises.push((0, createCategory_1.createCategory)(newCategory));
                 }
-                resolve(res.data.data[0].product_id);
+                const res = yield Promise.allSettled(promises);
+                resolve(res);
             }
             catch (err) {
                 reject(err);
@@ -29,4 +29,4 @@ function getProductIdFromSku(sku) {
         });
     });
 }
-exports.getProductIdFromSku = getProductIdFromSku;
+exports.createManyCategories = createManyCategories;

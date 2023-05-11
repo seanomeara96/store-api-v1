@@ -33,7 +33,7 @@ app.listen(3000);
   ];
 
   for (let i = 0; i < data.length; i++) {
-    const {title, body} = data[i];
+    const { title, body } = data[i];
     app.get(`/${i}`, function (req, res) {
       res.send(/*HTML*/ `
       <!DOCTYPE html>
@@ -74,33 +74,27 @@ app.listen(3000);
     });
   }
 
-  return
-
   const browser = await puppeteer.launch({
     headless: false,
     timeout: 100000,
   });
 
-  function saveScreenshot(url, name) {
-    return new Promise(async (resolve) => {
+  for (let i = 0; i < data.length; i++) {
+    await new Promise(async (resolve) => {
       const page = await browser.newPage();
       await page.setViewport({ width: 1080, height: 1080 });
 
-      await page.goto(url, {
+      await page.goto(`http://localhost:3000/${i}`, {
         waitUntil: "networkidle2",
       });
       //await page.waitFor(500);
 
       await page.screenshot({
-        path: `./gen-images/${name}.png`,
+        path: `./gen-images/${i}.png`,
         fullPage: false,
       });
       resolve();
     });
-  }
-
-  for (let i = 0; i < data.length; i++) {
-    await saveScreenshot(`http://localhost:3000/${i}`, i);
   }
 
   browser.close();
