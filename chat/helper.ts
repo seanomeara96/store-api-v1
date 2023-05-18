@@ -1,6 +1,7 @@
 import sqlite from "sqlite3";
 import { getAllProducts } from "../functions/products/getAllProducts";
-import path from "path"
+import path from "path";
+import { updateProduct } from "../functions/products/updateProduct";
 
 require("../config/config").config("px");
 
@@ -8,40 +9,46 @@ const db = new sqlite.Database(path.resolve(__dirname, "./changes.db"));
 
 async function main() {
   try {
-    const res = await new Promise(function (resolve, reject) {
-      db.run(
-        `CREATE TABLE IF NOT EXISTS changes(product_id INTEGER, updated BOOLEAN)`,
-        (err) => (err ? reject(err) : resolve("Table exists"))
-      );
+    const products = await getAllProducts({
+      brand_id: 62,
     });
-
-    console.log(res);
-
-    const products = await getAllProducts();
 
     for (let i = 0; i < products.length; i++) {
       const product = products[i];
 
-      console.log(
-        `${i + 1}/${products.length} | storing status of ${product.name}`,
-        product.id
-      );
+      console.log(`${i + 1}/${products.length}`);
+
+      const oldContent:string = await new Promise(function (resolve, reject) {
+        db.get(
+          "SELECT content FROM old_content WHERE product_id = ?",
+          [product.id],
+          (err, row: any) => (err ? reject(err) : resolve(row.content))
+        );
+      });
+
+      if (!oldContent.length){
+        console.log(`something went wrong fetching old content for ${product.id}: "${oldContent}"`)
+      }
 
       try {
-        await new Promise(function (resolve, reject) {
-          db.run(
-            `INSERT INTO changes(product_id, updated) VALUES( ?, false)`,
-            [product.id],
-            (err) => (err ? reject(err) : resolve(true))
-          );
+        await updateProduct(product.id, {
+          description: oldContent,
         });
+        console.log(`product updated`)
       } catch (err) {
-        console.log(err);
-        continue;
+        console.log(`could not update product ${product.id}`, err);
       }
+
+      await new Promise(function (resolve, reject) {
+        db.run(
+          "UPDATE changes SET updated = false WHERE product_id = ?",
+          [product.id],
+          (err) => (err ? reject(err) : resolve(true))
+        );
+      });
     }
 
-    db.close()
+    db.close();
   } catch (err) {
     console.log(err);
   }
