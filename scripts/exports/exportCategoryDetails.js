@@ -1,4 +1,4 @@
-require("../../config/config").config("px");
+require("../../config/config").config("bf");
 const {
   getAllCategories,
 } = require("../../functions/categories/getAllCategories");

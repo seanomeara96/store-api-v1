@@ -1,4 +1,4 @@
-require("../../config/config").config("ih");
+require("../../config/config").config("bf");
 
 const {
   addCategoryToSpecificProducts,
@@ -11,18 +11,36 @@ const fulfilledReducerParams = [
   0,
 ];
 
-const catId = 1491;
+const catId = 22;
 
-const productIds = [{"Product ID":4400},
-{"Product ID":4401},
-{"Product ID":4403},
-{"Product ID":4404},
-{"Product ID":4405},
-{"Product ID":4406},
-{"Product ID":4407},
-{"Product ID":4408},
-{"Product ID":4409},
-{"Product ID":4410}];
+const productIds = [{"Product ID":1635},
+{"Product ID":3746},
+{"Product ID":3874},
+{"Product ID":3971},
+{"Product ID":3981},
+{"Product ID":3982},
+{"Product ID":4204},
+{"Product ID":4300},
+{"Product ID":4302},
+{"Product ID":4334},
+{"Product ID":4442},
+{"Product ID":4444},
+{"Product ID":4532},
+{"Product ID":4548},
+{"Product ID":4549},
+{"Product ID":4551},
+{"Product ID":4613},
+{"Product ID":4614},
+{"Product ID":4646},
+{"Product ID":4756},
+{"Product ID":4782},
+{"Product ID":4784},
+{"Product ID":4785},
+{"Product ID":4786},
+{"Product ID":4862},
+{"Product ID":4865},
+{"Product ID":5643},
+{"Product ID":5859}];
 
 (async () => {
   try {
