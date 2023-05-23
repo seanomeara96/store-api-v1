@@ -129,7 +129,7 @@ function getSiteEmptyPages(site) {
  */
 function getAllEmptyPages() {
     return __awaiter(this, void 0, void 0, function () {
-        var emptyPages, _i, allStores_2, store, pages;
+        var emptyPages, _i, allStores_2, store, pages, err_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -137,18 +137,25 @@ function getAllEmptyPages() {
                     _i = 0, allStores_2 = allStores_1.allStores;
                     _a.label = 1;
                 case 1:
-                    if (!(_i < allStores_2.length)) return [3 /*break*/, 4];
+                    if (!(_i < allStores_2.length)) return [3 /*break*/, 6];
                     store = allStores_2[_i];
-                    return [4 /*yield*/, getSiteEmptyPages(store)];
+                    _a.label = 2;
                 case 2:
+                    _a.trys.push([2, 4, , 5]);
+                    return [4 /*yield*/, getSiteEmptyPages(store)];
+                case 3:
                     pages = _a.sent();
                     if (pages.emptyPages.length)
                         emptyPages.push(pages);
-                    _a.label = 3;
-                case 3:
+                    return [3 /*break*/, 5];
+                case 4:
+                    err_2 = _a.sent();
+                    console.log(err_2);
+                    return [3 /*break*/, 5];
+                case 5:
                     _i++;
                     return [3 /*break*/, 1];
-                case 4: return [2 /*return*/, emptyPages];
+                case 6: return [2 /*return*/, emptyPages];
             }
         });
     });
@@ -184,7 +191,7 @@ var emptyPages = function () {
         emails[_i] = arguments[_i];
     }
     return __awaiter(this, void 0, void 0, function () {
-        var emptyPages_1, email_1, err_2;
+        var emptyPages_1, email_1, err_3;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -216,10 +223,14 @@ var emptyPages = function () {
                     });
                     return [3 /*break*/, 3];
                 case 2:
-                    err_2 = _a.sent();
-                    if (err_2.response.body)
-                        return [2 /*return*/, console.log(err_2.response.body)];
-                    console.log(err_2);
+                    err_3 = _a.sent();
+                    if (err_3.response) {
+                        if (err_3.response.body) {
+                            console.log(err_3.response.body);
+                            return [2 /*return*/];
+                        }
+                    }
+                    console.log(err_3);
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }

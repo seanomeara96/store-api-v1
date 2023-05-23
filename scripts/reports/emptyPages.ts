@@ -111,8 +111,13 @@ function getSiteEmptyPages(site: Store): Promise<{
 async function getAllEmptyPages() {
   const emptyPages = [];
   for (const store of allStores) {
-    const pages = await getSiteEmptyPages(store);
-    if (pages.emptyPages.length) emptyPages.push(pages);
+    try {
+      const pages = await getSiteEmptyPages(store);
+      if (pages.emptyPages.length) emptyPages.push(pages);
+    } catch (err) {
+      console.log(err);
+      continue;
+    }
   }
   return emptyPages;
 }
@@ -195,7 +200,12 @@ const emptyPages = async function (...emails: string[]) {
       }
     );
   } catch (err: any) {
-    if (err.response.body) return console.log(err.response.body);
+    if (err.response) {
+      if (err.response.body) {
+        console.log(err.response.body);
+        return;
+      }
+    }
     console.log(err);
   }
 };
