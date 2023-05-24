@@ -1,4 +1,4 @@
-(async () => {
+/*(async () => {
 
 
   const IDSET = "0-199";
@@ -27,7 +27,7 @@
       count += e.data.response.results.length;
       console.log(count);
       sumThis.push(product);
-    } catch (err) {
+    } catch (err: any) {
       if (err.response) {
         console.log(err.response);
       } else {
@@ -38,3 +38,4 @@
   }
   console.log(sumThis.flat());
 })();
+*/

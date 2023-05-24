@@ -9,9 +9,8 @@ const headers = {
     "brightpearl-staff-token": process.env.BP_STAFF_TOKEN,
   };
 
-const bpClient = axios.create({
-    baseUrl: `https://${DATACENTER}.brightpearlconnect.com/public-api/${ACCOUNT}`,
+export const bpClient = axios.create({
+    baseURL: `https://${DATACENTER}.brightpearlconnect.com/public-api/${ACCOUNT}`,
     headers
 })
 
-module.exports = bpClient
