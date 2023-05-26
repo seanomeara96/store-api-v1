@@ -1,7 +1,7 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAllCategories = void 0;
-var getAll_1 = require("../utils/getAll");
+const getAll_1 = require("../utils/getAll");
 /**
  * This function fetches all categories resolves with an array of objects
  * @param {*} params

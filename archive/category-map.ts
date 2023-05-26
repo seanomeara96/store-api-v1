@@ -1,6 +1,12 @@
+import { Product } from "../functions/products/Product";
 import { getAllProducts } from "../functions/products/getAllProducts";
 import { getProductBySku } from "../functions/products/getProductBySKU";
 import { updateProduct } from "../functions/products/updateProduct";
+
+interface ProductWithRelevantCategories extends Product {
+  relevantCategories: number[];
+  pixieCategories: number[];
+}
 
 (async () => {
   try {
@@ -49,13 +55,15 @@ import { updateProduct } from "../functions/products/updateProduct";
     // get matrix products from beautyfeatures
     require("./config/config").config("bf");
 
-    const products = await getAllProducts({ brand_id: brand.id });
+    const products = (await getAllProducts({
+      brand_id: brand.id,
+    })) as ProductWithRelevantCategories[];
 
     require("./config/config").config("px");
 
     // for each product, filter cat array for only bsk_ids above
     for (let i = 0; i < products.length; i++) {
-      console.log(`updating product ${i+1} / ${products.length}`)
+      console.log(`updating product ${i + 1} / ${products.length}`);
       const product = products[i];
       product.relevantCategories = product.categories.filter((id: number) =>
         bfCategories.includes(id)
@@ -66,7 +74,9 @@ import { updateProduct } from "../functions/products/updateProduct";
       product.pixieCategories = [];
       for (const id of product.relevantCategories) {
         const matchingRecord = data.find((x) => x.bf_id === id);
-        product.pixieCategories.push(matchingRecord?.px_id);
+        if (matchingRecord) {
+          product.pixieCategories.push(matchingRecord.px_id);
+        }
       }
 
       if (!product.pixieCategories.length) {
@@ -76,16 +86,18 @@ import { updateProduct } from "../functions/products/updateProduct";
       // for each product find the matching product on pixie loves and update the categories
       try {
         const pixieProduct = (await getProductBySku(product.sku)) as any;
-        console.log(`updating ${pixieProduct.name}`, pixieProduct.id)
+        console.log(`updating ${pixieProduct.name}`, pixieProduct.id);
         try {
-            await updateProduct(pixieProduct.id, {
-                categories: product.pixieCategories,
-              });
-              console.log(`success`)
+          await updateProduct(pixieProduct.id, {
+            categories: product.pixieCategories,
+          });
+          console.log(`success`);
         } catch (err) {
-            console.log(`something went wrong updating ${pixieProduct.name}`, pixieProduct.id)
+          console.log(
+            `something went wrong updating ${pixieProduct.name}`,
+            pixieProduct.id
+          );
         }
-
       } catch (err) {
         console.log(`could not find product: ${product.name}`, product.id, err);
       }

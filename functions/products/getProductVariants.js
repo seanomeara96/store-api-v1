@@ -1,12 +1,11 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.getProductVariants = void 0;
 function getProductVariants(product_id) {
-    return new Promise((resolve, reject) => {
+    return new Promise(function (resolve, reject) {
         require("../../config/config")
-            .store.get(`/catalog/products/${product_id}/variants`)
-            .then((res) => resolve(res.data.data))
-            .catch(reject);
+            .store.get("/catalog/products/".concat(product_id, "/variants"))
+            .then(function (res) { return resolve(res.data.data); })["catch"](reject);
     });
 }
 exports.getProductVariants = getProductVariants;

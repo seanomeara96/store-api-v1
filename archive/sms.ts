@@ -14,7 +14,7 @@ const recipients = ["+353857195619", "+353851066003", "+353851675518"];
 // Set the message you want to send
 const message = "Hello, this is a bulk test message from Sean@beautyfeatures";
 
-const messages = [];
+const messages:any[] = [];
 
 const promises = recipients.map((to) =>
   client.messages
@@ -23,7 +23,7 @@ const promises = recipients.map((to) =>
       from: from,
       to: to,
     })
-    .then((message) => messages.push(message.sid))
+    .then((message: any) => messages.push(message.sid))
 );
 
 Promise.allSettled(promises)

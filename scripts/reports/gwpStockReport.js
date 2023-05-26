@@ -1,7 +1,4 @@
 require("../../config/config").config("bf");
-const {
-  getManyProductsBySKU,
-} = require("../../functions/products/getManyProductsBySKU");
 const sgMail = require("@sendgrid/mail");
 const {
   default: getStoreSKUs,
@@ -11,7 +8,6 @@ const campaigns = [
   {
     type: "brand",
     store: "bf",
-    limit: "stock",
     identifier: "Alfaparf",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/attribute_rule_images/4652_source_1618495687.jpg",
@@ -28,7 +24,6 @@ const campaigns = [
   {
     type: "brand",
     store: "bf",
-    limit: "250",
     identifier: "Kerastase",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6455/14693/Kerastase_Genesis_Bain_Hydra-Fortifiant_80ml_GWP__90016.1673432977.jpg?c=2&imbypass=on",
@@ -39,13 +34,28 @@ const campaigns = [
     condition: "When you spend €60 or more on Kerastase",
     sku: "8779B",
     sku_type: "product",
-    display: "TRUE",
+    display: "FALSE",
     destination_url: "https://www.beautyfeatures.ie/brands/kerastase",
+  },
+  {
+    type: "brand",
+    store: "bf",
+    identifier: "Moroccanoil",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5115/9368/moro-comb__36575.1620814825.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/5115/9368/moro-comb__36575.1620814825.jpg?c=2&imbypass=on",
+    headline: "Free Moroccanoil Detangling Comb",
+    worth: 20,
+    condition: "When you spend €100 on Moroccanoil",
+    sku: "10151",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/brands/Moroccanoil.html",
   },
   {
     type: "category",
     store: "bf",
-    limit: "stock",
     identifier: "Top Brands/Redken/Extreme",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/395/9605/Redken_-_Extreme_Shampoo_300ml__40188.1623162199.jpg",
@@ -62,7 +72,6 @@ const campaigns = [
   {
     type: "category",
     store: "bf",
-    limit: "stock",
     identifier: "Top Brands/Redken/All Soft",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5917/11577/Redken_-_All_Soft_Shampoo_300ml__47580.1620983464.1280.1280__46003.1651581747.jpg",
@@ -79,7 +88,6 @@ const campaigns = [
   {
     type: "category",
     store: "bf",
-    limit: "stock",
     identifier: "Top Brands/Redken/Color Extend",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5918/11579/Redken_-_Colour_Extend_Shampoo_300ml__31943.1622627138.1280.1280__35477.1651582462.jpg",
@@ -96,7 +104,54 @@ const campaigns = [
   {
     type: "category",
     store: "bf",
-    limit: "52",
+    identifier: "Top Brands/Redken/Extreme",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6606/16586/extreme_anti_snap_shampoo_gwp__89299.1685096398.png?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6606/16586/extreme_anti_snap_shampoo_gwp__89299.1685096398.png?c=2&imbypass=on",
+    headline: "Free Redken Extreme Anti Snap Treatment 50ml",
+    worth: 6,
+    condition: "When you spend €30 on the Redken Extreme range",
+    sku: "12286",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/brands/redken",
+  },
+  {
+    type: "category",
+    store: "bf",
+    identifier: "Top Brands/Redken/All Soft",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6609/16587/All_soft_Shampoo_gwp__07498.1685096481.png?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6609/16587/All_soft_Shampoo_gwp__07498.1685096481.png?c=2&imbypass=on",
+    headline: "Free Redken All Soft Shampoo 50ml",
+    worth: 6,
+    condition: "When you spend €40 on the Redken All Soft range",
+    sku: "12289",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/brands/redken",
+  },
+  {
+    type: "category",
+    store: "bf",
+    identifier: "Top Brands/Redken/All Soft",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6610/16588/All_soft_conditioner_gwp__80447.1685096494.png?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6610/16588/All_soft_conditioner_gwp__80447.1685096494.png?c=2&imbypass=on",
+    headline: "Free Redken All Soft Conditioner 30ml",
+    worth: 6,
+    condition: "When you spend €40 on the Redken All Soft range",
+    sku: "12289",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/brands/redken",
+  },
+  {
+    type: "category",
+    store: "bf",
     identifier: "Top Brands/L'Oreal/Pro Longer",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6237/13700/Pro_Longer_Shampoo__39476.1658476870.jpg?c=2&imbypass=on",
@@ -113,7 +168,6 @@ const campaigns = [
   {
     type: "category",
     store: "bf",
-    limit: "200",
     identifier: "Top Brands/L'Oreal/Absolut Repair",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6236/13701/Absolut_Repair_Shampoo__26110.1658477016.jpg?c=2&imbypass=on",
@@ -130,7 +184,6 @@ const campaigns = [
   {
     type: "category",
     store: "bf",
-    limit: "300",
     identifier: "Top Brands/L'Oreal/Vitamino Color",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6235/13702/Vitamino_Color_Shampoo__70909.1658477078.jpg?c=2&imbypass=on",
@@ -147,7 +200,6 @@ const campaigns = [
   {
     type: "category",
     store: "bf",
-    limit: "200",
     identifier: "Top Brands/L'Oreal/Metal Detox",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6233/13659/Copy_of_Copy_of_Template_49_1__06600.1658409766.jpg?c=2&imbypass=on",
@@ -162,18 +214,118 @@ const campaigns = [
     destination_url: "https://www.beautyfeatures.ie/metal-detox/",
   },
   {
+    type: "category",
+    store: "bf",
+    identifier: "Top Brands/L'Oreal/Vitamino Color",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6234/13703/Vitamino_Color_Mask__57243.1658477125.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6234/13703/Vitamino_Color_Mask__57243.1658477125.jpg?c=2&imbypass=on",
+    headline: "Free L'Oreal Professionnel Vitamino Color Mask 75ml",
+    worth: 8,
+    condition: "When you spend €30 on the L'Oreal Vitamino Color range",
+    sku: "11786",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/vitamino-color/",
+  },
+  {
     type: "brand",
     store: "bf",
-    limit: "",
+    identifier: "L'Oreal Professionnel",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6238/13692/LOreal_Professionnel_Absolut_Repair_Oil_30ml_1__86612.1658474966.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6238/13692/LOreal_Professionnel_Absolut_Repair_Oil_30ml_1__86612.1658474966.jpg?c=2&imbypass=on",
+    headline: "Free L'Oreal Professionnel Absolut Repair Oil 30ml",
+    worth: 10,
+    condition: "When you spend €40 on L'Oreal Professionnel",
+    sku: "11790",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url:
+      "https://www.beautyfeatures.ie/loreal-makeup-hair-fragrance-and-skincare/",
+  },
+  {
+    type: "category",
+    store: "bf",
+    identifier: "Top Brands/L'Oreal/Absolut Repair",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6239/13785/LOreal_Professionnel_Absolut_Repair_Golden_Lightweight_Mask_75ml_1__75912.1659008615.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6239/13785/LOreal_Professionnel_Absolut_Repair_Golden_Lightweight_Mask_75ml_1__75912.1659008615.jpg?c=2&imbypass=on",
+    headline:
+      "L'Oreal Professionnel Absolut Repair Golden Lightweight Mask 75ml",
+    worth: 8,
+    condition: "When You Spend €30 on the L'Oreal Absolut Repair range",
+    sku: "11791",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/absolut-repair/",
+  },
+  {
+    type: "brand",
+    store: "bf",
+    identifier: "L'Oreal Professionnel",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6240/13707/Loreal_Professional_Mini_Collection_1__50255.1658477606.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6240/13707/Loreal_Professional_Mini_Collection_1__50255.1658477606.jpg?c=2&imbypass=on",
+    headline: "L'Oreal Professionnel Absolut Repair Mask 75ml",
+    worth: 8,
+    condition: "When you spend €30 on L'Oreal Professionnel",
+    sku: "11792",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url:
+      "https://www.beautyfeatures.ie/loreal-makeup-hair-fragrance-and-skincare/",
+  },
+  {
+    type: "brand",
+    store: "bf",
+    identifier: "L'Oreal Professionnel",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6241/13788/LOreal_Professionnel_Metal_Detox_Anti-Deposit_Protector_Mask_75ml_1__25822.1659009370.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6241/13788/LOreal_Professionnel_Metal_Detox_Anti-Deposit_Protector_Mask_75ml_1__25822.1659009370.jpg?c=2&imbypass=on",
+    headline:
+      "L'Oreal Professionnel Metal Detox Anti-Deposit Protector Mask 75ml",
+    worth: 9,
+    condition: "When you spend €20 on L'Oreal Professionnel",
+    sku: "11793",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url:
+      "https://www.beautyfeatures.ie/loreal-makeup-hair-fragrance-and-skincare/",
+  },
+  {
+    type: "category",
+    store: "bf",
+    identifier: "Top Brands/L'Oreal/Pro Longer",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6242/13791/LOreal_Professionnel_Pro_Longer_Professional_Mask_75ml_1__39092.1659010462.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6242/13791/LOreal_Professionnel_Pro_Longer_Professional_Mask_75ml_1__39092.1659010462.jpg?c=2&imbypass=on",
+    headline: "L'Oreal Professionnel Pro Longer Professional Mask 75ml",
+    worth: 8,
+    condition: "When You Spend €30 on the L'Oreal Pro Longer range",
+    sku: "11794",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/pro-longer/",
+  },
+  {
+    type: "brand",
+    store: "bf",
     identifier: "Dermalogica",
     thumbnail:
-      "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/75x75/products/576/1201/Dermalogica_Phyto_Nature_Oxygen_Liquid_Cream_5ml_GWP_1__59737__30239.1682415606.jpg?c=2&imbypass=on",
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6828/16012/Dermalogica_Prep.Treat.Glow_-_Night_Kit_GWP__35421.1681979889.jpg?c=2&imbypass=on",
     full_img:
-      "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/300x300/products/576/1201/Dermalogica_Phyto_Nature_Oxygen_Liquid_Cream_5ml_GWP_1__59737__30239.1682415606.jpg?c=2&imbypass=on",
-    headline: "Free Dermalogica Travel Size Set worth €45",
-    worth: 45,
-    condition: "When you spend €90 on Dermalogica",
-    sku: "12759",
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6828/16012/Dermalogica_Prep.Treat.Glow_-_Night_Kit_GWP__35421.1681979889.jpg?c=2&imbypass=on",
+    headline: "Free Dermalogica Prep.Treat.Glow - Night Kit  worth €50",
+    worth: 50,
+    condition: "When you spend €100 on Dermalogica",
+    sku: "12760",
     sku_type: "product",
     display: "TRUE",
     destination_url: "https://www.beautyfeatures.ie/brands/Dermalogica.html",
@@ -181,7 +333,6 @@ const campaigns = [
   {
     type: "brand",
     store: "bf",
-    limit: "",
     identifier: "The Inkey List",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6509/14665/Inkey_List_-_Oat_Cleansing_Balm_50ml_GWP_1__09100.1673354704.jpg?c=2&imbypass=on",
@@ -198,7 +349,6 @@ const campaigns = [
   {
     type: "brand",
     store: "bf",
-    limit: "250",
     identifier: "Matrix",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6421/14697/Matrix_Total_Results_Miracle_Creator_20_Multi-Tasking_Treatment_Spray30ml_GWP_1__21293.1673438853.jpg?c=2&imbypass=on",
@@ -215,7 +365,6 @@ const campaigns = [
   {
     type: "brand",
     store: "bf",
-    limit: "250",
     identifier: "Matrix",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6418/14694/Matrix_Total_Results_Brass_Off_Blue_Toning_Shampoo_50ml_GWP_1__38388.1673433375.jpg?c=2&imbypass=on",
@@ -233,7 +382,6 @@ const campaigns = [
   {
     type: "brand",
     store: "bf",
-    limit: "250",
     identifier: "Matrix",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6419/14695/_Matrix_Total_Results_Dark_Envy_Toning_Shampoo_50ml_GWP_1__00484.1673433679.jpg?c=2&imbypass=on",
@@ -251,7 +399,6 @@ const campaigns = [
   {
     type: "brand",
     store: "bf",
-    limit: "250",
     identifier: "Matrix",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6420/14696/Matrix_Total_Results_Dark_Envy_Conditioner_50ml_GWP_1__86685.1673438007.jpg?c=2&imbypass=on",
@@ -269,25 +416,6 @@ const campaigns = [
   {
     type: "brand",
     store: "bf",
-    limit: "18",
-    identifier: "Pestle & Mortar",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5943/12321/Chocolate_Bronze__47559.1653643497.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/5943/12321/Chocolate_Bronze__47559.1653643497.jpg?c=2&imbypass=on",
-    headline: "Free Pestle &amp; Mortar Glow Drops worth €40",
-    worth: 21,
-    condition: "When you spend €120 on Pestle &amp; Mortar",
-    sku: "11417",
-    sku_type: "product",
-    display: "FALSE",
-    destination_url:
-      "https://www.beautyfeatures.ie/brands/Pestle-%26-Mortar.html",
-  },
-  {
-    type: "brand",
-    store: "bf",
-    limit: "100",
     identifier: "Hollywood Browzer",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6185/13593/500_8__03915.1657876031.jpg?c=2&imbypass=on",
@@ -304,7 +432,6 @@ const campaigns = [
   {
     type: "brand",
     store: "bf",
-    limit: "100",
     identifier: "Embryolisse",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6192/13599/Embryolisse_Tube_Squeezer_GWP_1__47566.1657879679.jpg?c=2&imbypass=on",
@@ -319,34 +446,16 @@ const campaigns = [
     destination_url: "https://www.beautyfeatures.ie/embryolisse/",
   },
   {
-    type: "brand",
+    type: "category",
     store: "bf",
-    limit: "30",
-    identifier: "Carter Beauty",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6139/13493/Carter_Beauty_Wispie_False_Lashes_GWP_1__24409.1656402643.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6139/13493/Carter_Beauty_Wispie_False_Lashes_GWP_1__24409.1656402643.jpg?c=2&imbypass=on",
-    headline: "Free Carter Beauty Wispie False Lashes worth €5",
-    worth: 5,
-    condition: "When you spend €10 on Carter Beauty",
-    sku: "11649",
-    sku_type: "product",
-    display: "FALSE",
-    destination_url: "https://www.beautyfeatures.ie/carter-beauty/",
-  },
-  {
-    type: "brand",
-    store: "bf",
-    limit: "stock",
-    identifier: "Carter Beauty",
+    identifier: "Shop/Skincare/Masks and Peels",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5611/10596/Carter_Beauty_Revitalise_Retinol_Collagen_Mask__55306.1643022301.png",
     full_img:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/5611/10596/Carter_Beauty_Revitalise_Retinol_Collagen_Mask__55306.1643022301.png",
     headline: "Free Revitalise Retinol & Collagen Mask worth €8",
     worth: 8,
-    condition: "When you spend €15 on Carter Beauty",
+    condition: "When you spend €15 on Masks and Peels",
     sku: "11026",
     sku_type: "product",
     display: "TRUE",
@@ -355,7 +464,6 @@ const campaigns = [
   {
     type: "brand",
     store: "bf",
-    limit: "stock",
     identifier: "Shiseido",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6479/14704/Shiseido_WASO_Yuzu-C_Beauty_Sleeping_Mask_15ml_GWP_1__29363.1673441326.jpg?c=2&imbypass=on",
@@ -372,7 +480,6 @@ const campaigns = [
   {
     type: "brand",
     store: "bf",
-    limit: "47",
     identifier: "Shiseido",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6480/14510/Shiseido_WASO_Shikulime_Mega_Hydrating_Moisturiser_15ml_GWP_1__29172.1671005916.jpg?c=2&imbypass=on",
@@ -389,7 +496,6 @@ const campaigns = [
   {
     type: "brand",
     store: "bf",
-    limit: "stock",
     identifier: "Issey Miyake",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5636/10623/Issey_Miyake_Pour_Homme_Toiletry_Bag_and_Shower_Gel_GWP__32404.1643801777.png",
@@ -406,7 +512,6 @@ const campaigns = [
   {
     type: "brand",
     store: "bf",
-    limit: "stock",
     identifier: "NAK",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5709/10693/NAK_Platinum_Blonde_Anti-Yellow_Shampoo_100ml_4_1__75150.1645707093.png",
@@ -423,7 +528,6 @@ const campaigns = [
   {
     type: "brand",
     store: "bf",
-    limit: "stock",
     identifier: "SVR",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5508/11746/Gift_with_purchase_20__24675.1651824657.jpg",
@@ -440,7 +544,38 @@ const campaigns = [
   {
     type: "brand",
     store: "bf",
-    limit: "stock",
+    identifier: "NUXE",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5638/10654/NUXE_Bougie_Candle_GWP_1__10111.1644575162.png?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/5638/10654/NUXE_Bougie_Candle_GWP_1__10111.1644575162.png?c=2&imbypass=on",
+    headline: "Free Bougie Candle worth €19",
+    worth: 19,
+    condition: "When you spend €40 or more on NUXE",
+    sku: "10935",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/nuxe/",
+  },
+  {
+    type: "brand",
+    store: "bf",
+    identifier: "NUXE",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5242/9744/NUXE_Reve_De_Miel_Lip_Balm_15g__47769.1625566345.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/5242/9744/NUXE_Reve_De_Miel_Lip_Balm_15g__47769.1625566345.jpg?c=2&imbypass=on",
+    headline: "NUXE Reve De Miel Lip Balm 15g worth €12.50",
+    worth: 12.5,
+    condition: "When You Spend €50 or more on NUXE",
+    sku: "10356",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/nuxe/",
+  },
+  {
+    type: "brand",
+    store: "bf",
     identifier: "NUXE",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5310/9925/NUXE_Very_Rose_3-in-1_Soothing_Micellar_Water_100ml_1__81400.1629367978.png",
@@ -457,7 +592,6 @@ const campaigns = [
   {
     type: "brand",
     store: "bf",
-    limit: "103",
     identifier: "Mama Mio",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5143/9400/tummy_rub_butter_30ml__72562.1627456816.jpg?c=2&imbypass=on",
@@ -474,7 +608,6 @@ const campaigns = [
   {
     type: "brand",
     store: "bsk",
-    limit: "199",
     identifier: "Dermalogica",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6640/15170/Jocio_Weekend_Hair_Dry_Shampoo_53ml_1__54832.1676892656.jpg?c=2&imbypass=on",
@@ -491,59 +624,69 @@ const campaigns = [
   {
     type: "brand",
     store: "bsk",
-    limit: "",
     identifier: "Dermalogica",
     thumbnail:
-      "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/75x75/products/576/1201/Dermalogica_Phyto_Nature_Oxygen_Liquid_Cream_5ml_GWP_1__59737__30239.1682415606.jpg?c=2&imbypass=on",
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6828/16012/Dermalogica_Prep.Treat.Glow_-_Night_Kit_GWP__35421.1681979889.jpg?c=2&imbypass=on",
     full_img:
-      "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/300x300/products/576/1201/Dermalogica_Phyto_Nature_Oxygen_Liquid_Cream_5ml_GWP_1__59737__30239.1682415606.jpg?c=2&imbypass=on",
-    headline: "Free Dermalogica Travel Size Set worth €45",
-    worth: 45,
-    condition: "When you spend €90 on Dermalogica",
-    sku: "12759",
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6828/16012/Dermalogica_Prep.Treat.Glow_-_Night_Kit_GWP__35421.1681979889.jpg?c=2&imbypass=on",
+    headline: "Free Dermalogica Prep.Treat.Glow - Night Kit worth €50",
+    worth: 50,
+    condition: "When you spend €100 on Dermalogica",
+    sku: "12760",
     sku_type: "product",
     display: "TRUE",
     destination_url: "https://www.beautyskincare.ie/dermalogica",
   },
 ];
 
-const skuArray = campaigns.filter(
-  (campaign) => campaign.sku_type === "product"
-);
-
-function ascendingInventory(a, b) {
-  return a.inventory_level - b.inventory_level;
-}
-
-function emailFormat({ sku, inventory_level }) {
-  const alert = inventory_level < 21 ? "style='color:red;'" : "";
-  return /*html*/ `<p>
-    SKU: ${sku}<br>
-    Inventory: <strong ${alert}>${inventory_level}</strong>
-  </p>`;
-}
-function confirmEmailDespatch() {
-  console.log("Email sent");
-}
-function flagEmailError(error) {
-  console.error(error);
-}
-
 getStoreSKUs(400)
-  .then((res) => {
-    const skus = campaigns.map((c) => c.sku);
-    const data = res
-      .filter((d) => skus.includes(d.sku))
-      .sort(ascendingInventory)
-      .map(emailFormat)
-      .join("\n");
-    const msg = {
-      to: "sean@beautyfeatures.ie",
-      from: "sean@beautyfeatures.ie",
-      subject: "GWP Stock Report",
-      text: "GWP Stock Report",
-      html: data,
-    };
-    sgMail.send(msg).then(confirmEmailDespatch).catch(flagEmailError);
+  .then(async function (productVariants) {
+    try {
+      for (let i = 0; i < campaigns.length; i++) {
+        const variant = productVariants.find((o) => o.sku === campaigns[i].sku);
+        campaigns[i].inventory_level = variant.inventory_level;
+      }
+
+      campaigns.sort(function ascendingInventory(a, b) {
+        return a.inventory_level - b.inventory_level;
+      });
+
+      let email = "";
+
+      for (let i = 0; i < campaigns.length; i++) {
+        const data = campaigns[i];
+        const alert = data.inventory_level < 21 ? "style='color:red;'" : "";
+        email += /*html*/ `<p>
+            <div><strong>${data.headline}</strong></div>
+            <span style="padding-right: 20px">SKU: ${data.sku}</span>
+            <span>Inventory: <strong ${alert}>${data.inventory_level}</strong></span>
+        </p>`;
+      }
+
+      const msg = {
+        to: "sean@beautyfeatures.ie",
+        from: "sean@beautyfeatures.ie",
+        subject: "GWP Stock Report",
+        text: "GWP Stock Report",
+        html: email,
+      };
+
+      await sgMail.send(msg);
+      console.log("Done");
+    } catch (err) {
+      try {
+        console.log(err);
+        const msg = {
+          to: "sean@beautyfeatures.ie",
+          from: "sean@beautyfeatures.ie",
+          subject: "GWP Stock Report Failure",
+          text: err.toString(),
+        };
+        await sgMail.send(msg);
+      } catch (err) {
+        console.log("failed to send error email")
+        console.log(err);
+      }
+    }
   })
   .catch(console.log);
