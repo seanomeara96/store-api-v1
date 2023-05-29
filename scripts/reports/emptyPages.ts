@@ -181,7 +181,7 @@ const emptyPages = async function (...emails: string[]) {
 
         const attachment = Buffer.from(out).toString("base64");
 
-        const msg = {
+        sgMail.send({
           to: emails,
           from: "sean@beautyfeatures.ie",
           subject: `Empty Categories and Brands Report`,
@@ -195,18 +195,29 @@ const emptyPages = async function (...emails: string[]) {
               disposition: "attachment",
             },
           ],
-        };
-        sgMail.send(msg);
+        });
       }
     );
   } catch (err: any) {
     if (err.response) {
       if (err.response.body) {
         console.log(err.response.body);
+        sgMail.send({
+          to: emails,
+          from: "sean@beautyfeatures.ie",
+          subject: `Error in Empty Categories and Brands Report`,
+          text: JSON.stringify(err.response.body),
+        });
         return;
       }
     }
     console.log(err);
+        sgMail.send({
+          to: emails,
+          from: "sean@beautyfeatures.ie",
+          subject: `Error in Empty Categories and Brands Report`,
+          text: JSON.stringify(err.toString()),
+        });
   }
 };
 

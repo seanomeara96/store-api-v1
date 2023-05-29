@@ -1,11 +1,11 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.getSiteUrl = void 0;
 /**
  *
  * @returns url string of current site
  */
-const getSiteUrl = (storeInitials) => {
+var getSiteUrl = function (storeInitials) {
     switch (storeInitials.toLowerCase()) {
         case "bf":
             return "https://www.beautyfeatures.ie";
