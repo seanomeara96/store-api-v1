@@ -56,8 +56,9 @@ async function main(brandName: string) {
     }
 
     if (all_product_deletions_successful) {
-      await deleteBrand(brand.id);
+      const res = await deleteBrand(brand.id);
       console.log(`deleted brand: ${brand.name}`);
+      console.log(res)
     }
   } catch (err) {
     console.log(err);

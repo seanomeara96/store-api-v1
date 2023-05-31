@@ -1,4 +1,3 @@
-
 import { getBrandById } from "../brands/getBrandById";
 import { createRedirect } from "../redirects/createRedirect";
 import { Brand } from "./Brand";
@@ -12,18 +11,20 @@ const createRelevantRedirect = (brand: Brand) =>
     return resolve(res);
   });
 
-export const deleteBrand = (id: number) =>
-  new Promise(async (resolve, reject) => {
-    getBrandById(id)
-      .then((brand: Brand) => {
-        require("../../config/config")
-          .store.delete(`/catalog/products/${id}`)
-          .then(() => {
-            createRelevantRedirect(brand)
-              .then(() => resolve(`Successfully deleted ${brand.name}`))
-              .catch(reject);
-          })
-          .catch(reject);
-      })
-      .catch(reject);
+export function deleteBrand(id: number) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const brand = await getBrandById(id);
+
+      await require("../../config/config").store.delete(
+        `/catalog/brands/${brand.id}`
+      );
+
+      await createRelevantRedirect(brand);
+
+      resolve(`Successfully deleted ${brand.name}`);
+    } catch (err) {
+      reject(err);
+    }
   });
+}
