@@ -1,4 +1,4 @@
-interface Brand {
+export interface Brand {
     id: number;
     name: string;
     meta_keywords: string[];

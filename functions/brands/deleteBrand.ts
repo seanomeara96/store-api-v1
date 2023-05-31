@@ -1,6 +1,7 @@
 
 import { getBrandById } from "../brands/getBrandById";
 import { createRedirect } from "../redirects/createRedirect";
+import { Brand } from "./Brand";
 
 const createRelevantRedirect = (brand: Brand) =>
   new Promise(async (resolve, reject) => {

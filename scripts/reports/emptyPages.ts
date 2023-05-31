@@ -45,7 +45,7 @@ function getSiteEmptyPages(site: Store): Promise<{
       sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
       const products = await getAllProducts();
 
-      const brands = await getAllBrands();
+      const brands = await getAllBrands() as any[]
 
       const categories = await getAllCategories();
 
@@ -56,7 +56,10 @@ function getSiteEmptyPages(site: Store): Promise<{
       const issues = [];
 
       const productIsVisible = (product: Product) =>
-        product.inventory_level > 0 && product.is_visible;
+        (product.inventory_level > 0 && product.is_visible) ||
+        (product.is_visible && product.inventory_tracking === "none");
+
+      // added the bit about inventory tracking but not sure about it
 
       for (const brand of brands) {
         brand.type = "brand";
@@ -212,12 +215,12 @@ const emptyPages = async function (...emails: string[]) {
       }
     }
     console.log(err);
-        sgMail.send({
-          to: emails,
-          from: "sean@beautyfeatures.ie",
-          subject: `Error in Empty Categories and Brands Report`,
-          text: JSON.stringify(err.toString()),
-        });
+    sgMail.send({
+      to: emails,
+      from: "sean@beautyfeatures.ie",
+      subject: `Error in Empty Categories and Brands Report`,
+      text: JSON.stringify(err.toString()),
+    });
   }
 };
 

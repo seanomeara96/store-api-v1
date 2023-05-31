@@ -22,7 +22,7 @@ export interface Product {
   option_set_display: string;
   inventory_level: number;
   inventory_warning_level: number;
-  inventory_tracking: string;
+  inventory_tracking: "none" | "product" | "variant";
   reviews_rating_sum: number;
   reviews_count: number;
   total_sold: number;

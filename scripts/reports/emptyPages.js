@@ -78,7 +78,8 @@ function getSiteEmptyPages(site) {
                     redirects = (_b.sent()).map(function (i) { return i.from_path; });
                     issues = [];
                     productIsVisible = function (product) {
-                        return product.inventory_level > 0 && product.is_visible;
+                        return (product.inventory_level > 0 && product.is_visible) ||
+                            (product.is_visible && product.inventory_tracking === "none");
                     };
                     _loop_1 = function (brand) {
                         brand.type = "brand";
@@ -87,6 +88,7 @@ function getSiteEmptyPages(site) {
                         if (!visibleProducts.length)
                             issues.push(brand);
                     };
+                    // added the bit about inventory tracking but not sure about it
                     for (_i = 0, brands_1 = brands; _i < brands_1.length; _i++) {
                         brand = brands_1[_i];
                         _loop_1(brand);

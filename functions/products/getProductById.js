@@ -1,13 +1,11 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.getProductById = void 0;
-/**
- *
- * @param {*} productId
- * @returns product object
- */
-const getProductById = (productId) => new Promise((resolve, reject) => require("../../config/config")
-    .store.get(`/catalog/products/${productId}`)
-    .then((response) => resolve(response.data.data))
-    .catch((ex) => reject(ex.response)));
+function getProductById(productId) {
+    return new Promise(function (resolve, reject) {
+        return require("../../config/config")
+            .store.get("/catalog/products/".concat(productId))
+            .then(function (response) { return resolve(response.data.data); })["catch"](function (ex) { return reject(ex.response); });
+    });
+}
 exports.getProductById = getProductById;
