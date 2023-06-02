@@ -3,3 +3,4 @@ node_modules/
 **/*.csv
 images/
 **/out.txt
+pixie/blog/main.db
