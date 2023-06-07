@@ -42,9 +42,11 @@ async function main() {
 
   //const combinedCats = [... new Set([...product.categories, ...newCats])];
 
-  const res = await updateProduct(product_id, {
-    categories: newCats,
-  });
+  // const res = await updateProduct(product_id, {
+  //   categories: newCats,
+  // });
+
+  console.log(newCats)
 
   const end = performance.now();
   console.log(`Execution time: ${end - start} ms`);

@@ -3,7 +3,7 @@ import { Configuration, OpenAIApi } from "openai";
 export function float32Buffer(arr: number[]) {
   return Buffer.from(new Float32Array(arr).buffer);
 }
-export async function search(input: string) {
+export async function search(input: string): Promise<number[] | undefined> {
   try {
     // This example demonstrates how to use RediSearch to index and query data
     // stored in Redis hashes using vector similarity search.
