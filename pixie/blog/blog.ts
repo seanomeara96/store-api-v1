@@ -11,7 +11,7 @@ import { encode } from "gpt-3-encoder";
 const db = new sqlite.Database(path.resolve(__dirname, "main.db"));
 
 require("../../config/config").config("px");
-const sqlQuery = /*SQL*/`SELECT * FROM posts WHERE categoryLabel LIKE "discover" LIMIT 1 OFFSET 2`;
+const sqlQuery = /*SQL*/ `SELECT * FROM posts WHERE categoryLabel LIKE "discover" LIMIT 1 OFFSET 2`;
 
 db.get(sqlQuery, main);
 
@@ -53,7 +53,6 @@ async function main(err: Error, row: any) {
     let paragraphs: string[];
     try {
       paragraphs = JSON.parse(response.data.choices[0].text as string);
-      console.log(paragraphs);
       if (!Array.isArray(paragraphs)) {
         throw "not an array";
       }
@@ -93,8 +92,6 @@ async function main(err: Error, row: any) {
       }
       const context = JSON.stringify(data).replace(/\n+/gi, " ");
 
-      console.log(`requesting paragraph rewrite...`);
-      const t4 = performance.now();
       const rewriteResponse = await openai.createCompletion({
         model: "text-davinci-003",
         prompt: `You are a very enthusiastic beauty and cosmetics content writer who loves to write blogs for https://pixieloves.ie, an online store for haircare, skincare and other beauty products. Write a paragraph similar to the paragraph provided using instead products in the supplied context sections. Output in markdown format and internally link products in the following manner """[Product Name](https://pixieloves.ie/product-url/)"""
@@ -107,14 +104,6 @@ ${paragraph.replace(/\n+/gi, " ")}
         max_tokens: 1000,
         temperature: 0,
       });
-      const t5 = performance.now();
-      console.log(`rewriting paragraph took ${(t5 - t4) / 1000} seconds`);
-
-      console.log(`Original paragraph:`, paragraph);
-      console.log();
-      console.log();
-      console.log();
-      console.log(`Updated paragraph:`, rewriteResponse.data.choices[0].text);
 
       newParagraphs.push(rewriteResponse.data.choices[0].text as string);
     }
@@ -128,14 +117,14 @@ ${paragraph.replace(/\n+/gi, " ")}
       temperature: 0,
     });
 
-    console.log(postRewriteResponse.data.choices[0].text as string);
-
     try {
       require("../../config/config").config("px", "2");
+
       const params: BlogPostCreationParams = {
         title: row.title,
         body: marked(postRewriteResponse.data.choices[0].text as string),
       };
+
       await createBlog(params);
     } catch (err) {
       throw err;
