@@ -27,7 +27,13 @@ export interface TrailerRecord {
   NO_OF_RECORDS: number;
 }
 
-export function parseFileContents(content: string) {
+export interface FileContents {
+  headerRecord: HeaderRecord;
+  itemRecords: ItemRecord[];
+  trailerRecord: TrailerRecord;
+}
+
+export function parseFileContents(content: string): FileContents {
   const rows = content.split("\n").map((i) => i.split("+"));
 
   const headerRecord: HeaderRecord = (function () {
