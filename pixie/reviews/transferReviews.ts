@@ -74,6 +74,10 @@ async function main() {
     let review;
     try {
       review = await getNextReview();
+      if(!review){
+        console.log("no review found")
+        break
+      }
       console.log(`fetched original review`, review);
     } catch (err) {
       console.log(err);
