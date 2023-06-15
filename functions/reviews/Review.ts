@@ -19,7 +19,7 @@ export interface ReviewCreateParams {
     rating: 0 | 1 | 2 | 3 | 4 | 5;
     email?: string;
     name: string;
-    date_reviewed: string;
+    date_reviewed: Date;
 }
 
 export interface ReviewUpdateParams {
