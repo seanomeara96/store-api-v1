@@ -54,6 +54,38 @@ const campaigns = [
     destination_url: "https://www.beautyfeatures.ie/brands/Moroccanoil.html",
   },
   {
+    type: "brand",
+    store: "bf ",
+    identifier: "Luna By Lisa",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/7035/16758/Luna_By_Lisa_Compact_Mirror_GWP__24710.1686657720.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/7035/16758/Luna_By_Lisa_Compact_Mirror_GWP__24710.1686657720.jpg?c=2&imbypass=on",
+    headline: "Free Luna By Lisa Compact Mirror",
+    worth: 20,
+    condition: "When you spend €30 on Luna By Lisa",
+    sku: "13060",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/luna-by-lisa/",
+  },
+  {
+    type: "brand",
+    store: "bf",
+    identifier: "Bare By Vogue",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/7034/16761/Bare_By_Vogue_Water_Bottle_GWP_1__91000.1686665235.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/7034/16761/Bare_By_Vogue_Water_Bottle_GWP_1__91000.1686665235.jpg?c=2&imbypass=on",
+    headline: "Free Bare By Vogue Water Bottle",
+    worth: 20,
+    condition: "When you spend €30 on Bare By Vogue",
+    sku: "13059",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/bare-by-vogue/",
+  },
+  {
     type: "category",
     store: "bf",
     identifier: "Top Brands/Redken/Extreme",
@@ -326,6 +358,22 @@ const campaigns = [
     worth: 50,
     condition: "When you spend €100 on Dermalogica",
     sku: "12760",
+    sku_type: "product",
+    display: "FALSE",
+    destination_url: "https://www.beautyfeatures.ie/brands/Dermalogica.html",
+  },
+  {
+    type: "brand",
+    store: "bf",
+    identifier: "Dermalogica",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6640/15170/Jocio_Weekend_Hair_Dry_Shampoo_53ml_1__54832.1676892656.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6640/15170/Jocio_Weekend_Hair_Dry_Shampoo_53ml_1__54832.1676892656.jpg?c=2&imbypass=on",
+    headline: "Free Dynamic Skin Recovery SPF50 7ml",
+    worth: 18,
+    condition: "When you spend €80 on Dermalogica",
+    sku: "7806A",
     sku_type: "product",
     display: "TRUE",
     destination_url: "https://www.beautyfeatures.ie/brands/Dermalogica.html",
@@ -618,7 +666,7 @@ const campaigns = [
     condition: "When you spend €80 on Dermalogica",
     sku: "7806A",
     sku_type: "product",
-    display: "FALSE",
+    display: "TRUE",
     destination_url: "https://www.beautyskincare.ie/dermalogica",
   },
   {
@@ -634,7 +682,7 @@ const campaigns = [
     condition: "When you spend €100 on Dermalogica",
     sku: "12760",
     sku_type: "product",
-    display: "TRUE",
+    display: "FALSE",
     destination_url: "https://www.beautyskincare.ie/dermalogica",
   },
 ];
@@ -684,7 +732,7 @@ getStoreSKUs(400)
         };
         await sgMail.send(msg);
       } catch (err) {
-        console.log("failed to send error email")
+        console.log("failed to send error email");
         console.log(err);
       }
     }
