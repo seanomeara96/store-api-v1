@@ -1,13 +1,16 @@
-import { BlogPost, BlogPostCreationParams } from "./BlogPost";
+import { BlogPost, BlogPostUpdateParams } from "./BlogPost";
 
-export function createBlog(params: BlogPostCreationParams): Promise<BlogPost> {
+export function updateBlog(
+  blogID: string,
+  params: BlogPostUpdateParams
+): Promise<BlogPost> {
   if (params.published_date && typeof params.published_date !== "string") {
     params.published_date = params.published_date.toUTCString();
   }
   return new Promise(async function (resolve, reject) {
     try {
-      const res = await require("../../config/config").store.post(
-        "/blog/posts",
+      const res = await require("../../config/config").store.put(
+        `/blog/posts/${blogID}`,
         params
       );
       resolve(res.data.data);

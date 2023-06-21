@@ -3,11 +3,12 @@ import { updateProductVariant } from "../../functions/product-variants/updatePro
 import { getAllProducts } from "../../functions/products/getAllProducts";
 import { getProductVariants } from "../../functions/products/getProductVariants";
 import { updateProduct } from "../../functions/products/updateProduct";
-require("../../config/config").config("ah");
+require("../../config/config").config("bf");
 async function main() {
   try {
     const products = await getAllProducts();
-    for (let i = 425; i < products.length; i++) {
+    console.log(products.length)
+    for (let i = 0; i < products.length; i++) {
       console.log(`Updating product ${i + 1} of ${products.length}`);
       const product = products[i];
 

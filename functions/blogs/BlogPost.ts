@@ -30,5 +30,18 @@ export interface BlogPost {
     meta_keywords?: string;
     author?: string;
     thumbnail_path?: string;
-    published_date?: string;
+    published_date?: Date | string;
+  }
+
+  export interface BlogPostUpdateParams {
+    title?: string;
+    url?: string;
+    body?: string;
+    tags?: string[];
+    is_published?: boolean;
+    meta_description?: string;
+    meta_keywords?: string;
+    author?: string;
+    thumbnail_path?: string;
+    published_date?: Date | string;
   }
