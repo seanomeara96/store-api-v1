@@ -3,29 +3,7 @@ const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const data = [
-  { name: "Courtney", email: "courtneyjmh98@gmail.com" },
-  { name: "Margaret", email: "mgtjking@gmail.com" },
-  { name: "Elaine", email: "elaine.duff1234@gmail.com" },
-  { name: "Helena", email: "hfoley462@gmail.com" },
-  { name: "Laura", email: "lauramaryallen@gmail.com" },
-  { name: "Yvonne", email: "yvonnebergin3@gmail.com" },
-  { name: "Anne", email: "annescully1@gmail.com" },
-  { name: "Donna", email: "donna.boland4412@gmail.com" },
-  { name: "Julie", email: "juliecleary71@gmail.com" },
-  { name: "Hannah", email: "hannahbolger131@gmail.com" },
-  { name: "Lily", email: "lilymathews001@gmail.com" },
-  { name: "Siobhan", email: "siobhanmc.smd@gmail.com" },
-  { name: "Eibhleann", email: "evelynmcc1@gmail.com" },
-  { name: "Chloe", email: "chloehos97@gmail.com" },
-  { name: "Niamh", email: "nc2898@gmail.com" },
-  { name: "Morgan", email: "wildersmorgan@gmail.com" },
-  { name: "Jill", email: "jillbeecherdesign@gmail.com" },
-  { name: "Sorcha", email: "sbracken16@gmail.com" },
-  { name: "Jessica", email: "mccarthyjessica71@gmail.com" },
-  { name: "Susan", email: "iannelliangelo365@gmail.com" },
-  { name: "Valerie", email: "valerie.hammond11@gmail.com" },
-  { name: "Emma", email: "garreth.emma@gmail.com" },
-  { name: "Lisa", email: "lbrandon87@gmail.com" },
+
 ];
 async function main() {
   for (const { name, email } of data) {
