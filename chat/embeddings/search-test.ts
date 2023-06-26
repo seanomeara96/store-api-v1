@@ -1,16 +1,16 @@
 import { getAllProducts } from "../../functions/products/getAllProducts";
 import { search } from "./search-embeddings";
-import openai, { Configuration, OpenAIApi } from "openai";
+import { Configuration, OpenAIApi } from "openai";
 require("../../config/config").config("px");
 
-const query = "What do you reccomend for Dry hair, flaky scalp and itchiness";
+const query = `How can the Moroccanoil Dry Scalp Treatment - 45ml help with flyaways, frizziness and dry hair.  `;
 
 async function main() {
   const products = await getAllProducts();
 
-  const res = await search(query);
-
-  console.log("res!.length",res!.length);
+  let res = await search(query);
+  res = res?.slice(0,3)
+  console.log("res!.length", res!.length);
 
   if (res) {
     const contextProducts = [];
@@ -30,9 +30,10 @@ async function main() {
           url: p.custom_url.url,
         })
       )
-      .join("").replace(/\\n/gi, " ")
+      .join("")
+      .replace(/\\n/gi, " ");
 
-    const prompt = `You are a very enthusiastic pixieloves representative who loves to help prople. Given the following products from the beautyfeatures catalog answer the question and make recommendations. If you are unsure and the answer is not to be found in the provided information say "Sorry I dont know how to help with that"
+    const prompt = `You are a very enthusiastic pixieloves representative who loves to help prople. Given the following products from the pixieloves catalog answer the question and make recommendations. If you are unsure and the answer is not to be found in the provided information say "Sorry I dont know how to help with that"
     
         Context sections: ${contextText}
         
@@ -46,12 +47,14 @@ async function main() {
 
     const openai = new OpenAIApi(configuration);
 
-    const response = await openai.createCompletion({
-      model: "text-davinci-003",
-      prompt,
-      max_tokens: 2000,
-      temperature: 0,
-    }).catch(err => console.log(err.response.data || err))
+    const response = await openai
+      .createCompletion({
+        model: "text-davinci-003",
+        prompt,
+        max_tokens: 2000,
+        temperature: 0,
+      })
+      .catch((err) => console.log(err.response.data || err));
 
     console.log(response!.data.choices[0].text);
 
