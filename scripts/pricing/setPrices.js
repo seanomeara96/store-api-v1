@@ -1,6 +1,6 @@
 const { updateProduct } = require("../../functions/products/updateProduct");
 
-require("../../config/config").config("ih");
+require("../../config/config").config("bf");
 
 const prices = [
   {
