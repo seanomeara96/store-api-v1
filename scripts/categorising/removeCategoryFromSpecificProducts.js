@@ -25,24 +25,22 @@ function removeCategoryFromSpecificProducts(productIds, categoryId) {
   });
 }
 
-const catId = 445;
+const catId = 27;
 
-const productIds = [{"Product ID":721},
-{"Product ID":722},
-{"Product ID":723},
-{"Product ID":724},
-{"Product ID":725},
-{"Product ID":726},
-{"Product ID":2984},
-{"Product ID":2985},
-{"Product ID":3084},
-{"Product ID":3085},
-{"Product ID":3354},
-{"Product ID":3546},
-{"Product ID":3547},
-{"Product ID":3558},
-{"Product ID":3564},
-{"Product ID":3602}];
+const productIds = [{"Product ID":4471},
+{"Product ID":6061},
+{"Product ID":6071},
+{"Product ID":6231},
+{"Product ID":7008},
+{"Product ID":7012},
+{"Product ID":7037},
+{"Product ID":7038},
+{"Product ID":7074},
+{"Product ID":7075},
+{"Product ID":7076},
+{"Product ID":7077},
+{"Product ID":7078},
+{"Product ID":7079}];
 
 removeCategoryFromSpecificProducts(productIds, catId)
   .then(console.log)

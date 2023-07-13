@@ -4,17 +4,24 @@
  * @param {object} fieldToUpdate
  * @returns promise
  */
-export const updateProduct = (productId: number, fieldToUpdate: any) =>
-  new Promise((resolve, reject) => {
+export function updateProduct(productId: number, fieldToUpdate: any) {
+  return new Promise(async function (resolve, reject) {
     if (typeof productId !== "number")
       return reject("product id must be a number");
+
     if (typeof fieldToUpdate !== "object")
       return reject("field to update must be an object");
-    require("../../config/config")
-      .store.put(`/catalog/products/${productId}`, {
-        ...fieldToUpdate,
-      })
-      .then((res: any) => resolve(res.data.data))
-      .catch((err:any) => reject(err));
-  });
 
+    try {
+      const res = require("../../config/config").store.put(
+        `/catalog/products/${productId}`,
+        {
+          ...fieldToUpdate,
+        }
+      );
+      resolve(res.data.data);
+    } catch (err) {
+      reject(err);
+    }
+  });
+}

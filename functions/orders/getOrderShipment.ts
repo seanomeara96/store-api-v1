@@ -11,7 +11,7 @@ export function getOrderShipment(orderID: number):Promise<Shipment[]> {
     });
   }
 
-interface Shipment {
+export interface Shipment {
     id: number;
     order_id: number;
     customer_id: number;

@@ -23,7 +23,7 @@
     "jsdom": "^20.0.0",
     "lighthouse": "^9.6.4",
     "marked": "^5.0.4",
-    "openai": "^3.2.1",
+    "openai": "^3.3.0",
     "puppeteer": "^15.5.0",
     "redis": "^4.6.7",
     "sqlite3": "^5.1.6",

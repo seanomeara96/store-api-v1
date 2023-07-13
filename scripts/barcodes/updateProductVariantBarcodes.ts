@@ -3,7 +3,7 @@ import { updateProductVariant } from "../../functions/product-variants/updatePro
 import { getAllProducts } from "../../functions/products/getAllProducts";
 import { getProductVariants } from "../../functions/products/getProductVariants";
 import { updateProduct } from "../../functions/products/updateProduct";
-require("../../config/config").config("bf");
+require("../../config/config").config("px");
 async function main() {
   try {
     const products = await getAllProducts();

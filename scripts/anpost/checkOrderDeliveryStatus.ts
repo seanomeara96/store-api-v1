@@ -1,7 +1,13 @@
 import { getItemRecords } from "../../anpost/getItemRecords";
+import { ItemRecord } from "../../anpost/parseFileContents";
+import { Order } from "../../functions/orders/Order";
 import { getAllOrders } from "../../functions/orders/getAllOrders";
-import { getOrderShipment } from "../../functions/orders/getOrderShipment";
-
+import {
+  Shipment,
+  getOrderShipment,
+} from "../../functions/orders/getOrderShipment";
+import { output } from "../utils/output";
+import path from "path"
 require("../../config/config").config("bf", 2);
 
 function getAnPostItemCodeFromTrackingNumber(string: string) {
@@ -9,15 +15,30 @@ function getAnPostItemCodeFromTrackingNumber(string: string) {
 }
 
 async function main() {
-  const currentDate = new Date(); // Get the current date
-  const sevenDaysAgo = new Date(); // Create a new date object
+  // Yesterday at 12:00 am
+  const yesterdayMidnight = new Date();
+  yesterdayMidnight.setDate(yesterdayMidnight.getDate() - 2);
+  yesterdayMidnight.setHours(14, 0, 0, 0);
 
-  sevenDaysAgo.setDate(currentDate.getDate() - 7); // Subtract 7 days from the current date
+  // Yesterday at 11:59 pm
+  const yesterdayEndOfDay = new Date();
+  yesterdayEndOfDay.setDate(yesterdayEndOfDay.getDate() - 1);
+  yesterdayEndOfDay.setHours(13, 59, 59, 999);
 
   const orders = await getAllOrders({
-    min_date_created: sevenDaysAgo.toISOString(),
+    min_date_created: yesterdayMidnight.toISOString(),
+    max_date_created: yesterdayEndOfDay.toISOString(),
   });
-  const anPostOrdersAndShipments = [];
+  /*console.log(orders.length);
+  const dates = orders.map((o) => o.date_created);
+  console.log(dates[0]);
+  console.log(dates[dates.length - 1]);*/
+
+  const anPostOrdersAndShipments: {
+    order: Order;
+    shipment: Shipment;
+    deliveryRecord: ItemRecord | undefined;
+  }[] = [];
   for (let i = 0; i < orders.length; i++) {
     console.log(`order shipment ${i + 1} of ${orders.length}`);
     const order = orders[i];
@@ -29,19 +50,25 @@ async function main() {
       continue;
     }
     if (shipment.tracking_number && shipment.tracking_number.startsWith("CE")) {
-      anPostOrdersAndShipments.push({ order, shipment });
+      anPostOrdersAndShipments.push({
+        order,
+        shipment,
+        deliveryRecord: undefined,
+      });
     }
   }
+
   // this all needs to be tested
   const itemRecords = await getItemRecords();
+
   for (let i = 0; i < anPostOrdersAndShipments.length; i++) {
-    const { order, shipment } = anPostOrdersAndShipments[i];
+    const data = anPostOrdersAndShipments[i];
 
     const deliveryRecord = itemRecords.find(function (item) {
       const itemCodeString = String(item.ITEM_NUMBER);
 
       const shipmentItemNumber = getAnPostItemCodeFromTrackingNumber(
-        shipment.tracking_number
+        data.shipment.tracking_number
       );
 
       const matchingCode = itemCodeString === shipmentItemNumber;
@@ -50,17 +77,28 @@ async function main() {
       return matchingCode && itemIsDelivered;
     });
 
-    if (!deliveryRecord) {
-      continue;
-    }
-    const timeToDelivery = shipment.date_created - deliveryRecord.SCAN_DATE;
+    data.deliveryRecord = deliveryRecord;
+    /**const timeToDelivery = shipment.date_created - deliveryRecord.SCAN_DATE;
 
     const timeisLessThan48Hours = timeToDelivery < 1000 * 60 * 60 * 48;
     if (timeisLessThan48Hours) {
       const email = order.email;
       const name = order.name;
       // send google review request email
-    }
+    } */
   }
+  const ordersDelivered = anPostOrdersAndShipments.filter(
+    (a) => a.deliveryRecord
+  );
+  const out = ordersDelivered.map((o) => ({
+    first_name: o.order.billing_address.first_name,
+    email: o.order.billing_address.email,
+    order_id: o.order.id,
+    despatched_at: o.shipment.date_created,
+    delivered_at: o.deliveryRecord?.SCAN_DATE.toISOString(),
+    tracking_number: o.shipment.tracking_number,
+  }));
+
+  output(path.resolve(__dirname, "./output.csv"), out, true)
 }
 main();
