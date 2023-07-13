@@ -1,4 +1,4 @@
-const axios = require("axios");
+import axios from "axios";
 
 export function fetchCustomerDetails(
   customer_email: string,
