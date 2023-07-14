@@ -10,9 +10,7 @@ import { output } from "../utils/output";
 import path from "path"
 require("../../config/config").config("bf", 2);
 
-function getAnPostItemCodeFromTrackingNumber(string: string) {
-  return string.replace(/^CE|IE$/g, "");
-}
+
 
 async function main() {
   // Yesterday at 12:00 am
@@ -67,6 +65,10 @@ async function main() {
 
     const deliveryRecord = itemRecords.find(function (item) {
       const itemCodeString = String(item.ITEM_NUMBER);
+
+      function getAnPostItemCodeFromTrackingNumber(string: string) {
+        return string.replace(/^CE|IE$/g, "");
+      }
 
       const shipmentItemNumber = getAnPostItemCodeFromTrackingNumber(
         data.shipment.tracking_number

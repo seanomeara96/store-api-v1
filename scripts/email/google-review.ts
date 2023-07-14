@@ -20,7 +20,7 @@ async function main() {
     })();
 
     if (emailExists) {
-      console.log("email exists")
+      console.log("email exists");
       continue;
     }
 
