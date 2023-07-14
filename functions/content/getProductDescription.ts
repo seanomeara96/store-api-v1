@@ -3,8 +3,8 @@
  * @param {number} id productId
  * @returns string
  */
-const getProductDescription = (id) =>
-  new Promise(async (resolve, reject) => {
+export function getProductDescription(id: number) {
+  return new Promise(async (resolve, reject) => {
     try {
       const product = await require("../../config/config").store.get(
         `/catalog/products/${id}`
@@ -15,5 +15,4 @@ const getProductDescription = (id) =>
       reject(err);
     }
   });
-
-exports.getProductDescription = getProductDescription;
+}
