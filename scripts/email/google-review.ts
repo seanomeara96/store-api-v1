@@ -4,7 +4,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 import { Database } from "sqlite3";
 import path from "path";
 const db = new Database(path.resolve(__dirname, "./emails.db"));
-const data = [{ name: "", email: "" }];
+const data = [];
 async function main() {
   for (const { name, email } of data) {
     const emailExists = await (function doesEmailExist(): Promise<number> {
@@ -20,6 +20,7 @@ async function main() {
     })();
 
     if (emailExists) {
+      console.log("email exists")
       continue;
     }
 
@@ -37,7 +38,6 @@ async function main() {
       <p>Managing Director</p>`,
     };
 
-    
     try {
       await sgMail.send(msg);
       await (function recordEmailAddress() {

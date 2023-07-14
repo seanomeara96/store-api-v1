@@ -1,21 +1,13 @@
 require("../../config/config").config("bf");
 
-const {
-  addCategoryToSpecificProducts,
-} = require("../../functions/products/addCategoryToSpecificProducts");
-const { getAllProducts } = require("../../functions/products/getAllProducts");
-const {
-  removeCategoryFromProductsInCategory,
-} = require("../../functions/products/removeCategoryFromProductsInCategory");
+import { addCategoryToSpecificProducts } from "../../functions/products/addCategoryToSpecificProducts";
+import { getAllProducts } from "../../functions/products/getAllProducts";
+import { removeCategoryFromProductsInCategory } from "../../functions/products/removeCategoryFromProductsInCategory";
 
 (async () => {
   const newInCatId = 679;
   console.log(`removing all products from cat id: `, 679);
-  const productCount = await removeCategoryFromProductsInCategory(
-    newInCatId
-  ).catch((err) => {
-    throw new Error(err);
-  });
+  const productCount = await removeCategoryFromProductsInCategory(newInCatId);
   console.log(`products removed`, productCount);
 
   const minDate = new Date();
@@ -28,9 +20,7 @@ const {
   const formattedMinDate = `${year}-${month}-${day}`;
   console.log(formattedMinDate);
   console.log(`fetching products added in the last 60 days`);
-  const products = await getAllProducts({}).catch((err) => {
-    throw new Error("could not fetch products", err);
-  });
+  const products = await getAllProducts()
   const today = new Date().getTime();
   const productsToUpdate = products
     .map((p) => ({
@@ -49,7 +39,7 @@ const {
       }
       return false;
     });
-  
+
   const productIds = productsToUpdate.map(({ id }) => ({ id }));
 
   await addCategoryToSpecificProducts(productIds, newInCatId).catch((err) => {

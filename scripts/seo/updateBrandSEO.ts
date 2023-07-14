@@ -1,6 +1,6 @@
 require("../../config/config").config("pb")
 
-const data = [];
+const data:any[] = [];
 
 function validateFields(obj){
     ["Page Title ", "Meta Description"].forEach(i => {

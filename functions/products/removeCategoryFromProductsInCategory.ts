@@ -1,17 +1,10 @@
+import { Product } from "./Product";
 import { getAllProducts } from "./getAllProducts";
 import { removeCatFromProduct } from "./removeCatFromProduct";
 
-function filterProductsInCat(products: any[], categoryId: number) {
-  return products.filter((product) => product.categories.includes(categoryId));
-}
-
-function mapProductIds(products: any[]) {
-  return products.map((product) => product.id);
-}
-
 export function removeCategoryFromProductsInCategory(
   categoryId: number,
-  suppliedProducts: any[] | undefined
+  suppliedProducts?: any[] | undefined
 ) {
   return new Promise(async (resolve, reject) => {
     try {
@@ -29,16 +22,21 @@ export function removeCategoryFromProductsInCategory(
       if (!products) return reject("somehting went wrong");
       if (!products.length) return resolve(products.length); // category is already empty
 
-      const producsInCat = filterProductsInCat(products, categoryId);
-      const productIds = mapProductIds(producsInCat);
+      const producsInCat = products.filter((product) =>
+        product.categories.includes(categoryId)
+      );
+
+      const productIds = producsInCat.map((product: Product) => product.id);
+
       console.log(`${productIds.length} to remove`);
       for (let x = 0; x < productIds.length; x += 25) {
         console.log(`removing ${x} - ${x + 25}...`);
-        await Promise.all(
-          productIds
-            .slice(x, x + 25)
-            .map((id) => removeCatFromProduct(id, categoryId))
-        );
+        const batch = productIds.slice(x, x + 25);
+        const promises = [];
+        for (const id of batch) {
+          promises.push(removeCatFromProduct(id, categoryId));
+        }
+        await Promise.all(promises);
         console.log(`removed ${x} - ${x + 25}`);
       }
 

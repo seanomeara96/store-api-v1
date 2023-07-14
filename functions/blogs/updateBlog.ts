@@ -1,7 +1,7 @@
 import { BlogPost, BlogPostUpdateParams } from "./BlogPost";
 
 export function updateBlog(
-  blogID: string,
+  blogID: number,
   params: BlogPostUpdateParams
 ): Promise<BlogPost> {
   if (params.published_date && typeof params.published_date !== "string") {

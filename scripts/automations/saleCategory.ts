@@ -1,11 +1,11 @@
-require("../../config/config").config("bf");
-const { getAllProducts } = require("../../functions/products/getAllProducts");
-const {
-  removeCategoryFromProductsInCategory,
-} = require("../../functions/products/removeCategoryFromProductsInCategory");
-const { addCatToProduct } = require("../../functions/products/addCatToProduct");
+import { Product } from "../../functions/products/Product";
 
-function currentDiscount(product) {
+require("../../config/config").config("bf");
+import { getAllProducts } from "../../functions/products/getAllProducts";
+import { removeCategoryFromProductsInCategory } from "../../functions/products/removeCategoryFromProductsInCategory";
+import { addCatToProduct } from "../../functions/products/addCatToProduct";
+
+function currentDiscount(product: Product) {
   return Math.round(
     ((product.price - product.sale_price) / product.price) * 100
   );

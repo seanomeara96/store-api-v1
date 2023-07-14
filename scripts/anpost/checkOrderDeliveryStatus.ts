@@ -39,6 +39,7 @@ async function main() {
     shipment: Shipment;
     deliveryRecord: ItemRecord | undefined;
   }[] = [];
+  
   for (let i = 0; i < orders.length; i++) {
     console.log(`order shipment ${i + 1} of ${orders.length}`);
     const order = orders[i];

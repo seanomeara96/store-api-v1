@@ -1,7 +1,7 @@
-const { updateProduct } = require("../products/updateProduct");
-const { getProductById } = require("../products/getProductById");
+import { updateProduct } from "../products/updateProduct";
+import { getProductById } from "../products/getProductById";
 
-const updateSearchKeywords = (productId, searchKeywordsToAdd) => {
+export function updateSearchKeywords  (productId: number, searchKeywordsToAdd: string[]) {
   return new Promise((resolve, reject) => {
     if (typeof productId !== "number")
       return reject("productId must be a number");
@@ -30,4 +30,4 @@ const updateSearchKeywords = (productId, searchKeywordsToAdd) => {
   });
 };
 
-exports.updateSearchKeywords = updateSearchKeywords;
+

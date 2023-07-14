@@ -1,13 +1,14 @@
-const api = require("../../config/config");
-const { getAll } = require("../../functions/utils/getAll");
+import { getAllBlogs } from "../../functions/blogs/getAllBlogs";
+import { updateBlog } from "../../functions/blogs/updateBlog";
 
-api.config("ch", 2);
+const api = require("../../config/config");
+
+//api.config("ch", 2);
 const instance = api.store;
-const getAllBlogPosts = getAll("/blog/posts");
 
 (async () => {
   try {
-    const posts = await getAllBlogPosts();
+    const posts = await getAllBlogs();
 
     let postsContainingHttp = posts.filter(
       (post) => (post.body.match(/http:\/\//gi) || []).length > 0
@@ -17,29 +18,23 @@ const getAllBlogPosts = getAll("/blog/posts");
     }
     console.log(`${postsContainingHttp.length} posts need updating`);
 
-    let promises = [];
-    postsContainingHttp.forEach((post) => {
-      console.log(post.title, post.id);
+    for (const post of postsContainingHttp) {
       const oldContent = post.body;
       const updatedContent = oldContent.replace(/http:\/\//gi, "https://");
-      promises.push(updateBlogPost(post.id, updatedContent));
-    });
+      await updateBlogPost(post.id, updatedContent);
+    }
 
-    const statuses = await Promise.allSettled(promises);
-    console.log(`${statuses.length} posts were updated`);
-
-    const secondCheck = await getAllBlogPosts();
+    const secondCheck = await getAllBlogs();
     const results = secondCheck
       .map((post) => (post.body.match(/http:\/\//gi) || []).length)
       .reduce((a, b) => a + b);
+
     console.log(`${results} blog posts have unsafe links`);
 
-    function updateBlogPost(blogPostId, updatedContent) {
+    function updateBlogPost(blogPostId: number, updatedContent: string) {
       return new Promise(async (resolve, reject) => {
         try {
-          const res = await instance.put(`/blog/posts/${blogPostId}`, {
-            body: updatedContent,
-          });
+          const res = await updateBlog(blogPostId, {body: updatedContent})
           resolve(res);
         } catch (err) {
           reject(err);
@@ -47,6 +42,6 @@ const getAllBlogPosts = getAll("/blog/posts");
       });
     }
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 })();

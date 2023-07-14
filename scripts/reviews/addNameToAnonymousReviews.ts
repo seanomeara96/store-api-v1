@@ -1,10 +1,12 @@
+import { Review } from "../../functions/reviews/Review";
+
 require("../../config/config").config("bsk");
 
 // trying to get reviews per product
 
-const { getAllProducts } = require("../../functions/products/getAllProducts");
-const { getAllReviews } = require("../../functions/reviews/getAllReviews");
-const { updateReviewName } = require("../../functions/reviews/updateReview");
+import { getAllProducts } from "../../functions/products/getAllProducts";
+import { getAllReviews } from "../../functions/reviews/getAllReviews";
+import { updateReviewName } from "../../functions/reviews/updateReview";
 /**
  * @param {string[]} names array of 24 names to choose from
  * @returns an random name from an array
@@ -36,18 +38,7 @@ const randomName = () =>
     "Kate",
     "Aoife",
   ][Math.floor(Math.random() * 24)];
-/**
- * Promise all settled reponse filter for fulfilled
- * @param {string} param0
- * @returns
- */
-const fulfilledStatuses = ({ status }) => status === "fulfilled";
-/**
- * Map value to position in array, essentially removing status
- * @param {any} param0
- * @returns
- */
-const promiseValues = ({ value }) => value;
+
 /**
  * When promise.allsettled has resolved we want to map the revews for the fulfilled promises
  * @param {*} productReviewsResponses
@@ -66,26 +57,26 @@ const fetchProductReviews = async (reviewRequests) => {
   return pullProductReviewsFromResponses(productReviewsResponses);
 };
 
-const getAllProductReviews = () =>
-  new Promise((resolve, reject) =>
-    getAllProducts()
-      .then(mapReviewRequestToProducts)
-      .then(fetchProductReviews)
-      .then(resolve)
-      .catch(reject)
-  );
+function getAllProductReviews() {
+  return new Promise(async function (resolve, reject) {
+    try {
+      const products = await getAllProducts()
+      const reviewRequests = mapReviewRequestToProducts(products)
+      const x = fetchProductReviews(reviewRequests)
+      resolve(x)
+    } catch (err) {
+      reject(err);
+    }
+  });
+}
 /**
  * filters products that have reviews
  * @param {object} param0 object with reviews array
  * @returns
  */
-const productsWithReviews = ({ reviews }) => reviews.length;
-/**
- * filter reviews that have an empty name string
- * @param {object[]} review
- * @returns
- */
-const reviewsWithNoName = (review) => !review.name.length;
+const productsWithReviews = (p: any) => p.reviews.length;
+
+const reviewsWithNoName = (review: Review) => !review.name.length;
 /**
  * returns products array with reviews that have an empty name
  * @param {object} param0 object with product id and reviews array
@@ -100,31 +91,35 @@ const productsWithNoNameReviews = ({ product_id, reviews }) => ({
  * @param {object[]} productReviews
  * @returns
  */
-const filterNoNameReviews = (productReviews) =>
+const filterNoNameReviews = (productReviews: Review[]) =>
   productReviews
     .filter(productsWithReviews) // remove products with no reviews
     .map(productsWithNoNameReviews) // filter for reviews that have no name
     .filter(productsWithReviews); // remove empty review arrays
 
-async function addNameToAnonymousReviews() {
+async function main() {
   const productReviews = await getAllProductReviews();
-  productReviews.forEach(({reviews}) => reviews.forEach(review => console.log(review.name)))
   const noNameReviews = filterNoNameReviews(productReviews);
-  console.log("no name reviews", noNameReviews.length)
+  console.log("no name reviews", noNameReviews.length);
+
+  const review: Review = {};
+
   const nameUpdateRequests = [];
-  noNameReviews.forEach(({ product_id, reviews }) => {
-    reviews.forEach(({ id }) =>
-      nameUpdateRequests.push(updateReviewName(product_id, id, randomName()))
-    );
-  });
-  console.log("name update requests", nameUpdateRequests.length)
-  const nameUpdateResponses = await Promise.allSettled(
-    nameUpdateRequests
-  ).catch((err) => console.log(err));
+  for (const { product_id, reviews } of noNameReviews) {
+    for (const review of reviews) {
+      nameUpdateRequests.push(
+        updateReviewName(product_id, review.id, randomName())
+      );
+    }
+  }
+
+  console.log("name update requests", nameUpdateRequests.length);
+  const nameUpdateResponses = await Promise.allSettled(nameUpdateRequests);
+
   console.log("nameUpdateResponses", nameUpdateResponses.length);
   const updatedProductReviews = await getAllProductReviews();
   const updatedNoNameReviews = filterNoNameReviews(updatedProductReviews);
   console.log("updatedNoNameReviews", updatedNoNameReviews);
 }
 
-addNameToAnonymousReviews();
+main();
