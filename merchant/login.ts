@@ -1,6 +1,6 @@
-const { google } = require("googleapis");
+import { google } from "googleapis";
 // const credentials = require("./service-account.json");
-const login = () => {
+export function login() {
   return new Promise(async (resolve, reject) => {
     try {
       const auth = new google.auth.GoogleAuth({
@@ -11,10 +11,9 @@ const login = () => {
       // Acquire an auth client, and bind it to all future calls
       const authClient = await auth.getClient();
       google.options({ auth: authClient });
-      resolve();
+      resolve(google);
     } catch (err) {
       reject(err);
     }
   });
-};
-module.exports = login;
+}
