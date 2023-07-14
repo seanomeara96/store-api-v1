@@ -25,6 +25,8 @@ export function getAllProducts(merchantId: string) {
             resolve(products);
             return;
           }
+        } else {
+          throw new Error("no resources")
         }
       }
     } catch (err) {
