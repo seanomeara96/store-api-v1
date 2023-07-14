@@ -1,12 +1,12 @@
 /**
  * applies a field (name) and value to a product by id
- * @param {number} productId 
- * @param {string} name 
- * @param {string} value 
- * @returns 
+ * @param {number} productId
+ * @param {string} name
+ * @param {string} value
+ * @returns
  */
-export const applyFilter = (productId: number, name: string, value: string) =>
-  new Promise(async (resolve, reject) => {
+export function applyFilter(productId: number, name: string, value: string) {
+  return new Promise(async (resolve, reject) => {
     const data = {
       name,
       value,
@@ -21,4 +21,4 @@ export const applyFilter = (productId: number, name: string, value: string) =>
       reject(err);
     }
   });
-
+}

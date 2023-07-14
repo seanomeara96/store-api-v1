@@ -6,17 +6,22 @@ import { applyFilter } from "./applyFilter";
  * @param {string} value
  * @returns
  */
-export const applyFilterToMany = (
+export function applyFilterToMany(
   productIds: { [key: string]: number }[],
   name: string,
   value: string
-) =>
-  new Promise((resolve, reject) => {
-    let promises = productIds.map((product) => {
-      const idNumber: number = Object.values(product)[0];
-      return applyFilter(idNumber, name, value);
-    });
-    Promise.allSettled(promises)
-      .then((results) => resolve(results))
-      .catch(reject);
+) {
+  return new Promise(async function (resolve, reject) {
+    try {
+      const promises = [];
+      for (const productId of productIds) {
+        const idNumber: number = Object.values(productId)[0];
+        promises.push(applyFilter(idNumber, name, value));
+      }
+      const res = await Promise.allSettled(promises);
+      resolve(res)
+    } catch (err) {
+      reject(err);
+    }
   });
+}

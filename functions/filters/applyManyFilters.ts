@@ -5,15 +5,15 @@ import { applyFilter } from "./applyFilter";
  * @param {object[]} filters
  * @returns
  */
-export const applyManyFilters = (
+export function applyManyFilters(
   productId: number,
   filters: { [key: string]: string }[]
-) =>
-  new Promise((resolve, reject) => {
-    const promises = filters.map(({ name, value }) => {
-      return applyFilter(productId, name, value);
-    });
-    Promise.allSettled(promises)
-      .then((results) => resolve(results))
-      .catch(reject);
+) {
+  return new Promise(async function (resolve) {
+    resolve(
+      await Promise.allSettled(
+        filters.map(({ name, value }) => applyFilter(productId, name, value))
+      )
+    );
   });
+}
