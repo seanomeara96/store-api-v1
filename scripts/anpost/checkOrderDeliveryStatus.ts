@@ -94,7 +94,7 @@ async function main() {
     (a) => a.deliveryRecord
   );
   const out = ordersDelivered.map((o) => ({
-    first_name: o.order.billing_address.first_name,
+    name: o.order.billing_address.first_name,
     email: o.order.billing_address.email,
     order_id: o.order.id,
     despatched_at: o.shipment.date_created,

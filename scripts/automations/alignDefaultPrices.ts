@@ -1,4 +1,4 @@
-require("../../config/config").config("pb");
+require("../../config/config").config("px");
 import { getAllProducts } from "../../functions/products/getAllProducts";
 import { updateProduct } from "../../functions/products/updateProduct";
 
@@ -10,12 +10,12 @@ async function main() {
         await updateProduct(p.id, { price: p.retail_price });
         console.log("updated", p.id);
       } catch (err: any) {
-        console.log(err.response.data);
+        console.log(err.response ? err.response.data : err);
         continue;
       }
     }
   } catch (err: any) {
-    console.log(err.response.data);
+    console.log(err.response ? err.response.data : err);
   }
 }
 main();
