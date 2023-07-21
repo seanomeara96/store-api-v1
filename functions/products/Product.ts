@@ -1,7 +1,8 @@
+type productTypes = "physical" | "digital";
 export interface Product {
   id: number;
   name: string;
-  type: string;
+  type: productTypes;
   sku: string;
   description: string;
   weight: number;

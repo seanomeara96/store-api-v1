@@ -1,11 +1,12 @@
 import { getProductVariants } from "./getProductVariants";
 import { getAllProducts } from "./getAllProducts";
+import { ProductVariant } from "../product-variants/ProductVariant";
 
-export function getAllProductVariants(batchSize = 50) {
+export function getAllProductVariants(params?: any, batchSize = 50): Promise<ProductVariant[]> {
   return new Promise(async function (resolve, reject) {
     try {
       let count = 0;
-      const products = (await getAllProducts()) as any[];
+      const products = (await getAllProducts(params)) as any[];
 
       const batches = [];
       const allVariants = []
@@ -18,8 +19,6 @@ export function getAllProductVariants(batchSize = 50) {
       for (const productBatch of batches) {
         const promises = [];
         for (const product of productBatch) {
-          console.clear();
-          console.log(`fetching product variants ${count}/${products.length}`);
           promises.push(getProductVariants(product.id));
           count++;
         }

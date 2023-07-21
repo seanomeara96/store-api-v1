@@ -7,25 +7,23 @@ import {
   getOrderShipment,
 } from "../../functions/orders/getOrderShipment";
 import { output } from "../utils/output";
-import path from "path"
+import path from "path";
 require("../../config/config").config("bf", 2);
 
-
-
 async function main() {
-  // Yesterday at 12:00 am
-  const yesterdayMidnight = new Date();
-  yesterdayMidnight.setDate(yesterdayMidnight.getDate() - 2);
-  yesterdayMidnight.setHours(14, 0, 0, 0);
+  
+  const minDate = new Date();
+  minDate.setDate(minDate.getDate() - 7); // thursday (7 days ago)
+  minDate.setHours(14, 0, 0, 0);
 
   // Yesterday at 11:59 pm
-  const yesterdayEndOfDay = new Date();
-  yesterdayEndOfDay.setDate(yesterdayEndOfDay.getDate() - 1);
-  yesterdayEndOfDay.setHours(13, 59, 59, 999);
+  const maxDate = new Date();
+  maxDate.setDate(maxDate.getDate() - 3); // monday (3 days ago)
+  maxDate.setHours(13, 59, 59, 999);
 
   const orders = await getAllOrders({
-    min_date_created: yesterdayMidnight.toISOString(),
-    max_date_created: yesterdayEndOfDay.toISOString(),
+    min_date_created: minDate.toISOString(),
+    max_date_created: maxDate.toISOString(),
   });
   /*console.log(orders.length);
   const dates = orders.map((o) => o.date_created);
@@ -37,7 +35,7 @@ async function main() {
     shipment: Shipment;
     deliveryRecord: ItemRecord | undefined;
   }[] = [];
-  
+
   for (let i = 0; i < orders.length; i++) {
     console.log(`order shipment ${i + 1} of ${orders.length}`);
     const order = orders[i];
@@ -97,11 +95,12 @@ async function main() {
     name: o.order.billing_address.first_name,
     email: o.order.billing_address.email,
     order_id: o.order.id,
-    despatched_at: o.shipment.date_created,
+    ordered_at: new Date(o.order.date_created).toISOString(),
+    despatched_at: new Date(o.shipment.date_created).toISOString(),
     delivered_at: o.deliveryRecord?.SCAN_DATE.toISOString(),
     tracking_number: o.shipment.tracking_number,
   }));
 
-  output(path.resolve(__dirname, "./output.csv"), out, true)
+  output(path.resolve(__dirname, "./output.csv"), out, true);
 }
 main();
