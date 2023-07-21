@@ -3,6 +3,7 @@ import { CreateProductVariantOptionParams } from "./functions/product-variant-op
 import { createProductVariantOption } from "./functions/product-variant-options/createProductVariantOption";
 import { getAllProductVariantOptions } from "./functions/product-variant-options/getAllProductVariantOptions";
 import { CreateProductVariantParams } from "./functions/product-variants/ProductVariant";
+import { createProductVariant } from "./functions/product-variants/createProductVariant";
 import {
   createProduct,
   productCreationFields,
@@ -19,6 +20,8 @@ async function main() {
   require("./config/config").config("bsk");
   const beautyskincare_vars = await getAllProductVariants();
   console.log("beautyskincare_vars.length", beautyskincare_vars.length);
+
+  const dummyCategoryID = 85
 
   const needTransfer = [];
 
@@ -65,7 +68,7 @@ async function main() {
       cost_price: product.cost_price,
       retail_price: product.retail_price,
       sale_price: product.sale_price,
-      categories: [85],
+      categories: [dummyCategoryID],
       page_title: product.page_title,
       meta_description: product.meta_description,
       inventory_tracking: product.inventory_tracking,
@@ -92,7 +95,7 @@ async function main() {
         return optionCreationParams;
       })
 
-      const newOption = newOptions[0]
+      const newOption = await createProductVariantOption(newProduct.id, newOptions[0])
 
       const newVariants = variants.map(function(variant){
         const variantCreationparams:CreateProductVariantParams = {
@@ -117,7 +120,7 @@ async function main() {
           image_url: variant.image_url,
           gtin: variant.gtin,
           mpn: variant.mpn,
-          option_values: variant.option_values.map(op => ({...op, option_id: newOption.id}))
+          option_values: variant.option_values,
         }
         return variantCreationparams
       })

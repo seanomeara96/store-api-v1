@@ -5,3 +5,4 @@ images/
 **/out.txt
 pixie/**/main.db
 emails.db
+email-data.ts
