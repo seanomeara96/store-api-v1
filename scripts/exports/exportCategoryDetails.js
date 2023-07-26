@@ -4,7 +4,10 @@ const {
 } = require("../../functions/categories/getAllCategories");
 const { output } = require("../utils/output");
 async function exportCategoryDetails() {
-  const categories = await getAllCategories();
+  const categories = await getAllCategories().catch(console.log)
+  if(!categories) {
+    return
+  }
   await output("category-details", categories);
 }
 exportCategoryDetails();

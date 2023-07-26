@@ -5,6 +5,11 @@ const { getFilters } = require("../../functions/filters/getFilters");
 const { getAllProducts } = require("../../functions/products/getAllProducts");
 async function main() {
   const products = await getAllProducts().catch(console.log);
+
+  if(!products){
+    return
+  }
+
   const productFilterRequests = products.map((product) =>
     getFilters(product.id).then(
       (res) => console.log(res)

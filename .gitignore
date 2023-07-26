@@ -6,3 +6,4 @@ images/
 pixie/**/main.db
 emails.db
 email-data.ts
+changes.db
