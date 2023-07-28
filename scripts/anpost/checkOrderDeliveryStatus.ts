@@ -13,12 +13,12 @@ require("../../config/config").config("bf", 2);
 async function main() {
   
   const minDate = new Date();
-  minDate.setDate(minDate.getDate() - 7); // thursday (7 days ago)
+  minDate.setDate(minDate.getDate() - 2); // oldest date
   minDate.setHours(14, 0, 0, 0);
 
   // Yesterday at 11:59 pm
   const maxDate = new Date();
-  maxDate.setDate(maxDate.getDate() - 3); // monday (3 days ago)
+  maxDate.setDate(maxDate.getDate() - 1); // most recent date
   maxDate.setHours(13, 59, 59, 999);
 
   const orders = await getAllOrders({

@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@bigcommerce/api-nodejs": "^0.1.2-alpha",
     "@sendgrid/mail": "^7.7.0",
     "@types/csv-stringify": "^3.1.0",
     "@types/express": "^4.17.17",

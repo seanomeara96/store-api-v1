@@ -16,11 +16,14 @@ import { getProductVariants } from "./functions/products/getProductVariants";
 async function main() {
   // { brand_id: 18 }
   // 85
-  const srcFilter = { "categories:in": 12 };
-  const destinationDummyCategoryID = 190;
+  // ah const srcFilter = { "categories:in": 12 };
+  // ah const destinationDummyCategoryID = 190;
+
+  const srcFilter = { brand_id: 18 }; // bsk
+  const destinationDummyCategoryID = 85; // bsk
   const src = "bf";
-  const destination = "ah";
-  const destination_name = "AllHair";
+  const destination = "bsk";
+  const destination_name = "BeautySkincare";
   const src_name = "beautyfeatures";
 
   const match_src_name = new RegExp(src_name, "gi");
@@ -63,12 +66,7 @@ async function main() {
         is_thumbnail: img.is_thumbnail,
         sort_order: img.sort_order,
         description: img.description,
-        image_url: img.url_standard,
-        url_zoom: img.url_zoom,
-        url_standard: img.url_standard,
-        url_thumbnail: img.url_thumbnail,
-        url_tiny: img.url_tiny,
-        date_modified: img.date_modified,
+        image_url: `https://store-${process.env.BF_STORE_HASH}.mybigcommerce.com/product_images/${img.image_file}`,
       };
     });
 

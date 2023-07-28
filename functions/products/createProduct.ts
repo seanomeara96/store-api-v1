@@ -1,5 +1,5 @@
 import { Product } from "./Product";
-interface NewImageParams {
+export interface NewImageParams {
   image_file?: string; // the local path to the original image file uploaded to BigCommerce
   is_thumbnail: boolean; // flag for identifying whether the image is used as the product's thumbnail
   sort_order: number; // the order in which the image will be displayed on the product page

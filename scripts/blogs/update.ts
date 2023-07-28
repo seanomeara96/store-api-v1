@@ -1,6 +1,10 @@
-require("../../config/config").config("px", 2);
+import BigCommerce from "@bigcommerce/api-nodejs";
+import { credentials } from "../../config/credentials";
 import { getAllBlogs } from "../../functions/blogs/getAllBlogs";
 import { updateBlog } from "../../functions/blogs/updateBlog";
+
+const store = new BigCommerce.Rest(credentials("fs"));
+
 
 (async function () {
   const blogs = await getAllBlogs();

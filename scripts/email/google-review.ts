@@ -7,6 +7,9 @@ import { data } from "./email-data";
 const db = new Database(path.resolve(__dirname, "./emails.db"));
 
 async function main() {
+
+  console.log("emails to send", data.length)
+
   for (const { name, email } of data) {
     const emailExists = await (function doesEmailExist(): Promise<number> {
       return new Promise(function (resolve, reject) {
