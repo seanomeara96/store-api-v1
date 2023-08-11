@@ -1,7 +1,55 @@
 import { BpProductInfo } from "./BpProductInfo";
 import { bpClient } from "./bp-client";
 
-export function getBpProductDetails(productSKU: string): Promise<BpProductInfo> {
+export function parseProduct(result: any[]) {
+  const [
+    productId,
+    productName,
+    SKU,
+    barcode,
+    EAN,
+    UPC,
+    ISBN,
+    MPN,
+    stockTracked,
+    salesChannelName,
+    createdOn,
+    updatedOn,
+    brightpearlCategoryCode,
+    productGroupId,
+    brandId,
+    productTypeId,
+    productStatus,
+    primarySupplierId,
+  ] = result;
+
+  const bpProduct: BpProductInfo = {
+    productId,
+    productName,
+    SKU,
+    barcode,
+    EAN,
+    UPC,
+    ISBN,
+    MPN,
+    stockTracked,
+    salesChannelName,
+    createdOn,
+    updatedOn,
+    brightpearlCategoryCode,
+    productGroupId,
+    brandId,
+    productTypeId,
+    productStatus,
+    primarySupplierId,
+  };
+
+  return bpProduct;
+}
+
+export function getBpProductDetails(
+  productSKU: string
+): Promise<BpProductInfo> {
   return new Promise(async function (resolve, reject) {
     try {
       const res = await bpClient.get(`/product-service/product-search`, {
@@ -16,47 +64,8 @@ export function getBpProductDetails(productSKU: string): Promise<BpProductInfo> 
       if (!res.data.response.results.length) {
         throw "No results";
       }
-      const [
-        productId,
-        productName,
-        SKU,
-        barcode,
-        EAN,
-        UPC,
-        ISBN,
-        MPN,
-        stockTracked,
-        salesChannelName,
-        createdOn,
-        updatedOn,
-        brightpearlCategoryCode,
-        productGroupId,
-        brandId,
-        productTypeId,
-        productStatus,
-        primarySupplierId,
-      ] = res.data.response.results[0];
 
-      const bpProduct: BpProductInfo = {
-        productId,
-        productName,
-        SKU,
-        barcode,
-        EAN,
-        UPC,
-        ISBN,
-        MPN,
-        stockTracked,
-        salesChannelName,
-        createdOn,
-        updatedOn,
-        brightpearlCategoryCode,
-        productGroupId,
-        brandId,
-        productTypeId,
-        productStatus,
-        primarySupplierId,
-      };
+      const bpProduct = parseProduct(res.data.response.results[0]);
 
       resolve(bpProduct);
     } catch (err) {

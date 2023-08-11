@@ -20,44 +20,33 @@ const applyMaxLimit = (
   });
 
 function notifyFulfillmentStatus(res: PromiseSettledResult<any>[]) {
-  function countFulfilled(allSettledResult: PromiseSettledResult<any>[]) {
-    function countIfFulfilled(a: any, c: any) {
+  console.log(
+    `${res.reduce(function (a: any, c: any) {
       return c.status === "fulfilled" ? a + 1 : a;
-    }
-    return allSettledResult.reduce(countIfFulfilled, 0);
-  }
-
-  console.log(`${countFulfilled(res)}/${res.length} fulfilled`);
-}
-
-// add max 5 limit to products
-function applyMaxOderQtyToBrand(
-  store: string,
-  brandName: string,
-  limit: number
-) {
-  return new Promise(function (resolve, reject) {
-    require("../../config/config").config(store);
-    getProductsByBrand(brandName)
-      .then((products: Product[]) => {
-        applyMaxLimit(products, limit)
-          .then(notifyFulfillmentStatus)
-          .then(resolve)
-          .catch(reject);
-      })
-      .catch(reject);
-  });
+    }, 0)}/${res.length} fulfilled`
+  );
 }
 
 const storeDetails = [
   {
     store: "bf",
     brand: "The Ordinary",
+    limit: 0,
   },
 ];
 
 (async function () {
   for (const d of storeDetails) {
-    await applyMaxOderQtyToBrand(d.store, d.brand, 0);
+    await new Promise(function (resolve, reject) {
+      require("../../config/config").config(d.store);
+      getProductsByBrand(d.brand)
+        .then((products: Product[]) => {
+          applyMaxLimit(products, d.limit)
+            .then(notifyFulfillmentStatus)
+            .then(resolve)
+            .catch(reject);
+        })
+        .catch(reject);
+    });
   }
 })();

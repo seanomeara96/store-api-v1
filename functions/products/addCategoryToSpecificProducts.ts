@@ -6,11 +6,11 @@ import { addCatToProduct } from "./addCatToProduct";
  * @param {number} categoryId
  * @returns
  */
-export const addCategoryToSpecificProducts = (
+export function addCategoryToSpecificProducts(
   productIds: { [key: string]: number }[],
   categoryId: number
-) =>
-  new Promise((resolve, reject) => {
+) {
+  return new Promise((resolve, reject) => {
     if (!Array.isArray(productIds) || typeof categoryId !== "number")
       return reject("please check paramters");
     const promises = productIds.map((productId) => {
@@ -20,4 +20,4 @@ export const addCategoryToSpecificProducts = (
     });
     Promise.allSettled(promises).then(resolve).catch(reject);
   });
-
+}

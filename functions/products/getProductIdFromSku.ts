@@ -8,7 +8,7 @@ export function getProductIdFromSku(sku: string):Promise<number> {
         }
       );
       if (!res.data.data.length) {
-        return resolve(0)
+         throw "no product"
       }
       resolve(res.data.data[0].product_id);
     } catch (err) {
