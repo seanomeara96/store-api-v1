@@ -1,0 +1,26 @@
+<div style="font-size: 16px;">
+  <p style="text-align: center; font-weight: bold; font-size: 20px;">Congratulations {{ event.customer.first_name|default:'' }}!</p>
+  <p dir="ltr" style="text-align: center;">You&rsquo;ve been upgraded to Bronze tier</p>
+
+  <div style="margin-top: 32px; margin-bottom: 48px; font-size: 24px">
+    <p dir="ltr" style="text-align: center; padding-bottom: 10px;">
+        You now have <span>{{ event.customer.points_balance|default:'' }}</span> points
+      </p>
+    <p dir="ltr" style="text-align: center;  font-weight: bold; padding-bottom: 10px;">
+      {% if event.customer.points_balance > 300 %}
+        You can redeem for &euro;15 Off your next order{% elif event.customer.points_balance > 200 %}You can redeem for &euro;10 Off your next order{% elif event.customer.points_balance > 100 %}You can redeem for &euro;5 Off your next order
+      {% endif %}
+    </p>
+    {% if event.customer.points_balance > 100 %}
+      <p style="text-align: center;  padding-bottom: 10px;">
+        <a href="https://www.beautyfeatures.ie">Shop now to redeem</a>
+      </p>
+    {% endif %}
+  </div>
+
+  <p dir="ltr" style="text-align: center;">
+    Or you can soon redeem a Free{% if event.customer.points_balance < 200 %}
+      Color Wow Dream Filter{% elif event.customer.points_balance < 300 %}Kerastase Elixir Ultime{% elif event.customer.points_balance < 400 %}Moroccanoil Treatment Oil{% elif event.customer.points_balance < 600 %}Dermalogica Skin Smoothing Cream{% elif event.customer.points_balance < 1000 %}L'Oreal Steampod
+    {% endif %}
+  </p>
+</div>

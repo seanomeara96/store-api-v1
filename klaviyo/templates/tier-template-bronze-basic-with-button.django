@@ -1,0 +1,22 @@
+<p style="text-align: center; font-weight: bold; font-size: 30px; padding-bottom: 10px;">Congratulations {{ event.customer.first_name|default:'' }}!</p>
+<p dir="ltr" style="text-align: center;  font-weight: bold; padding-bottom: 10px; font-size: 24px;">
+  {% if event.customer.points_balance > 300 %}
+    You can redeem <span data-discount style="font-size:26px;">&euro;15 Off</span> your next order
+  {% elif event.customer.points_balance > 200 %}
+    You can redeem <span data-discount style="font-size:26px;">&euro;10 Off</span> your next order
+  {% elif event.customer.points_balance > 100 %}
+    You can redeem <span data-discount style="font-size:26px;">&euro;5 Off</span> your next order
+  {% endif %}
+</p>
+{% if event.customer.points_balance > 100 %}
+  <p style="text-align: center;  padding: 10px;">
+    <a style="text-decoration: none; color: #ffffff !important;" href="https://www.beautyfeatures.ie"><span style="
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        background-color: #000000; 
+        padding: 10px;
+        font-size: 20px;
+        ">Shop Now</span></a>
+  </p>
+{% endif %}
