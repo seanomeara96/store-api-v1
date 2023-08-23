@@ -9,7 +9,7 @@ const db = new Database(path.resolve(__dirname, "./emails.db"));
 
 type stores  = "bf" | "ih"
 
-const store: stores = "bf"
+const store: stores = "ih"
 
 
 async function main() {

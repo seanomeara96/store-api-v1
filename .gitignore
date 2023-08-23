@@ -7,3 +7,4 @@ pixie/**/main.db
 emails.db
 email-data.ts
 *.db
+**/cache.json

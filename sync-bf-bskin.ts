@@ -79,7 +79,7 @@ async function main() {
       continue;
     }
 
-    const brand_name = brand.name;
+    const brand_name = brand?.name;
 
     const productCreationFields: productCreationFields = {
       name: product.name,

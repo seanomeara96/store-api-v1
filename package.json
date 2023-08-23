@@ -44,7 +44,7 @@
     "reports": "npm run report && npm run audit && npm run seo",
     "bfOffers": "node ./scripts/automations/saleCategory.js",
     "countdown": "webpack",
-    "updateNewIn": "node ./scripts/automations/updateNewIn.js",
+    "updateNewIn": "ts-node ./scripts/automations/updateNewIn.js",
     "inventoryTracking": "node ./scripts/reports/inventoryTrackingReport.js",
     "needsContent": "node ./scripts/reports/inStockNeedsContent.js"
   },
