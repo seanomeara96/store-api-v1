@@ -3,6 +3,7 @@ import { getAllOrders } from "../functions/orders/getAllOrders";
 import path from "path";
 import { Database } from "sqlite3";
 import { getOrderProducts } from "../functions/orders/getOrderProducts";
+import { Order } from "../functions/orders/Order";
 require("../config/config").config("bf", 2);
 
 const db = new Database(path.resolve(__dirname, "main.db"));
@@ -26,15 +27,59 @@ class Client {
     });
   }
 
-  update() {
+  markOrderAsFullyRecorded(orderID: number) {
+    const q = /*SQL*/ `UPDATE orders SET fully_recorded = true WHERE id = ?`;
+    return new Promise((resolve, reject) =>
+      this.db.run(q, [orderID], (err) =>
+        err ? reject(err) : resolve(undefined)
+      )
+    );
+  }
+
+  async update() {
+    try {
+      const lastRecordedOrder = await this.getMaxOrderID();
+      const params = {
+        min_id: lastRecordedOrder,
+      };
+      const orders = await getAllOrders(params);
+      console.log(`${orders.length} new orders found`);
+      return this.saveOrderComponents(orders);
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async populate() {
+    try {
+      const oldestOrderID = await this.getMinOrderID();
+      const params = {
+        min_date_created: new Date("01/01/2022").toISOString(),
+        max_id: oldestOrderID,
+      };
+      const orders = await getAllOrders(params);
+      console.log(`${orders.length} new orders found`);
+      return this.saveOrderComponents(orders);
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  saveOrderComponents(orders: Order[]) {
+    console.log("updating database");
     return new Promise(async (resolve, reject) => {
       try {
-        const orders = await getAllOrders({
-          min_order_id: await this.getMaxOrderID(),
-        });
-        for (const order of orders) {
+        for (let i = 0; i < orders.length; i++) {
+          const order = orders[i];
+          console.log(`saving order ${i + 1} of ${orders.length}`);
+
           const products = await getOrderProducts(order);
-          for (const product of products) {
+          console.log(`order #${order.id} has ${products.length} products`);
+
+          for (let ii = 0; ii < products.length; ii++) {
+            const product = products[ii];
+            console.log(`saving product ${ii + 1} of ${products.length}`);
+
             await this.saveOrderProducts(
               order.id,
               product.product_id,
@@ -51,10 +96,21 @@ class Client {
     });
   }
 
-  getMaxOrderID() {
-    const q = /*SQL*/ `SELECT MAX(order_id) FROM order_qtys`;
+  getMaxOrderID(): Promise<number> {
+    const q = /*SQL*/ `SELECT MAX(order_id) as max_id FROM order_qtys`;
     return new Promise((resolve, reject) => {
-      this.db.get(q, (err, row) => (err ? reject(err) : resolve(row)));
+      this.db.get(q, (err, row: any) =>
+        err ? reject(err) : resolve(row.max_id)
+      );
+    });
+  }
+
+  getMinOrderID(): Promise<number> {
+    const q = /*SQL*/ `SELECT MIN(order_id) as max_id FROM order_qtys`;
+    return new Promise((resolve, reject) => {
+      this.db.get(q, (err, row: any) =>
+        err ? reject(err) : resolve(row.max_id)
+      );
     });
   }
 
@@ -98,8 +154,8 @@ class Client {
     });
   }
 
-  getProductSKUs():Promise<{sku:string}[]> {
-    const q = `SELECT DISTINCT sku FROM order_qtys LIMIT 100`;
+  getProductSKUs(): Promise<{ sku: string }[]> {
+    const q = /*SQL*/ `SELECT DISTINCT sku FROM order_qtys LIMIT 100`;
     return new Promise((resolve, reject) => {
       this.db.all(q, (err, rows: any) => (err ? reject(err) : resolve(rows)));
     });
@@ -120,52 +176,17 @@ const client = new Client(db);
 
 const app = express();
 
-app.get("/", async function (req, res) {
+app.get("/", function (req, res) {
+  res.sendFile(path.join(__dirname, "./templates/index.html"));
+});
+
+app.get("/trends", async function (req, res) {
   try {
-    const data = await client.getProductSKUs() as any[]
-    for(const d of data){
-        d.monthly_sales = await client.getMonthlySales(d.sku)
+    const data = (await client.getProductSKUs()) as any[];
+    for (const d of data) {
+      d.monthly_sales = await client.getMonthlySales(d.sku);
     }
-    const canvases = data.map(d => `<a href="/trends/${d.sku}"><div><canvas id="${d.sku}"></canvas></div></a>`).join("")
-    const functionCalls = data.map(d => `new Chart(document.getElementById('${d.sku}'), {
-        type: 'line',
-        data: {
-          labels: ${JSON.stringify(d.monthly_sales.map((row:any) => row.month))},
-          datasets: [{
-            label: 'Sales of ${d.sku}',
-            data: ${JSON.stringify(d.monthly_sales.map((row: any) => row.qty))},
-            borderWidth: 1
-          }]
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true
-            }
-          }
-        }
-      });`).join("")
-      
-      
-      res.send(`<!DOCTYPE html>
-      <html lang="en">
-      <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Document</title>
-      </head>
-      <body>
-          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(450px, 1fr))">
-              ${canvases}
-            </div>
-            
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-            
-            <script>
-              ${functionCalls}
-            </script>
-      </body>
-      </html>`)
+    res.json(data);
   } catch {
     res.sendStatus(500);
   }
@@ -178,62 +199,11 @@ app.get("/trends/:sku", async function (req, res) {
         ? await client.getMonthlySales(req.params.sku)
         : await client.getDailySales(req.params.sku);
 
-    res.send(/*HTML*/ `<!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-    </head>
-    <body>
-        <div>
-            <canvas id="myChart"></canvas>
-          </div>
-          
-          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-          
-          <script>
-            const ctx = document.getElementById('myChart');
-          
-            new Chart(ctx, {
-              type: 'line',
-              data: {
-                labels: ${JSON.stringify(sales.map((row) => row.day))},
-                datasets: [{
-                  label: '# of Sales',
-                  data: ${JSON.stringify(sales.map((row) => row.qty))},
-                  borderWidth: 1
-                }]
-              },
-              options: {
-                scales: {
-                  y: {
-                    beginAtZero: true
-                  }
-                }
-              }
-            });
-          </script>
-    </body>
-    </html>`);
+    res.json(sales);
   } catch (err) {
     console.log(err);
     res.sendStatus(500);
   }
 });
 
-app.get("/trends/:sku/json", async function (req, res) {
-  try {
-    const dailySales = (await client.getDailySales(req.params.sku)) as {
-      day: string;
-      qty: number;
-    }[];
-
-    res.json(dailySales);
-  } catch (err) {
-    console.log(err);
-    res.sendStatus(500);
-  }
-});
-
-app.listen(3000, () => console.log(`listening`));
+client.update().then(() => app.listen(3000, () => console.log(`listening`)));

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trends</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      body {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      fetch("/trends")
+        .then(res => {
+          if(res.ok){
+            return res
+          }
+          throw "something went wrong"
+        })
+        .then((res) => res.json())
+        .then((data) => {
+          for (const d of data) {
+            const container = document.createElement("div");
+            const canvas = document.createElement("canvas");
+            new Chart(canvas, {
+              type: "line",
+              data: {
+                labels: d.monthly_sales.map((r) => r.month),
+                datasets: [
+                  {
+                    label: "# of Sales",
+                    data: d.monthly_sales.map((r) => r.qty),
+                    borderWidth: 1,
+                  },
+                ],
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                  },
+                },
+              },
+            });
+            container.appendChild(canvas);
+            document.body.appendChild(container);
+          }
+        }).catch(console.log)
+    </script>
+  </body>
+</html>

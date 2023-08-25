@@ -94,7 +94,7 @@ async function report(store: string, itemRecords: ItemRecord[]) {
     const ordersDelivered = anPostOrdersAndShipments.filter(
       (a) => a.deliveryRecord
     );
-    const out = ordersDelivered.map((o) => ({
+    let out = ordersDelivered.map((o) => ({
       name: o.order.billing_address.first_name,
       email: o.order.billing_address.email,
       order_id: o.order.id,
@@ -104,7 +104,15 @@ async function report(store: string, itemRecords: ItemRecord[]) {
       tracking_number: o.shipment.tracking_number,
     }));
 
-    output(path.resolve(__dirname, `./${store}-output.csv`), out, true);
+    let gmails = []
+    for(const o of out){
+      if(o.email.includes("gmail.com")){
+        gmails.push(o)
+      }
+    }
+
+    fs.writeFileSync(path.resolve(__dirname, `./${store}-email.json`), JSON.stringify(gmails), {encoding: "utf-8"})
+    console.log("done", store)
   } catch (err) {
     console.log(err);
   }
