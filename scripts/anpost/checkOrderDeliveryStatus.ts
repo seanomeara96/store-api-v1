@@ -1,3 +1,4 @@
+import path from "path";
 import fs from "fs";
 import { getItemRecords } from "../../anpost/getItemRecords";
 import { ItemRecord } from "../../anpost/parseFileContents";
@@ -7,10 +8,10 @@ import {
   Shipment,
   getOrderShipment,
 } from "../../functions/orders/getOrderShipment";
-import { output } from "../utils/output";
-import path from "path";
+import { sendGooglReviewRequestEmail } from "../email/google-review";
 
-async function report(store: string, itemRecords: ItemRecord[]) {
+type store = "bf" | "ih";
+async function report(store: store, itemRecords: ItemRecord[]) {
   require("../../config/config").config(store, 2);
   try {
     const minDate = new Date();
@@ -76,7 +77,7 @@ async function report(store: string, itemRecords: ItemRecord[]) {
         );
 
         const matchingCode = itemCodeString === shipmentItemNumber;
-        const itemIsDelivered = item.DELIVERY_STATUS == "DELIVERED";
+        const itemIsDelivered = item.DELIVERY_STATUS === "DELIVERED";
 
         return matchingCode && itemIsDelivered;
       });
@@ -104,25 +105,61 @@ async function report(store: string, itemRecords: ItemRecord[]) {
       tracking_number: o.shipment.tracking_number,
     }));
 
-    let gmails = []
-    for(const o of out){
-      if(o.email.includes("gmail.com")){
-        gmails.push(o)
+    let gmails = [];
+    for (const o of out) {
+      if (o.email.includes("gmail.com")) {
+        gmails.push(o);
       }
     }
-
-    fs.writeFileSync(path.resolve(__dirname, `./${store}-email.json`), JSON.stringify(gmails), {encoding: "utf-8"})
-    console.log("done", store)
+    console.log(
+      "calling sendGooglReviewRequestEmail with gmails.length",
+      gmails.length,
+      "store: ",
+      store
+    );
+    await sendGooglReviewRequestEmail(gmails, store);
+    console.log("done", store);
   } catch (err) {
     console.log(err);
   }
 }
 
+function getTodaysCachePath() {
+  const today = new Date();
+  const todaysHyphenatedDate = today.toLocaleDateString().replace(/\//g, "-");
+  const cacheFileName = todaysHyphenatedDate + ".cache.json";
+  return path.resolve(__dirname, cacheFileName);
+}
+
+function cacheItemRecords(itemRecords: ItemRecord[], cacheFilePath: string) {
+  const itemRecordsNoDateObjects = itemRecords.map((r) => ({
+    ...r,
+    SCAN_DATE: r.SCAN_DATE.toISOString(),
+  }));
+  const itemRecordsString = JSON.stringify(itemRecordsNoDateObjects);
+  // save down the records for future reference
+  fs.writeFileSync(cacheFilePath, itemRecordsString, {encoding: "utf-8"});
+}
+
 async function main() {
-  require("../../config/config")
-  const itemRecords = await getItemRecords();
-  for (const store of ["bf", "ih"]) {
-    await report(store, itemRecords);
+  try {
+    require("../../config/config");
+    
+    const cacheFilePath = getTodaysCachePath();
+    let itemRecords;
+    if (fs.existsSync(cacheFilePath)) {
+      console.log(`cached data exists`);
+      const fileContents = fs.readFileSync(cacheFilePath, {encoding: "utf-8"});
+      itemRecords = JSON.parse(fileContents);
+    }
+    itemRecords = await getItemRecords();
+    cacheItemRecords(itemRecords, cacheFilePath);
+    const stores = ["bf", "ih"] as store[];
+    for (const store of stores) {
+      await report(store, itemRecords);
+    }
+  } catch (err) {
+    console.log(err);
   }
 }
 main();

@@ -14,16 +14,17 @@ import { getProductById } from "./functions/products/getProductById";
 import { getProductVariants } from "./functions/products/getProductVariants";
 
 async function main() {
-  // { brand_id: 18 }
-  // 85
-  // ah const srcFilter = { "categories:in": 12 };
-  // ah const destinationDummyCategoryID = 190;
 
-  const srcFilter = { brand_id: 18 }; // bsk
-  const destinationDummyCategoryID = 85; // bsk
+  // ah 
+  const srcFilter = { "categories:in": 12 };
+  // ah 
+  const destinationDummyCategoryID = 190;
+
+ // const srcFilter = { brand_id: 18 }; // bsk
+ // const destinationDummyCategoryID = 85; // bsk
   const src = "bf";
-  const destination = "bsk";
-  const destination_name = "BeautySkincare";
+  const destination = "ah";
+  const destination_name = "AllHair";
   const src_name = "beautyfeatures";
 
   const match_src_name = new RegExp(src_name, "gi");

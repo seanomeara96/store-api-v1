@@ -8,3 +8,4 @@ emails.db
 email-data.ts
 *.db
 **/cache.json
+**/*.cache.json

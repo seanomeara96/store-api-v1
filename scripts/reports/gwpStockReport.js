@@ -74,9 +74,9 @@ const campaigns = [
     store: "bf",
     identifier: "Bare By Vogue",
     thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/7034/16761/Bare_By_Vogue_Water_Bottle_GWP_1__91000.1686665235.jpg?c=2&imbypass=on",
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/7034/17021/Bare_By_Vogue_Water_Bottle_GWP_2_1__46273.1692181937.jpg?c=2&imbypass=on",
     full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/7034/16761/Bare_By_Vogue_Water_Bottle_GWP_1__91000.1686665235.jpg?c=2&imbypass=on",
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/7034/17021/Bare_By_Vogue_Water_Bottle_GWP_2_1__46273.1692181937.jpg?c=2&imbypass=on",
     headline: "Free Bare By Vogue Water Bottle",
     worth: 20,
     condition: "When you spend €30 on Bare By Vogue",
@@ -99,38 +99,6 @@ const campaigns = [
     sku: "11099e",
     sku_type: "product",
     display: "TRUE",
-    destination_url: "https://www.beautyfeatures.ie/brands/redken",
-  },
-  {
-    type: "category",
-    store: "bf",
-    identifier: "Top Brands/Redken/All Soft",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5917/11577/Redken_-_All_Soft_Shampoo_300ml__47580.1620983464.1280.1280__46003.1651581747.jpg",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/5917/11577/Redken_-_All_Soft_Shampoo_300ml__47580.1620983464.1280.1280__46003.1651581747.jpg",
-    headline: "Free Redken All Soft Travel Size",
-    worth: 5,
-    condition: "When you spend €40 on the Redken All Soft range",
-    sku: "11099a",
-    sku_type: "product",
-    display: "FALSE",
-    destination_url: "https://www.beautyfeatures.ie/brands/redken",
-  },
-  {
-    type: "category",
-    store: "bf",
-    identifier: "Top Brands/Redken/Color Extend",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5918/11579/Redken_-_Colour_Extend_Shampoo_300ml__31943.1622627138.1280.1280__35477.1651582462.jpg",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/5918/11579/Redken_-_Colour_Extend_Shampoo_300ml__31943.1622627138.1280.1280__35477.1651582462.jpg",
-    headline: "Free Redken Color Extend Travel Size",
-    worth: 5,
-    condition: "When you spend €40 on the Redken Color Extend range",
-    sku: "11099c",
-    sku_type: "product",
-    display: "FALSE",
     destination_url: "https://www.beautyfeatures.ie/brands/redken",
   },
   {
@@ -266,40 +234,6 @@ const campaigns = [
     store: "bf",
     identifier: "L'Oreal Professionnel",
     thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6238/13692/LOreal_Professionnel_Absolut_Repair_Oil_30ml_1__86612.1658474966.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6238/13692/LOreal_Professionnel_Absolut_Repair_Oil_30ml_1__86612.1658474966.jpg?c=2&imbypass=on",
-    headline: "Free L'Oreal Professionnel Absolut Repair Oil 30ml",
-    worth: 10,
-    condition: "When you spend €40 on L'Oreal Professionnel",
-    sku: "11790",
-    sku_type: "product",
-    display: "FALSE",
-    destination_url:
-      "https://www.beautyfeatures.ie/loreal-makeup-hair-fragrance-and-skincare/",
-  },
-  {
-    type: "category",
-    store: "bf",
-    identifier: "Top Brands/L'Oreal/Absolut Repair",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6239/13785/LOreal_Professionnel_Absolut_Repair_Golden_Lightweight_Mask_75ml_1__75912.1659008615.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6239/13785/LOreal_Professionnel_Absolut_Repair_Golden_Lightweight_Mask_75ml_1__75912.1659008615.jpg?c=2&imbypass=on",
-    headline:
-      "L'Oreal Professionnel Absolut Repair Golden Lightweight Mask 75ml",
-    worth: 8,
-    condition: "When You Spend €30 on the L'Oreal Absolut Repair range",
-    sku: "11791",
-    sku_type: "product",
-    display: "FALSE",
-    destination_url: "https://www.beautyfeatures.ie/absolut-repair/",
-  },
-  {
-    type: "brand",
-    store: "bf",
-    identifier: "L'Oreal Professionnel",
-    thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6240/13707/Loreal_Professional_Mini_Collection_1__50255.1658477606.jpg?c=2&imbypass=on",
     full_img:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6240/13707/Loreal_Professional_Mini_Collection_1__50255.1658477606.jpg?c=2&imbypass=on",
@@ -329,6 +263,23 @@ const campaigns = [
     display: "TRUE",
     destination_url:
       "https://www.beautyfeatures.ie/loreal-makeup-hair-fragrance-and-skincare/",
+  },
+  {
+    type: "brand",
+    store: "bf",
+    identifier: "L'Oreal Professionnel",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/7092/16952/Kerastase_Soleil_Travel_Kit_GWP_1__14339.1689937596.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/7092/16952/Kerastase_Soleil_Travel_Kit_GWP_1__14339.1689937596.jpg?c=2&imbypass=on",
+    headline: "Free Kerastase Soleil Travel Kit worth €60",
+    worth: 60,
+    condition: "When you purchase a Steampod V4",
+    sku: "13093",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url:
+      "https://www.beautyfeatures.ie/loreal-professionnel-steampod-4-0/",
   },
   {
     type: "category",
@@ -512,6 +463,38 @@ const campaigns = [
   {
     type: "brand",
     store: "bf",
+    identifier: "Zadig & Voltaire",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6728/17035/Zadig_Voltaire_Pouch_GWP_1__86807.1692692313.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6728/17035/Zadig_Voltaire_Pouch_GWP_1__86807.1692692313.jpg?c=2&imbypass=on",
+    headline: "Free Zadig & Voltaire Pouch",
+    worth: null,
+    condition: "With every Zadig & Voltaire purchase",
+    sku: "12538",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/zadig-voltaire/",
+  },
+  {
+    type: "brand",
+    store: "bf",
+    identifier: "Zadig & Voltaire",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6729/17036/Zadig_Voltaire_Tote_Bag_GWP_1__78679.1692692498.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6729/17036/Zadig_Voltaire_Tote_Bag_GWP_1__78679.1692692498.jpg?c=2&imbypass=on",
+    headline: "Free Zadig & Voltaire Tote Bag",
+    worth: null,
+    condition: "When you buy 2 or more Zadig & Voltaire products",
+    sku: "12539",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/zadig-voltaire/",
+  },
+  {
+    type: "brand",
+    store: "bf",
     identifier: "Shiseido",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6479/14704/Shiseido_WASO_Yuzu-C_Beauty_Sleeping_Mask_15ml_GWP_1__29363.1673441326.jpg?c=2&imbypass=on",
@@ -523,22 +506,6 @@ const campaigns = [
     sku: "12168",
     sku_type: "product",
     display: "TRUE",
-    destination_url: "https://www.beautyfeatures.ie/shiseido/",
-  },
-  {
-    type: "brand",
-    store: "bf",
-    identifier: "Shiseido",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6480/14510/Shiseido_WASO_Shikulime_Mega_Hydrating_Moisturiser_15ml_GWP_1__29172.1671005916.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6480/14510/Shiseido_WASO_Shikulime_Mega_Hydrating_Moisturiser_15ml_GWP_1__29172.1671005916.jpg?c=2&imbypass=on",
-    headline: "Free WASO Shikulime Hydrating Moisturiser 15ml worth €11",
-    worth: 11,
-    condition: "When you spend €80 on Shiseido",
-    sku: "12169",
-    sku_type: "product",
-    display: "FALSE",
     destination_url: "https://www.beautyfeatures.ie/shiseido/",
   },
   {

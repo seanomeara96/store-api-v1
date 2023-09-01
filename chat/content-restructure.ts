@@ -104,6 +104,7 @@ async function main() {
       }
 
       const start = performance.now();
+
       let completion: CreateChatCompletionResponse;
       try {
         let { data } = await openai.createChatCompletion({
@@ -133,6 +134,7 @@ async function main() {
       }
 
       const end = performance.now();
+
       console.log(`ChatGPT Execution time: ${(end - start) / 1000} s`);
 
       if (!completion.choices.length || !completion.choices[0].message) {
@@ -181,7 +183,7 @@ main();
 
 function initDB() {
   return new Promise(function (resolve, reject) {
-    const script = `CREATE TABLE IF NOT EXISTS changes (
+    const script = /*SQL*/`CREATE TABLE IF NOT EXISTS changes (
       product_id INTEGER,
       updated BOOLEAN
     );
