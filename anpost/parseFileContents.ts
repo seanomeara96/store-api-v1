@@ -12,7 +12,7 @@ export interface ItemRecord {
   COUNTRY_CODE: string;
   CUSTOMER_ITEM_ID: string;
   SCAN_TYPE: string;
-  SCAN_DATE: Date;
+  SCAN_DATE: string;
   LOCATION: string;
   DESTINATION_OFFICE?: string;
   DESTINATION_COUNTRY?: string;
@@ -106,7 +106,7 @@ function parseDateString(dateString: string) {
   const minutes = parseInt(dateString.substring(10, 12));
   const seconds = parseInt(dateString.substring(12, 14));
 
-  return new Date(year, month - 1, day, hours, minutes, seconds);
+  return new Date(year, month - 1, day, hours, minutes, seconds).toISOString()
 }
 
 (() => console.log(

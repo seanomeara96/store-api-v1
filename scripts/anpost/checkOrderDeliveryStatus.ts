@@ -101,7 +101,7 @@ async function report(store: store, itemRecords: ItemRecord[]) {
       order_id: o.order.id,
       ordered_at: new Date(o.order.date_created).toISOString(),
       despatched_at: new Date(o.shipment.date_created).toISOString(),
-      delivered_at: o.deliveryRecord?.SCAN_DATE.toISOString(),
+      delivered_at: o.deliveryRecord?.SCAN_DATE,
       tracking_number: o.shipment.tracking_number,
     }));
 
@@ -132,27 +132,26 @@ function getTodaysCachePath() {
 }
 
 function cacheItemRecords(itemRecords: ItemRecord[], cacheFilePath: string) {
-  const itemRecordsNoDateObjects = itemRecords.map((r) => ({
-    ...r,
-    SCAN_DATE: r.SCAN_DATE.toISOString(),
-  }));
-  const itemRecordsString = JSON.stringify(itemRecordsNoDateObjects);
+  const itemRecordsString = JSON.stringify(itemRecords);
   // save down the records for future reference
-  fs.writeFileSync(cacheFilePath, itemRecordsString, {encoding: "utf-8"});
+  fs.writeFileSync(cacheFilePath, itemRecordsString, { encoding: "utf-8" });
 }
 
 async function main() {
   try {
     require("../../config/config");
-    
+
     const cacheFilePath = getTodaysCachePath();
     let itemRecords;
     if (fs.existsSync(cacheFilePath)) {
       console.log(`cached data exists`);
-      const fileContents = fs.readFileSync(cacheFilePath, {encoding: "utf-8"});
+      const fileContents = fs.readFileSync(cacheFilePath, {
+        encoding: "utf-8",
+      });
       itemRecords = JSON.parse(fileContents);
+    } else {
+      itemRecords = await getItemRecords();
     }
-    itemRecords = await getItemRecords();
     cacheItemRecords(itemRecords, cacheFilePath);
     const stores = ["bf", "ih"] as store[];
     for (const store of stores) {
