@@ -1,3 +1,4 @@
+import { Product } from "../../functions/products/Product";
 
 /**
  * e.g. .15 = 15%
@@ -5,11 +6,11 @@
  * @param {*} percentageAsDecimal 
  * @returns 
  */
-function percentageDiscount(priceToReduce, percentageAsDecimal) {
+export function percentageDiscount(priceToReduce: number, percentageAsDecimal: number) {
   return Math.round(priceToReduce * (1 - percentageAsDecimal) * 100) / 100;
 }
 
-exports.percentageDiscount = percentageDiscount;
+
 
 /**
  * 
@@ -18,7 +19,7 @@ exports.percentageDiscount = percentageDiscount;
  * @param {*} discount 
  * @returns 
  */
-function getPrices(el, discountFn, discount) {
+export function getPrices(el:Product, discountFn: (a: number, b: number) => number, discount: number) {
   return {
     default_price: el.price,
     id: el.id,
@@ -28,4 +29,4 @@ function getPrices(el, discountFn, discount) {
   };
 }
 
-exports.getPrices = getPrices;
+

@@ -20,8 +20,8 @@ async function main() {
   // ah 
   const destinationDummyCategoryID = 190;
 
- // const srcFilter = { brand_id: 18 }; // bsk
- // const destinationDummyCategoryID = 85; // bsk
+  //const srcFilter = { brand_id: 18 }; // bsk
+  //const destinationDummyCategoryID = 85; // bsk
   const src = "bf";
   const destination = "ah";
   const destination_name = "AllHair";

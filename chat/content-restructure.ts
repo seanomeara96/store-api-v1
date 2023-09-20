@@ -21,7 +21,7 @@ function pixiePrompt(productDescription: string) {
   
   <h3>Answered by Pixie:</h3>
   (Answer a question or two that is typically asked about this type of product. Do not use list elements in this section. Format example: <strong>Question: Question goes here</strong><br /><span>Answer: Answer goes here</span><br/><br/>)
-  '. Replace any instance of 'beautyfeatures.ie' with "pixieloves.ie". Output as HTML.`;
+  '. Replace any instance of 'beautyfeatures.ie' with "pixieloves.ie". Remove all internal links. Unordered list-items only. Output in MARKUP format`;
 }
 function allhairPrompt(productDescription: string) {
   return `You are a content writer for the allhair haircare store. Rewrite this content: "${productDescription}" so that it conforms to the following structure. 
@@ -44,7 +44,7 @@ function allhairPrompt(productDescription: string) {
   '. Unordered list-items only. Output in MARKUP format`;
 }
 
-require("../config/config").config("ah");
+require("../config/config").config("px");
 
 function htmlToText(html: string) {
   return convert(html);
@@ -56,16 +56,19 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-const db = new sqlite.Database(path.resolve(__dirname, "changes.db"));
+const db = new sqlite.Database(path.resolve(__dirname, "pxchanges.db"));
 
 async function main() {
   try {
     await initDB();
 
-    const productsInAllHairDummyCategory = { "categories:in": 190 } 
-    const allProducts = await getAllProducts(productsInAllHairDummyCategory);
+    //const productsInAllHairDummyCategory = { "categories:in": 190 }
+    //const allProducts = await getAllProducts(productsInAllHairDummyCategory);
 
-    if (!(await countIDs())) {
+    const allProducts = await getAllProducts();
+
+    const dontHaveProductsToUpdate = !(await countAllProductIDs());
+    if (dontHaveProductsToUpdate) {
       for (const product of allProducts) {
         try {
           console.log(`preparing product ${product.id}`);
@@ -85,8 +88,8 @@ async function main() {
     for (let i = 0; i < products.length; i++) {
       const product = products[i];
 
-      if(product.description === ""){
-        continue
+      if (product.description === "") {
+        continue;
       }
 
       const productDescription = htmlToText(product.description);
@@ -110,11 +113,11 @@ async function main() {
         let { data } = await openai.createChatCompletion({
           model: "gpt-4",
           messages: [
-            { role: "user", content: allhairPrompt(productDescription) },
+            { role: "user", content: pixiePrompt(productDescription) },
           ],
         });
 
-        completion = data
+        completion = data;
       } catch (err: any) {
         if (
           err.response.data.error &&
@@ -183,7 +186,7 @@ main();
 
 function initDB() {
   return new Promise(function (resolve, reject) {
-    const script = /*SQL*/`CREATE TABLE IF NOT EXISTS changes (
+    const script = /*SQL*/ `CREATE TABLE IF NOT EXISTS changes (
       product_id INTEGER,
       updated BOOLEAN
     );
@@ -250,7 +253,7 @@ function saveOldContent(product: Product) {
   });
 }
 
-function countIDs(): Promise<number> {
+function countAllProductIDs(): Promise<number> {
   return new Promise(function (resolve, reject) {
     db.get(`SELECT count(product_id) AS count FROM changes`, (err, row: any) =>
       err ? reject(err) : resolve(row.count as number)
