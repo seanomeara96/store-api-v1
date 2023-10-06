@@ -1,6 +1,6 @@
-import { CreateProductVariantOptionParams } from "./ProductVariantOption";
+import { CreateProductVariantOptionParams, ProductVariantOption } from "./ProductVariantOption";
 
-export function createProductVariantOption(product_id: number, createProductVariantOptionParams: CreateProductVariantOptionParams) {
+export function createProductVariantOption(product_id: number, createProductVariantOptionParams: CreateProductVariantOptionParams):Promise<ProductVariantOption> {
   return new Promise(async function (resolve, reject) {
     try {
       const res = await require("../../config/config").store.post(

@@ -39,6 +39,7 @@ type OptionTypes =
     sort_order: number;
   };
   option_values: {
+    id: number | undefined;
     is_default?: boolean;
     label: string;
     sort_order: number;
