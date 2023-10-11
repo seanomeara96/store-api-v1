@@ -24,6 +24,22 @@ const campaigns = [
   {
     type: "brand",
     store: "bf",
+    identifier: "Alfaparf",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/7245/17226/extreme_anti_snap_shampoo_gwp__58324.1695908866.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/7245/17226/extreme_anti_snap_shampoo_gwp__58324.1695908866.jpg?c=2&imbypass=on",
+    headline: "Free Alfaparf Travel Bag",
+    worth: null,
+    condition: "When you spend €20 or more on Alfaparf",
+    sku: "6481A",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/brands/Alfaparf.html",
+  },
+  {
+    type: "brand",
+    store: "bf",
     identifier: "Kerastase",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5687/10648/Krastase_Chroma_Absolu_Bain_Riche_Chroma_Respect_80ml_1__89345.1644404708.png?c=2&imbypass=on",
@@ -130,7 +146,7 @@ const campaigns = [
     condition: "When you spend €40 on the Redken All Soft range",
     sku: "12289",
     sku_type: "product",
-    display: "TRUE",
+    display: "FALSE",
     destination_url: "https://www.beautyfeatures.ie/brands/redken",
   },
   {
@@ -146,7 +162,7 @@ const campaigns = [
     condition: "When you spend €40 on the Redken All Soft range",
     sku: "12289",
     sku_type: "product",
-    display: "TRUE",
+    display: "FALSE",
     destination_url: "https://www.beautyfeatures.ie/brands/redken",
   },
   {
@@ -265,23 +281,6 @@ const campaigns = [
       "https://www.beautyfeatures.ie/loreal-makeup-hair-fragrance-and-skincare/",
   },
   {
-    type: "brand",
-    store: "bf",
-    identifier: "L'Oreal Professionnel",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/7092/16952/Kerastase_Soleil_Travel_Kit_GWP_1__14339.1689937596.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/7092/16952/Kerastase_Soleil_Travel_Kit_GWP_1__14339.1689937596.jpg?c=2&imbypass=on",
-    headline: "Free Kerastase Soleil Travel Kit worth €60",
-    worth: 60,
-    condition: "When you purchase a Steampod V4",
-    sku: "13093",
-    sku_type: "product",
-    display: "TRUE",
-    destination_url:
-      "https://www.beautyfeatures.ie/loreal-professionnel-steampod-4-0/",
-  },
-  {
     type: "category",
     store: "bf",
     identifier: "Top Brands/L'Oreal/Pro Longer",
@@ -294,7 +293,7 @@ const campaigns = [
     condition: "When You Spend €30 on the L'Oreal Pro Longer range",
     sku: "11794",
     sku_type: "product",
-    display: "TRUE",
+    display: "FALSE",
     destination_url: "https://www.beautyfeatures.ie/pro-longer/",
   },
   {
@@ -318,13 +317,13 @@ const campaigns = [
     store: "bf",
     identifier: "Dermalogica",
     thumbnail:
-      "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/75x75/products/617/1284/Dermalogica_Daily_Skin_Polish_GWP_1__08337__13385.1690538782.jpg?c=2&imbypass=on",
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/7197/17300/extreme_anti_snap_shampoo_gwp_1__94066.1696844988.jpg?c=2&imbypass=on",
     full_img:
-      "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/300x300/products/617/1284/Dermalogica_Daily_Skin_Polish_GWP_1__08337__13385.1690538782.jpg?c=2&imbypass=on",
-    headline: "Free Dermalogica Daily Skin Polish Kit",
-    worth: 10,
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/7197/17300/extreme_anti_snap_shampoo_gwp_1__94066.1696844988.jpg?c=2&imbypass=on",
+    headline: "Free Dermalogica Brightening Heroes Kit",
+    worth: 26,
     condition: "When you spend €100 on Dermalogica",
-    sku: "13145",
+    sku: "13285",
     sku_type: "product",
     display: "TRUE",
     destination_url: "https://www.beautyfeatures.ie/brands/Dermalogica.html",
@@ -457,7 +456,7 @@ const campaigns = [
     condition: "When you spend €15 on Masks and Peels",
     sku: "11026",
     sku_type: "product",
-    display: "TRUE",
+    display: "FALSE",
     destination_url: "https://www.beautyfeatures.ie/carter-beauty/",
   },
   {
@@ -641,68 +640,73 @@ const campaigns = [
     store: "bsk",
     identifier: "Dermalogica",
     thumbnail:
-      "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/75x75/products/617/1284/Dermalogica_Daily_Skin_Polish_GWP_1__08337__13385.1690538782.jpg?c=2&imbypass=on",
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/7197/17300/extreme_anti_snap_shampoo_gwp_1__94066.1696844988.jpg?c=2&imbypass=on",
     full_img:
-      "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/300x300/products/617/1284/Dermalogica_Daily_Skin_Polish_GWP_1__08337__13385.1690538782.jpg?c=2&imbypass=on",
-    headline: "Free Dermalogica Daily Skin Polish Kit",
-    worth: 100,
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/7197/17300/extreme_anti_snap_shampoo_gwp_1__94066.1696844988.jpg?c=2&imbypass=on",
+    headline: "Free Dermalogica Brightening Heroes Kit",
+    worth: 26,
     condition: "When you spend €100 on Dermalogica",
-    sku: "13145",
+    sku: "13285",
     sku_type: "product",
     display: "TRUE",
     destination_url: "https://www.beautyskincare.ie/dermalogica",
   },
 ];
 
-getStoreSKUs(400)
-  .then(async function (productVariants) {
-    try {
-      for (let i = 0; i < campaigns.length; i++) {
+async function report() {
+  try {
+    const productVariants = await getStoreSKUs(400);
+
+    for (let i = 0; i < campaigns.length; i++) {
+      try {
         const variant = productVariants.find((o) => o.sku === campaigns[i].sku);
         campaigns[i].inventory_level = variant.inventory_level;
+      } catch (err) {
+        throw `${err}. Issue with sku: ${campaigns[i].sku}`;
       }
+    }
 
-      campaigns.sort(function ascendingInventory(a, b) {
-        return a.inventory_level - b.inventory_level;
-      });
+    campaigns.sort(function ascendingInventory(a, b) {
+      return a.inventory_level - b.inventory_level;
+    });
 
-      let email = "";
+    let email = "";
 
-      for (let i = 0; i < campaigns.length; i++) {
-        const data = campaigns[i];
-        const alert = data.inventory_level < 21 ? "style='color:red;'" : "";
-        email += /*html*/ `<p>
+    for (let i = 0; i < campaigns.length; i++) {
+      const data = campaigns[i];
+      const alert = data.inventory_level < 21 ? "style='color:red;'" : "";
+      email += /*html*/ `<p>
             <div><strong>${data.headline}</strong></div>
             <span style="padding-right: 20px">SKU: ${data.sku}</span>
             <span style="padding-right: 20px">Display: ${data.display}</span>
             <span>Inventory: <strong ${alert}>${data.inventory_level}</strong></span>
         </p>`;
-      }
+    }
 
+    const msg = {
+      to: "sean@beautyfeatures.ie",
+      from: "sean@beautyfeatures.ie",
+      subject: "GWP Stock Report",
+      text: "GWP Stock Report",
+      html: email,
+    };
+
+    await sgMail.send(msg);
+    console.log("Done");
+  } catch (err) {
+    try {
+      console.log(err);
       const msg = {
         to: "sean@beautyfeatures.ie",
         from: "sean@beautyfeatures.ie",
-        subject: "GWP Stock Report",
-        text: "GWP Stock Report",
-        html: email,
+        subject: "GWP Stock Report Failure",
+        text: err.toString ? err.toString() : err,
       };
-
       await sgMail.send(msg);
-      console.log("Done");
     } catch (err) {
-      try {
-        console.log(err);
-        const msg = {
-          to: "sean@beautyfeatures.ie",
-          from: "sean@beautyfeatures.ie",
-          subject: "GWP Stock Report Failure",
-          text: err.toString(),
-        };
-        await sgMail.send(msg);
-      } catch (err) {
-        console.log("failed to send error email");
-        console.log(err);
-      }
+      console.log("failed to send error email");
+      console.log(err);
     }
-  })
-  .catch(console.log);
+  }
+}
+report();
