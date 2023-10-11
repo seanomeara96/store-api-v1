@@ -301,22 +301,6 @@ const campaigns = [
     store: "bf",
     identifier: "Dermalogica",
     thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6640/15170/Jocio_Weekend_Hair_Dry_Shampoo_53ml_1__54832.1676892656.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6640/15170/Jocio_Weekend_Hair_Dry_Shampoo_53ml_1__54832.1676892656.jpg?c=2&imbypass=on",
-    headline: "Free Dynamic Skin Recovery SPF50 7ml",
-    worth: 18,
-    condition: "When you spend €80 on Dermalogica",
-    sku: "7806A",
-    sku_type: "product",
-    display: "FALSE",
-    destination_url: "https://www.beautyfeatures.ie/brands/Dermalogica.html",
-  },
-  {
-    type: "brand",
-    store: "bf",
-    identifier: "Dermalogica",
-    thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/7197/17300/extreme_anti_snap_shampoo_gwp_1__94066.1696844988.jpg?c=2&imbypass=on",
     full_img:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/7197/17300/extreme_anti_snap_shampoo_gwp_1__94066.1696844988.jpg?c=2&imbypass=on",
@@ -624,22 +608,6 @@ const campaigns = [
     store: "bsk",
     identifier: "Dermalogica",
     thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6640/15170/Jocio_Weekend_Hair_Dry_Shampoo_53ml_1__54832.1676892656.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6640/15170/Jocio_Weekend_Hair_Dry_Shampoo_53ml_1__54832.1676892656.jpg?c=2&imbypass=on",
-    headline: "Free Dynamic Skin Recovery SPF50 7ml",
-    worth: 18,
-    condition: "When you spend €80 on Dermalogica",
-    sku: "7806A",
-    sku_type: "product",
-    display: "FALSE",
-    destination_url: "https://www.beautyskincare.ie/dermalogica",
-  },
-  {
-    type: "brand",
-    store: "bsk",
-    identifier: "Dermalogica",
-    thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/7197/17300/extreme_anti_snap_shampoo_gwp_1__94066.1696844988.jpg?c=2&imbypass=on",
     full_img:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/7197/17300/extreme_anti_snap_shampoo_gwp_1__94066.1696844988.jpg?c=2&imbypass=on",
@@ -662,6 +630,7 @@ async function report() {
         const variant = productVariants.find((o) => o.sku === campaigns[i].sku);
         campaigns[i].inventory_level = variant.inventory_level;
       } catch (err) {
+        console.log(campaigns[i]);
         throw `${err}. Issue with sku: ${campaigns[i].sku}`;
       }
     }
