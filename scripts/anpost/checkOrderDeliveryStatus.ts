@@ -60,8 +60,6 @@ async function report(store: store, itemRecords: ItemRecord[]) {
       }
     }
 
-    // this all needs to be tested
-
     for (let i = 0; i < anPostOrdersAndShipments.length; i++) {
       const data = anPostOrdersAndShipments[i];
 
@@ -83,18 +81,14 @@ async function report(store: store, itemRecords: ItemRecord[]) {
       });
 
       data.deliveryRecord = deliveryRecord;
-      /**const timeToDelivery = shipment.date_created - deliveryRecord.SCAN_DATE;
-  
-      const timeisLessThan48Hours = timeToDelivery < 1000 * 60 * 60 * 48;
-      if (timeisLessThan48Hours) {
-        const email = order.email;
-        const name = order.name;
-        // send google review request email
-      } */
     }
+
+
     const ordersDelivered = anPostOrdersAndShipments.filter(
       (a) => a.deliveryRecord
     );
+
+
     let out = ordersDelivered.map((o) => ({
       name: o.order.billing_address.first_name,
       email: o.order.billing_address.email,
