@@ -1,18 +1,19 @@
 require("../../config/config")
-const { getAllProducts } = require("../../functions/products/getAllProducts");
+import { Product } from "../../functions/products/Product";
+import { getAllProducts } from "../../functions/products/getAllProducts";
 //const { getProductById } = require("../../functions/products/getProductById");
-const { getSiteUrl } = require("../../functions/utils/getSiteUrl");
-const { sendMail } = require("../../scripts/utils/sendMail");
+import { getSiteUrl } from "../../functions/utils/getSiteUrl";
+import { sendMail } from "../../scripts/utils/sendMail";
 
-const filterProductsWithOptionSets = (products) => {
+const filterProductsWithOptionSets = (products: Product[]) => {
   return products.filter(({ option_set_id }) => option_set_id);
 };
-const filterInventoryTrackingNotVariant = (products) => {
+const filterInventoryTrackingNotVariant = (products: Product[]) => {
   return products.filter(
     ({ inventory_tracking }) => inventory_tracking !== "variant"
   );
 };
-const formatProductHTMLBlocks = (products, store) => {
+const formatProductHTMLBlocks = (products: Product[], store: string) => {
   return products.map(
     (product) =>
       `<p><a href="${getSiteUrl(store) + product.custom_url.url}">${
@@ -22,7 +23,7 @@ const formatProductHTMLBlocks = (products, store) => {
       }.mybigcommerce.com/manage/products/${product.id}/edit">Edit</a></p>`
   );
 };
-const formatEmail = (htmlBlocks) => {
+const formatEmail = (htmlBlocks: string[]) => {
   return [
     `<p><strong>Found ${htmlBlocks.length} configs where inventory tracking is not set at variant level</strong></p>`,
     ...htmlBlocks,
@@ -30,8 +31,8 @@ const formatEmail = (htmlBlocks) => {
 };
 
 (async () => {
-  const htmlBlocks = [];
-  async function report(store) {
+  const htmlBlocks: any = [];
+  async function report(store: string) {
     require("../../config/config").config(store);
     await getAllProducts()
       .then(filterProductsWithOptionSets)

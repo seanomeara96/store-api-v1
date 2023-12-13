@@ -37,18 +37,18 @@
     "twilio": "^3.83.4"
   },
   "scripts": {
-    "cap": "node ./scripts/products/applyMaxOrderQtyToBrand.js",
+    "cap": "ts-node ./scripts/products/applyMaxOrderQtyToBrand.ts",
     "report": "ts-node ./scripts/reports/gwpStockReport.ts",
     "audit": "node ./scripts/reports/dummyAudit.js",
     "seo": "ts-node ./scripts/reports/seoReport.ts",
-    "emptiesCron": "node ./scripts/reports/emptyPages/emptiesCron.js",
-    "empties": "node ./scripts/reports/emptyPages/empties.js",
+    "emptiesCron": "ts-node ./scripts/reports/emptyPages/emptiesCron.ts",
+    "empties": "ts-node ./scripts/reports/emptyPages/empties.ts",
     "reports": "npm run report && npm run audit && npm run seo",
-    "bfOffers": "node ./scripts/automations/saleCategory.js",
+    "bfOffers": "ts-node ./scripts/automations/saleCategory.ts",
     "countdown": "webpack",
     "updateNewIn": "ts-node ./scripts/automations/updateNewIn.ts",
-    "inventoryTracking": "node ./scripts/reports/inventoryTrackingReport.js",
-    "needsContent": "node ./scripts/reports/inStockNeedsContent.js"
+    "inventoryTracking": "ts-node ./scripts/reports/inventoryTrackingReport.ts",
+    "needsContent": "ts-node ./scripts/reports/inStockNeedsContent.ts"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.17.10",

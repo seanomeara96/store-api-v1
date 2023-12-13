@@ -3,7 +3,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 export async function sendMail(
   subject: string,
   message: string,
-  to = "sean@beautyfeatures.ie"
+  to: string | string[] = "sean@beautyfeatures.ie" 
 ) {
   try {
     const msg = {

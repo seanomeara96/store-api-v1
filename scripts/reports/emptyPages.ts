@@ -6,20 +6,8 @@ import { stringify } from "csv-stringify";
 import { getSiteUrl } from "../../functions/utils/getSiteUrl";
 import { getAllRedirects } from "../../functions/redirects/getAllRedirects";
 import { Product } from "../../functions/products/Product";
+import sgMail from "@sendgrid/mail";
 
-const sgMail = require("@sendgrid/mail");
-
-interface Redirect {
-  id: number;
-  site_id: number;
-  from_path: string;
-  to: {
-    type: string;
-    entity_id: number;
-    url: string;
-  };
-  to_url: string;
-}
 
 function removeRedirectedUrls(pages: any[], redirectFromPaths: string[]) {
   return pages.filter(
@@ -43,15 +31,13 @@ function getSiteEmptyPages(site: Store): Promise<{
     try {
       require("../../config/config").config(site.initial);
       sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
-      const products = await getAllProducts();
+      const products = await getAllProducts() as any[];
 
-      const brands = await getAllBrands() as any[]
+      const brands = (await getAllBrands()) as any[];
 
-      const categories = await getAllCategories();
+      const categories = await getAllCategories() as any[]
 
-      const redirects = ((await getAllRedirects()) as Redirect[]).map(
-        (i: Redirect) => i.from_path
-      );
+      const redirects = (await getAllRedirects()).map((i) => i.from_path);
 
       const issues = [];
 
@@ -172,7 +158,7 @@ function convertToCsvCompatibleFormat(
     .flat();
 }
 
-const emptyPages = async function (...emails: string[]) {
+export async function emptyPages (...emails: string[]) {
   try {
     const emptyPages = await getAllEmptyPages();
     const email = renderEmail(emptyPages);
@@ -224,4 +210,4 @@ const emptyPages = async function (...emails: string[]) {
   }
 };
 
-exports.emptyPages = emptyPages;
+
