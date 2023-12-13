@@ -13,7 +13,7 @@ export function updateProduct(productId: number, fieldToUpdate: any) {
       return reject("field to update must be an object");
 
     try {
-      const res = require("../../config/config").store.put(
+      const res = await require("../../config/config").store.put(
         `/catalog/products/${productId}`,
         {
           ...fieldToUpdate,

@@ -3,7 +3,7 @@ import { ProductVariant } from "../product-variants/ProductVariant";
 
 import { getProductVariants } from "./getProductVariants";
 
-function getStoreSKUs(
+export function getStoreSKUs(
   interval: number,
   filterLive: boolean = false
 ): Promise<ProductVariant[]> {

@@ -5,8 +5,10 @@ import { getAllCategories } from "../../functions/categories/getAllCategories";
 import { getAllPages } from "../../functions/pages/getAllPages";
 import { getAllProducts } from "../../functions/products/getAllProducts";
 import { getAllBlogs } from "../../functions/blogs/getAllBlogs";
-
-export async function getAllLiveUrls(site: string) {
+import fs from "fs"
+import path from "path"
+import { output } from "../utils/output";
+async function getAllLiveUrls(site: string) {
   try {
     require("../../config/config").config(site);
     const redirects = await getAllRedirects();
@@ -110,10 +112,12 @@ export async function getAllLiveUrls(site: string) {
     })
 
 
-    return filteredDataWithSlugsRemoved;
+    output(path.resolve(__dirname, site+"-urls.csv"), filteredDataWithSlugsRemoved, true)
+
   } catch (err) {
     console.log(err);
   }
 }
 
 
+getAllLiveUrls("ch")

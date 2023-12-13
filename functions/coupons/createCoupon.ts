@@ -1,7 +1,13 @@
-export const createCoupon = (coupon_data: any) =>
-  new Promise((resolve, reject) =>
-    require("../../config/config")
-      .store.post("/coupons", coupon_data)
-      .then((res: any) => resolve(res.data))
-      .catch((err: any) => reject(err.response.data))
-  );
+export function createCoupon(coupon_data: any) {
+  return new Promise(async function (resolve, reject) {
+    try {
+      const res = await require("../../config/config").store.post(
+        "/coupons",
+        coupon_data
+      );
+      resolve(res.data);
+    } catch (err: any) {
+      reject(err.response.data);
+    }
+  });
+}

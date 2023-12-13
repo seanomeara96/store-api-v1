@@ -9,6 +9,7 @@ import {
   getOrderShipment,
 } from "../../functions/orders/getOrderShipment";
 import { sendGooglReviewRequestEmail } from "../email/google-review";
+import { output } from "../utils/output";
 
 type store = "bf" | "ih";
 async function report(store: store, itemRecords: ItemRecord[]) {
@@ -83,11 +84,9 @@ async function report(store: store, itemRecords: ItemRecord[]) {
       data.deliveryRecord = deliveryRecord;
     }
 
-
     const ordersDelivered = anPostOrdersAndShipments.filter(
       (a) => a.deliveryRecord
     );
-
 
     let out = ordersDelivered.map((o) => ({
       name: o.order.billing_address.first_name,
@@ -120,7 +119,11 @@ async function report(store: store, itemRecords: ItemRecord[]) {
 
 function getTodaysCachePath() {
   const today = new Date();
-  const todaysHyphenatedDate = today.toLocaleDateString().replace(/\//g, "-");
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+  const day = String(today.getDate()).padStart(2, "0");
+  const todaysHyphenatedDate = `${year}-${month}-${day}`;
+
   const cacheFileName = todaysHyphenatedDate + ".cache.json";
   return path.resolve(__dirname, cacheFileName);
 }

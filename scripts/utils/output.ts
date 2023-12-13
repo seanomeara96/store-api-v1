@@ -1,7 +1,7 @@
 import { stringify } from "csv-stringify";
 import fs from "fs";
 
-export function output(path: string, content: any, header: boolean) {
+export function output(path: string, content: {[key: string]: any}[], header: boolean) {
   return new Promise((resolve, reject) => {
     stringify(content, { header }, function (err: any, output: string) {
       if (err) {
