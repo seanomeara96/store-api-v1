@@ -5,14 +5,14 @@ import { productIsVisible } from "./productIsVisible";
  * @param {boolean} is_visible
  * @returns promise
  */
-export const setVisibilityOfMany = (
-  productIds: { [key: string]: number }[],
-  is_visible: boolean
-) =>
-  new Promise((resolve, reject) =>
-    Promise.allSettled(
-      productIds.map((i) => productIsVisible(Object.values(i)[0], is_visible))
-    )
-      .then(resolve)
-      .catch(reject)
-  );
+export function setVisibilityOfMany(productIds: number[], is_visible: boolean) {
+  return new Promise(async function (resolve, reject) {
+    try {
+      for (const id of productIds) {
+        await productIsVisible(id, is_visible);
+      }
+    } catch (err) {
+      reject(err);
+    }
+  });
+}
