@@ -11,6 +11,8 @@ const createRelevantRedirect = (brand: Brand) =>
     return resolve(res);
   });
 
+
+  /** moved to client */
 export function deleteBrand(id: number) {
   return new Promise(async (resolve, reject) => {
     try {

@@ -6,19 +6,20 @@ import { getProductById } from "./getProductById";
  * @param {number} catId
  * @returns promise
  */
-export const addCatToProduct = (productId: number, catId: number) =>
-  new Promise((resolve, reject) => {
-    // get product categories
-    getProductById(productId)
-      .then((product: any) => {
-        // check if already in category
-        if (product.categories.includes(catId))
-          return reject("product already associated with this category");
-        const updatedCategories = [...product.categories, catId];
-        // add category
-        updateProduct(productId, { categories: updatedCategories })
-          .then((res: any) => resolve(res.status))
-          .catch(reject);
-      })
-      .catch((err: any) => reject(err));
+export function addCatToProduct(productId: number, catId: number) {
+  return new Promise(async function (resolve, reject) {
+    try {
+      // get product categories
+      const product = await getProductById(productId);
+
+      // check if already in category
+      if (product.categories.includes(catId)) return resolve(undefined);
+      const updatedCategories = [...product.categories, catId];
+      // add category
+      await updateProduct(productId, { categories: updatedCategories });
+      resolve(undefined);
+    } catch (err) {
+      reject(err);
+    }
   });
+}

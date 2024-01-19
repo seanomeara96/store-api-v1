@@ -35,6 +35,11 @@ export interface BrandCreationParams {
     // (the auto-assigned URL that BigCommerce provides).
   };
 }
+/**
+ * copied to client.ts
+ * @param params 
+ * @returns 
+ */
 export function createBrand(params: BrandCreationParams): Promise<Brand> {
   return new Promise(async function (resolve, reject) {
     try {

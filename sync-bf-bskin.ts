@@ -27,7 +27,7 @@ import { getProductByName } from "./functions/products/getProductByName";
 import { getProductVariants } from "./functions/products/getProductVariants";
 
 const src = "bf";
-const destination: string = "px";
+const destination: string = "ah";
 
 (async function () {
   if (destination === "px") {

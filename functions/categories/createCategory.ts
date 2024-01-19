@@ -1,4 +1,4 @@
-export interface NewCategory {
+export interface CategoryCreationParams {
   parent_id: number;
   name: string;
   description?: string;
@@ -40,7 +40,7 @@ export interface Category {
 }
 
 export function createCategory(
-  categoryToCreate: NewCategory
+  categoryToCreate: CategoryCreationParams
 ): Promise<Category> {
   return new Promise(async function (resolve, reject) {
     try {

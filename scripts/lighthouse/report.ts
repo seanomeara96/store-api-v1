@@ -1,21 +1,17 @@
 import puppeteer from "puppeteer";
-import lighthouse from "lighthouse";
 import { URL } from "url";
 import { output } from "../utils/output";
+import path from "path";
 
 const urls = [
-  "https://www.hireall.ie/",
-  "https://www.hireall.ie/conference-exhibitions/",
-  "https://www.hireall.ie/corporate-hospitality/",
-  "https://www.hireall.ie/event-seating/",
-  "https://www.hireall.ie/exam-furniture/",
-  "https://www.hireall.ie/hotel-venues/",
-  "https://www.hireall.ie/live-events/",
-  "https://www.hireall.ie/private-parties-weddings/",
-  "https://www.hireall.ie/?ctk=197906db-8f17-4092-8ac5-a181e8fe1c5c#",
-  "https://www.hireall.ie/event-kitchens/",
-  "https://www.hireall.ie/?ctk=197906db-8f17-4092-8ac5-a181e8fe1c5c#",
-  "https://www.hireall.ie/the-irish-open-gallery/",
+  "https://beautyfeatures.ie",
+  "https://inhealth.ie",
+  "https://beautyskincare.ie",
+  "https://allhair.ie",
+  "https://pregnancyandbaby.ie",
+  "https://babysafety.ie",
+  "https://pixieloves.ie",
+  "https://sleepytot.ie",
 ];
 
 const desktopConfig = {
@@ -43,6 +39,9 @@ const desktopConfig = {
 const results = [];
 
 (async () => {
+
+  const lighthouse = (await import("lighthouse")).default
+
   // Use Puppeteer to launch headful Chrome and don't use its default 800x600 viewport.
   const browser = await puppeteer.launch({
     headless: true,
@@ -79,7 +78,7 @@ const results = [];
 
   await browser.close();
 
-  await output(`lh-reports`, results, true);
+  await output(path.resolve(__dirname, `lh-reports.csv`), results, true);
 
   console.log("done");
 })();

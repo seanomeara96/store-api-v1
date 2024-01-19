@@ -8,8 +8,14 @@ import {
   Shipment,
   getOrderShipment,
 } from "../../functions/orders/getOrderShipment";
-import { sendGooglReviewRequestEmail } from "../email/google-review";
-import { output } from "../utils/output";
+import {
+  sendGooglReviewRequestEmail,
+  sendTrustpilotReviewRequestEmail,
+} from "../email/google-review";
+
+function getAnPostItemCodeFromTrackingNumber(string: string) {
+  return string.replace(/^CE|IE$/g, "");
+}
 
 type store = "bf" | "ih";
 async function report(store: store, itemRecords: ItemRecord[]) {
@@ -28,16 +34,13 @@ async function report(store: store, itemRecords: ItemRecord[]) {
       min_date_created: minDate.toISOString(),
       max_date_created: maxDate.toISOString(),
     });
-    /*console.log(orders.length);
-    const dates = orders.map((o) => o.date_created);
-    console.log(dates[0]);
-    console.log(dates[dates.length - 1]);*/
 
-    const anPostOrdersAndShipments: {
+    type OrderAndShipment = {
       order: Order;
       shipment: Shipment;
       deliveryRecord: ItemRecord | undefined;
-    }[] = [];
+    };
+    const anPostOrdersAndShipments: OrderAndShipment[] = [];
 
     for (let i = 0; i < orders.length; i++) {
       console.log(`order shipment ${i + 1} of ${orders.length}`);
@@ -49,10 +52,11 @@ async function report(store: store, itemRecords: ItemRecord[]) {
         console.log(`no shipment on this order`, order.id);
         continue;
       }
-      if (
-        shipment.tracking_number &&
-        shipment.tracking_number.startsWith("CE")
-      ) {
+
+      const hasTrackingNumber = shipment.tracking_number;
+      const isAnPostTrackingNumber = shipment.tracking_number.startsWith("CE");
+
+      if (hasTrackingNumber && isAnPostTrackingNumber) {
         anPostOrdersAndShipments.push({
           order,
           shipment,
@@ -65,28 +69,18 @@ async function report(store: store, itemRecords: ItemRecord[]) {
       const data = anPostOrdersAndShipments[i];
 
       const deliveryRecord = itemRecords.find(function (item) {
-        const itemCodeString = String(item.ITEM_NUMBER);
-
-        function getAnPostItemCodeFromTrackingNumber(string: string) {
-          return string.replace(/^CE|IE$/g, "");
-        }
-
-        const shipmentItemNumber = getAnPostItemCodeFromTrackingNumber(
-          data.shipment.tracking_number
-        );
-
-        const matchingCode = itemCodeString === shipmentItemNumber;
+        const { tracking_number } = data.shipment;
+        const itemNumber = getAnPostItemCodeFromTrackingNumber(tracking_number);
+        const matchingCode = String(item.ITEM_NUMBER) === itemNumber;
         const itemIsDelivered = item.DELIVERY_STATUS === "DELIVERED";
-
         return matchingCode && itemIsDelivered;
       });
 
       data.deliveryRecord = deliveryRecord;
     }
 
-    const ordersDelivered = anPostOrdersAndShipments.filter(
-      (a) => a.deliveryRecord
-    );
+    const hasDeliveryRecord = (a: OrderAndShipment) => a.deliveryRecord;
+    const ordersDelivered = anPostOrdersAndShipments.filter(hasDeliveryRecord);
 
     let out = ordersDelivered.map((o) => ({
       name: o.order.billing_address.first_name,
@@ -99,18 +93,36 @@ async function report(store: store, itemRecords: ItemRecord[]) {
     }));
 
     let gmails = [];
+    let nonGmails = [];
+
     for (const o of out) {
       if (o.email.includes("gmail.com")) {
         gmails.push(o);
+      } else {
+        nonGmails.push(o);
       }
     }
+
+    // want to cap at 100 emails and 75 25 split toward gmail
+    if(store === "bf"){
+      console.log("gmails capped at 50")
+      gmails = gmails.slice(0, 50)
+      console.log("non gmails capped at 25")
+      nonGmails = nonGmails.slice(0, 25)
+    }
+
+
     console.log(
-      "calling sendGooglReviewRequestEmail with gmails.length",
-      gmails.length,
-      "store: ",
-      store
+      `store: ${store}, gmails: ${gmails.length}, non-gmails: ${nonGmails.length}`
     );
+
     await sendGooglReviewRequestEmail(gmails, store);
+
+    // possibly remove this function after 15/2/2023
+    if (store === "bf") {
+      await sendTrustpilotReviewRequestEmail(nonGmails, store);
+    }
+
     console.log("done", store);
   } catch (err) {
     console.log(err);

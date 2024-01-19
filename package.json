@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@bigcommerce/api-nodejs": "^0.1.2-alpha",
+    "@img/sharp-win32-x64": "^0.33.1",
     "@sendgrid/mail": "^7.7.0",
     "@types/csv-stringify": "^3.1.0",
     "@types/ejs": "^3.1.2",
@@ -24,6 +25,7 @@
     "gpt-3-encoder": "^1.1.4",
     "html-to-text": "^8.2.1",
     "image-downloader": "^4.3.0",
+    "image-size": "^1.1.1",
     "jsdom": "^20.0.0",
     "marked": "^5.0.4",
     "openai": "^3.3.0",

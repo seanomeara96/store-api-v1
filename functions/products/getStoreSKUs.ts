@@ -4,7 +4,7 @@ import { ProductVariant } from "../product-variants/ProductVariant";
 import { getProductVariants } from "./getProductVariants";
 
 export function getStoreSKUs(
-  interval: number,
+  batchSize: number,
   filterLive: boolean = false
 ): Promise<ProductVariant[]> {
   return new Promise(async (resolve, reject) => {
@@ -14,8 +14,8 @@ export function getStoreSKUs(
     const variants = [];
     const batches = [];
 
-    for (let i = 0; i < products.length; i += interval) {
-      batches.push(products.slice(i, i + interval));
+    for (let i = 0; i < products.length; i += batchSize) {
+      batches.push(products.slice(i, i + batchSize));
     }
 
     for (const batch of batches) {

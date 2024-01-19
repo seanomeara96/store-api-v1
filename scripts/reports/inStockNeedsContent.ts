@@ -5,8 +5,7 @@ import { output } from "../../scripts/utils/output";
 import path from "path";
 import { stringify } from "csv-stringify";
 import sgMail from "@sendgrid/mail";
-require("../../config/config").config("bf");
-sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
+
 const issues: Product[] = [];
 
 async function doesProductNeedSetup(product: Product) {
@@ -35,22 +34,26 @@ async function doesProductNeedSetup(product: Product) {
 
 async function test() {
   try {
-    const products = await getAllProducts(/*{id: 7771}*/);
+    for (const store of ["bf", "ih"]) {
+      require("../../config/config").config(store);
+      sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
+      const products = await getAllProducts(/*{id: 7771}*/);
 
-    const batchSize = 50;
-    for (let i = 0; i < products.length; i += batchSize) {
-      const batch = products.slice(i, i + batchSize);
-      const promises: Promise<boolean>[] = [];
+      const batchSize = 50;
+      for (let i = 0; i < products.length; i += batchSize) {
+        const promises: Promise<boolean>[] = [];
+        const batch = products.slice(i, i + batchSize);
+        for (let ii = 0; ii < batch.length; ii++) {
+          const product = batch[ii];
+          const promise = doesProductNeedSetup(product);
+          promises.push(promise);
+        }
 
-      for (let ii = 0; ii < batch.length; ii++) {
-        const product = batch[ii];
-        const promise = doesProductNeedSetup(product);
-        promises.push(promise);
+        await Promise.all(promises);
+        // console.log(res)
       }
-
-      await Promise.all(promises);
-      // console.log(res)
     }
+
     console.log(`${issues.length} products need content / images`);
     const outputData = issues.map(({ id, name, sku }) => ({ id, name, sku }));
     // output(path.resolve(__dirname, "instock-not-setup.csv"), outputData, true);
@@ -59,7 +62,7 @@ async function test() {
     stringify(outputData, stringifyOptions, (err, csv) => {
       if (err) throw err;
       const attachment = Buffer.from(csv).toString("base64");
-      
+
       const subj = `New Product Images & Content Report`;
       const msg = {
         to: ["sean@beautyfeatures.ie"],

@@ -1,86 +1,62 @@
-import { getAllProductImages } from "./functions/images/getAllProductImages";
-import { Product } from "./functions/products/Product";
+import { Category } from "./functions/categories/createCategory";
+import { getAllCategories } from "./functions/categories/getAllCategories";
+import { addCatToProduct } from "./functions/products/addCatToProduct";
 import { getAllProducts } from "./functions/products/getAllProducts";
-import { output } from "./scripts/utils/output";
-import path from "path";
-import { stringify } from "csv-stringify";
-require("./config/config").config("bf");
-
-const issues: Product[] = [];
-
-async function doesProductNeedSetup(product: Product) {
-  try {
-    if (!product.inventory_level) {
-      return false;
-    }
-
-    if (product.description === "") {
-      issues.push(product);
-      return true;
-    }
-
-    const images = await getAllProductImages(product.id);
-
-    if (images.length === 0) {
-      issues.push(product);
-      return true;
-    }
-
-    return false;
-  } catch (err) {
-    throw err;
-  }
-}
+require("./config/config").config("ch");
 
 async function test() {
   try {
-    const products = await getAllProducts(/*{id: 7771}*/);
-    
-    const batchSize = 50;
-    for (let i = 0; i < products.length; i += batchSize) {
-      const batch = products.slice(i, i + batchSize);
-      const promises: Promise<boolean>[] = [];
+    const products = await getAllProducts();
 
-      for (let ii = 0; ii < batch.length; ii++) {
-        const product = batch[ii];
-        const promise = doesProductNeedSetup(product);
-        promises.push(promise);
+    const categories = await getAllCategories();
+    console.log(`${categories.length} categories`);
+    const subcategories = categories.filter((c) => c.parent_id !== 0);
+    console.log(`${subcategories.length} subcategories`);
+
+    function findCat(id: number) {
+      const found = categories.find((c) => (c.id = id));
+      if (!found) {
+        throw new Error(`could not find category ${id}`);
       }
-
-      await Promise.all(promises);
-      // console.log(res)
+      return found;
     }
-    console.log(`${issues.length} products need content / images`);
-    const outputData = issues.map(({ id, name, sku }) => ({ id, name, sku }));
-    output(path.resolve(__dirname, "instock-not-setup.csv"), outputData, true);
 
-    /*const stringifyOptions = { header: true }
-    stringify(stringifyOptions, outputData, (err, csv) => {
-      if (err) throw err
-      const attachment = Buffer.from(csv).toString("base64");
-      const sgMail = require("@sendgrid/mail");
-      sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-      const subj = `New Product Images & Content Report`;
-      const msg = {
-        to: ["sean@beautyfeatures.ie", "john@beautyfeatures.ie"],
-        from: "sean@beautyfeatures.ie",
-        subject: subj,
-        text: subj,
-        attachments: [
-          {
-            content: attachment,
-            filename: `product-content-images.csv`,
-            type: "text/csv",
-            disposition: "attachment",
-          },
-        ],
-      };
-      
-      sgMail.send(msg)
-    });*/
+    const parentCategoryIds: number[] = [
+      ...new Set(categories.map((c) => c.parent_id).filter((i) => i !== 0)),
+    ];
 
+    const bottomCategoriesIDs = categories
+      .filter((c) => !parentCategoryIds.includes(c.id))
+      .map((c) => c.id);
+
+    
+    
+
+    
+
+    console.log("orderedsubcategories", orderedsubcategories.length);
+
+    for (let i = 0; i < orderedsubcategories.length; i++) {
+      const c = orderedsubcategories[i];
+
+      console.log(
+        `addressing ${i + 1} of ${orderedsubcategories.length} categories id (${
+          c.id
+        })`
+      );
+
+      const items = products.filter((p) => p.categories.includes(c.id));
+      for (let ii = 0; ii < items.length; ii++) {
+        const item = items[ii];
+        if (!item.categories.includes(c.parent_id)) {
+          //console.log('await addCatToProduct(item.id, c.parent_id);')
+          await addCatToProduct(item.id, c.parent_id);
+        }
+      }
+    }
   } catch (err) {
     console.log(err);
   }
 }
+
 test();
