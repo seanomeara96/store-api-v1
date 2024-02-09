@@ -199,7 +199,7 @@ data = data.filter(d => d.email.includes("gmail.com"))
 
 console.log("number of gmail addresses")
 
-data = data.slice(25, 50);
+data = data.slice(50);
 
 console.log("data length", data.length)
 

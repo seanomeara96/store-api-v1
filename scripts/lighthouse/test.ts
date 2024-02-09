@@ -1,1 +1,0 @@
-import("lighthouse").then(console.log)

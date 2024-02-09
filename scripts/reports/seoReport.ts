@@ -13,7 +13,6 @@ import { Category } from "../../functions/categories/createCategory";
 import sgMail from "@sendgrid/mail";
 sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 
-
 const templatepath = path.resolve(__dirname, "./seoReport/notification.ejs");
 const template = readFileSync(templatepath, { encoding: "utf8" });
 
@@ -46,10 +45,10 @@ async function checkAllSeo(allStores: Stores, recipients: string[]) {
     }
     store.url = getSiteUrl(store.initial);
     if (!store.url) {
-      throw new Error("need store url");
+      throw new Error(`need store url for ${store.initial}`);
     }
     console.log("scanning store", store.url);
-    let storeSEO: (ExtendedBrand | ExtendedCategory)[]
+    let storeSEO: (ExtendedBrand | ExtendedCategory)[];
     try {
       require("../../config/config").config(store.initial);
       function getStoreSEO(): Promise<(ExtendedBrand | ExtendedCategory)[]> {
@@ -171,6 +170,7 @@ const stores: Stores = [
   { initial: "hie", name: "Haakaa Ireland" },
   { initial: "ds", name: "DogSpace" },
   { initial: "stie", name: "Sleepytot IE" },
+  { initial: "px", name: "Pixie Loves" },
 ];
 checkAllSeo(stores, [
   "sean@beautyfeatures.ie",

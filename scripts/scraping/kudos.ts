@@ -1,6 +1,6 @@
 import { JSDOM } from "jsdom";
 import axios from "axios";
-import { output } from "./scripts/utils/output";
+import { output } from "../utils/output";
 import path from "path";
 const urls: string[] = [
   "https://www.kudosbeauty.ie/dermalogica-en/clear-start-breakout-clearing-liquid-peel.html",
@@ -54,27 +54,23 @@ const urls: string[] = [
   "https://www.kudosbeauty.ie/dermalogica-en/ultracalming-cleanser-500ml-clone.html",
 ];
 
-function get(document: Document, str: string) {
-  return document.querySelector(str);
-}
-
 async function test() {
   try {
-    let data = [];
+    let data: {
+      [key: string]: any;
+    }[] = [];
 
     for (const url of urls) {
       console.log("Getting:", url);
-      const res = await axios.get(url);
-      const dom = new JSDOM(res.data);
-      const { document } = dom.window;
-
-      const type = get(document, `[itemtype]`)?.getAttribute("itemType") || "";
-      const sku = get(document, `[itemprop="sku"]`)?.getAttribute("content") || "";
-      const name = get(document, `[itemprop="name"]`)?.getAttribute("content") || "";
-      const description = get(document, `[itemprop="description"]`)?.getAttribute("content") || "";
-      const price = get(document, `[itemprop="price"]`)?.getAttribute("content") || "";
-
-      data.push({type, sku, name, description, price, url});
+      const { data } = await axios.get(url);
+      const qs = new JSDOM(data).window.document.querySelector;
+      const type = qs(`[itemtype]`)?.getAttribute("itemType") || "";
+      const sku = qs(`[itemprop="sku"]`)?.getAttribute("content") || "";
+      const name = qs(`[itemprop="name"]`)?.getAttribute("content") || "";
+      const description =
+        qs(`[itemprop="description"]`)?.getAttribute("content") || "";
+      const price = qs(`[itemprop="price"]`)?.getAttribute("content") || "";
+      data.push({ type, sku, name, description, price, url });
     }
 
     output(path.resolve(__dirname, "kudosderm.csv"), data, true);

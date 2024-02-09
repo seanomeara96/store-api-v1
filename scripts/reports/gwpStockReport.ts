@@ -13,26 +13,10 @@ const campaigns: any[] = [
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/attribute_rule_images/4652_source_1618495687.jpg",
     headline: "Free Cristalli Liquidi 15ml worth €13.40",
     worth: 13,
-    condition: "When you spend €100 or more on Alfaparf",
+    condition: "When you spend €60 or more on Alfaparf",
     sku: "6481A",
     sku_type: "config",
-    display: "FALSE",
-    destination_url: "https://www.beautyfeatures.ie/brands/Alfaparf.html",
-  },
-  {
-    type: "brand",
-    store: "bf",
-    identifier: "Alfaparf",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/7245/17226/extreme_anti_snap_shampoo_gwp__58324.1695908866.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/7245/17226/extreme_anti_snap_shampoo_gwp__58324.1695908866.jpg?c=2&imbypass=on",
-    headline: "Free Alfaparf Travel Bag",
-    worth: null,
-    condition: "When you spend €20 or more on Alfaparf",
-    sku: "8192A",
-    sku_type: "product",
-    display: "FALSE",
+    display: "TRUE",
     destination_url: "https://www.beautyfeatures.ie/brands/Alfaparf.html",
   },
   {
@@ -40,15 +24,15 @@ const campaigns: any[] = [
     store: "bf",
     identifier: "Kerastase",
     thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5687/10648/Krastase_Chroma_Absolu_Bain_Riche_Chroma_Respect_80ml_1__89345.1644404708.png?c=2&imbypass=on",
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/7806/19358/Kerastase_Elixir_Ultime_LHuile_Original_Deluxe_15ml__1__14433.1706609796.jpg?c=2&imbypass=on",
     full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/5687/10648/Krastase_Chroma_Absolu_Bain_Riche_Chroma_Respect_80ml_1__89345.1644404708.png?c=2&imbypass=on",
-    headline: "Free Kerastase Chroma Absolu Shampoo",
-    worth: 10,
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/7806/19358/Kerastase_Elixir_Ultime_LHuile_Original_Deluxe_15ml__1__14433.1706609796.jpg?c=2&imbypass=on",
+    headline: "Free Elixir Ultime L'Huile Original Deluxe 15ml​",
+    worth: 8,
     condition: "When you spend €60 or more on Kerastase",
     sku: "11101",
     sku_type: "product",
-    display: "FALSE",
+    display: "TRUE",
     destination_url: "https://www.beautyfeatures.ie/brands/kerastase",
   },
   {
@@ -64,7 +48,7 @@ const campaigns: any[] = [
     condition: "When you spend €100 on Moroccanoil",
     sku: "10151",
     sku_type: "product",
-    display: "TRUE",
+    display: "FALSE",
     destination_url: "https://www.beautyfeatures.ie/brands/Moroccanoil.html",
   },
   {
@@ -80,7 +64,7 @@ const campaigns: any[] = [
     condition: "When you spend €100 on Dermalogica",
     sku: "13285",
     sku_type: "product",
-    display: "TRUE",
+    display: "FALSE",
     destination_url: "https://www.beautyfeatures.ie/brands/Dermalogica.html",
   },
   {
@@ -224,7 +208,7 @@ const campaigns: any[] = [
     condition: "When you spend €30 on L'Oreal Professionnel",
     sku: "11792",
     sku_type: "product",
-    display: "TRUE",
+    display: "FALSE",
     destination_url:
       "https://www.beautyfeatures.ie/loreal-makeup-hair-fragrance-and-skincare/",
   },
@@ -242,7 +226,7 @@ const campaigns: any[] = [
     condition: "When you spend €20 on L'Oreal Professionnel",
     sku: "11793",
     sku_type: "product",
-    display: "TRUE",
+    display: "FALSE",
     destination_url:
       "https://www.beautyfeatures.ie/loreal-makeup-hair-fragrance-and-skincare/",
   },
@@ -374,7 +358,7 @@ const campaigns: any[] = [
     condition: "With every Zadig & Voltaire purchase",
     sku: "12538",
     sku_type: "product",
-    display: "TRUE",
+    display: "FALSE",
     destination_url: "https://www.beautyfeatures.ie/zadig-voltaire/",
   },
   {
@@ -454,7 +438,7 @@ const campaigns: any[] = [
     condition: "When you spend €30 or more on SVR",
     sku: "10662",
     sku_type: "product",
-    display: "TRUE",
+    display: "FALSE",
     destination_url: "https://www.beautyfeatures.ie/svr/",
   },
   {
@@ -470,7 +454,7 @@ const campaigns: any[] = [
     condition: "When you spend €40 or more on NUXE",
     sku: "10935",
     sku_type: "product",
-    display: "TRUE",
+    display: "FALSE",
     destination_url: "https://www.beautyfeatures.ie/nuxe/",
   },
   {
@@ -502,7 +486,7 @@ const campaigns: any[] = [
     condition: "When you spend €60 or more on NUXE",
     sku: "10442",
     sku_type: "product",
-    display: "TRUE",
+    display: "FALSE",
     destination_url: "https://www.beautyfeatures.ie/nuxe/",
   },
   {
@@ -516,6 +500,22 @@ const campaigns: any[] = [
     headline: "Free Dermalogica Brightening Heroes Kit",
     worth: 26,
     condition: "When you spend €100 on Dermalogica",
+    sku: "13285",
+    sku_type: "product",
+    display: "FALSE",
+    destination_url: "https://www.beautyskincare.ie/dermalogica",
+  },
+  {
+    type: "brand",
+    store: "bsk",
+    identifier: "Dermalogica",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/75x75/products/633/1315/brightening_heros__07205.1702663155.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/300x300/products/633/1315/brightening_heros__07205.1702663155.jpg?c=2&imbypass=on",
+    headline: "Free Dermalogica Smoothing and Firming Kit",
+    worth: 28,
+    condition: "When you spend €40 on Dermalogica",
     sku: "13285",
     sku_type: "product",
     display: "TRUE",

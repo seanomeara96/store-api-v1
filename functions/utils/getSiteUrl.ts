@@ -2,8 +2,10 @@
  *
  * @returns url string of current site
  */
-export const getSiteUrl = (storeInitials: string): string => {
+export function getSiteUrl(storeInitials: string): string {
   switch (storeInitials.toLowerCase()) {
+    case "px":
+      return "https://pixieloves.ie";
     case "bf":
       return "https://www.beautyfeatures.ie";
     case "ih":
@@ -35,4 +37,4 @@ export const getSiteUrl = (storeInitials: string): string => {
     default:
       return "";
   }
-};
+}

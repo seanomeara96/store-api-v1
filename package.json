@@ -28,7 +28,7 @@
     "image-size": "^1.1.1",
     "jsdom": "^20.0.0",
     "marked": "^5.0.4",
-    "openai": "^3.3.0",
+    "openai": "^4.25.0",
     "puppeteer": "^15.5.0",
     "redis": "^4.6.7",
     "sqlite3": "^5.1.6",
@@ -60,7 +60,7 @@
     "eslint": "^8.13.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
-    "lighthouse": "^11.4.0",
+    "lighthouse": "^9.6.8",
     "webpack": "^5.72.1",
     "webpack-cli": "^4.9.2"
   }
