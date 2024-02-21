@@ -1,9 +1,8 @@
-import { ProductVariant } from "./functions/product-variants/ProductVariant";
-import { updateProductVariant } from "./functions/product-variants/updateProductVariant";
-import { getAllProducts } from "./functions/products/getAllProducts";
-import { getProductVariants } from "./functions/products/getProductVariants";
-
-async function test() {
+import { ProductVariant } from "../../functions/product-variants/ProductVariant";
+import { getAllProducts } from "../../functions/products/getAllProducts";
+import { updateProductVariant } from "../../functions/product-variants/updateProductVariant";
+import { getProductVariants } from "../../functions/products/getProductVariants";
+async function align() {
   require("./config/config").config("bf");
   const src_products = await getAllProducts({ brand_id: 57 });
   const src_variants: ProductVariant[] = [];
@@ -50,4 +49,4 @@ async function test() {
   }
 }
 
-test();
+align();

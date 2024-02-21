@@ -1,4 +1,4 @@
-import { Configuration, CreateChatCompletionResponse, OpenAIApi } from "openai";
+import OpenAI from "openai";
 import sqlite from "sqlite3";
 import { getAllProducts } from "../functions/products/getAllProducts";
 import { updateProduct } from "../functions/products/updateProduct";
@@ -44,54 +44,77 @@ function allhairPrompt(productDescription: string) {
   '. Unordered list-items only. Output in MARKUP format`;
 }
 
-require("../config/config").config("px");
+require("../config/config").config("ah");
 
 function htmlToText(html: string) {
   return convert(html);
 }
 
-const configuration = new Configuration({
+const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-const openai = new OpenAIApi(configuration);
-
-const db = new sqlite.Database(path.resolve(__dirname, "pxchanges.db"));
+const db = new sqlite.Database(path.resolve(__dirname, "ahchanges.db"));
 
 async function main() {
   try {
     await initDB();
 
     //const productsInAllHairDummyCategory = { "categories:in": 190 }
-    //const allProducts = await getAllProducts(productsInAllHairDummyCategory);
+    let allProducts = await getAllProducts();
 
-    const allProducts = await getAllProducts();
+    allProducts = allProducts.filter(product => !product.description.includes("What Does It Do") && product.inventory_level)
 
+
+    // const allProducts = await getAllProducts();
+
+    /**
+     * this checks the db to see if any products have been prepared for update
+     * probably because of script restarting etc and not updating the same product twice
+     */
     const dontHaveProductsToUpdate = !(await countAllProductIDs());
+    /**if there are no products prepared for updating*/
+    let count = 0;
     if (dontHaveProductsToUpdate) {
       for (const product of allProducts) {
         try {
           console.log(`preparing product ${product.id}`);
           await prepareProduct(product.id);
+          count++
         } catch {
           throw new Error("could not prepare product");
         }
       }
     }
 
+    console.log(`Prepared ${count} products for update`)
+
+    /**
+     * product ids for those that need update
+     */
     const toUpdate: number[] = await getProductIdsNotUpdated();
 
+    /**
+     * map ids that need update to product objects
+     */
     const products = allProducts.filter(function (product) {
       return toUpdate.includes(product.id);
     });
 
+
     for (let i = 0; i < products.length; i++) {
       const product = products[i];
 
+      /**
+       * skip products with empty descriptions
+       */
       if (product.description === "") {
         continue;
       }
 
+      /**
+       * remove html tags from content to keep token count low
+       */
       const productDescription = htmlToText(product.description);
       console.log(`updating ${i + 1}/${products.length}`);
       console.log(
@@ -100,24 +123,30 @@ async function main() {
       );
 
       try {
+        /**
+         * save the old content for the product in case of need to revert
+         */
         await saveOldContent(product);
         console.log("successfully saved old content");
       } catch (err) {
         console.log("failed to save old content");
       }
 
+      /**
+       * lets see how fast openai can respond
+       */
       const start = performance.now();
 
-      let completion: CreateChatCompletionResponse;
+      let completion;
       try {
-        let { data } = await openai.createChatCompletion({
+        let response = await openai.chat.completions.create({
           model: "gpt-4",
           messages: [
-            { role: "user", content: pixiePrompt(productDescription) },
+            { role: "user", content: allhairPrompt(productDescription) },
           ],
         });
 
-        completion = data;
+        completion = response.choices[0].message.content;
       } catch (err: any) {
         if (
           err.response.data.error &&
@@ -125,9 +154,14 @@ async function main() {
         ) {
           console.log(err.response.data.error);
           const { message, type } = err.response.data.error;
-
+          /**
+           * save error for review
+           */
           await saveError(product, message, type);
         } else {
+          /**
+           * retry if server error
+           */
           console.log(`server error occured, waiting 5 minutes`);
           await new Promise((resolve) => setTimeout(resolve, 1000 * 60 * 5));
           i--;
@@ -140,22 +174,27 @@ async function main() {
 
       console.log(`ChatGPT Execution time: ${(end - start) / 1000} s`);
 
-      if (!completion.choices.length || !completion.choices[0].message) {
+      if (typeof completion !== "string" || completion == "") {
         throw new Error("somehting went wrong in response");
       }
 
-      const text = completion.choices[0].message.content;
+      const text = completion;
 
       if (!text) {
         console.log("No text in chatgpt response");
         continue;
       }
-
+      /**
+       * convert from markdown back to html
+       */
       const html = marked(text, {
         mangle: false,
         headerIds: false,
       });
 
+      /**
+       * try update the product
+       */
       try {
         await updateProduct(product.id, {
           description: html,
@@ -166,6 +205,9 @@ async function main() {
         continue;
       }
 
+      /**
+       * try update the product status to "updated" and save the generated response jic
+       */
       try {
         await setProductUpdatedStatus(product, true);
         console.log(`Set updated to true for product id:`, product.id);

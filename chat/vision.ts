@@ -23,6 +23,6 @@ async function main() {
       },
     ],
   });
-  console.log(response.choices[0]);
+  console.log(response.choices[0].message.content);
 }
 main();

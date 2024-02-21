@@ -36,6 +36,38 @@ const campaigns: any[] = [
     destination_url: "https://www.beautyfeatures.ie/brands/kerastase",
   },
   {
+    type: "category",
+    store: "bf",
+    identifier: "MakeUp",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/7763/19318/Premium_Makeup_Blending_Sponge_By_BeautyFeatures__71801.1706091513.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/7763/19318/Premium_Makeup_Blending_Sponge_By_BeautyFeatures__71801.1706091513.jpg?c=2&imbypass=on",
+    headline: "Free Premium Makeup Blending Sponge",
+    worth: null,
+    condition: "When you spend €40 or more on Makeup",
+    sku: "14032A",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/makeup/",
+  },
+  {
+    type: "brand",
+    store: "bf",
+    identifier: "Aveda",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/7581/18466/Aveda_Mini_Paddle_Brush__03975.1700147477.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/7581/18466/Aveda_Mini_Paddle_Brush__03975.1700147477.jpg?c=2&imbypass=on",
+    headline: "Free Aveda Mini Paddle Brush",
+    worth: 31,
+    condition: "When you spend €40 or more on Aveda",
+    sku: "13749",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/aveda/",
+  },
+  {
     type: "brand",
     store: "bf",
     identifier: "Moroccanoil",
@@ -494,28 +526,12 @@ const campaigns: any[] = [
     store: "bsk",
     identifier: "Dermalogica",
     thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/7197/17300/extreme_anti_snap_shampoo_gwp_1__94066.1696844988.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/7197/17300/extreme_anti_snap_shampoo_gwp_1__94066.1696844988.jpg?c=2&imbypass=on",
-    headline: "Free Dermalogica Brightening Heroes Kit",
-    worth: 26,
-    condition: "When you spend €100 on Dermalogica",
-    sku: "13285",
-    sku_type: "product",
-    display: "FALSE",
-    destination_url: "https://www.beautyskincare.ie/dermalogica",
-  },
-  {
-    type: "brand",
-    store: "bsk",
-    identifier: "Dermalogica",
-    thumbnail:
       "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/75x75/products/633/1315/brightening_heros__07205.1702663155.jpg?c=2&imbypass=on",
     full_img:
       "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/300x300/products/633/1315/brightening_heros__07205.1702663155.jpg?c=2&imbypass=on",
     headline: "Free Dermalogica Smoothing and Firming Kit",
     worth: 28,
-    condition: "When you spend €40 on Dermalogica",
+    condition: "When you spend €80 on Dermalogica",
     sku: "13285",
     sku_type: "product",
     display: "TRUE",
