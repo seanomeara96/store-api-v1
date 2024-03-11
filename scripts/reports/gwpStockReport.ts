@@ -30,7 +30,7 @@ const campaigns: any[] = [
     headline: "Free Elixir Ultime L'Huile Original Deluxe 15ml​",
     worth: 8,
     condition: "When you spend €60 or more on Kerastase",
-    sku: "11101",
+    sku: "12267",
     sku_type: "product",
     display: "TRUE",
     destination_url: "https://www.beautyfeatures.ie/brands/kerastase",

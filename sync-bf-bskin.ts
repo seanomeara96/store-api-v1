@@ -26,30 +26,37 @@ import { getProductById } from "./functions/products/getProductById";
 import { getProductByName } from "./functions/products/getProductByName";
 import { getProductVariants } from "./functions/products/getProductVariants";
 
-const src = "bf";
-const destination: string = "ah";
+const src = "ih";
+const destination: string = "pb";
 
 (async function () {
-  if (destination === "px") {
-    require("./config/config").config(destination);
-    const pxBrands = await getAllBrands();
+  try {
+    if (destination === "px") {
+      require("./config/config").config(destination);
+      const pxBrands = await getAllBrands();
 
-    require("./config/config").config(src);
-    const bfBrands = await getAllBrands();
+      require("./config/config").config(src);
+      const bfBrands = await getAllBrands();
 
-    const common = bfBrands.filter((b) =>
-      pxBrands.find((p) => p.name == b.name)
-    );
+      // identify brands on bf that are common to pixie
+      const common = bfBrands.filter((b) =>
+        pxBrands.find((p) => p.name == b.name)
+      );
 
-    for (let i = 0; i < common.length; i++) {
-      try {
-        await transfer(src, destination, common[i].id);
-      } catch (err) {
-        return console.log(err);
+      // for each brand transfer the products
+      for (let i = 0; i < common.length; i++) {
+        try {
+          await transfer(src, destination, common[i].id);
+        } catch (err) {
+          return console.log(err);
+        }
       }
+    } else {
+      // if not pixie then supply 0 (or any number)
+      await transfer(src, destination, 0);
     }
-  } else {
-    await transfer(src, destination, 0);
+  } catch (err) {
+    console.log(err);
   }
 })();
 
@@ -62,6 +69,10 @@ async function transfer(src: string, destination: string, pxBrandID: number) {
 
     if (src === "bf") {
       src_name = "beautyfeatures";
+    }
+
+    if (src == "ih") {
+      src_name = "inhealth";
     }
 
     if (!src_name) {
@@ -86,6 +97,22 @@ async function transfer(src: string, destination: string, pxBrandID: number) {
       destination_name = "Pixieloves";
     }
 
+    if (destination === "pb") {
+      destinationDummyCategoryID = 165;
+      srcFilter = { brand_id: 438 };
+      destination_name = "PregnancyAndBaby";
+    }
+
+    if (destination === "bs") {
+      destinationDummyCategoryID = 81;
+      srcFilter = { brand_id: 438 };
+      destination_name = "Babysafety";
+    }
+
+    if ((destination === "pb" || destination === "bs") && src !== "ih") {
+      throw new Error("source for pb/bs needs to be ih");
+    }
+
     if (!destinationDummyCategoryID || !srcFilter || !destination_name) {
       throw new Error("dont have config for that store");
     }
@@ -94,15 +121,15 @@ async function transfer(src: string, destination: string, pxBrandID: number) {
 
     // get all src skus
     require("./config/config").config(src);
-    console.log(`Fetching all variants for ${src}`)
+    console.log(`Fetching all variants for ${src}`);
     const src_vars = await getAllProductVariants(srcFilter);
-    console.log(`Fetching all brands for ${src}`)
+    console.log(`Fetching all brands for ${src}`);
     const src_brands = await getAllBrands();
 
     // get all destination skus
     require("./config/config").config(destination);
-    console.log(`Fetching all variants for ${destination}`)
-    const destination_vars = await getAllProductVariants({}, 3, 1000);
+    console.log(`Fetching all variants for ${destination}`);
+    const destination_vars = await getAllProductVariants({}, 250, 1000);
 
     // these skus need to be transferred from src to destination
     const needTransfer: ProductVariant[] = [];
@@ -138,25 +165,24 @@ async function transfer(src: string, destination: string, pxBrandID: number) {
 
       // get product from src store
       require("./config/config").config(src);
-      console.log(`Fetching product from ${src}`)
+      console.log(`Fetching product from ${src}`);
       const product = await getProductById(needTransfer[i].product_id);
 
       // get all variants on the product
-      console.log(`Fetching product variants from ${src}`)
+      console.log(`Fetching product variants from ${src}`);
       const variants = await getProductVariants(product.id);
 
       // get all images for the product
-      console.log(`Fetching product images from ${src}`)
+      console.log(`Fetching product images from ${src}`);
       const images = await getAllProductImages(product.id);
       // reformat image object to create image requirements
       const newImages = images.map(function (img) {
-        const imgURL = `https://store-${process.env.BF_STORE_HASH}.mybigcommerce.com/product_images/${img.image_file}`
-        console.log("image_url", imgURL)
+        const imgURL = `https://store-${process.env[`${src.toUpperCase()}_STORE_HASH`]}.mybigcommerce.com/product_images/${img.image_file}`;
         return {
           is_thumbnail: img.is_thumbnail,
           sort_order: img.sort_order,
           description: img.description,
-          image_url: imgURL
+          image_url: imgURL,
         };
       });
 
@@ -173,7 +199,7 @@ async function transfer(src: string, destination: string, pxBrandID: number) {
       // need to check if there is a matching brand on destination site
       const brand_name = brand?.name;
       require("./config/config").config(destination);
-      console.log(`Fetching brand from ${destination}`)
+      console.log(`Fetching brand from ${destination}`);
       const destBrand = await getBrandByName(brand_name);
       // create brand if none at destination
       if (!destBrand) {
@@ -194,7 +220,7 @@ async function transfer(src: string, destination: string, pxBrandID: number) {
           custom_url: brand.custom_url,
         };
         require("./config/config").config(destination);
-        console.log(`Creating brand on ${destination}`)
+        console.log(`Creating brand on ${destination}`);
         await createBrand(brandCreationParams);
         console.log(`brand "${brand.name}" created`);
       }
@@ -238,7 +264,7 @@ async function transfer(src: string, destination: string, pxBrandID: number) {
 
       if (variants.length > 1) {
         require("./config/config").config(src);
-        console.log(`Fetching product variants from ${src}`)
+        console.log(`Fetching product variants from ${src}`);
         const options = await getAllProductVariantOptions(product.id);
 
         require("./config/config").config(destination);
@@ -247,7 +273,7 @@ async function transfer(src: string, destination: string, pxBrandID: number) {
          * need to handle instances where skus exist as a variant on src
          * but the product already exists on dest without that sku
          */
-        console.log(`Fetching product by name from ${destination}`)
+        console.log(`Fetching product by name from ${destination}`);
         const existingProduct = await getProductByName(product.name);
         if (existingProduct) {
           productCreationFields.name =
@@ -257,7 +283,7 @@ async function transfer(src: string, destination: string, pxBrandID: number) {
 
         let newProduct: Product;
         try {
-          console.log(`Creating product on ${destination}`)
+          console.log(`Creating product on ${destination}`);
           newProduct = await createProduct(productCreationFields);
         } catch (err: any) {
           console.log(err.response ? err.response?.data || err.response : err);
@@ -289,7 +315,7 @@ async function transfer(src: string, destination: string, pxBrandID: number) {
 
         // need to get option value id here
         for (const option of optionsToCreate) {
-          console.log(`Creating product variants on ${destination}`)
+          console.log(`Creating product variants on ${destination}`);
           const newOption = await createProductVariantOption(
             newProduct.id,
             option
@@ -343,7 +369,7 @@ async function transfer(src: string, destination: string, pxBrandID: number) {
         });
 
         for (const variant of newVariants) {
-          console.log(`Creating product variants on ${destination}`)
+          console.log(`Creating product variants on ${destination}`);
           await createProductVariant(newProduct.id, variant);
           transferredSKUs.push(variant.sku);
         }
@@ -376,7 +402,7 @@ async function transfer(src: string, destination: string, pxBrandID: number) {
       }
     }
   } catch (err: any) {
-    throw (err.response ? err.response?.data || err.response : err);
+    throw err.response ? err.response?.data || err.response : err;
   }
 }
 

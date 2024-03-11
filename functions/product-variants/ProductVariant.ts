@@ -38,9 +38,9 @@ export interface ProductVariant {
   sku_id: string | null;
   price: number;
   calculated_price: number;
-  sale_price: number;
-  retail_price: number;
-  map_price: number;
+  sale_price: number | null;
+  retail_price: number | null;
+  map_price: number | null;
   weight: number;
   width: number;
   height: number;
@@ -71,8 +71,8 @@ interface OptionValue {
 export interface CreateProductVariantParams {
   cost_price?: number;
   price?: number;
-  sale_price?: number;
-  retail_price?: number;
+  sale_price?: number | null;
+  retail_price?: number | null;
   weight?: number;
   width?: number;
   height?: number;

@@ -1,36 +1,47 @@
-
 import { getBrandByName } from "../../functions/brands/getBrandByName";
+import { updateProductVariant } from "../../functions/product-variants/updateProductVariant";
 import { getAllProducts } from "../../functions/products/getAllProducts";
+import { getProductVariants } from "../../functions/products/getProductVariants";
 import { updateProduct } from "../../functions/products/updateProduct";
 import { getPrices, percentageDiscount } from "./utils";
 
-
-require("../../config/config").config("fs");
+require("../../config/config").config("bf");
 
 (async () => {
-  const brand = await getBrandByName("Zita West")
+  const brand = await getBrandByName("Kérastase");
+
+  if (!brand) return;
 
   const products = await getAllProducts({ brand_id: brand.id }).catch(
     console.log
   );
 
-  if(!products){
-    return
+  if (!products) {
+    return;
   }
 
-  console.log(products.length)
+  for (const product of products) {
+    const variants = await getProductVariants(product.id);
+    for (const v of variants) {
+      v.sale_price = v.retail_price * (1 - 0.10);
+      // Convert to cents
+      v.sale_price = v.sale_price * 100;
 
+      // Calculate 5-cent increments
+      v.sale_price = v.sale_price / 5;
 
-  const prices = products.map((el) => getPrices(el, percentageDiscount, 0.10));
+      // Round to the nearest whole number
+      v.sale_price = Math.round(v.sale_price);
 
-  console.log(prices)
+      // Convert back to cents
+      v.sale_price = v.sale_price * 5;
 
-  
-   const promises = prices.map((price: any) =>
-     updateProduct(price.id, { sale_price: price.promo_price })
-   );
+      // Convert back to euro
+      v.sale_price = v.sale_price / 100;
 
-  const responses = await Promise.allSettled(promises);
-
-   console.log(responses.map(r => r.status));
+      await updateProductVariant(product.id, v.id, {
+        sale_price: v.sale_price,
+      });
+    }
+  }
 })();

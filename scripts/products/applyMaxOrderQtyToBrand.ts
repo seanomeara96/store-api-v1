@@ -1,52 +1,25 @@
-import { Product } from "../../functions/products/Product";
-import { getProductsByBrand } from "../../functions/products/getProductsByBrand";
+import { getBrandByName } from "../../functions/brands/getBrandByName";
+import { getAllProducts } from "../../functions/products/getAllProducts";
 import { updateProduct } from "../../functions/products/updateProduct";
 
-const applyMaxOrderQty = (product_id: number, qty: number) =>
-  new Promise((resolve, reject) =>
-    updateProduct(product_id, { order_quantity_maximum: qty })
-      .then(resolve)
-      .catch(reject)
-  );
+async function cap() {
+  try {
+    for (const brandName of ["L'Oréal Professionnel", "Pureology", "Redken", "Matrix", "Biolage"]) {
+      require("../../config/config").config("bf");
+      const brand = await getBrandByName(brandName);
+      if (!brand) {
+        throw `no brand match ${brandName}`;
+      }
 
-const applyMaxLimit = (
-  products: Product[],
-  limit: number
-): Promise<PromiseSettledResult<any>[]> =>
-  new Promise((resolve, reject) => {
-    Promise.allSettled(products.map(({ id }) => applyMaxOrderQty(id, limit)))
-      .then((res) => resolve(res as PromiseSettledResult<any>[]))
-      .catch(reject);
-  });
-
-function notifyFulfillmentStatus(res: PromiseSettledResult<any>[]) {
-  console.log(
-    `${res.reduce(function (a: any, c: any) {
-      return c.status === "fulfilled" ? a + 1 : a;
-    }, 0)}/${res.length} fulfilled`
-  );
-}
-
-const storeDetails = [
-  {
-    store: "bf",
-    brand: "The Ordinary",
-    limit: 0,
-  },
-];
-
-(async function () {
-  for (const d of storeDetails) {
-    await new Promise(function (resolve, reject) {
-      require("../../config/config").config(d.store);
-      getProductsByBrand(d.brand)
-        .then((products: Product[]) => {
-          applyMaxLimit(products, d.limit)
-            .then(notifyFulfillmentStatus)
-            .then(resolve)
-            .catch(reject);
-        })
-        .catch(reject);
-    });
+      const products = await getAllProducts({ brand_id: brand.id });
+      for (const product of products) {
+        if (product.order_quantity_maximum !== 5) {
+          await updateProduct(product.id, { order_quantity_maximum: 5 });
+        }
+      }
+    }
+  } catch (err) {
+    console.log(err);
   }
-})();
+}
+cap();

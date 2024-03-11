@@ -22,7 +22,7 @@ async function report(store: store, itemRecords: ItemRecord[]) {
   require("../../config/config").config(store, 2);
   try {
     const minDate = new Date();
-    minDate.setDate(minDate.getDate() - 2); // oldest date
+    minDate.setDate(minDate.getDate() - 3); // oldest date default 2
     minDate.setHours(14, 0, 0, 0);
 
     // Yesterday at 11:59 pm
