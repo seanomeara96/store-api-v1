@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import { ProductVariantOptions } from "../product-variant-options/ProductVariantOptions";
+import { ProductVariantOptions } from "../../../functions/product-variant-options/ProductVariantOptions";
 
 export class ProductVariants {
   private client: AxiosInstance;

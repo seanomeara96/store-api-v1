@@ -1,28 +1,14 @@
-import { deleteBrand } from "./functions/brands/deleteBrand";
-import { getBrandByName } from "./functions/brands/getBrandByName";
-import { deleteProduct } from "./functions/products/deleteProduct";
-import { getAllProducts } from "./functions/products/getAllProducts";
-import { getProductVariants } from "./functions/products/getProductVariants";
+import { deleteBrand } from "../../functions/brands/deleteBrand";
+import { getBrandByName } from "../../functions/brands/getBrandByName";
+import { deleteProduct } from "../../functions/products/deleteProduct";
+import { getAllProducts } from "../../functions/products/getAllProducts";
+import { getProductVariants } from "../../functions/products/getProductVariants";
 
 async function test() {
   try {
-    require("./config/config").config("px");
+    require("../../config/config").config("bf");
 
-    const brands = [
-      "SOSU",
-      "TRUE BEAUTY",
-      "Ariana Grande",
-      "Embryolisse",
-      "Wild",
-      "The Inkey List",
-      "The Belle Brush",
-      "NUXE",
-      "Narciso Rodriguez",
-      "Isoclean",
-      "HD Brows",
-      "Dripping Gold",
-      "BeautyFeatures"
-  ];
+    const brands = ["P.Louise"];
 
     for (let i = 0; i < brands.length; i++) {
       const brand = await getBrandByName(brands[i]);
@@ -38,6 +24,7 @@ async function test() {
           all_oos = false;
           continue;
         }
+        // or if prouct has variants, check each variant
         const variants = await getProductVariants(product.id);
         for (const v of variants) {
           if (v.inventory_level) {

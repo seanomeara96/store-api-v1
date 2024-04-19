@@ -1,35 +1,132 @@
-require("../../config/config").config("bf");
+require("../../config/config").config("ah");
 import { removeCatFromProduct } from "../../functions/products/removeCatFromProduct";
 
-const catId = 515;
+const catId = 249;
 
 const productIds = [
-  { "Product ID": 6306 },
-  { "Product ID": 2939 },
-  { "Product ID": 3785 },
-  { "Product ID": 6807 },
-  { "Product ID": 3980 },
-  { "Product ID": 5841 },
-  { "Product ID": 6251 },
-  { "Product ID": 6830 },
-  { "Product ID": 5457 },
-  { "Product ID": 3701 },
-  { "Product ID": 3699 },
-  { "Product ID": 3698 },
-  { "Product ID": 4020 },
-  { "Product ID": 3700 },
+  { "Product ID": 696 },
+  { "Product ID": 705 },
+  { "Product ID": 827 },
+  { "Product ID": 828 },
+  { "Product ID": 858 },
+  { "Product ID": 859 },
+  { "Product ID": 861 },
+  { "Product ID": 913 },
+  { "Product ID": 957 },
+  { "Product ID": 1020 },
+  { "Product ID": 1068 },
+  { "Product ID": 1220 },
+  { "Product ID": 1310 },
+  { "Product ID": 1315 },
+  { "Product ID": 1371 },
+  { "Product ID": 1374 },
+  { "Product ID": 1375 },
+  { "Product ID": 1376 },
+  { "Product ID": 1377 },
+  { "Product ID": 1378 },
+  { "Product ID": 1454 },
+  { "Product ID": 1456 },
+  { "Product ID": 1479 },
+  { "Product ID": 1483 },
+  { "Product ID": 1509 },
+  { "Product ID": 1531 },
+  { "Product ID": 1535 },
+  { "Product ID": 1536 },
+  { "Product ID": 1580 },
+  { "Product ID": 1690 },
+  { "Product ID": 1692 },
+  { "Product ID": 1693 },
+  { "Product ID": 1696 },
+  { "Product ID": 1709 },
+  { "Product ID": 1712 },
+  { "Product ID": 1715 },
+  { "Product ID": 1720 },
+  { "Product ID": 1722 },
+  { "Product ID": 1723 },
+  { "Product ID": 1734 },
+  { "Product ID": 1735 },
+  { "Product ID": 1736 },
+  { "Product ID": 1763 },
+  { "Product ID": 1784 },
+  { "Product ID": 1797 },
+  { "Product ID": 1809 },
+  { "Product ID": 1810 },
+  { "Product ID": 1811 },
+  { "Product ID": 1818 },
+  { "Product ID": 1898 },
+  { "Product ID": 1934 },
+  { "Product ID": 1938 },
+  { "Product ID": 1939 },
+  { "Product ID": 1940 },
+  { "Product ID": 1945 },
+  { "Product ID": 2047 },
+  { "Product ID": 2056 },
+  { "Product ID": 2071 },
+  { "Product ID": 2075 },
+  { "Product ID": 2078 },
+  { "Product ID": 2082 },
+  { "Product ID": 2109 },
+  { "Product ID": 2110 },
+  { "Product ID": 2111 },
+  { "Product ID": 2113 },
+  { "Product ID": 2120 },
+  { "Product ID": 2463 },
+  { "Product ID": 2464 },
+  { "Product ID": 2561 },
+  { "Product ID": 2576 },
+  { "Product ID": 2588 },
+  { "Product ID": 2593 },
+  { "Product ID": 2647 },
+  { "Product ID": 2648 },
+  { "Product ID": 2653 },
+  { "Product ID": 2661 },
+  { "Product ID": 2671 },
+  { "Product ID": 2674 },
+  { "Product ID": 2678 },
+  { "Product ID": 2682 },
+  { "Product ID": 2686 },
+  { "Product ID": 2687 },
+  { "Product ID": 2710 },
+  { "Product ID": 2741 },
+  { "Product ID": 2746 },
+  { "Product ID": 2747 },
+  { "Product ID": 2748 },
+  { "Product ID": 2788 },
+  { "Product ID": 2790 },
+  { "Product ID": 2793 },
+  { "Product ID": 2811 },
+  { "Product ID": 2812 },
+  { "Product ID": 2838 },
+  { "Product ID": 2844 },
+  { "Product ID": 2845 },
+  { "Product ID": 2846 },
+  { "Product ID": 2849 },
+  { "Product ID": 2866 },
+  { "Product ID": 2867 },
+  { "Product ID": 2868 },
+  { "Product ID": 2880 },
+  { "Product ID": 2882 },
+  { "Product ID": 2887 },
+  { "Product ID": 2915 },
+  { "Product ID": 2921 },
+  { "Product ID": 2927 },
+  { "Product ID": 2940 },
+  { "Product ID": 2941 },
+  { "Product ID": 3066 },
+  { "Product ID": 3085 },
 ];
 
+// convert product ids to number array
+const ids = productIds.map((i) => Object.values(i)[0]);
+
 async function main() {
-  for (let i = 0; i < productIds.length; i++) {
-    let n = productIds[i];
-    try {
-      console.log(`removing cat from ${i + 1} of ${productIds.length}`);
-      await removeCatFromProduct(n["Product ID"], catId);
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-    } catch (err) {
-      console.log(err);
+  try {
+    for (const id of ids) {
+      await removeCatFromProduct(id, catId);
     }
+    console.log("done");
+  } catch (err) {
+    console.log(err);
   }
 }
 main();

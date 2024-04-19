@@ -1,158 +1,209 @@
 import { updateProductVariant } from "../../functions/product-variants/updateProductVariant";
-import { getProductBySku } from "../../functions/products/getProductBySKU";
-//import { getProductById } from "../../functions/products/getProductById";
-import { getProductVariants } from "../../functions/products/getProductVariants";
-import { updateProduct } from "../../functions/products/updateProduct";
+import { getAllProductVariants } from "../../functions/products/getAllProductVariants";
 
-require("../../config/config").config("px");
+
+require("../../config/config").config("bf");
 //const no_discount_category_ID = 1493;
 const data = [
-  { sku: "110631", retail_price: 84.0, sale_price: 64.99 },
-  { sku: "110625", retail_price: 84.0, sale_price: 64.99 },
-  { sku: "110542", retail_price: 74.0, sale_price: 56.99 },
-  { sku: "111006", retail_price: 89.0, sale_price: 67.99 },
-  { sku: "101106", retail_price: 74.0, sale_price: 56.99 },
-  { sku: "111598", retail_price: 84.0, sale_price: 64.99 },
-  { sku: "110700", retail_price: 74.0, sale_price: 59.99 },
-  { sku: "101602", retail_price: 54.0, sale_price: 44.99 },
-  { sku: "110616", retail_price: 49.0, sale_price: 39.99 },
-  { sku: "104403", retail_price: 75.0, sale_price: 57.99 },
-  { sku: "106053", retail_price: 79.0, sale_price: 62.99 },
-  { sku: "6244", retail_price: 60.0, sale_price: 49.99 },
-  { sku: "110541", retail_price: 46.0, sale_price: 37.99 },
-  { sku: "110641", retail_price: 66.0, sale_price: 52.99 },
-  { sku: "103605", retail_price: 105.0, sale_price: 83.99 },
-  { sku: "110910", retail_price: 22.0, sale_price: 19.99 },
-  { sku: "102021", retail_price: 54.0, sale_price: 47.99 },
-  { sku: "6798", retail_price: 28.0, sale_price: 22.99 },
-  { sku: "11141", retail_price: 69.0, sale_price: 59.0 },
-  { sku: "6797", retail_price: 28.0, sale_price: 22.99 },
-  { sku: "110548", retail_price: 62.0, sale_price: 49.99 },
-  { sku: "110630", retail_price: 52.0, sale_price: 41.99 },
-  { sku: "110104", retail_price: 85.0, sale_price: 69.99 },
-  { sku: "10280", retail_price: 34.0, sale_price: 30.99 },
-  { sku: "10282", retail_price: 64.0, sale_price: 56.99 },
-  { sku: "100851", retail_price: 28.0, sale_price: 22.99 },
-  { sku: "101511", retail_price: 54.0, sale_price: 41.99 },
-  { sku: "12210", retail_price: 109.0, sale_price: 91.99 },
-  { sku: "7797", retail_price: 17.0, sale_price: 13.99 },
-  { sku: "5887", retail_price: 16.0, sale_price: 12.99 },
-  { sku: "110905", retail_price: 45.0, sale_price: 36.99 },
-  { sku: "110551", retail_price: 74.0, sale_price: 61.99 },
-  { sku: "110722", retail_price: 48.0, sale_price: 39.99 },
-  { sku: "6341", retail_price: 99.0, sale_price: 84.99 },
-  { sku: "6508", retail_price: 105.0, sale_price: 91.99 },
-  { sku: "7799", retail_price: 16.0, sale_price: 13.99 },
-  { sku: "9310", retail_price: 28.0, sale_price: 24.99 },
-  { sku: "5354", retail_price: 74.0, sale_price: 64.99 },
-  { sku: "102321", retail_price: 74.0, sale_price: 61.99 },
-  { sku: "110624", retail_price: 52.0, sale_price: 43.99 },
-  { sku: "7802", retail_price: 19.5, sale_price: 17.99 },
-  { sku: "7603", retail_price: 34.0, sale_price: 29.99 },
-  { sku: "7216", retail_price: 74.0, sale_price: 60.99 },
-  { sku: "7796", retail_price: 166.0, sale_price: 132.99 },
-  { sku: "7998", retail_price: 79.0, sale_price: 69.99 },
-  { sku: "110633", retail_price: 67.0, sale_price: 52.99 },
-  { sku: "7215", retail_price: 46.0, sale_price: 38.99 },
-  { sku: "7725", retail_price: 173.0, sale_price: 147.99 },
-  { sku: "7829", retail_price: 40.0, sale_price: 34.99 },
-  { sku: "10378", retail_price: 75.0, sale_price: 64.99 },
-  { sku: "7801", retail_price: 17.0, sale_price: 13.99 },
-  { sku: "11310", retail_price: 54.0, sale_price: 48.99 },
-  { sku: "7803", retail_price: 22.0, sale_price: 17.99 },
-  { sku: "11234", retail_price: 27.0, sale_price: 23.99 },
-  { sku: "5760", retail_price: 82.0, sale_price: 67.99 },
-  { sku: "11990", retail_price: 32.0, sale_price: 28.99 },
-  { sku: "7805", retail_price: 19.0, sale_price: 17.99 },
-  { sku: "7830", retail_price: 42.0, sale_price: 34.99 },
-  { sku: "9309", retail_price: 26.0, sale_price: 21.99 },
-  { sku: "8755", retail_price: 74.0, sale_price: 61.99 },
-  { sku: "8069", retail_price: 54.0, sale_price: 51.99 },
-  { sku: "8281", retail_price: 45.0, sale_price: 40.99 },
-  { sku: "11311", retail_price: 74.0, sale_price: 69.0 },
-  { sku: "7453", retail_price: 75.0, sale_price: 66.99 },
-  { sku: "7806", retail_price: 27.0, sale_price: 23.99 },
-  { sku: "8282", retail_price: 99.0, sale_price: 80.99 },
-  { sku: "10380", retail_price: 66.0, sale_price: 59.99 },
-  { sku: "104513", retail_price: 62.0, sale_price: 51.99 },
-  { sku: "11030", retail_price: 65.0, sale_price: 59.0 },
-  { sku: "10121", retail_price: 164.0, sale_price: 136.99 },
-  { sku: "6826", retail_price: 91.0, sale_price: 81.99 },
-  { sku: "10379", retail_price: 42.0, sale_price: 39.99 },
-  { sku: "7804", retail_price: 19.0, sale_price: 17.99 },
-  { sku: "9193", retail_price: 101.0, sale_price: 86.99 },
-  { sku: "110677", retail_price: 68.0, sale_price: 59.99 },
-  { sku: "9454", retail_price: 109.0, sale_price: 101.99 },
-  { sku: "9716", retail_price: 79.0, sale_price: 66.99 },
-  { sku: "110709", retail_price: 67.0, sale_price: 54.99 },
-  { sku: "105012", retail_price: 71.0, sale_price: 65.99 },
-  { sku: "110105", retail_price: 44.0, sale_price: 37.99 },
-  { sku: "100789", retail_price: 111.0, sale_price: 82.99 },
-  { sku: "113511", retail_price: 35.0, sale_price: 28.99 },
-  { sku: "5234", retail_price: 81.0, sale_price: 71.7 },
-  { sku: "5891", retail_price: 57.0, sale_price: 53.99 },
-  { sku: "7831", retail_price: 65.0, sale_price: 55.99 },
-  { sku: "100923", retail_price: 57.0, sale_price: 48.99 },
-  { sku: "12737", retail_price: 85.0, sale_price: 78.0 },
-  { sku: "12745", retail_price: 54.0, sale_price: 44.99 },
-  { sku: "12746", retail_price: 65.0, sale_price: 53.99 },
-  { sku: "12747", retail_price: 65.0, sale_price: 59.0 },
-  { sku: "12743", retail_price: 114.0, sale_price: 105.0 },
-  { sku: "12740", retail_price: 105.0, sale_price: 92.99 },
-  { sku: "12738", retail_price: 105.0, sale_price: 92.0 },
-  { sku: "12739", retail_price: 105.0, sale_price: 94.0 },
-  { sku: "13101", retail_price: 39.0, sale_price: 37.99 },
-  { sku: "12748", retail_price: 65.0, sale_price: 59.0 },
-  { sku: "12742", retail_price: 252.0, sale_price: 230.0 },
+  { sku: "5702", sale_price: 18.5 },
+  { sku: "5703", sale_price: 18.5 },
+  { sku: "6039", sale_price: 13.5 },
+  { sku: "9921", sale_price: 20.5 },
+  { sku: "6465", sale_price: 15.75 },
+  { sku: "6466", sale_price: 19.2 },
+  { sku: "6467", sale_price: 17.9 },
+  { sku: "6468", sale_price: 24.5 },
+  { sku: "6469", sale_price: 15.5 },
+  { sku: "6470", sale_price: 19.2 },
+  { sku: "6471", sale_price: 15.75 },
+  { sku: "6472", sale_price: 18.75 },
+  { sku: "6473", sale_price: 15.9 },
+  { sku: "6474", sale_price: 15.75 },
+  { sku: "6475", sale_price: 15.75 },
+  { sku: "6476", sale_price: 19.2 },
+  { sku: "6477", sale_price: 33.25 },
+  { sku: "6478", sale_price: 33.25 },
+  { sku: "6479", sale_price: 18.25 },
+  { sku: "6481A", sale_price: 13.4 },
+  { sku: "6481", sale_price: 16.5 },
+  { sku: "6482", sale_price: 19.5 },
+  { sku: "6483", sale_price: 19.5 },
+  { sku: "6736", sale_price: 13.5 },
+  { sku: "6737", sale_price: 13.5 },
+  { sku: "6738", sale_price: 15.9 },
+  { sku: "6739", sale_price: 15.9 },
+  { sku: "6740", sale_price: 12.5 },
+  { sku: "6741", sale_price: 12.5 },
+  { sku: "6742", sale_price: 15.9 },
+  { sku: "6743", sale_price: 15.9 },
+  { sku: "6744", sale_price: 15.9 },
+  { sku: "6745", sale_price: 15.9 },
+  { sku: "6746", sale_price: 15.9 },
+  { sku: "6747", sale_price: 15.9 },
+  { sku: "8758", sale_price: 42.35 },
+  { sku: "8759", sale_price: 36 },
+  { sku: "8760", sale_price: 35.4 },
+  { sku: "7072", sale_price: 17.95 },
+  { sku: "7682", sale_price: 15.75 },
+  { sku: "7683", sale_price: 15.75 },
+  { sku: "7684", sale_price: 15 },
+  { sku: "7685", sale_price: 16.9 },
+  { sku: "7686", sale_price: 21.9 },
+  { sku: "7687", sale_price: 15.75 },
+  { sku: "7688", sale_price: 27.25 },
+  { sku: "7689", sale_price: 28.9 },
+  { sku: "7786", sale_price: 17.8 },
+  { sku: "7999", sale_price: 15.75 },
+  { sku: "8000", sale_price: 12.95 },
+  { sku: "8001", sale_price: 17.25 },
+  { sku: "8060", sale_price: 10.45 },
+  { sku: "8061", sale_price: 10.45 },
+  { sku: "8062", sale_price: 13.9 },
+  { sku: "8063", sale_price: 35.5 },
+  { sku: "8064", sale_price: 10.45 },
+  { sku: "8065", sale_price: 13.9 },
+  { sku: "8066", sale_price: 13.9 },
+  { sku: "8192", sale_price: 17.8 },
+  { sku: "8193", sale_price: 17.8 },
+  { sku: "8204", sale_price: 34.99 },
+  { sku: "8205", sale_price: 34.99 },
+  { sku: "8206", sale_price: 36 },
+  { sku: "8713", sale_price: 15.75 },
+  { sku: "8716", sale_price: 19.2 },
+  { sku: "8717", sale_price: 17.5 },
+  { sku: "8715", sale_price: 15.5 },
+  { sku: "8719", sale_price: 20.25 },
+  { sku: "8718", sale_price: 18.9 },
+  { sku: "8714", sale_price: 15.75 },
+  { sku: "8749", sale_price: 20.9 },
+  { sku: "8756", sale_price: 44.25 },
+  { sku: "8757", sale_price: 46.25 },
+  { sku: "9039", sale_price: 19.99 },
+  { sku: "9040", sale_price: 19.99 },
+  { sku: "9041", sale_price: 19.99 },
+  { sku: "9078", sale_price: 44.7 },
+  { sku: "9087", sale_price: 47.55 },
+  { sku: "9229", sale_price: 39.65 },
+  { sku: "9786", sale_price: 11.9 },
+  { sku: "9787", sale_price: 14.5 },
+  { sku: "9804", sale_price: 32.35 },
+  { sku: "9805", sale_price: 36.4 },
+  { sku: "9803", sale_price: 31.25 },
+  { sku: "9802", sale_price: 29.65 },
+  { sku: "9806", sale_price: 39.4 },
+  { sku: "9801", sale_price: 39 },
+  { sku: "9796", sale_price: 24.5 },
+  { sku: "9894", sale_price: 15.75 },
+  { sku: "9895", sale_price: 18.75 },
+  { sku: "9897", sale_price: 12.2 },
+  { sku: "9898", sale_price: 17.9 },
+  { sku: "9899", sale_price: 11.75 },
+  { sku: "9906", sale_price: 85.35 },
+  { sku: "9907", sale_price: 46.7 },
+  { sku: "9908", sale_price: 35 },
+  { sku: "9915", sale_price: 15.9 },
+  { sku: "9916", sale_price: 15.9 },
+  { sku: "9917", sale_price: 15.9 },
+  { sku: "9918", sale_price: 14.8 },
+  { sku: "9919", sale_price: 15.9 },
+  { sku: "9920", sale_price: 15.9 },
+  { sku: "9954", sale_price: 92.95 },
+  { sku: "9955", sale_price: 89.5 },
+  { sku: "9956", sale_price: 80.75 },
+  { sku: "10361", sale_price: 25.7 },
+  { sku: "10362", sale_price: 20.25 },
+  { sku: "10363", sale_price: 23 },
+  { sku: "10364", sale_price: 24.43 },
+  { sku: "10365", sale_price: 23 },
+  { sku: "10377", sale_price: 46 },
+  { sku: "10411", sale_price: 14.9 },
+  { sku: "10412", sale_price: 14.9 },
+  { sku: "10414", sale_price: 14.9 },
+  { sku: "10415", sale_price: 14.9 },
+  { sku: "10413", sale_price: 14.9 },
+  { sku: "10416", sale_price: 24.5 },
+  { sku: "10417", sale_price: 24.5 },
+  { sku: "10419", sale_price: 24.5 },
+  { sku: "10418", sale_price: 24.5 },
+  { sku: "10364a", sale_price: 42.05 },
+  { sku: "10361a", sale_price: 33.75 },
+  { sku: "10365a", sale_price: 40.5 },
+  { sku: "10364b", sale_price: 30.1 },
+  { sku: "10492", sale_price: 36.3 },
+  { sku: "10493", sale_price: 36.3 },
+  { sku: "10494", sale_price: 33.9 },
+  { sku: "10495", sale_price: 32.5 },
+  { sku: "10496", sale_price: 28.4 },
+  { sku: "10497", sale_price: 32.5 },
+  { sku: "11038", sale_price: 18.25 },
+  { sku: "11039", sale_price: 18.25 },
+  { sku: "11040", sale_price: 18.25 },
+  { sku: "11041", sale_price: 18.25 },
+  { sku: "11042", sale_price: 21.5 },
+  { sku: "11043", sale_price: 7.5 },
+  { sku: "11044", sale_price: 7.5 },
+  { sku: "11074", sale_price: 34.5 },
+  { sku: "11075", sale_price: 32.5 },
+  { sku: "11076", sale_price: 54 },
+  { sku: "11313", sale_price: 29.99 },
+  { sku: "11312", sale_price: 57 },
+  { sku: "11414", sale_price: 26.5 },
+  { sku: "11415", sale_price: 25.5 },
+  { sku: "11416", sale_price: 27.65 },
+  { sku: "11501", sale_price: 32.5 },
+  { sku: "11502", sale_price: 32.5 },
+  { sku: "11503", sale_price: 32.5 },
+  { sku: "10496A", sale_price: 32.5 },
+  { sku: "10497A", sale_price: 27.99 },
+  { sku: "12351", sale_price: 24 },
+  { sku: "12352", sale_price: 24 },
+  { sku: "12353", sale_price: 22 },
+  { sku: "12354", sale_price: 15.75 },
+  { sku: "12355", sale_price: 15.75 },
+  { sku: "12756", sale_price: 111.25 },
+  { sku: "12757", sale_price: 78.75 },
+  { sku: "12758", sale_price: 45.25 },
+  { sku: "13038", sale_price: 48.6 },
+  { sku: "13248", sale_price: 28.35 },
+  { sku: "13249", sale_price: 28.35 },
+  { sku: "13250", sale_price: 28.35 },
+  { sku: "13251", sale_price: 38.15 },
+  { sku: "13252", sale_price: 38.5 },
+  { sku: "13253", sale_price: 38.5 },
+  { sku: "13254", sale_price: 38.15 },
+  { sku: "8192A", sale_price: 17.8 },
+  { sku: "14054", sale_price: 15.75 },
+  { sku: "14052", sale_price: 24.5 },
+  { sku: "14050", sale_price: 15.75 },
+  { sku: "14051", sale_price: 15.75 },
+  { sku: "14053", sale_price: 25.9 },
+  { sku: "14136", sale_price: 31.5 },
+  { sku: "14137", sale_price: 82 },
+  { sku: "14319", sale_price: 57 },
+  { sku: "14408", sale_price: 52 },
 ];
 
 async function main() {
   for (let i = 0; i < data.length; i++) {
     const row = data[i];
-    console.log(`${i+1} / ${data.length} Updating prices for sku ${row.sku}`)
+    console.log(`${i + 1} / ${data.length} Updating prices for sku ${row.sku}`);
     try {
       /**
        * price update fields
        */
       let updates = {
-        price: row.retail_price,
-        retail_price: row.retail_price,
         sale_price: row.sale_price,
       };
 
-      /**
-       * get product and it's variants
-       */
-      const product = await getProductBySku(row.sku);
-      const variants = await getProductVariants(product.id);
-      
-      /**
-       * check to see if the product has multiple variants
-       */
-      const onlyOneVariant = variants.length === 1;
-      /**
-       * check to see if sku is base variant
-       */
-      const isBaseVariant = variants[0].sku_id === null;
-      if (onlyOneVariant && isBaseVariant) {
-        /**
-         * if there is only one variant and is a base variant then update the prices ar product level
-         */
-        await updateProduct(product.id, updates);
-      } else {
-        /**
-         * else find variant with sku
-         */
-        const variant = variants.find((v) => v.sku === row.sku);
-        if (variant) {
-          /**
-           * update the price for the specific variant with that sku
-           */
-          await updateProductVariant(product.id, variant.id, updates);
-        } else {
-          throw new Error(`Expected to find a variant for ${row.sku}`)
-        }
+      const vars = await getAllProductVariants({ sku: row.sku });
+      const expect = 1;
+      if (vars.length !== expect) {
+        throw `Incorrect number of variants for sku ${row.sku}. Expected ${expect}, received ${vars.length}.`;
       }
+
+      const toUpdate = vars[0];
+      console.log(toUpdate);
+      await updateProductVariant(toUpdate.product_id, toUpdate.id, updates);
     } catch (err) {
       console.log(err);
       continue;
@@ -160,7 +211,7 @@ async function main() {
     /**
      * wait 1.5s
      */
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    //await new Promise((resolve) => setTimeout(resolve, 1500));
   }
   console.log("done");
 }

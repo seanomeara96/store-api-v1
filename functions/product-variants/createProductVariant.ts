@@ -1,4 +1,4 @@
-import { CreateProductVariantParams, ProductVariant } from "./ProductVariant";
+import { CreateProductVariantParams, ProductVariant } from "../../newclient/products/variants";
 
 export function createProductVariant(
   product_id: number,

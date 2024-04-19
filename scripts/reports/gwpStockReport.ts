@@ -22,6 +22,22 @@ const campaigns: any[] = [
   {
     type: "brand",
     store: "bf",
+    identifier: "Dermalogica",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/8153/20706/Dermalogica_Skin_Awakening_Heroes_GWP__26146.1712307051.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/8153/20706/Dermalogica_Skin_Awakening_Heroes_GWP__26146.1712307051.jpg?c=2&imbypass=on",
+    headline: "Free Skin Awakening Heroes Set",
+    worth: 34,
+    condition: "When you spend €100 or more on Dermalogica",
+    sku: "14683",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/brands/Dermalogica.html",
+  },
+  {
+    type: "brand",
+    store: "bf",
     identifier: "Kerastase",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/7806/19358/Kerastase_Elixir_Ultime_LHuile_Original_Deluxe_15ml__1__14433.1706609796.jpg?c=2&imbypass=on",
@@ -54,6 +70,38 @@ const campaigns: any[] = [
   {
     type: "brand",
     store: "bf",
+    identifier: "Nuxe",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/8275/20657/Mini_Ultra_AntiAge_Global_15ml__92914.1712243004.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/8275/20657/Mini_Ultra_AntiAge_Global_15ml__92914.1712243004.jpg?c=2&imbypass=on",
+    headline: "Free NUXE Nuxuriance Ultra Mini GWP",
+    worth: 19,
+    condition: "When you spend €40 or more on Nuxe",
+    sku: "14681",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/nuxe/",
+  },
+  {
+    type: "brand",
+    store: "bf",
+    identifier: "Caudalie",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/8118/19669/Caudalie_-_Shower_Gel_The_des_vignes_200ml__96266.1709134294.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/8118/19669/Caudalie_-_Shower_Gel_The_des_vignes_200ml__96266.1709134294.jpg?c=2&imbypass=on",
+    headline: "Free Caudalie - Shower Gel The des vignes ",
+    worth: 10,
+    condition: "When you spend €30 or more on Caudalie",
+    sku: "9345A",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/caudalie/",
+  },
+  {
+    type: "brand",
+    store: "bf",
     identifier: "Aveda",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/7581/18466/Aveda_Mini_Paddle_Brush__03975.1700147477.jpg?c=2&imbypass=on",
@@ -66,38 +114,6 @@ const campaigns: any[] = [
     sku_type: "product",
     display: "TRUE",
     destination_url: "https://www.beautyfeatures.ie/aveda/",
-  },
-  {
-    type: "brand",
-    store: "bf",
-    identifier: "Moroccanoil",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5115/9368/moro-comb__36575.1620814825.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/5115/9368/moro-comb__36575.1620814825.jpg?c=2&imbypass=on",
-    headline: "Free Moroccanoil Detangling Comb",
-    worth: 20,
-    condition: "When you spend €100 on Moroccanoil",
-    sku: "10151",
-    sku_type: "product",
-    display: "FALSE",
-    destination_url: "https://www.beautyfeatures.ie/brands/Moroccanoil.html",
-  },
-  {
-    type: "brand",
-    store: "bf",
-    identifier: "Dermalogica",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/7197/17300/extreme_anti_snap_shampoo_gwp_1__94066.1696844988.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/7197/17300/extreme_anti_snap_shampoo_gwp_1__94066.1696844988.jpg?c=2&imbypass=on",
-    headline: "Free Dermalogica Brightening Heroes Kit",
-    worth: 26,
-    condition: "When you spend €100 on Dermalogica",
-    sku: "13285",
-    sku_type: "product",
-    display: "FALSE",
-    destination_url: "https://www.beautyfeatures.ie/brands/Dermalogica.html",
   },
   {
     type: "brand",
@@ -130,22 +146,6 @@ const campaigns: any[] = [
     sku_type: "product",
     display: "TRUE",
     destination_url: "https://www.beautyfeatures.ie/bare-by-vogue/",
-  },
-  {
-    type: "category",
-    store: "bf",
-    identifier: "Top Brands/Redken/Extreme",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/395/9605/Redken_-_Extreme_Shampoo_300ml__40188.1623162199.jpg",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/395/9605/Redken_-_Extreme_Shampoo_300ml__40188.1623162199.jpg",
-    headline: "Free Redken Extreme Travel Size",
-    worth: 5,
-    condition: "When you spend €40 on the Redken Extreme range",
-    sku: "11099e",
-    sku_type: "product",
-    display: "TRUE",
-    destination_url: "https://www.beautyfeatures.ie/brands/redken",
   },
   {
     type: "category",
@@ -237,46 +237,12 @@ const campaigns: any[] = [
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6240/13707/Loreal_Professional_Mini_Collection_1__50255.1658477606.jpg?c=2&imbypass=on",
     headline: "L'Oreal Professionnel Absolut Repair Mask 75ml",
     worth: 8,
-    condition: "When you spend €30 on L'Oreal Professionnel",
+    condition: "When you spend €30 on the L'Oreal Vitamino Color range",
     sku: "11792",
     sku_type: "product",
     display: "FALSE",
     destination_url:
       "https://www.beautyfeatures.ie/loreal-makeup-hair-fragrance-and-skincare/",
-  },
-  {
-    type: "brand",
-    store: "bf",
-    identifier: "L'Oreal Professionnel",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6241/13788/LOreal_Professionnel_Metal_Detox_Anti-Deposit_Protector_Mask_75ml_1__25822.1659009370.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6241/13788/LOreal_Professionnel_Metal_Detox_Anti-Deposit_Protector_Mask_75ml_1__25822.1659009370.jpg?c=2&imbypass=on",
-    headline:
-      "L'Oreal Professionnel Metal Detox Anti-Deposit Protector Mask 75ml",
-    worth: 9,
-    condition: "When you spend €20 on L'Oreal Professionnel",
-    sku: "11793",
-    sku_type: "product",
-    display: "FALSE",
-    destination_url:
-      "https://www.beautyfeatures.ie/loreal-makeup-hair-fragrance-and-skincare/",
-  },
-  {
-    type: "brand",
-    store: "bf",
-    identifier: "The Inkey List",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6509/14665/Inkey_List_-_Oat_Cleansing_Balm_50ml_GWP_1__09100.1673354704.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6509/14665/Inkey_List_-_Oat_Cleansing_Balm_50ml_GWP_1__09100.1673354704.jpg?c=2&imbypass=on",
-    headline: "Free Inkey List Oat Cleansing Balm 50ml worth €6",
-    worth: 6,
-    condition: "When you spend €25 on The Inkey List",
-    sku: "12207",
-    sku_type: "product",
-    display: "FALSE",
-    destination_url: "https://www.beautyfeatures.ie/the-inkey-list/",
   },
   {
     type: "brand",
@@ -382,22 +348,6 @@ const campaigns: any[] = [
     store: "bf",
     identifier: "Zadig & Voltaire",
     thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6728/17035/Zadig_Voltaire_Pouch_GWP_1__86807.1692692313.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6728/17035/Zadig_Voltaire_Pouch_GWP_1__86807.1692692313.jpg?c=2&imbypass=on",
-    headline: "Free Zadig & Voltaire Pouch",
-    worth: null,
-    condition: "With every Zadig & Voltaire purchase",
-    sku: "12538",
-    sku_type: "product",
-    display: "FALSE",
-    destination_url: "https://www.beautyfeatures.ie/zadig-voltaire/",
-  },
-  {
-    type: "brand",
-    store: "bf",
-    identifier: "Zadig & Voltaire",
-    thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6729/17036/Zadig_Voltaire_Tote_Bag_GWP_1__78679.1692692498.jpg?c=2&imbypass=on",
     full_img:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6729/17036/Zadig_Voltaire_Tote_Bag_GWP_1__78679.1692692498.jpg?c=2&imbypass=on",
@@ -408,22 +358,6 @@ const campaigns: any[] = [
     sku_type: "product",
     display: "TRUE",
     destination_url: "https://www.beautyfeatures.ie/zadig-voltaire/",
-  },
-  {
-    type: "brand",
-    store: "bf",
-    identifier: "Shiseido",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6479/14704/Shiseido_WASO_Yuzu-C_Beauty_Sleeping_Mask_15ml_GWP_1__29363.1673441326.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6479/14704/Shiseido_WASO_Yuzu-C_Beauty_Sleeping_Mask_15ml_GWP_1__29363.1673441326.jpg?c=2&imbypass=on",
-    headline: "Free WASO Yuzu-C Beauty Sleeping Mask worth €12",
-    worth: 12,
-    condition: "When you spend €80 on Shiseido",
-    sku: "12168",
-    sku_type: "product",
-    display: "FALSE",
-    destination_url: "https://www.beautyfeatures.ie/shiseido/",
   },
   {
     type: "brand",
@@ -444,22 +378,6 @@ const campaigns: any[] = [
   {
     type: "brand",
     store: "bf",
-    identifier: "NAK",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5709/10693/NAK_Platinum_Blonde_Anti-Yellow_Shampoo_100ml_4_1__75150.1645707093.png",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/5709/10693/NAK_Platinum_Blonde_Anti-Yellow_Shampoo_100ml_4_1__75150.1645707093.png",
-    headline: "Free Platinum Blonde Bundle worth €16",
-    worth: 16,
-    condition: "When you spend €80 or more on NAK",
-    sku: "11152",
-    sku_type: "product",
-    display: "FALSE",
-    destination_url: "https://www.beautyfeatures.ie/nak/",
-  },
-  {
-    type: "brand",
-    store: "bf",
     identifier: "SVR",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5508/11746/Gift_with_purchase_20__24675.1651824657.jpg",
@@ -472,70 +390,6 @@ const campaigns: any[] = [
     sku_type: "product",
     display: "FALSE",
     destination_url: "https://www.beautyfeatures.ie/svr/",
-  },
-  {
-    type: "brand",
-    store: "bf",
-    identifier: "NUXE",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5638/10654/NUXE_Bougie_Candle_GWP_1__10111.1644575162.png?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/5638/10654/NUXE_Bougie_Candle_GWP_1__10111.1644575162.png?c=2&imbypass=on",
-    headline: "Free Bougie Candle worth €19",
-    worth: 19,
-    condition: "When you spend €40 or more on NUXE",
-    sku: "10935",
-    sku_type: "product",
-    display: "FALSE",
-    destination_url: "https://www.beautyfeatures.ie/nuxe/",
-  },
-  {
-    type: "brand",
-    store: "bf",
-    identifier: "NUXE",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5242/9744/NUXE_Reve_De_Miel_Lip_Balm_15g__47769.1625566345.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/5242/9744/NUXE_Reve_De_Miel_Lip_Balm_15g__47769.1625566345.jpg?c=2&imbypass=on",
-    headline: "NUXE Reve De Miel Lip Balm 15g worth €12.50",
-    worth: 12.5,
-    condition: "When You Spend €50 or more on NUXE",
-    sku: "10356",
-    sku_type: "product",
-    display: "FALSE",
-    destination_url: "https://www.beautyfeatures.ie/nuxe/",
-  },
-  {
-    type: "brand",
-    store: "bf",
-    identifier: "NUXE",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5310/9925/NUXE_Very_Rose_3-in-1_Soothing_Micellar_Water_100ml_1__81400.1629367978.png",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/5310/9925/NUXE_Very_Rose_3-in-1_Soothing_Micellar_Water_100ml_1__81400.1629367978.png",
-    headline: "Free Very Rose 3-in-1 Soothing Micellar Water 100ml",
-    worth: 11,
-    condition: "When you spend €60 or more on NUXE",
-    sku: "10442",
-    sku_type: "product",
-    display: "FALSE",
-    destination_url: "https://www.beautyfeatures.ie/nuxe/",
-  },
-  {
-    type: "brand",
-    store: "bsk",
-    identifier: "Dermalogica",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/75x75/products/633/1315/brightening_heros__07205.1702663155.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/300x300/products/633/1315/brightening_heros__07205.1702663155.jpg?c=2&imbypass=on",
-    headline: "Free Dermalogica Smoothing and Firming Kit",
-    worth: 28,
-    condition: "When you spend €80 on Dermalogica",
-    sku: "13285",
-    sku_type: "product",
-    display: "TRUE",
-    destination_url: "https://www.beautyskincare.ie/dermalogica",
   },
 ];
 

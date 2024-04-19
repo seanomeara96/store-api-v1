@@ -2,33 +2,30 @@ import { updateProduct } from "../products/updateProduct";
 import { getProductById } from "../products/getProductById";
 /**
  *
- * @param {number} productId
- * @param {number} catIdToRemove
+ * @param {number} pID
+ * @param {number} cID
  * @returns promise
  */
-export const removeCatFromProduct = (
-  productId: number,
-  catIdToRemove: number
-) => {
-  return new Promise((resolve, reject) => {
-    if (typeof productId !== "number")
-      return reject("product id must be a number");
-    // get product categories
-    getProductById(productId)
-      .then((product: any) => {
-        // check if already in category
-        if (!product.categories.includes(catIdToRemove))
-          return reject("product already not associated with this category");
+export function removeCatFromProduct(pID: number, cID: number): Promise<void> {
+  return new Promise(async function (resolve, reject) {
+    try {
+      if (typeof pID !== "number") {
+        return reject("product id must be a number");
+      }
+      // get product categories
+      const product = await getProductById(pID);
+      if (!product.categories.includes(cID)) {
+        return resolve();
+      }
 
-        const updatedCategories = product.categories.filter(
-          (catId: number) => catId !== catIdToRemove
-        );
+      // filter out id to remove
+      const updatedCategories = product.categories.filter((id) => id !== cID);
 
-        // remove category
-        updateProduct(productId, { categories: updatedCategories })
-          .then((res: any) => resolve(res)) // ??  does this return undefined?
-          .catch((err: any) => reject(err));
-      })
-      .catch(reject);
+      // remove category
+      await updateProduct(pID, { categories: updatedCategories });
+      resolve();
+    } catch (err) {
+      reject(err);
+    }
   });
-};
+}

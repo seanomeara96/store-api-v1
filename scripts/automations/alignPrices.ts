@@ -1,4 +1,4 @@
-import { ProductVariant } from "../../functions/product-variants/ProductVariant";
+import { ProductVariant } from "../../newclient/products/variants";
 import { getAllProducts } from "../../functions/products/getAllProducts";
 import { updateProductVariant } from "../../functions/product-variants/updateProductVariant";
 import { getProductVariants } from "../../functions/products/getProductVariants";

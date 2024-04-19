@@ -14,7 +14,7 @@ import { getAllProductVariantOptions } from "./functions/product-variant-options
 import {
   CreateProductVariantParams,
   ProductVariant,
-} from "./functions/product-variants/ProductVariant";
+} from "./newclient/products/variants";
 import { createProductVariant } from "./functions/product-variants/createProductVariant";
 import { Product } from "./functions/products/Product";
 import {
@@ -25,9 +25,10 @@ import { getAllProductVariants } from "./functions/products/getAllProductVariant
 import { getProductById } from "./functions/products/getProductById";
 import { getProductByName } from "./functions/products/getProductByName";
 import { getProductVariants } from "./functions/products/getProductVariants";
+import { getAllProducts } from "./functions/products/getAllProducts";
 
 const src = "ih";
-const destination: string = "pb";
+const destination: string = "bs";
 
 (async function () {
   try {
@@ -99,7 +100,7 @@ async function transfer(src: string, destination: string, pxBrandID: number) {
 
     if (destination === "pb") {
       destinationDummyCategoryID = 165;
-      srcFilter = { brand_id: 438 };
+      srcFilter = { brand_id: 238 };
       destination_name = "PregnancyAndBaby";
     }
 
@@ -122,14 +123,21 @@ async function transfer(src: string, destination: string, pxBrandID: number) {
     // get all src skus
     require("./config/config").config(src);
     console.log(`Fetching all variants for ${src}`);
-    const src_vars = await getAllProductVariants(srcFilter);
+    const src_products = await getAllProducts(srcFilter);
+    const src_vars: ProductVariant[] = [];
+    for (const p of src_products) {
+      const pvars = await getProductVariants(p.id);
+      for (const v of pvars) {
+        src_vars.push(v);
+      }
+    }
     console.log(`Fetching all brands for ${src}`);
     const src_brands = await getAllBrands();
 
     // get all destination skus
     require("./config/config").config(destination);
     console.log(`Fetching all variants for ${destination}`);
-    const destination_vars = await getAllProductVariants({}, 250, 1000);
+    const destination_vars = await getAllProductVariants();
 
     // these skus need to be transferred from src to destination
     const needTransfer: ProductVariant[] = [];
@@ -177,7 +185,9 @@ async function transfer(src: string, destination: string, pxBrandID: number) {
       const images = await getAllProductImages(product.id);
       // reformat image object to create image requirements
       const newImages = images.map(function (img) {
-        const imgURL = `https://store-${process.env[`${src.toUpperCase()}_STORE_HASH`]}.mybigcommerce.com/product_images/${img.image_file}`;
+        const imgURL = `https://store-${
+          process.env[`${src.toUpperCase()}_STORE_HASH`]
+        }.mybigcommerce.com/product_images/${img.image_file}`;
         return {
           is_thumbnail: img.is_thumbnail,
           sort_order: img.sort_order,

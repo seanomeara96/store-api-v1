@@ -1,6 +1,7 @@
 import { getAllBlogs } from "../../functions/blogs/getAllBlogs";
 import { output } from "../utils/output";
 import path from "path";
+
 const store = "ha";
 require("../../config/config").config(store, 2);
 

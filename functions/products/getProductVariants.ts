@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import { ProductVariant } from "../product-variants/ProductVariant";
+import { ProductVariant } from "../../newclient/products/variants";
 
 type Variants = ProductVariant[];
 export function getProductVariants(product_id: number): Promise<Variants> {

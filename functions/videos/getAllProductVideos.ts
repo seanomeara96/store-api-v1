@@ -1,4 +1,4 @@
-import { ProductVideo } from "./ProductVideos";
+import { ProductVideo } from "../../newclient/products/videos";
 
 export function getAllProductVideos(product_id: number): Promise<ProductVideo> {
   return new Promise(async function (resolve, reject) {

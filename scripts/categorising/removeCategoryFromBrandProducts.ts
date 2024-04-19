@@ -1,18 +1,16 @@
 import { removeCatFromProduct } from "../../functions/products/removeCatFromProduct";
-import { getProductsByBrand } from "../../functions/products/getProductsByBrand";
 import { getBrandByName } from "../../functions/brands/getBrandByName";
 import { getAllProducts } from "../../functions/products/getAllProducts";
 
 /**
  * removes category from products by brand
- * @param {*} categoryName
  * @returns
  */
 async function main() {
   try {
     require("../../config/config").config("bf");
 
-    const brandName = "Redken";
+    const brandName = "Kérastase";
     const catId = 640;
 
     const brand = await getBrandByName(brandName);
@@ -22,7 +20,9 @@ async function main() {
     const products = await getAllProducts({ brand_id: brand.id });
 
     for (const product of products) {
-      await removeCatFromProduct(product.id, catId);
+      if (product.categories.includes(catId)) {
+        await removeCatFromProduct(product.id, catId);
+      }
     }
   } catch (err) {
     console.log(err);

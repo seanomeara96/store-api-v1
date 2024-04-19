@@ -1,5 +1,5 @@
 import { getAllProducts } from "../../functions/products/getAllProducts";
-import { ProductVariant } from "../product-variants/ProductVariant";
+import { ProductVariant } from "../../newclient/products/variants";
 
 import { getProductVariants } from "./getProductVariants";
 
