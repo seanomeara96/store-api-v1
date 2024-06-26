@@ -9,3 +9,4 @@ email-data.ts
 *.db
 **/cache.json
 **/*.cache.json
+scripts/product-images/images
