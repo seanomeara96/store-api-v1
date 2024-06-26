@@ -22,7 +22,7 @@ async function report(store: store, itemRecords: ItemRecord[]) {
   require("../../config/config").config(store, 2);
   try {
     const minDate = new Date();
-    minDate.setDate(minDate.getDate() - 3); // oldest date default 2
+    minDate.setDate(minDate.getDate() - 2); // oldest date default 2
     minDate.setHours(14, 0, 0, 0);
 
     // Yesterday at 11:59 pm
@@ -54,9 +54,9 @@ async function report(store: store, itemRecords: ItemRecord[]) {
       }
 
       const hasTrackingNumber = shipment.tracking_number;
-      const isAnPostTrackingNumber = shipment.tracking_number.startsWith("CE");
+      const trackingNumberIsAnPostTrackingNumber = shipment.tracking_number.startsWith("CE");
 
-      if (hasTrackingNumber && isAnPostTrackingNumber) {
+      if (hasTrackingNumber && trackingNumberIsAnPostTrackingNumber) {
         anPostOrdersAndShipments.push({
           order,
           shipment,
@@ -106,7 +106,7 @@ async function report(store: store, itemRecords: ItemRecord[]) {
     // want to cap at 100 emails and 75 25 split toward gmail
     if(store === "bf"){
       console.log("gmails capped at 50")
-      gmails = gmails.slice(0, 50)
+      gmails = gmails.slice(0, 75)
       console.log("non gmails capped at 25")
       nonGmails = nonGmails.slice(0, 25)
     }
@@ -129,7 +129,7 @@ async function report(store: store, itemRecords: ItemRecord[]) {
   }
 }
 
-function getTodaysCachePath() {
+function getTodaysCachePath():string {
   const today = new Date();
   const year = today.getFullYear();
   const month = String(today.getMonth() + 1).padStart(2, "0"); // Months are zero-based
@@ -153,10 +153,8 @@ async function main() {
     const cacheFilePath = getTodaysCachePath();
     let itemRecords;
     if (fs.existsSync(cacheFilePath)) {
-      console.log(`cached data exists`);
-      const fileContents = fs.readFileSync(cacheFilePath, {
-        encoding: "utf-8",
-      });
+      console.log(`Using cached records`);
+      const fileContents = fs.readFileSync(cacheFilePath, { encoding: "utf-8" });
       itemRecords = JSON.parse(fileContents);
     } else {
       itemRecords = await getItemRecords();

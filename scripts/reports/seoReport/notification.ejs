@@ -25,10 +25,15 @@
   </div>
   <div style="margin-bottom: 0.5rem">
     <span>
-      <a
-        href="https://store-<%= page.storeHash %>.mybigcommerce.com/manage/products/<%= page.type === 'brand' ? 'brands' : 'categories' %>/<%= page.id %>/edit"
-        >Edit Page Title / Meta Description</a
-      >
+      <% if(page.type === "brand"){ %>
+        <a
+        href="https://store-<%= page.storeHash %>.mybigcommerce.com/manage/products/brands/<%= page.id %>/edit"
+        >Edit Page Title / Meta Description</a>
+      <%} else { %>
+        <a
+        href="https://store-<%= page.storeHash %>.mybigcommerce.com/manage/products/categories/1/edit/<%= page.id %>"
+        >Edit Page Title / Meta Description</a>
+     <% }%>
     </span>
   </div>
   <div>

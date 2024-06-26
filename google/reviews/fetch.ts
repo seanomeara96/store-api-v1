@@ -1,44 +1,44 @@
-// Dependencies: axios@^0.27.2
-import axios from "axios";
+import { google } from 'googleapis';
 
-const googlePlacesApiKey = process.env.PLACES_API_KEY; // Replace with your actual API key
+// Initialize Google API client
+const oauth2Client = new google.auth.OAuth2({
+  clientId: 'YOUR_CLIENT_ID',
+  clientSecret: 'YOUR_CLIENT_SECRET',
+  redirectUri: 'YOUR_REDIRECT_URL',
+});
 
-const fetchGoogleReviews = async (): Promise<GoogleReview[]> => {
+// Set the access token
+oauth2Client.setCredentials({
+  access_token: 'YOUR_ACCESS_TOKEN',
+  refresh_token: 'YOUR_REFRESH_TOKEN',
+  // Optional: expiry_date
+});
+
+// Create a Google My Business client
+const myBusinessClient = google.mybusiness({
+  version: 'v4',
+  auth: oauth2Client,
+});
+
+// Fetch reviews for a specific location
+async function fetchReviews(locationId: string) {
   try {
-    const placeId = "ChIJMSFFIiqmZ0gRdFAFJPsCBAw";
-    const reviewsUrl = `https://maps.googleapis.com/maps/api/place/details/json&place_id=${placeId}&fields=reviews&key=${googlePlacesApiKey}`;
-
-    const reviewsResponse = await axios.get(reviewsUrl);
-    
-    const reviewsData = reviewsResponse.data;
-    console.log("reviewsResponse", reviewsResponse.data)
-
-    if (
-      reviewsData.status === "OK" &&
-      reviewsData.result &&
-      reviewsData.result.reviews
-    ) {
-      return reviewsData.result.reviews
-    } else {
-      throw new Error("Failed to fetch reviews");
-    }
+    const response = await myBusinessClient.accounts.locations.reviews.list({
+      name: `accounts/YOUR_ACCOUNT_ID/locations/${locationId}`,
+    });
+    return response.data;
   } catch (error) {
-    throw error;
+    console.error('Error fetching reviews:', error.message);
+    return null;
   }
-};
-
-interface GoogleReview {
-  rating: number;
-  text: string;
-  authorName: string;
-  timeCreated: Date;
 }
 
-(async () => {
-  try {
-    const reviews = await fetchGoogleReviews();
-    console.log("Reviews:", reviews);
-  } catch (error) {
-    console.error("Error fetching reviews:", error);
-  }
-})();
+// Example usage
+const locationId = 'YOUR_LOCATION_ID';
+fetchReviews(locationId)
+  .then(reviews => {
+    console.log('Reviews:', reviews);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });

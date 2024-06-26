@@ -5,7 +5,7 @@ import { getProductById } from "./getProductById";
 function createRelevantRedirect(
   product: any,
   custom_redirect?: string | undefined
-):Promise<true> {
+): Promise<true> {
   return new Promise(async (resolve, reject) => {
     try {
       if (!product) {
@@ -32,13 +32,20 @@ function createRelevantRedirect(
 
 export function deleteProduct(
   id: number,
+  redirect?: boolean | undefined,
   url?: string | undefined
 ): Promise<string> {
   return new Promise(async (resolve, reject) => {
     try {
+      if (typeof redirect === "undefined") {
+        redirect = true;
+      }
+
       const product = await getProductById(id);
 
-      await createRelevantRedirect(product, url);
+      if (redirect) {
+        await createRelevantRedirect(product, url);
+      }
 
       await require("../../config/config").store.delete(
         `/catalog/products/${id}`

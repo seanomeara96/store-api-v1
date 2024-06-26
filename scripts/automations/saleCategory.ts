@@ -5,7 +5,8 @@ import { getAllProducts } from "../../functions/products/getAllProducts";
 import { removeCategoryFromProductsInCategory } from "../../functions/products/removeCategoryFromProductsInCategory";
 import { addCatToProduct } from "../../functions/products/addCatToProduct";
 
-function currentDiscount(product: Product) {
+function currentDiscount(product: Product):number {
+  if (!product.sale_price) return 0
   return Math.round(
     ((product.price - product.sale_price) / product.price) * 100
   );

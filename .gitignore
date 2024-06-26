@@ -1,7 +1,7 @@
 .env
 node_modules/
 **/*.csv
-images/
+screenshots
 **/out.txt
 pixie/**/main.db
 emails.db

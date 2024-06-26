@@ -1,14 +1,17 @@
 import { addCatToProduct } from "../../functions/products/addCatToProduct";
 
-require("../../config/config").config("bf");
+require("../../config/config").config("ch");
 
-const cat_id = 640;
+const cat_id = 541;
 const ids = [
-  { "Product ID": 5496 },
-  { "Product ID": 5497 },
-  { "Product ID": 5498 },
-  { "Product ID": 6061 },
-  { "Product ID": 7038 },
+  { "Product ID": 119 },
+  { "Product ID": 203 },
+  { "Product ID": 232 },
+  { "Product ID": 462 },
+  { "Product ID": 564 },
+  { "Product ID": 719 },
+  { "Product ID": 731 },
+  { "Product ID": 1087 },
 ];
 
 const productIds = ids.map((i) => Object.values(i)[0]);

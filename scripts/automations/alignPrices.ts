@@ -3,8 +3,8 @@ import { getAllProducts } from "../../functions/products/getAllProducts";
 import { updateProductVariant } from "../../functions/product-variants/updateProductVariant";
 import { getProductVariants } from "../../functions/products/getProductVariants";
 async function align() {
-  require("./config/config").config("bf");
-  const src_products = await getAllProducts({ brand_id: 57 });
+  require("../../config/config").config("bf");
+  const src_products = await getAllProducts({ brand_id: 154 });
   const src_variants: ProductVariant[] = [];
   for (const p of src_products) {
     const vars = await getProductVariants(p.id);
@@ -12,8 +12,8 @@ async function align() {
       src_variants.push(v);
     }
   }
-  require("./config/config").config("ah");
-  const dest_products = await getAllProducts({ brand_id: 57 });
+  require("../../config/config").config("ah");
+  const dest_products = await getAllProducts({ brand_id: 65 });
   const dest_variants: ProductVariant[] = [];
   for (const p of dest_products) {
     const vars = await getProductVariants(p.id);
@@ -38,9 +38,9 @@ async function align() {
           retailPriceMismatch
         ) {
           await updateProductVariant(d.product_id, d.id, {
-            sale_price: s.sale_price,
+            sale_price: s.sale_price || s.price,
             price: s.price,
-            retail_price: s.retail_price,
+            retail_price: s.retail_price || s.price,
             cost_price: s.cost_price,
           });
         }

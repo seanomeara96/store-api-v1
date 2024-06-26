@@ -21,7 +21,7 @@
     "dotenv": "^8.2.0",
     "ejs": "^3.1.6",
     "express": "^4.18.2",
-    "googleapis": "^88.2.0",
+    "googleapis": "^134.0.0",
     "gpt-3-encoder": "^1.1.4",
     "html-to-text": "^8.2.1",
     "image-downloader": "^4.3.0",
@@ -40,7 +40,7 @@
   "scripts": {
     "cap": "ts-node ./scripts/products/applyMaxOrderQtyToBrand.ts",
     "report": "ts-node ./scripts/reports/gwpStockReport.ts",
-    "audit": "node ./scripts/reports/dummyAudit.js",
+    "audit": "ts-node ./scripts/reports/dummyAudit.ts",
     "seo": "ts-node ./scripts/reports/seoReport.ts",
     "emptiesCron": "ts-node ./scripts/reports/emptyPages/emptiesCron.ts",
     "empties": "ts-node ./scripts/reports/emptyPages/empties.ts",

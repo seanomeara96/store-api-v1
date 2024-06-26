@@ -10,12 +10,14 @@ async function main() {
   try {
     require("../../config/config").config("bf");
 
-    const brandName = "Kérastase";
+    const brandName = "Pureology";
     const catId = 640;
 
     const brand = await getBrandByName(brandName);
 
     if (!brand || brand.name !== brandName) return console.log("brand fault");
+
+    console.log(brand.name)
 
     const products = await getAllProducts({ brand_id: brand.id });
 

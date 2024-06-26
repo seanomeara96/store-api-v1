@@ -16,7 +16,7 @@ const campaigns: any[] = [
     condition: "When you spend €60 or more on Alfaparf",
     sku: "6481A",
     sku_type: "config",
-    display: "TRUE",
+    display: "FALSE",
     destination_url: "https://www.beautyfeatures.ie/brands/Alfaparf.html",
   },
   {
@@ -32,8 +32,24 @@ const campaigns: any[] = [
     condition: "When you spend €100 or more on Dermalogica",
     sku: "14683",
     sku_type: "product",
-    display: "TRUE",
+    display: "FALSE",
     destination_url: "https://www.beautyfeatures.ie/brands/Dermalogica.html",
+  },
+  {
+    type: "brand",
+    store: "bsk",
+    identifier: "Dermalogica",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/8153/20706/Dermalogica_Skin_Awakening_Heroes_GWP__26146.1712307051.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/8153/20706/Dermalogica_Skin_Awakening_Heroes_GWP__26146.1712307051.jpg?c=2&imbypass=on",
+    headline: "Free Skin Awakening Heroes Set",
+    worth: 34,
+    condition: "When you spend €100 or more on Dermalogica",
+    sku: "14683",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyskincare.ie/brands/Dermalogica.html",
   },
   {
     type: "brand",
@@ -98,22 +114,6 @@ const campaigns: any[] = [
     sku_type: "product",
     display: "TRUE",
     destination_url: "https://www.beautyfeatures.ie/caudalie/",
-  },
-  {
-    type: "brand",
-    store: "bf",
-    identifier: "Aveda",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/7581/18466/Aveda_Mini_Paddle_Brush__03975.1700147477.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/7581/18466/Aveda_Mini_Paddle_Brush__03975.1700147477.jpg?c=2&imbypass=on",
-    headline: "Free Aveda Mini Paddle Brush",
-    worth: 31,
-    condition: "When you spend €40 or more on Aveda",
-    sku: "13749",
-    sku_type: "product",
-    display: "TRUE",
-    destination_url: "https://www.beautyfeatures.ie/aveda/",
   },
   {
     type: "brand",
@@ -390,6 +390,22 @@ const campaigns: any[] = [
     sku_type: "product",
     display: "FALSE",
     destination_url: "https://www.beautyfeatures.ie/svr/",
+  },
+  {
+    type: "brand",
+    store: "bf",
+    identifier: "Pestle & Mortar",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/4985/21291/Milkshake_Silver_Shine_Conditioner_250ml_1__78028.1715244047.png?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/4985/21291/Milkshake_Silver_Shine_Conditioner_250ml_1__78028.1715244047.png?c=2&imbypass=on",
+    headline: "Free Pestle & Mortar Hydrate Moisturiser",
+    worth: 28,
+    condition: "When you spend €50 or more on Pestle & Mortar",
+    sku: "8902",
+    sku_type: "product",
+    display: "FALSE",
+    destination_url: "https://www.beautyfeatures.ie/brands/Pestle-Mortar",
   },
 ];
 

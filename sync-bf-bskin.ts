@@ -28,7 +28,7 @@ import { getProductVariants } from "./functions/products/getProductVariants";
 import { getAllProducts } from "./functions/products/getAllProducts";
 
 const src = "ih";
-const destination: string = "bs";
+const destination: string = "hie";
 
 (async function () {
   try {
@@ -110,8 +110,14 @@ async function transfer(src: string, destination: string, pxBrandID: number) {
       destination_name = "Babysafety";
     }
 
-    if ((destination === "pb" || destination === "bs") && src !== "ih") {
-      throw new Error("source for pb/bs needs to be ih");
+    if (destination === "hie") {
+      destinationDummyCategoryID = 38;
+      srcFilter = { brand_id: 176 };
+      destination_name = "Haakaa Ireland";
+    }
+
+    if ((destination === "pb" || destination === "bs" || destination === "hie") && src !== "ih") {
+      throw new Error("source for pb/bs/hie needs to be ih");
     }
 
     if (!destinationDummyCategoryID || !srcFilter || !destination_name) {

@@ -120,9 +120,10 @@ async function checkAllSeo(allStores: Stores, recipients: string[]) {
       type: r.pageType,
       name: r.name,
       url: r.custom_url ? r.storeUrl + r.custom_url.url : "",
-      edit: `https://store-${r.storeHash}.mybigcommerce.com/manage/products/${
-        r.pageType === "brand" ? "brands" : "categories"
-      }/${r.id}/edit`,
+      edit:
+        r.pageType === "brand"
+          ? `https://store-${r.storeHash}.mybigcommerce.com/manage/products/brands/${r.id}/edit`
+          : `https://store-${r.storeHash}.mybigcommerce.com/manage/products/categories/1/edit/${r.id}`,
     };
   });
 

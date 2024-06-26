@@ -8,8 +8,7 @@ require("../../config/config").config("bf");
 async function applyDiscountToBrand() {
   try {
     const products = await getAllProducts({
-      "categories:in": 663,
-      brand_id: 154,
+      "categories:in": 906
     });
 
     if (!products) {
@@ -20,7 +19,7 @@ async function applyDiscountToBrand() {
       const variants = await getProductVariants(product.id);
       for (const v of variants) {
         // retail price possibly null
-        v.sale_price = (v.retail_price || v.price) * (1 - 0.25);
+        v.sale_price = (v.retail_price || v.price) * (1 - 0.4);
         // Convert to cents
         v.sale_price = v.sale_price * 100;
 
