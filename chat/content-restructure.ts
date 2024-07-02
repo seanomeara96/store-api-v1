@@ -187,10 +187,7 @@ async function main() {
       /**
        * convert from markdown back to html
        */
-      const html = marked(text, {
-        mangle: false,
-        headerIds: false,
-      });
+      const html = await marked(text);
 
       /**
        * try update the product

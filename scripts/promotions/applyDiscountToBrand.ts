@@ -3,16 +3,16 @@ import { updateProductVariant } from "../../functions/product-variants/updatePro
 import { getAllProducts } from "../../functions/products/getAllProducts";
 import { getProductVariants } from "../../functions/products/getProductVariants";
 
-
-require("../../config/config").config("bf");
+const store = "bf";
+require("../../config/config").config(store);
 
 async function applyDiscountToBrand() {
   try {
-    const brand = await getBrandByName("The Ordinary");
+    const brand = await getBrandByName("Act + Acre");
 
     if (!brand) return;
 
-    console.log(brand.name)
+    console.log(brand.name);
 
     const products = await getAllProducts({ brand_id: brand.id });
 
@@ -23,8 +23,9 @@ async function applyDiscountToBrand() {
     for (const product of products) {
       const variants = await getProductVariants(product.id);
       for (const v of variants) {
+        const initialSalePrice = v.sale_price;
         // retail price possibly null
-        v.sale_price = (v.retail_price || v.price) * (1 - 0.15);
+        v.sale_price = v.price * (1 - 0.1);
         // Convert to cents
         v.sale_price = v.sale_price * 100;
 
@@ -40,9 +41,12 @@ async function applyDiscountToBrand() {
         // Convert back to euro
         v.sale_price = v.sale_price / 100;
 
-        await updateProductVariant(product.id, v.id, {
-          sale_price: v.sale_price,
-        });
+        if (initialSalePrice !== v.sale_price) {
+          await updateProductVariant(product.id, v.id, {
+            sale_price: v.sale_price,
+            retail_price: v.price,
+          });
+        }
       }
     }
   } catch (err) {

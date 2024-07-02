@@ -10,7 +10,7 @@ async function main() {
   try {
     require("../../config/config").config("bf");
 
-    const brandName = "Pureology";
+    const brandName = "The Ordinary";
     const catId = 640;
 
     const brand = await getBrandByName(brandName);

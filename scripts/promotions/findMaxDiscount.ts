@@ -6,9 +6,9 @@ require("../../config/config").config("bf");
 
 async function maxDiscount() {
   try {
-    //const brand = await getBrandByName("Dermalogica");
-    //if (!brand) return console.log("no brand");
-    const products = (await getAllProducts({ 'categories:in': 663 })).filter(
+    const brand = await getBrandByName("Joico");
+    if (!brand) return console.log("no brand");
+    const products = (await getAllProducts({brand_id: brand.id})).filter(
       (p) => p.inventory_level > 0
     );
     let max: { discount: number; product: Product | undefined } = {

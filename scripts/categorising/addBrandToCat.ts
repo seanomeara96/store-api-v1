@@ -17,7 +17,7 @@ async function addBrandToCat(brandName: string, catId: number) {
   console.log("done");
 }
 
-const brandName = "The Ordinary";
+const brandName = "Kérastase";
 const catId = 640;
 
 addBrandToCat(brandName, catId);
