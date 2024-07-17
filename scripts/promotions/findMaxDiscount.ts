@@ -8,7 +8,9 @@ async function maxDiscount() {
   try {
     const brand = await getBrandByName("Joico");
     if (!brand) return console.log("no brand");
-    const products = (await getAllProducts({brand_id: brand.id})).filter(
+    const products = (await getAllProducts({
+      'categories:in': 663
+    })).filter(
       (p) => p.inventory_level > 0
     );
     let max: { discount: number; product: Product | undefined } = {

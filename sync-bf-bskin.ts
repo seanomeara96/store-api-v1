@@ -28,7 +28,7 @@ import { getProductVariants } from "./functions/products/getProductVariants";
 import { getAllProducts } from "./functions/products/getAllProducts";
 
 const src = "ih";
-const destination: string = "hie";
+const destination: string = "pb";
 
 (async function () {
   try {
@@ -100,13 +100,13 @@ async function transfer(src: string, destination: string, pxBrandID: number) {
 
     if (destination === "pb") {
       destinationDummyCategoryID = 165;
-      srcFilter = { brand_id: 238 };
+      srcFilter = { 'categories:in': [966, 1023, 1047, 1034, 1471, ].join(",") };
       destination_name = "PregnancyAndBaby";
     }
 
     if (destination === "bs") {
       destinationDummyCategoryID = 81;
-      srcFilter = { brand_id: 438 };
+      srcFilter = { 'categories:in': [970].join(",") };
       destination_name = "Babysafety";
     }
 
@@ -303,7 +303,7 @@ async function transfer(src: string, destination: string, pxBrandID: number) {
           newProduct = await createProduct(productCreationFields);
         } catch (err: any) {
           console.log(err.response ? err.response?.data || err.response : err);
-          throw new Error("Failed to cretate new product");
+          throw new Error("Failed to create new product");
         }
 
         if (!newProduct) {

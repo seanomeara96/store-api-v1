@@ -5,19 +5,21 @@ import { getProductVariants } from "../../functions/products/getProductVariants"
 import { updateProduct } from "../../functions/products/updateProduct";
 import { addCategory, arraysAreEqual } from "../utils/productCategoryUtils";
 
-const store = "bf";
-const excludeFromDiscounts = true;
+const store:string = "ah";
+const excludeFromDiscounts = false;
 require("../../config/config").config(store);
 
 async function applyDiscountToBrand() {
   try {
-    const brand = await getBrandByName("Alfaparf");
+    /*const brand = await getBrandByName("L'Oréal Professionnel");
 
     if (!brand) return;
 
     console.log(brand.name);
 
-    const products = await getAllProducts({ brand_id: brand.id });
+    { brand_id: brand.id } */
+
+    const products = await getAllProducts();
 
     if (!products) {
       return;
@@ -34,7 +36,7 @@ async function applyDiscountToBrand() {
 
         v.retail_price = v.price;
 
-        let discountPrice = v.price * (1 - 0.25);
+        let discountPrice = v.price * (1 - 0.2);
         // Convert to cents
         discountPrice = discountPrice * 100;
 

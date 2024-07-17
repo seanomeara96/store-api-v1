@@ -8,13 +8,14 @@ require("../../config/config").config(store);
 
 async function applyDiscountToBrand() {
   try {
-    const brand = await getBrandByName("Act + Acre");
+    /**const brand = await getBrandByName("Act + Acre");
 
     if (!brand) return;
 
     console.log(brand.name);
 
-    const products = await getAllProducts({ brand_id: brand.id });
+    { brand_id: brand.id } */
+    const products = await getAllProducts();
 
     if (!products) {
       return;
