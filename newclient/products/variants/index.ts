@@ -36,7 +36,7 @@ export interface ProductVariant {
   product_id: number;
   sku: string;
   sku_id: string | null;
-  price: number;
+  price: number | null;
   calculated_price: number;
   sale_price: number | null;
   retail_price: number | null;

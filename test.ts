@@ -1,34 +1,34 @@
-import { getBrandByName } from "./functions/brands/getBrandByName";
-import { getAllProducts } from "./functions/products/getAllProducts";
-import { Product } from "./functions/products/Product";
-import { updateProduct } from "./functions/products/updateProduct";
+import { getAllProducts } from "./functions/products/getAllProducts"
+import { getAllProductVariants } from "./functions/products/getAllProductVariants"
+import { updateProduct } from "./functions/products/updateProduct"
 
-const store = "ih";
+require("./config/config").config("bf")
 
-async function test() {
-  try {
-    require("./config/config").config(store);
+async function test(){
+    try{
+        const products = await getAllProducts({brand_id: 154})
+        for(const product of products){
+            const variants  = await getAllProductVariants(product.id)
+            let toUpdate = false
+            for(const v of variants){
+                // current discount
+                if (!v.sale_price || !v.price) continue
+                if ((v.price - v.sale_price) / v.price > .26) {
+                    continue
+                }  
+                toUpdate = true
+            }
 
-    const products = await getAllProducts();
-    for (const product of products) {
-      if (new Date(`1/1/2024`) < new Date(product.date_created)){
-        product.categories.push(1494)
-        await updateProduct(product.id, {
-          categories: product.categories
-        })
-      }
-     
+            if(toUpdate) {
+                await updateProduct(product.id, {
+                    categories: product.categories.filter(id => id !== 640)
+                })
+            }
+        }
+
+    } catch(err) {
+        console.log(err)
     }
-  } catch (err) {
-    console.log(err);
-  }
 }
 
-test();
-
-function currentDiscount(product: Product) {
-  if (!product.sale_price) {
-    return 0;
-  }
-  return (product.price - product.sale_price) / product.price;
-}
+test()

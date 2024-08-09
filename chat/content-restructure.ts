@@ -44,7 +44,9 @@ function allhairPrompt(productDescription: string) {
   '. Unordered list-items only. Output in MARKUP format`;
 }
 
-require("../config/config").config("ah");
+const store = "ah"
+
+require("../config/config").config(store);
 
 function htmlToText(html: string) {
   return convert(html);
@@ -54,16 +56,56 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-const db = new sqlite.Database(path.resolve(__dirname, "ahchanges.db"));
+const date = new Date(); // For current date
+// const date = new Date(2024, 7, 9); // For a specific date (note: month is 0-indexed, so 7 is August)
+
+// Format the date to YYYY-MM-DD
+const year = date.getFullYear();
+const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed, so add 1
+const day = String(date.getDate()).padStart(2, '0');
+
+// Combine the parts into the desired format
+const formattedDate = `${year}-${month}-${day}`;
+
+const db = new sqlite.Database(path.resolve(__dirname, `ahchanges-${formattedDate}.db`));
 
 async function main() {
   try {
-    await initDB();
 
-    //const productsInAllHairDummyCategory = { "categories:in": 190 }
+    // init db
+    await new Promise(function (resolve, reject) {
+      const script = /*SQL*/ `CREATE TABLE IF NOT EXISTS changes (
+        product_id INTEGER,
+        updated BOOLEAN
+      );
+  
+      CREATE TABLE IF NOT EXISTS errors (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        product_id INTEGER,
+        product_name TEXT,
+        error_message TEXT,
+        error_type TEXT
+      );
+  
+      CREATE TABLE IF NOT EXISTS new_content(
+        product_id INTEGER, 
+        content TEXT
+      );
+  
+      CREATE TABLE IF NOT EXISTS old_content(
+        product_id INTEGER, 
+        content TEXT
+      );`;
+  
+      db.exec(script, (err) => (err ? reject(err) : resolve(undefined)));
+    });
+
+
     let allProducts = await getAllProducts();
 
-    allProducts = allProducts.filter(product => !product.description.includes("What Does It Do") && product.inventory_level)
+    if(store == "ah"){
+      allProducts = allProducts.filter(product => !product.description.toLowerCase().includes("what does it do"))
+    }
 
 
     // const allProducts = await getAllProducts();
@@ -138,11 +180,21 @@ async function main() {
       const start = performance.now();
 
       let completion;
+      let content;
+
+      if (store == "ah") {
+        content = allhairPrompt(productDescription);
+      }
+
+      if(!content) {
+        throw new Error("no content")
+      }
+
       try {
         let response = await openai.chat.completions.create({
-          model: "gpt-4",
+          model: "gpt-4o",
           messages: [
-            { role: "user", content: allhairPrompt(productDescription) },
+            { role: "user", content:  content},
           ],
         });
 
@@ -223,34 +275,6 @@ async function main() {
 }
 main();
 
-function initDB() {
-  return new Promise(function (resolve, reject) {
-    const script = /*SQL*/ `CREATE TABLE IF NOT EXISTS changes (
-      product_id INTEGER,
-      updated BOOLEAN
-    );
-
-    CREATE TABLE IF NOT EXISTS errors (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      product_id INTEGER,
-      product_name TEXT,
-      error_message TEXT,
-      error_type TEXT
-    );
-
-    CREATE TABLE IF NOT EXISTS new_content(
-      product_id INTEGER, 
-      content TEXT
-    );
-
-    CREATE TABLE IF NOT EXISTS old_content(
-      product_id INTEGER, 
-      content TEXT
-    );`;
-
-    db.exec(script, (err) => (err ? reject(err) : resolve(undefined)));
-  });
-}
 
 function saveError(product: any, message: string, type: string) {
   return new Promise(function (resolve) {

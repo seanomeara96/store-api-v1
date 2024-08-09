@@ -10,3 +10,4 @@ email-data.ts
 **/cache.json
 **/*.cache.json
 scripts/product-images/images
+ch-plates-cache.json

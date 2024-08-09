@@ -2,6 +2,7 @@ import { getBrandByName } from "../../functions/brands/getBrandByName";
 import { updateProductVariant } from "../../functions/product-variants/updateProductVariant";
 import { getAllProducts } from "../../functions/products/getAllProducts";
 import { getProductVariants } from "../../functions/products/getProductVariants";
+import { Product } from "../../functions/products/Product";
 import { updateProduct } from "../../functions/products/updateProduct";
 import { addCategory, arraysAreEqual } from "../utils/productCategoryUtils";
 
@@ -11,13 +12,6 @@ require("../../config/config").config(store);
 
 async function applyDiscountToBrand() {
   try {
-    /*const brand = await getBrandByName("L'Oréal Professionnel");
-
-    if (!brand) return;
-
-    console.log(brand.name);
-
-    { brand_id: brand.id } */
 
     const products = await getAllProducts();
 
@@ -34,9 +28,16 @@ async function applyDiscountToBrand() {
         const v = variants[ii];
         // retail price possibly null
 
-        v.retail_price = v.price;
+        if(!v.price) v.price = product.price
 
-        let discountPrice = v.price * (1 - 0.2);
+        v.retail_price = v.price;
+        if (!v.sale_price) v.sale_price = v.price
+
+        if (currentDiscount(v.price, v.sale_price) > .21){
+          continue
+        }
+
+        let discountPrice = v.price! * (1 - 0.15);
         // Convert to cents
         discountPrice = discountPrice * 100;
 
@@ -52,12 +53,14 @@ async function applyDiscountToBrand() {
         // Convert back to euro
         discountPrice = discountPrice / 100;
 
-        if (!v.sale_price || discountPrice < v.sale_price) {
-          await updateProductVariant(product.id, v.id, {
-            sale_price: discountPrice,
-            retail_price: v.retail_price,
-          });
-        }
+        //if (discountPrice < v.sale_price!) {
+          
+        //}
+        await updateProductVariant(product.id, v.id, {
+          price: v.price!,
+          sale_price: discountPrice,
+          retail_price: v.retail_price!,
+        });
       }
 
       if (excludeFromDiscounts) {
@@ -84,3 +87,11 @@ async function applyDiscountToBrand() {
 }
 
 applyDiscountToBrand();
+
+
+function currentDiscount(price: number, sale_price: number |undefined):number {
+  if (!sale_price) {
+    return 0;
+  }
+  return (price - sale_price) / price;
+}

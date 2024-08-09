@@ -8,45 +8,55 @@ require("../../config/config").config(store);
 
 async function applyDiscountToBrand() {
   try {
-    /**const brand = await getBrandByName("Act + Acre");
+    for (const name of ["Redken", "Pureology", "Kérastase"]) {
+      const brand = await getBrandByName(name);
 
-    if (!brand) return;
+      if (!brand) return;
 
-    console.log(brand.name);
+      console.log(brand.name);
 
-    { brand_id: brand.id } */
-    const products = await getAllProducts();
+      const products = await getAllProducts({ brand_id: brand.id });
 
-    if (!products) {
-      return;
-    }
+      if (!products) {
+        return;
+      }
 
-    for (const product of products) {
-      const variants = await getProductVariants(product.id);
-      for (const v of variants) {
-        const initialSalePrice = v.sale_price;
-        // retail price possibly null
-        v.sale_price = v.price * (1 - 0.1);
-        // Convert to cents
-        v.sale_price = v.sale_price * 100;
+      for (const product of products) {
+        const variants = await getProductVariants(product.id);
+        for (const v of variants) {
+          if (!v.price) {
+            v.price = product.price;
+          }
 
-        // Calculate 5-cent increments
-        v.sale_price = v.sale_price / 5;
+          if (!v.sale_price) {
+            v.sale_price = v.price;
+          }
 
-        // Round to the nearest whole number
-        v.sale_price = Math.round(v.sale_price);
+          const initialSalePrice = v.sale_price;
 
-        // Convert back to cents
-        v.sale_price = v.sale_price * 5;
+          // retail price possibly null
+          v.sale_price = v.price * (1 - 0.1);
+          // Convert to cents
+          v.sale_price = v.sale_price * 100;
 
-        // Convert back to euro
-        v.sale_price = v.sale_price / 100;
+          // Calculate 5-cent increments
+          v.sale_price = v.sale_price / 5;
 
-        if (initialSalePrice !== v.sale_price) {
-          await updateProductVariant(product.id, v.id, {
-            sale_price: v.sale_price,
-            retail_price: v.price,
-          });
+          // Round to the nearest whole number
+          v.sale_price = Math.round(v.sale_price);
+
+          // Convert back to cents
+          v.sale_price = v.sale_price * 5;
+
+          // Convert back to euro
+          v.sale_price = v.sale_price / 100;
+
+          if (initialSalePrice !== v.sale_price) {
+            await updateProductVariant(product.id, v.id, {
+              sale_price: v.sale_price,
+              retail_price: v.price,
+            });
+          }
         }
       }
     }

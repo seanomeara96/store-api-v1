@@ -2,11 +2,13 @@ import { getAllBlogs } from "../../functions/blogs/getAllBlogs";
 import { output } from "../utils/output";
 import path from "path";
 
-const store = "ha";
-require("../../config/config").config(store, 2);
+
+
 
 async function main() {
   try {
+   for(const store of ["ha", "ch"]){
+    require("../../config/config").config(store, 2);
     output(
       path.resolve(__dirname, `../../${store}-blogs.csv`),
       (await getAllBlogs()).map(
@@ -20,6 +22,7 @@ async function main() {
       ),
       true
     );
+   }
   } catch (err) {
     console.log(err);
   }
