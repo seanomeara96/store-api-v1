@@ -5,9 +5,11 @@ import { updateProduct } from "../functions/products/updateProduct";
 import { ChatCompletionMessageParam } from "openai/resources";
 import { Database } from "sqlite3";
 import path from "path";
-require("../config/config").config("ah");
 
-const db = new Database(path.resolve(__dirname, "meta_description_backups.db"));
+const store: string = "ih"
+require("../config/config").config(store);
+
+const db = new Database(path.resolve(__dirname, store+"meta_description_backups.db"));
 
 function createTable(): Promise<void> {
   return new Promise((resolve, reject) =>
@@ -70,10 +72,22 @@ async function main() {
         continue;
       }
 
+      let prompt
+      if (store === "ah"){
+        prompt = `You are an expert SEO focused content writer for an irish online cosmetics retailer at Allhair.ie who offer a wide range of luxury hair products with net day delivery anywhere in ireland.` 
+      }
+
+      if(store === "ih") {
+        prompt = `You are an expert SEO focused content writer for an irish online retailer at InHealth.ie offering an extensive selection of products for different stages of pregnancy, post-pregnancy care, baby essentials, health monitors, and general wellness items. The website is known for its competitive prices, next-day delivery within Ireland, and a focus on customer satisfaction.`
+      }
+
+      if (!prompt) {
+        throw new Error("no prompt supplied for store "+store)
+      }
+
       const systemMsg: ChatCompletionMessageParam = {
         role: "system",
-        content:
-          "You are an expert SEO focused content writer for an irish online cosmetics retailer at Allhair.ie who offer a wide range of luxury hair products with net day delivery anywhere in ireland.",
+        content:prompt,
       };
 
       const userMsg: ChatCompletionMessageParam = {

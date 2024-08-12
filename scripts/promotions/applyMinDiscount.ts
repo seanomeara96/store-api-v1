@@ -33,11 +33,11 @@ async function applyDiscountToBrand() {
         v.retail_price = v.price;
         if (!v.sale_price) v.sale_price = v.price
 
-        if (currentDiscount(v.price, v.sale_price) > .21){
+        if (currentDiscount(v.price, v.sale_price) > .20){
           continue
         }
 
-        let discountPrice = v.price! * (1 - 0.15);
+        let discountPrice = v.price! * (1 - 0.20);
         // Convert to cents
         discountPrice = discountPrice * 100;
 
