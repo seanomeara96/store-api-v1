@@ -5,13 +5,8 @@ import path from "path";
 import fs from "fs";
 async function exportCategories() {
   try {
-    require("../../config/config").config("ch");
+    require("../../config/config").config("px");
     let categories = await getAllCategories();
-
-    categories = categories.filter(function (cat) {
-      return cat.is_visible && cat.id !== 295;
-    });
-
 
     const exportdata = categories.map(c => ({id: c.id, parent_id: c.parent_id, name: c.name, sort_order: c.sort_order}))
 

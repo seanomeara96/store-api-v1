@@ -6,9 +6,11 @@ import { getProductVariants } from "../../functions/products/getProductVariants"
 const store = "bf";
 require("../../config/config").config(store);
 
+const blacklist: number[] = []
+
 async function applyDiscountToBrand() {
   try {
-    for (const name of ["Redken", "Pureology", "Kérastase"]) {
+    for (const name of ["L'Oréal Professionnel", "Kérastase", "Redken", "Pureology"]) {
       const brand = await getBrandByName(name);
 
       if (!brand) return;
@@ -22,6 +24,9 @@ async function applyDiscountToBrand() {
       }
 
       for (const product of products) {
+
+        if (blacklist.includes(product.id)) continue
+
         const variants = await getProductVariants(product.id);
         for (const v of variants) {
           if (!v.price) {
@@ -35,7 +40,7 @@ async function applyDiscountToBrand() {
           const initialSalePrice = v.sale_price;
 
           // retail price possibly null
-          v.sale_price = v.price * (1 - 0.1);
+          v.sale_price = v.price * (1 - 0.2);
           // Convert to cents
           v.sale_price = v.sale_price * 100;
 

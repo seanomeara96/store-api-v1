@@ -3,7 +3,7 @@ import { updateProductVariant } from "../../functions/product-variants/updatePro
 import { getAllProducts } from "../../functions/products/getAllProducts";
 import { getProductVariants } from "../../functions/products/getProductVariants";
 import { updateProduct } from "../../functions/products/updateProduct";
-require("../../config/config").config("pb");
+require("../../config/config").config("bf");
 async function main() {
   try {
     const products = await getAllProducts();
@@ -64,7 +64,7 @@ async function main() {
         console.log(`Error fetching variants`);
         console.log(err);
         if (err.response) {
-          if (err.response.status == 503) {
+          if (err.response.status == 503 || err.response.status == 429) {
             await new Promise((res) => setTimeout(res, 30 * 1000));
             i--;
             continue;

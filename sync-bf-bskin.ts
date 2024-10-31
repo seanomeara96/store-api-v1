@@ -26,47 +26,187 @@ import { getProductById } from "./functions/products/getProductById";
 import { getProductByName } from "./functions/products/getProductByName";
 import { getProductVariants } from "./functions/products/getProductVariants";
 import { getAllProducts } from "./functions/products/getAllProducts";
+import OpenAI from "openai";
+import { allhairPrompt } from "./chat/prompts";
+import { htmlToText } from "html-to-text";
+import { marked } from "marked";
 
-const src = "ih";
-const destination: string = "pb";
+const src = "bf";
+const destination: string = "ah";
+
+const addToPX = [
+  "11553B",
+  "20230",
+  "20232",
+  "8049",
+  "20231",
+  "13140",
+  "13420",
+  "11553",
+  "10257A",
+  "9500",
+  "11216",
+  "14136",
+  "12750",
+  "12746",
+  "14051",
+  "20233",
+  "12739",
+  "14054",
+  "14050",
+  "13405",
+  "8048",
+  "12738",
+  "20199",
+  "14759",
+  "14466",
+  "11797",
+  "20200",
+  "8042",
+  "13299",
+  "6283",
+  "12704",
+  "10730",
+  "13418",
+  "14467",
+  "8047",
+  "14747",
+  "14788",
+  "14469",
+  "8897",
+  "14321",
+  "9498",
+  "8890",
+  "8045",
+  "14033",
+  "20293",
+  "12737",
+  "8799",
+  "20195",
+  "12747",
+  "CAR_CAFC",
+  "14408",
+  "13323",
+  "14053",
+  "8889",
+  "14521",
+  "14760",
+  "13037",
+  "14412",
+  "14684",
+  "13443",
+  "12675",
+  "13406",
+  "9034",
+  "14464",
+  "10730B",
+  "20112",
+  "12750A",
+  "13252",
+  "14322",
+  "12910",
+  "KER_E057430",
+  "14203",
+  "14495",
+  "13393",
+  "13280",
+  "20109",
+  "6282",
+  "13275",
+  "13409",
+  "14285",
+  "14790",
+  "13038",
+  "14320",
+  "14202",
+  "7869",
+  "8046",
+  "14052",
+  "8894",
+  "12575",
+  "14473",
+  "14750",
+  "5040",
+  "20111",
+  "13257",
+  "14282",
+  "14137",
+  "10503",
+  "14474",
+  "10732",
+  "14522",
+  "8738",
+  "8727",
+  "14623",
+  "14465",
+  "13247",
+  "13426",
+  "14039",
+  "20110",
+  "8775",
+  "13147",
+  "10256",
+  "13413",
+  "8742",
+  "8732",
+  "13934",
+  "14228",
+  "6285",
+  "GIFT",
+  "13022",
+  "10417",
+  "14413",
+  "13938",
+  "13021",
+  "8220",
+  "9424",
+  "12743",
+  "12928",
+  "14767",
+  "8729",
+  "20193",
+  "8898",
+  "12915",
+  "20191",
+  "8039",
+  "12740",
+  "9035",
+  "14143",
+  "13939",
+  "14283",
+  "14141",
+  "14055",
+  "14245",
+  "12829",
+  "14324",
+  "14685",
+  "20114",
+  "13925",
+  "12741",
+  "13447",
+  "14036",
+  "13424",
+  "14217",
+  "14260",
+  "8891",
+  "7457",
+];
 
 (async function () {
   try {
-    if (destination === "px") {
-      require("./config/config").config(destination);
-      const pxBrands = await getAllBrands();
-
-      require("./config/config").config(src);
-      const bfBrands = await getAllBrands();
-
-      // identify brands on bf that are common to pixie
-      const common = bfBrands.filter((b) =>
-        pxBrands.find((p) => p.name == b.name)
-      );
-
-      // for each brand transfer the products
-      for (let i = 0; i < common.length; i++) {
-        try {
-          await transfer(src, destination, common[i].id);
-        } catch (err) {
-          return console.log(err);
-        }
-      }
-    } else {
-      // if not pixie then supply 0 (or any number)
-      await transfer(src, destination, 0);
-    }
+    await transfer(src, destination);
   } catch (err) {
     console.log(err);
   }
 })();
 
-async function transfer(src: string, destination: string, pxBrandID: number) {
+async function transfer(src: string, destination: string) {
   try {
     let srcFilter;
     let destinationDummyCategoryID;
     let destination_name;
     let src_name;
+    let skipBrands;
 
     if (src === "bf") {
       src_name = "beautyfeatures";
@@ -84,39 +224,60 @@ async function transfer(src: string, destination: string, pxBrandID: number) {
       srcFilter = { "categories:in": 12 };
       destinationDummyCategoryID = 190;
       destination_name = "AllHair";
+      skipBrands = [
+        269, //beautyfeature
+      ];
     }
 
     if (destination === "bsk") {
       destinationDummyCategoryID = 85;
       srcFilter = { brand_id: 18 };
       destination_name = "BeautySkincare";
+      skipBrands = [];
     }
 
     if (destination === "px") {
       destinationDummyCategoryID = 445;
-      srcFilter = { brand_id: pxBrandID };
+      srcFilter = { "sku:in": addToPX.join(",") };
       destination_name = "Pixieloves";
+      skipBrands = [];
     }
 
     if (destination === "pb") {
       destinationDummyCategoryID = 165;
-      srcFilter = { 'categories:in': [966, 1023, 1047, 1034, 1471, ].join(",") };
+      srcFilter = { "categories:in": [966, 1023, 1047, 1034, 1471].join(",") };
       destination_name = "PregnancyAndBaby";
+      skipBrands = [];
     }
 
     if (destination === "bs") {
       destinationDummyCategoryID = 81;
-      srcFilter = { 'categories:in': [970].join(",") };
+      srcFilter = { "categories:in": [970].join(",") };
       destination_name = "Babysafety";
+      skipBrands = [];
     }
 
     if (destination === "hie") {
       destinationDummyCategoryID = 38;
       srcFilter = { brand_id: 176 };
       destination_name = "Haakaa Ireland";
+      skipBrands = [];
     }
 
-    if ((destination === "pb" || destination === "bs" || destination === "hie") && src !== "ih") {
+    if (destination === "fs") {
+      destinationDummyCategoryID = 27;
+      srcFilter = { "categories:in": [966].join(",") };
+      destination_name = "Fertility Store";
+      skipBrands = [];
+    }
+
+    if (
+      (destination === "pb" ||
+        destination === "bs" ||
+        destination === "hie" ||
+        destination === "fs") &&
+      src !== "ih"
+    ) {
       throw new Error("source for pb/bs/hie needs to be ih");
     }
 
@@ -129,7 +290,24 @@ async function transfer(src: string, destination: string, pxBrandID: number) {
     // get all src skus
     require("./config/config").config(src);
     console.log(`Fetching all variants for ${src}`);
-    const src_products = await getAllProducts(srcFilter);
+    let src_products = await getAllProducts(srcFilter);
+
+    let testMode = false;
+    if (testMode) {
+      console.log(src_products.length);
+      for (const p of src_products) {
+        console.log(p.name);
+      }
+      throw "err";
+    }
+
+    // filter out products associated with skipped brands
+    if (skipBrands && skipBrands.length) {
+      src_products = src_products.filter(
+        (p) => !skipBrands.includes(p.brand_id)
+      );
+    }
+
     const src_vars: ProductVariant[] = [];
     for (const p of src_products) {
       const pvars = await getProductVariants(p.id);
@@ -227,10 +405,9 @@ async function transfer(src: string, destination: string, pxBrandID: number) {
             destination_name
           ),
           meta_keywords: brand.meta_keywords,
-          meta_description: brand.meta_description.replace(
-            match_src_name,
-            destination_name
-          ),
+          meta_description:
+            brand.meta_description?.replace(match_src_name, destination_name) ||
+            "",
           search_keywords: brand.search_keywords,
           image_url: brand.image_url,
           custom_url: brand.custom_url,
@@ -242,10 +419,15 @@ async function transfer(src: string, destination: string, pxBrandID: number) {
       }
 
       // make necessary updates to product content
-      const updatedDescription = product.description.replace(
+      let updatedDescription = product.description.replace(
         match_src_name,
         destination_name
       );
+
+      if (destination === "ah") {
+        updatedDescription = await bfToAhContentStructure(updatedDescription);
+      }
+
       const updatedMetaDescription = product.meta_description.replace(
         match_src_name,
         destination_name
@@ -362,7 +544,8 @@ async function transfer(src: string, destination: string, pxBrandID: number) {
             sku: variant.sku,
             cost_price: variant.cost_price,
             price: variant.price || product.price,
-            sale_price: variant.sale_price || product.sale_price || product.price,
+            sale_price:
+              variant.sale_price || product.sale_price || product.price,
             retail_price: variant.retail_price,
             weight: variant.weight,
             width: variant.width,
@@ -432,4 +615,26 @@ function generateRandomString(length: number) {
     result += characters.charAt(randomIndex);
   }
   return result;
+}
+
+export async function bfToAhContentStructure(
+  productDescription: string
+): Promise<string> {
+  try {
+    let response = await new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    }).chat.completions.create({
+      model: "gpt-4o",
+      messages: [
+        {
+          role: "user",
+          content: allhairPrompt(htmlToText(productDescription)),
+        },
+      ],
+    });
+
+    return marked(response.choices[0].message.content || "");
+  } catch (err: any) {
+    throw err;
+  }
 }

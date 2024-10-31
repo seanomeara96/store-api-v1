@@ -53,7 +53,7 @@ export function deleteProduct(
 
       resolve(`Successfully deleted ${product.name}`);
     } catch (err: any) {
-      reject(err.data);
+      reject(err.data ? err.data : err);
     }
   });
 }

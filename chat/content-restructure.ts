@@ -6,45 +6,10 @@ import path from "path";
 import { convert } from "html-to-text";
 import { Product } from "../functions/products/Product";
 import { marked } from "marked";
-function pixiePrompt(productDescription: string) {
-  return `You are Pixie, a content writer for the pixieloves beauty store. Rewrite this content: "${productDescription}" so that it conforms to the following structure. 
-  'Start by giving a summary of the product in a light, and friendly tone. 3-4 sentences should suffice. Do not add a heading before this summary. Then use the following headings:
-  
-  <h3>Why I Love It:</h3>
-  (only 3-5 key bullet-points about key product features)
-  
-  <h3>Pixie’s Guide for Use:</h3>
-  (give a 2-5 point guide for use)
-  
-  <h3>Pixie's Picks:</h3>
-  (If unable to recommend a particular product just make a general recommendation as to what to pair this product with)
-  
-  <h3>Answered by Pixie:</h3>
-  (Answer a question or two that is typically asked about this type of product. Do not use list elements in this section. Format example: <strong>Question: Question goes here</strong><br /><span>Answer: Answer goes here</span><br/><br/>)
-  '. Replace any instance of 'beautyfeatures.ie' with "pixieloves.ie". Remove all internal links. Unordered list-items only. Output in MARKUP format`;
-}
-function allhairPrompt(productDescription: string) {
-  return `You are a content writer for the allhair haircare store. Rewrite this content: "${productDescription}" so that it conforms to the following structure. 
-  'Start by giving a summary of the product in a light, and friendly tone. 3-4 sentences should suffice. Do not add a heading before this summary. Then use the following headings:
-  
-  <strong>For Hair That's…</strong><br/>
-  (The type of hair this product is suitable for)
-  
-  <strong>What Does It Do?</strong>
-  (give a 2-5 point guide on what this product does for your hair and it's benefits)
+import { allhairPrompt } from "./prompts";
 
-  <strong>How Do I Use It?</strong>
-  (give a 2-5 point guide for use)
-  
-  <strong>A Little Tip:</strong><br/>
-  (If unable to recommend a particular product just make a general recommendation as to what to pair this product with)
-  
-  <strong>One More Thing…</strong>
-  (list a 2-3 key ingredients or useful information such as whether it's vegan, sulphate free etc.)
-  '. Unordered list-items only. Output in MARKUP format`;
-}
 
-const store = "ah"
+const store = "ah";
 
 require("../config/config").config(store);
 
@@ -61,17 +26,18 @@ const date = new Date(); // For current date
 
 // Format the date to YYYY-MM-DD
 const year = date.getFullYear();
-const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed, so add 1
-const day = String(date.getDate()).padStart(2, '0');
+const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed, so add 1
+const day = String(date.getDate()).padStart(2, "0");
 
 // Combine the parts into the desired format
 const formattedDate = `${year}-${month}-${day}`;
 
-const db = new sqlite.Database(path.resolve(__dirname, `ahchanges-${formattedDate}.db`));
+const db = new sqlite.Database(
+  path.resolve(__dirname, `ahchanges-${formattedDate}.db`)
+);
 
 async function main() {
   try {
-
     // init db
     await new Promise(function (resolve, reject) {
       const script = /*SQL*/ `CREATE TABLE IF NOT EXISTS changes (
@@ -96,17 +62,18 @@ async function main() {
         product_id INTEGER, 
         content TEXT
       );`;
-  
+
       db.exec(script, (err) => (err ? reject(err) : resolve(undefined)));
     });
 
-
     let allProducts = await getAllProducts();
 
-    if(store == "ah"){
-      allProducts = allProducts.filter(product => !product.description.toLowerCase().includes("what does it do"))
+    if (store == "ah") {
+      allProducts = allProducts.filter(
+        (product) =>
+          !product.description.toLowerCase().includes("what does it do")
+      );
     }
-
 
     // const allProducts = await getAllProducts();
 
@@ -122,14 +89,14 @@ async function main() {
         try {
           console.log(`preparing product ${product.id}`);
           await prepareProduct(product.id);
-          count++
+          count++;
         } catch {
           throw new Error("could not prepare product");
         }
       }
     }
 
-    console.log(`Prepared ${count} products for update`)
+    console.log(`Prepared ${count} products for update`);
 
     /**
      * product ids for those that need update
@@ -142,7 +109,6 @@ async function main() {
     const products = allProducts.filter(function (product) {
       return toUpdate.includes(product.id);
     });
-
 
     for (let i = 0; i < products.length; i++) {
       const product = products[i];
@@ -186,16 +152,14 @@ async function main() {
         content = allhairPrompt(productDescription);
       }
 
-      if(!content) {
-        throw new Error("no content")
+      if (!content) {
+        throw new Error("no content");
       }
 
       try {
         let response = await openai.chat.completions.create({
           model: "gpt-4o",
-          messages: [
-            { role: "user", content:  content},
-          ],
+          messages: [{ role: "user", content: content }],
         });
 
         completion = response.choices[0].message.content;
@@ -274,6 +238,7 @@ async function main() {
   }
 }
 main();
+
 
 
 function saveError(product: any, message: string, type: string) {

@@ -14,7 +14,7 @@ const db = new Database(path.resolve(__dirname, store+"meta_description_backups.
 function createTable(): Promise<void> {
   return new Promise((resolve, reject) =>
     db.exec(
-      `CREATE TABLE IF NOT EXISTS changes(
+      /*SQL*/`CREATE TABLE IF NOT EXISTS changes(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         product_id INTEGER NOT NULL,
         product_name TEXT,
@@ -35,7 +35,7 @@ function insert(
 ): Promise<void> {
   return new Promise((resolve, reject) =>
     db.run(
-      `INSERT INTO changes(product_id, product_name, old, new) VALUES(?,?,?,?)`,
+      /*SQL*/`INSERT INTO changes(product_id, product_name, old, new) VALUES(?,?,?,?)`,
       [product_id, product_name, old_description, new_description],
       (err) => (err ? reject(err) : resolve(undefined))
     )
@@ -45,7 +45,7 @@ function insert(
 function checkIfUpdated(product_id: number): Promise<boolean> {
   return new Promise((resolve, reject) =>
     db.get(
-      `SELECT count(id) as count FROM changes WHERE product_id = ?`,
+      /*SQL*/`SELECT count(id) as count FROM changes WHERE product_id = ?`,
       [product_id],
       (err, res: any) => (err ? reject(err) : resolve(res.count > 0))
     )

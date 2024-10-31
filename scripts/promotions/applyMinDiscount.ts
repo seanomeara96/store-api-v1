@@ -6,14 +6,14 @@ import { Product } from "../../functions/products/Product";
 import { updateProduct } from "../../functions/products/updateProduct";
 import { addCategory, arraysAreEqual } from "../utils/productCategoryUtils";
 
-const store:string = "ah";
-const excludeFromDiscounts = false;
+const store:string = "bf";
+const excludeFromDiscounts = true;
 require("../../config/config").config(store);
 
-async function applyDiscountToBrand() {
+async function applyDiscountToBrand(id: number) {
   try {
 
-    const products = await getAllProducts();
+    const products = await getAllProducts(id > 0 ? {brand_id: id} : {});
 
     if (!products) {
       return;
@@ -21,6 +21,9 @@ async function applyDiscountToBrand() {
 
     for (let i = 0; i < products.length; i++) {
       const product = products[i];
+      
+      console.log(product.id, product.name);
+
       const ref = [...product.categories];
       const variants = await getProductVariants(product.id);
 
@@ -33,11 +36,11 @@ async function applyDiscountToBrand() {
         v.retail_price = v.price;
         if (!v.sale_price) v.sale_price = v.price
 
-        if (currentDiscount(v.price, v.sale_price) > .20){
+        if (currentDiscount(v.price, v.sale_price) > .25){
           continue
         }
 
-        let discountPrice = v.price! * (1 - 0.20);
+        let discountPrice = v.price! * (1 - 0.25);
         // Convert to cents
         discountPrice = discountPrice * 100;
 
@@ -86,7 +89,16 @@ async function applyDiscountToBrand() {
   }
 }
 
-applyDiscountToBrand();
+async function main(){
+  try {
+    for(const b_id of [0]){
+      await applyDiscountToBrand(b_id);
+    }
+  } catch(err) {
+    console.log(err)
+  }
+}
+main()
 
 
 function currentDiscount(price: number, sale_price: number |undefined):number {

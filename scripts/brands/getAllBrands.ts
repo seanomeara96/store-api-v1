@@ -1,11 +1,11 @@
 import { getAllBrands } from "../../functions/brands/getAllBrands";
+import fs from "fs";
 (async () => {
-  require("../../config/config").config("ds");
+  require("../../config/config").config("bf");
   try {
     const brands = await getAllBrands();
-    console.log(
-      brands.map((b) => b.custom_url.url).filter((i) => i !== "/dogspace/")
-    );
+    const brandNames = brands.map((b) => b.name).join(`\n`)
+    fs.writeFileSync("brands.txt", (brandNames), {encoding:"utf-8"})
   } catch (err) {
     console.log(err);
   }

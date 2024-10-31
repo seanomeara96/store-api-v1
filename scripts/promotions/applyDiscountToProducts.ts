@@ -3,12 +3,11 @@ import { updateProductVariant } from "../../functions/product-variants/updatePro
 import { getAllProducts } from "../../functions/products/getAllProducts";
 import { getProductVariants } from "../../functions/products/getProductVariants";
 
-require("../../config/config").config("bf");
+require("../../config/config").config("px");
 
 async function applyDiscountToBrand() {
   try {
     const products = await getAllProducts({
-      "categories:in": 55
     });
 
     if (!products) {
@@ -23,7 +22,7 @@ async function applyDiscountToBrand() {
           v.retail_price = product.price
         }
         // retail price possibly null
-        v.sale_price = (v.price! || v.retail_price!) * (1 - 0.2);
+        v.sale_price = (v.price! || v.retail_price!) * (1 - 0.15);
         // Convert to cents
         v.sale_price = v.sale_price * 100;
 
@@ -43,6 +42,7 @@ async function applyDiscountToBrand() {
           sale_price: v.sale_price,
         });
       }
+      await new Promise(resolve => setTimeout(resolve, 1000))
     }
   } catch (err) {
     console.log(err);
