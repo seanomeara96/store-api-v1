@@ -1,10 +1,10 @@
 import { removeCategoryFromProductsInCategory } from "../../functions/products/removeCategoryFromProductsInCategory";
 
-require("../../config/config").config("bsk");
+require("../../config/config").config("bf");
 
 async function main() {
   try {
-    const res = await removeCategoryFromProductsInCategory(108);
+    const res = await removeCategoryFromProductsInCategory(515);
     if (!Array.isArray(res)) {
       console.log(res);
       return;

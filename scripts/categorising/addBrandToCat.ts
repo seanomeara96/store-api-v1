@@ -2,7 +2,7 @@ import { getBrandByName } from "../../functions/brands/getBrandByName";
 import { addCatToProduct } from "../../functions/products/addCatToProduct";
 import { getAllProducts } from "../../functions/products/getAllProducts";
 
-require("../../config/config").config("pl");
+require("../../config/config").config("bf");
 
 async function addBrandToCat(brandName: string, catId: number) {
   const brand = await getBrandByName(brandName);
@@ -17,7 +17,14 @@ async function addBrandToCat(brandName: string, catId: number) {
   console.log("done");
 }
 
-const brandName = "Dolce & Gabbana";
-const catId = 27;
+async function main() {
+  const catId = 1057;
 
-addBrandToCat(brandName, catId);
+  for(const brandName of [
+    "L'Oréal Professionnel",
+]){
+    await addBrandToCat(brandName, catId);
+  }
+}
+
+main()

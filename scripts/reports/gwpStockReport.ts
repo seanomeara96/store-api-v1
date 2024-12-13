@@ -1,7 +1,5 @@
 require("../../config/config").config("bf");
 import sgMail from "@sendgrid/mail";
-import { getStoreSKUs } from "../../functions/products/getStoreSKUs";
-import { getProductBySku } from "../../functions/products/getProductBySKU";
 import { getAllProductVariants } from "../../functions/products/getAllProductVariants";
 sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 const campaigns: any[] = [
@@ -18,7 +16,7 @@ const campaigns: any[] = [
     condition: "When you spend €60 or more on Alfaparf",
     sku: "6481A",
     sku_type: "config",
-    display: "TRUE",
+    display: "FALSE",
     destination_url: "https://www.beautyfeatures.ie/brands/Alfaparf.html",
   },
   {
@@ -42,32 +40,16 @@ const campaigns: any[] = [
     store: "bf",
     identifier: "Dermalogica",
     thumbnail:
-      "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/75x75/products/644/1353/Brighten_Protect_Trio_-_Box_with_Products__79102__05271.1720603639.jpg?c=2&imbypass=on",
+      "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/75x75/products/645/1354/zestaw-clear-brighten-perfect-pair__25122__70372.1720603642.jpg?c=2&imbypass=on",
     full_img:
-      "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/300x300/products/644/1353/Brighten_Protect_Trio_-_Box_with_Products__79102__05271.1720603639.jpg?c=2&imbypass=on",
-    headline: "Free Dermalogica Brighten + Protect Trio",
-    worth: 42,
-    condition: "When you spend €90 or more on Dermalogica",
-    sku: "GWP38",
+      "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/300x300/products/645/1354/zestaw-clear-brighten-perfect-pair__25122__70372.1720603642.jpg?c=2&imbypass=on",
+    headline: "Free Dermalogica Clear + Brighten Perfect Pair",
+    worth: 32,
+    condition: "When you spend €100 or more on Dermalogica",
+    sku: "GWP39",
     sku_type: "product",
     display: "TRUE",
     destination_url: "https://www.beautyfeatures.ie/brands/Dermalogica.html",
-  },
-  {
-    type: "brand",
-    store: "bf",
-    identifier: "Kerastase",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/7806/19358/Kerastase_Elixir_Ultime_LHuile_Original_Deluxe_15ml__1__14433.1706609796.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/7806/19358/Kerastase_Elixir_Ultime_LHuile_Original_Deluxe_15ml__1__14433.1706609796.jpg?c=2&imbypass=on",
-    headline: "Free Elixir Ultime L'Huile Original Deluxe 15ml​",
-    worth: 8,
-    condition: "When you spend €60 or more on Kerastase",
-    sku: "12267",
-    sku_type: "product",
-    display: "TRUE",
-    destination_url: "https://www.beautyfeatures.ie/brands/kerastase",
   },
   {
     type: "category",
@@ -116,22 +98,6 @@ const campaigns: any[] = [
     sku_type: "product",
     display: "TRUE",
     destination_url: "https://www.beautyfeatures.ie/bare-by-vogue/",
-  },
-  {
-    type: "category",
-    store: "bf",
-    identifier: "Top Brands/L'Oreal/Pro Longer",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6237/13700/Pro_Longer_Shampoo__39476.1658476870.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6237/13700/Pro_Longer_Shampoo__39476.1658476870.jpg?c=2&imbypass=on",
-    headline: "Free Pro Longer Shampoo 100ml",
-    worth: 5,
-    condition: "When you spend €40 on the L'Oreal Pro Longer range",
-    sku: "11789",
-    sku_type: "product",
-    display: "FALSE",
-    destination_url: "https://www.beautyfeatures.ie/pro-longer/",
   },
   {
     type: "category",
@@ -357,7 +323,7 @@ const campaigns: any[] = [
     condition: "When you spend €50 or more on Pestle & Mortar",
     sku: "8902",
     sku_type: "product",
-    display: "TRUE",
+    display: "FALSE",
     destination_url: "https://www.beautyfeatures.ie/brands/Pestle-Mortar",
   },
   {
@@ -377,7 +343,6 @@ const campaigns: any[] = [
     destination_url: "https://www.beautyfeatures.ie/avene/",
   },
 ];
-
 
 let text = ``;
 async function report() {
@@ -436,7 +401,7 @@ async function report() {
     } catch (err) {
       console.log("failed to send error email");
       console.log(err);
-      console.log(text)
+      console.log(text);
     }
   }
 }
