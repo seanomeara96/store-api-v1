@@ -1,34 +1,27 @@
+import { htmlToText } from "html-to-text";
 import { Category } from "./functions/categories/createCategory";
 import { getAllCategories } from "./functions/categories/getAllCategories";
+import { getAllProducts } from "./functions/products/getAllProducts";
 import { output } from "./scripts/utils/output";
 import fs from "fs"
 import path from "path"
 
-const store = "ah"
+
+const store = "bf"
 
 async function main() {
   try {
     require("./config/config").config(store);
-    const categories = await getAllCategories();
-    const data: {
-      name: string;
-      id: number;
-    }[] = [];
-    for (const category of categories) {
-      const id = category.id;
-      let name = category.name;
-
-      let parent = findParent(category.parent_id, categories);
-      while (parent) {
-        name = parent.name + " => " + name;
-        parent = findParent(parent.parent_id, categories);
-      }
-
-      data.push({ name, id });
-    }
-
-    output(path.resolve(__dirname, store+"-categories.csv"), data, true)
-
+   
+    let products = await getAllProducts()
+    products = products.filter(p => p.inventory_level)
+    let out = products.map(p => ({
+      id: p.id,
+      name: p.name,
+      description: htmlToText(p.description),
+      sale_price: p.sale_price,
+    }))
+    output(path.resolve(__dirname, "bare-catalog.csv"), out,true)
   } catch (err) {
     console.log(err);
   }
@@ -36,17 +29,3 @@ async function main() {
 
 main();
 
-function findParent(
-  parentID: number,
-  categories: Category[]
-): Category | undefined {
-  if (parentID === 0) {
-    return undefined;
-  }
-  for (const c of categories) {
-    if (c.id === parentID) {
-      return c;
-    }
-  }
-  return undefined;
-}

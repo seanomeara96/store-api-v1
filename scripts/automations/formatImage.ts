@@ -82,32 +82,53 @@ async function main() {
     const detections = await getDetections(image);
     const [minX, maxY, maxX, minY] = overallBoundaryBox(detections);
 
-    const [x, y, width, height] = [
+    const imageMetadata = await sharp(await getImageBuffer(image)).metadata();
+
+    const originalImageHeight = imageMetadata.height!
+
+    const [left, y, width, height] = [
       Number(minX), // Ensure bbox[0] is a number
       Number(maxY), // Ensure bbox[1] is a number
       Number(maxX) - Number(minX), // Calculate width
       Number(maxY) - Number(minY), // Calculate height
     ];
+    const top = originalImageHeight-y
 
     // const hasVerticalAspect = height >  width
 
-    const imageMetadata = await sharp(await getImageBuffer(image)).metadata();
+    
 
-    if (
-      x < 0 ||
-      y < 0 ||
-      width <= 0 ||
-      height <= 0 ||
-      x + width > imageMetadata.width! ||
-      y + height > imageMetadata.height!
-    ) {
+    if (left < 0) {
+      throw new Error(`Invalid extract area: left (${left}) is less than 0.`);
+    }
+    
+    if (top < 0) {
+      throw new Error(`Invalid extract area: top (${top}) is less than 0.`);
+    }
+    
+    if (width <= 0) {
+      throw new Error(`Invalid extract area: width (${width}) must be greater than 0.`);
+    }
+    
+    if (height <= 0) {
+      throw new Error(`Invalid extract area: height (${height}) must be greater than 0.`);
+    }
+    
+    if (left + width > imageMetadata.width!) {
       throw new Error(
-        `Invalid extract area: x=${x}, y=${y}, width=${width}, height=${height}`
+        `Invalid extract area: left (${left}) + width (${width}) exceeds image width (${imageMetadata.width!}).`
       );
     }
+    
+    if (top + height > imageMetadata.height!) {
+      throw new Error(
+        `Invalid extract area: top (${top}) + height (${height}) exceeds image height (${imageMetadata.height!}).`
+      );
+    }
+    
 
     await sharp(await getImageBuffer(image))
-      .extract({ left: x, top: y, width, height })
+      .extract({ left, top, width, height })
       .toFile(path.resolve(__dirname, "img-test.jpg"));
   } catch (err) {
     console.log(err);
