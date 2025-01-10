@@ -22,86 +22,6 @@ const campaigns: any[] = [
   {
     type: "category",
     store: "bf",
-    identifier: "Brands/Alfaparf/Semi Di Lino/Sunshine",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/8427/21823/Alfaparf_SDL_Sunshine_Bag_GWP__24030.1719302839.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/8427/21823/Alfaparf_SDL_Sunshine_Bag_GWP__24030.1719302839.jpg?c=2&imbypass=on",
-    headline: "Free Alfaparf Sunshine bag",
-    worth: null,
-    condition: "When you spend €68 on the Alfaparf Sunshine Range",
-    sku: "20198",
-    sku_type: "product",
-    display: "TRUE",
-    destination_url: "https://www.beautyfeatures.ie/sunshine/",
-  },
-  {
-    type: "brand",
-    store: "bf",
-    identifier: "Dermalogica",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/75x75/products/645/1354/zestaw-clear-brighten-perfect-pair__25122__70372.1720603642.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/300x300/products/645/1354/zestaw-clear-brighten-perfect-pair__25122__70372.1720603642.jpg?c=2&imbypass=on",
-    headline: "Free Dermalogica Clear + Brighten Perfect Pair",
-    worth: 32,
-    condition: "When you spend €100 or more on Dermalogica",
-    sku: "GWP39",
-    sku_type: "product",
-    display: "TRUE",
-    destination_url: "https://www.beautyfeatures.ie/brands/Dermalogica.html",
-  },
-  {
-    type: "category",
-    store: "bf",
-    identifier: "MakeUp",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/7763/19318/Premium_Makeup_Blending_Sponge_By_BeautyFeatures__71801.1706091513.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/7763/19318/Premium_Makeup_Blending_Sponge_By_BeautyFeatures__71801.1706091513.jpg?c=2&imbypass=on",
-    headline: "Free Premium Makeup Blending Sponge",
-    worth: null,
-    condition: "When you spend €50 or more on Makeup",
-    sku: "14032A",
-    sku_type: "product",
-    display: "TRUE",
-    destination_url: "https://www.beautyfeatures.ie/makeup/",
-  },
-  {
-    type: "brand",
-    store: "bf ",
-    identifier: "Luna By Lisa",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/7035/16758/Luna_By_Lisa_Compact_Mirror_GWP__24710.1686657720.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/7035/16758/Luna_By_Lisa_Compact_Mirror_GWP__24710.1686657720.jpg?c=2&imbypass=on",
-    headline: "Free Luna By Lisa Compact Mirror",
-    worth: 20,
-    condition: "When you spend €30 on Luna By Lisa",
-    sku: "13060",
-    sku_type: "product",
-    display: "TRUE",
-    destination_url: "https://www.beautyfeatures.ie/luna-by-lisa/",
-  },
-  {
-    type: "brand",
-    store: "bf",
-    identifier: "Bare By Vogue",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/7034/17021/Bare_By_Vogue_Water_Bottle_GWP_2_1__46273.1692181937.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/7034/17021/Bare_By_Vogue_Water_Bottle_GWP_2_1__46273.1692181937.jpg?c=2&imbypass=on",
-    headline: "Free Bare By Vogue Water Bottle",
-    worth: 20,
-    condition: "When you spend €30 on Bare By Vogue",
-    sku: "13059",
-    sku_type: "product",
-    display: "TRUE",
-    destination_url: "https://www.beautyfeatures.ie/bare-by-vogue/",
-  },
-  {
-    type: "category",
-    store: "bf",
     identifier: "Top Brands/L'Oreal/Absolut Repair",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6236/13701/Absolut_Repair_Shampoo__26110.1658477016.jpg?c=2&imbypass=on",
@@ -166,6 +86,70 @@ const campaigns: any[] = [
   {
     type: "brand",
     store: "bf",
+    identifier: "Dermalogica",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/8668/22951/Dermalogica_Best_Sellers_GWP__39346.1731580425.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/8668/22951/Dermalogica_Best_Sellers_GWP__39346.1731580425.jpg?c=2&imbypass=on",
+    headline: "Best Sellers Minis Gift",
+    worth: 32,
+    condition: "When you spend €100 or more on Dermalogica",
+    sku: "20504",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/brands/Dermalogica.html",
+  },
+  {
+    type: "category",
+    store: "bf",
+    identifier: "MakeUp",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/7763/19318/Premium_Makeup_Blending_Sponge_By_BeautyFeatures__71801.1706091513.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/7763/19318/Premium_Makeup_Blending_Sponge_By_BeautyFeatures__71801.1706091513.jpg?c=2&imbypass=on",
+    headline: "Free Premium Makeup Blending Sponge",
+    worth: null,
+    condition: "When you spend €50 or more on Makeup",
+    sku: "14032A",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/makeup/",
+  },
+  {
+    type: "brand",
+    store: "bf ",
+    identifier: "Luna By Lisa",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/7035/16758/Luna_By_Lisa_Compact_Mirror_GWP__24710.1686657720.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/7035/16758/Luna_By_Lisa_Compact_Mirror_GWP__24710.1686657720.jpg?c=2&imbypass=on",
+    headline: "Free Luna By Lisa Compact Mirror",
+    worth: 20,
+    condition: "When you spend €30 on Luna By Lisa",
+    sku: "13060",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/luna-by-lisa/",
+  },
+  {
+    type: "brand",
+    store: "bf",
+    identifier: "Bare By Vogue",
+    thumbnail:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/7034/17021/Bare_By_Vogue_Water_Bottle_GWP_2_1__46273.1692181937.jpg?c=2&imbypass=on",
+    full_img:
+      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/7034/17021/Bare_By_Vogue_Water_Bottle_GWP_2_1__46273.1692181937.jpg?c=2&imbypass=on",
+    headline: "Free Bare By Vogue Water Bottle",
+    worth: 20,
+    condition: "When you spend €30 on Bare By Vogue",
+    sku: "13059",
+    sku_type: "product",
+    display: "TRUE",
+    destination_url: "https://www.beautyfeatures.ie/bare-by-vogue/",
+  },
+  {
+    type: "brand",
+    store: "bf",
     identifier: "Matrix",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6421/14697/Matrix_Total_Results_Miracle_Creator_20_Multi-Tasking_Treatment_Spray30ml_GWP_1__21293.1673438853.jpg?c=2&imbypass=on",
@@ -178,23 +162,6 @@ const campaigns: any[] = [
     sku_type: "product",
     display: "TRUE",
     destination_url: "https://www.beautyfeatures.ie/matrix/",
-  },
-  {
-    type: "brand",
-    store: "bf",
-    identifier: "Matrix",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6418/14694/Matrix_Total_Results_Brass_Off_Blue_Toning_Shampoo_50ml_GWP_1__38388.1673433375.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6418/14694/Matrix_Total_Results_Brass_Off_Blue_Toning_Shampoo_50ml_GWP_1__38388.1673433375.jpg?c=2&imbypass=on",
-    headline: "Free Total Results Brass Off Blue Toning Shampoo 50ml",
-    worth: 3,
-    condition: "When you buy the Blue Toning Shampoo & Conditioner",
-    sku: "12105",
-    sku_type: "product",
-    display: "TRUE",
-    destination_url:
-      "https://www.beautyfeatures.ie/matrix-total-results-brass-off-blue-toning-trio-giftset/",
   },
   {
     type: "brand",
@@ -249,22 +216,6 @@ const campaigns: any[] = [
   {
     type: "brand",
     store: "bf",
-    identifier: "Embryolisse",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6192/13599/Embryolisse_Tube_Squeezer_GWP_1__47566.1657879679.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6192/13599/Embryolisse_Tube_Squeezer_GWP_1__47566.1657879679.jpg?c=2&imbypass=on",
-    headline: "Free Embryolisse Tube Squeezer Gift",
-    worth: null,
-    condition: "When you spend €30 or more on Embryolisse",
-    sku: "11739",
-    sku_type: "product",
-    display: "TRUE",
-    destination_url: "https://www.beautyfeatures.ie/embryolisse/",
-  },
-  {
-    type: "brand",
-    store: "bf",
     identifier: "Zadig & Voltaire",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6729/17036/Zadig_Voltaire_Tote_Bag_GWP_1__78679.1692692498.jpg?c=2&imbypass=on",
@@ -286,61 +237,13 @@ const campaigns: any[] = [
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5636/10623/Issey_Miyake_Pour_Homme_Toiletry_Bag_and_Shower_Gel_GWP__32404.1643801777.png",
     full_img:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/5636/10623/Issey_Miyake_Pour_Homme_Toiletry_Bag_and_Shower_Gel_GWP__32404.1643801777.png",
-    headline: "Free Toiletry Bag and Shower Gel",
+    headline: "Free Issey Miyake Toiletry Bag and Shower Gel",
     worth: 25,
     condition: "When you spend €80 or more on Issey Miyake",
     sku: "11051",
     sku_type: "product",
     display: "TRUE",
     destination_url: "https://www.beautyfeatures.ie/issey-miyake/",
-  },
-  {
-    type: "brand",
-    store: "bf",
-    identifier: "SVR",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/5508/11746/Gift_with_purchase_20__24675.1651824657.jpg",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/5508/11746/Gift_with_purchase_20__24675.1651824657.jpg",
-    headline: "Free SVR Sebiaclear Gel Moussant",
-    worth: 4,
-    condition: "When you spend €30 or more on SVR",
-    sku: "10662",
-    sku_type: "product",
-    display: "FALSE",
-    destination_url: "https://www.beautyfeatures.ie/svr/",
-  },
-  {
-    type: "brand",
-    store: "bf",
-    identifier: "Pestle & Mortar",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/4985/21291/Milkshake_Silver_Shine_Conditioner_250ml_1__78028.1715244047.png?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/4985/21291/Milkshake_Silver_Shine_Conditioner_250ml_1__78028.1715244047.png?c=2&imbypass=on",
-    headline: "Free Pestle & Mortar Hydrate Moisturiser",
-    worth: 28,
-    condition: "When you spend €50 or more on Pestle & Mortar",
-    sku: "8902",
-    sku_type: "product",
-    display: "FALSE",
-    destination_url: "https://www.beautyfeatures.ie/brands/Pestle-Mortar",
-  },
-  {
-    type: "brand",
-    store: "bf",
-    identifier: "Avène",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/8512/22074/gift-borsa-mare-avene__47601.1720170034.png?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/8512/22074/gift-borsa-mare-avene__47601.1720170034.png?c=2&imbypass=on",
-    headline: "Free Avène Tote Bag",
-    worth: null,
-    condition: "When you spend €20 or more on Avène",
-    sku: "20198A",
-    sku_type: "product",
-    display: "TRUE",
-    destination_url: "https://www.beautyfeatures.ie/avene/",
   },
 ];
 
