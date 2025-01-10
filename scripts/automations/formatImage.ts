@@ -3,6 +3,7 @@ import sharp from "sharp";
 import axios from "axios";
 import path from "path";
 
+
 require("../../config/config");
 
 type Detection = {
@@ -33,7 +34,7 @@ async function getDetections(imageString: string): Promise<Detections> {
   return output.detections;
 }
 
-function overallBoundaryBox(detections: Detections): Number[] {
+function overallBoundaryBox(detections: Detections): number[] {
   let [minX, maxY, maxX, minY] = [0, 0, 0, 0];
   for (let i = 0; i < detections.length; i++) {
     const detection = detections[i];
@@ -78,58 +79,83 @@ async function getImageBuffer(imagePath: string): Promise<Buffer> {
 async function main() {
   try {
     const image =
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/960w/products/7102/17004/Color_WOW_Extra_Strength_Dream_Coat_Ultra_Moisturising_Anti_Frizz_Treatment_200ml__76267.1691148077.jpg?c=2";
+      "https://millies.ie/cdn/shop/files/Inkey_f5c54c10-4b51-48fe-a127-37131ed6c0dd.jpg?v=1734620262&width=720";
     const detections = await getDetections(image);
     const [minX, maxY, maxX, minY] = overallBoundaryBox(detections);
 
-    const imageMetadata = await sharp(await getImageBuffer(image)).metadata();
+    console.log([minX, maxY, maxX, minY])
 
-    const originalImageHeight = imageMetadata.height!
-
+    let imageMetadata = await sharp(await getImageBuffer(image)).metadata();
     const [left, y, width, height] = [
-      Number(minX), // Ensure bbox[0] is a number
-      Number(maxY), // Ensure bbox[1] is a number
-      Number(maxX) - Number(minX), // Calculate width
-      Number(maxY) - Number(minY), // Calculate height
+      minX, // Ensure bbox[0] is a number
+      maxY, // Ensure bbox[1] is a number
+      maxX - minX, // Calculate width
+      maxY - minY, // Calculate height
     ];
-    const top = originalImageHeight-y
-
-    // const hasVerticalAspect = height >  width
-
-    
+    const originalImageHeight = imageMetadata.height!;
+    const top = originalImageHeight - y;
+    console.log("height", height)
 
     if (left < 0) {
       throw new Error(`Invalid extract area: left (${left}) is less than 0.`);
     }
-    
+
     if (top < 0) {
       throw new Error(`Invalid extract area: top (${top}) is less than 0.`);
     }
-    
+
     if (width <= 0) {
-      throw new Error(`Invalid extract area: width (${width}) must be greater than 0.`);
+      throw new Error(
+        `Invalid extract area: width (${width}) must be greater than 0.`
+      );
     }
-    
+
     if (height <= 0) {
-      throw new Error(`Invalid extract area: height (${height}) must be greater than 0.`);
+      throw new Error(
+        `Invalid extract area: height (${height}) must be greater than 0.`
+      );
     }
-    
+
     if (left + width > imageMetadata.width!) {
       throw new Error(
         `Invalid extract area: left (${left}) + width (${width}) exceeds image width (${imageMetadata.width!}).`
       );
     }
-    
+
     if (top + height > imageMetadata.height!) {
       throw new Error(
         `Invalid extract area: top (${top}) + height (${height}) exceeds image height (${imageMetadata.height!}).`
       );
     }
-    
 
-    await sharp(await getImageBuffer(image))
-      .extract({ left, top, width, height })
-      .toFile(path.resolve(__dirname, "img-test.jpg"));
+    let img = sharp(await getImageBuffer(image));
+    img = img.extract({ left, top, width, height });
+
+    await img.toFile(path.resolve(__dirname, "img-preview.jpg"));
+
+    let resizeOptions: any = {};
+    const isTall = height > width;
+    // const isWide = width > height
+
+    if (isTall) {
+      resizeOptions.height = 730;
+    } else {
+      resizeOptions.width = 700;
+    }
+    img = img.resize(resizeOptions);
+
+    const background = { r: 255, g: 255, b: 255, alpha: 1 };
+    imageMetadata = await sharp(await img.toBuffer()).metadata();
+
+    img = img.extend({
+      bottom: 20,
+      right: Math.round((800 - imageMetadata.width!) / 2),
+      left: Math.round((800 - imageMetadata.width!) / 2),
+      top: Math.round(800 - 20 - imageMetadata.height!),
+      background,
+    });
+
+    await img.toFile(path.resolve(__dirname, "img-test.jpg"));
   } catch (err) {
     console.log(err);
   }
