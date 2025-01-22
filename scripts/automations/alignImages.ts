@@ -10,7 +10,7 @@ import { getAllProductVariants } from "../../functions/products/getAllProductVar
 async function main() {
   try {
     const src = "bf";
-    const dest = "ah";
+    const dest = "px";
     const skus = [
       { sku: "5702" },
       { sku: "5703" },
@@ -211,10 +211,23 @@ async function main() {
       { sku: "20760" },
       { sku: "20763" },
     ];
-    for (let i = 169; i < skus.length; i++) {
+    for (let i = 0; i < skus.length; i++) {
       console.log(i, skus.length);
       const { sku } = skus[i];
-      const [srcProductID, destProductID] = await getProductIds(sku, src, dest);
+      let [srcProductID, destProductID] = [0,0]
+      try {
+         [srcProductID, destProductID] = await getProductIds(
+          sku,
+          src,
+          dest
+        );
+      } catch (err) {
+        console.log(err);
+        continue;
+      }
+      if(!srcProductID || !destProductID) {
+        throw new Error("Expected an id for both src and dest product")
+      }
       await alignImages(src, dest, srcProductID, destProductID);
     }
   } catch (err) {
