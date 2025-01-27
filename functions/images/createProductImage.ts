@@ -26,8 +26,13 @@ export function createProductImage(
 
 /*example 
 
+        import FormData = require("form-data");
         const formData = new FormData();
-        formData.append('image_file', imageData, file);
+        formData.append(
+                  "image_file", 
+                  fs.createReadStream(imagePaths[j]), 
+                  `beautyfeatures brush lifestyle image ${j+1}`
+                );
         formData.append('is_thumbnail', 'true')
         formData.append('sort_order', '0')
 

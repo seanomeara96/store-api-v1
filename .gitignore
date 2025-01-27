@@ -11,3 +11,4 @@ email-data.ts
 **/*.cache.json
 scripts/product-images/images
 ch-plates-cache.json
+*.jpg
