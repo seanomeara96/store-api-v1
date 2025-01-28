@@ -1,7 +1,5 @@
-import { createProductImageFromFile } from "./functions/images/createProductImage";
-import { getAllProducts } from "./functions/products/getAllProducts";
-import fs from "fs";
-import FormData  from "form-data";
+import { createProductImageFromFile } from "../../functions/images/createProductImage";
+import { getAllProducts } from "../../functions/products/getAllProducts";
 
 async function main() {
   try {
@@ -19,19 +17,8 @@ async function main() {
       console.log(`Processing product ${i} of ${products.length}`);
       for (let j = 0; j < imagePaths.length; j++) {
         console.log(`Processing image ${j} of ${imagePaths.length}`);
-        console.log(`Product name: ${products[i].name}`);
-        
-        const formData = new FormData();
-        // Use createReadStream instead of Blob for Node.js FormData
-        formData.append(
-          "image_file", 
-          fs.createReadStream(imagePaths[j]), 
-          `beautyfeatures brush lifestyle image ${j+1}`
-        );
-        formData.append("is_thumbnail", "false");
-        formData.append("sort_order", `${j+10}`);
-        
-        await createProductImageFromFile(products[i].id, formData);
+        console.log(`Product name: ${products[i].name}`);        
+        await createProductImageFromFile(products[i].id, imagePaths[j], `beautyfeatures brush ${j+1}`, false, 10+j);
       }
     }
   } catch (err) {
