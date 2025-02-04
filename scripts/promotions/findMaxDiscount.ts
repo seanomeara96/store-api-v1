@@ -6,10 +6,10 @@ require("../../config/config").config("bf");
 
 async function maxDiscount() {
   try {
-    const brand = await getBrandByName("Joico");
-    if (!brand) return console.log("no brand");
+   // const brand = await getBrandByName("Joico");
+    //if (!brand) return console.log("no brand");
     const products = (await getAllProducts({
-      'categories:in': 663
+      'categories:in': 982
     })).filter(
       (p) => p.inventory_level > 0
     );
