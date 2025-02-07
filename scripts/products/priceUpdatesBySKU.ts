@@ -7,7 +7,8 @@ const stores: string[] = ["bf", "ah", "px"];
 
 //const no_discount_category_ID = 1493;
 const data = [
-  { sku: "10256", price: 22.95, },
+  { sku: "9631", sale_price: 198.00 },
+  { sku: "12109", sale_price: 282.00 },
 ];
 
 enum ExcludeFromDiscountAction {
@@ -17,7 +18,7 @@ enum ExcludeFromDiscountAction {
 }
 
 const addToNoDiscountCat: ExcludeFromDiscountAction =
-  ExcludeFromDiscountAction.None;
+  ExcludeFromDiscountAction.Add;
 
 async function main() {
   for (let j = 0; j < stores.length; j++) {
@@ -33,8 +34,7 @@ async function main() {
          *priceupdate fields
          */
         let updates = {
-          price: row.price,
-          retail_price: row.price,
+          sale_price: row.sale_price,
         };
 
         const vars = await getAllProductVariants({ sku: row.sku });
