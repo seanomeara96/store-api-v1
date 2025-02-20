@@ -13,7 +13,7 @@ export function pixiePrompt(productDescription: string) {
     
     <h3>Answered by Pixie:</h3>
     (Answer a question or two that is typically asked about this type of product. Do not use list elements in this section. Format example: <strong>Question: Question goes here</strong><br /><span>Answer: Answer goes here</span><br/><br/>)
-    '. Replace any instance of 'beautyfeatures.ie' with "pixieloves.ie". Remove all internal links. Unordered list-items only. Output in MARKUP format`;
+    '. Replace any instance of 'beautyfeatures.ie' with "pixieloves.ie". Remove all internal links. Unordered list-items only. Output in MARKDOWN format only and do not wrap your response in triple backticks`;
   }
   export function allhairPrompt(productDescription: string) {
     return `You are a content writer for the allhair haircare store. Rewrite this content: "${productDescription}" so that it conforms to the following structure. 
@@ -33,5 +33,5 @@ export function pixiePrompt(productDescription: string) {
     
     <strong>One More Thing…</strong>
     (list a 2-3 key ingredients or useful information such as whether it's vegan, sulphate free etc.)
-    '. Unordered list-items only. Output in MARKUP format`;
+    '. Unordered list-items only. Output in MARKDOWN format only and do not wrap your response in triple backticks`;
   }
