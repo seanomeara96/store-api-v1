@@ -11,10 +11,12 @@ require("../../config/config").config(store);
 async function test() {
   try {
     const data: any[] = [];
-    const products = await getAllProducts();
+    const params:{[key: string]: number} = {}
+    params[`categories:in`] = 34
+    const products = await getAllProducts(params);
 
     for (let i = 0; i < products.length; i++) {
-      console.log(`${i + 1}/${products.length}`);
+      console.log(i,products.length);
 
       const product = products[i];
       const images = await getAllProductImages(product.id);
@@ -57,7 +59,7 @@ async function test() {
         // console.log("Dimensions: " + imageWidth + " x " + imageHeight);
         const excesive_file_size = imageSizeInBytes / 1024 > 70;
         const not_square = imageWidth != imageHeight;
-        const excessive_file_dimensions = imageWidth > 800 || imageHeight > 800;
+        const excessive_file_dimensions = imageWidth > 1000 || imageHeight > 1000;
         
         let priority = "LOW";
         if (not_square && excessive_file_dimensions) {

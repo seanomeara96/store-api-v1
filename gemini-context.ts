@@ -7,7 +7,7 @@ import path from "path"
 import { getProductVariants } from "./functions/products/getProductVariants";
 
 
-const store = "bf"
+const store = "ch"
 
 async function main() {
   try {
@@ -15,20 +15,22 @@ async function main() {
    
     let products = await getAllProducts()
 
-    products = products.filter(p => p.inventory_level)
+    //products = products.filter(p => p.inventory_level)
 
     let out = [];
 
-    for(const product of products){
+    for(let i = 0; i < products.length; i++){
+      console.log(i, products.length)
+      const product= products[i]
       const variants = await getProductVariants(product.id)
       for(const variant of variants){
         out.push({
           sku: variant.sku,
           name: product.name,
-          description: htmlToText(product.description),
-          retail_price: product.price,
-          sale_price: product.sale_price,
-          saving: String(Math.round(((product.price - product.sale_price) / product.price) * 100)) + "%"
+          //description: htmlToText(product.description),
+          //retail_price: product.price,
+          //sale_price: product.sale_price,
+          //saving: String(Math.round(((product.price - product.sale_price) / product.price) * 100)) + "%"
         })
       }
     }
