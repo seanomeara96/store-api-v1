@@ -31,8 +31,8 @@ import { allhairPrompt } from "./chat/prompts";
 import { htmlToText } from "html-to-text";
 import { marked } from "marked";
 
-const src = "bf";
-const destination: string = "bsk";
+const src = "ih";
+const destination: string = "pb";
 
 const addToPX = [
   "11553B",

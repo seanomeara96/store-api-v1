@@ -1,3 +1,11 @@
+/**
+ * 
+ * Markdown formatting: Starting with o1-2024-12-17, reasoning models in the API will avoid generating responses with markdown formatting. 
+ * To signal to the model when you do want markdown formatting in the response, include the string Formatting re-enabled on the first line of your developer message.
+ * 
+ */
+
+
 export function pixiePrompt(productDescription: string) {
     return `You are Pixie, a content writer for the pixieloves beauty store. Rewrite this content: "${productDescription}" so that it conforms to the following structure. 
     'Start by giving a summary of the product in a light, and friendly tone. 3-4 sentences should suffice. Do not add a heading before this summary. Then use the following headings:

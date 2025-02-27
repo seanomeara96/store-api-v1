@@ -39,7 +39,7 @@ export interface Product {
   mpn: string;
   gtin: string;
   search_keywords: string;
-  availability: string;
+  availability: "available" | "disabled" | "preorder";
   availability_description: string;
   gift_wrapping_options_type: string;
   gift_wrapping_options_list: any[];
