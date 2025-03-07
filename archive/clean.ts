@@ -1,6 +1,6 @@
 
-import { getAllProducts } from "./functions/products/getAllProducts";
-import { updateProduct } from "./functions/products/updateProduct";
+import { getAllProducts } from "../functions/products/getAllProducts";
+import { updateProduct } from "../functions/products/updateProduct";
 
 
 

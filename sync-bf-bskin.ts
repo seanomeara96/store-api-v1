@@ -32,7 +32,7 @@ import { htmlToText } from "html-to-text";
 import { marked } from "marked";
 
 const src = "ih";
-const destination: string = "pb";
+const destination: string = "bs";
 
 const addToPX = [
   "11553B",

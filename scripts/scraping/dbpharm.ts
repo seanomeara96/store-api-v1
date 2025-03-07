@@ -132,7 +132,17 @@ async function test() {
 
     for (const url of urls) {
       console.log("Getting:", url);
-      const res = await axios.get(url);
+      let res;
+      try {
+        res = await axios.get(url);
+      } catch (err: any) {
+        if(err.status ? err.status === 404 : false) {
+          console.log(`404 could not get ${url}`)
+          continue
+        }
+        throw err
+      }
+      if (!res) throw `res undefined`
       const dom = new JSDOM(res.data);
       const { document } = dom.window;
 

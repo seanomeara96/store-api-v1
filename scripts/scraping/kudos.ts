@@ -79,7 +79,17 @@ async function test() {
 
     for (const url of urls) {
       console.log("Getting:", url);
-      const { data } = await axios.get(url);
+      let res;
+      try {
+        res = await axios.get(url);
+      } catch (err: any) {
+        if (err.status ? err.status === 404 : false) {
+          console.log(`404 could not get ${url}`);
+          continue;
+        }
+        throw err;
+      }
+      const { data } = res;
       const { window } = new JSDOM(data);
       const type =
         window.document.querySelector(`[itemtype]`)?.getAttribute("itemType") ||
