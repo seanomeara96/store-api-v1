@@ -1,9 +1,11 @@
 import { stringify } from "csv-stringify";
 import fs from "fs";
 
+type rows = { [key: string]: any }[]
+
 export function output(
   path: string,
-  content: { [key: string]: any }[],
+  content: rows,
   header: boolean
 ): Promise<string> {
   return new Promise(function (resolve, reject) {
