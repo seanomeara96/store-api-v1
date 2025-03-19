@@ -32,7 +32,7 @@ import { htmlToText } from "html-to-text";
 import { marked } from "marked";
 
 const src = "ih";
-const destination: string = "pb";
+const destination: string = "bs";
 
 const addToPX = [
   "11553B",
@@ -245,7 +245,7 @@ async function transfer(src: string, destination: string) {
 
     if (destination === "pb") {
       destinationDummyCategoryID = 165;
-      srcFilter = { "categories:in": [966, 1023, 1047, 1034, 1471].join(",") };
+      srcFilter = { "categories:in": [966, 1023, 1047, 1034, 1471, 970].join(",") };
       destination_name = "PregnancyAndBaby";
       skipBrands = [];
     }

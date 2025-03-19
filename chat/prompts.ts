@@ -43,3 +43,28 @@ export function pixiePrompt(productDescription: string) {
     (list a 2-3 key ingredients or useful information such as whether it's vegan, sulphate free etc.)
     '. Unordered list-items only. Output in MARKDOWN format only and do not wrap your response in triple backticks`;
   }
+
+  export function pregnancyandbabyPrompt(productDescription: string) {
+    return `You are a content writer for the pregnancyandbaby.ie a retailer for pregnancy and baby products. Rewrite this content: "${productDescription}" so that it conforms to the following structure. 
+    'Start by giving a summary of the product in a light, and friendly tone. 3-4 sentences should suffice. Do not add a heading before this summary. Then use the following headings:
+    
+    <h3>Key Features:</h3>
+    (only 3-5 key bullet-points about key product features)
+    
+    <strong>FAQ</strong>
+    (some common questions and answers you would find about this product.
+    prepend the question with <strong>Q: </strong>
+    prepend the answer with <strong>A: </strong>)
+  
+    '. Unordered list-items only. Output in MARKDOWN format only and do not wrap your response in triple backticks`;
+  }
+
+  export function hireallPrompt(productDescription: string) {
+    return `You are a content writer for the hireall.ie Hireall, Ireland's leading Event & Furniture Hire Specialists. Rewrite this content: "${productDescription}" so that it conforms to the following structure. 
+    'Start by giving a summary of the product in a light, and friendly tone. 3-4 sentences should suffice. Do not add a heading before this summary. Then use the following headings:
+    
+    <h3>Key Features:</h3>
+    (only 3-5 key bullet-points about key product features)'
+    
+    Unordered list-items only. Output in MARKDOWN format only and do not wrap your response in triple backticks`;
+  }

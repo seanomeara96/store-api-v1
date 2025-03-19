@@ -12,3 +12,5 @@ email-data.ts
 scripts/product-images/images
 ch-plates-cache.json
 *.jpg
+*.log
+*.bak
