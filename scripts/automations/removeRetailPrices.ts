@@ -1,4 +1,4 @@
-require("./config/config").config("hie");
+require("../../config/config").config("pb");
 import { Product } from "../../functions/products/Product";
 import { getAllProducts } from "../../functions/products/getAllProducts";
 import { updateProduct } from "../../functions/products/updateProduct";
