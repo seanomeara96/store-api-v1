@@ -132,49 +132,51 @@ async function mapCategories() {
   }
 }
 
+export const pbihMappingTable: { [key: number]: number } = {
+  970: 130,
+  975: 189,
+  983: 205,
+  1031: 186,
+  1045: 193,
+  1048: 209,
+  1085: 194,
+  1113: 190,
+  1118: 217,
+  1120: 210,
+  1131: 195,
+  1142: 211,
+  1159: 196,
+  1168: 212,
+  1170: 197,
+  1195: 213,
+  1208: 202,
+  1214: 218,
+  1216: 203,
+  1241: 198,
+  1256: 219,
+  1289: 206,
+  1300: 214,
+  1310: 199,
+  1312: 215,
+  1333: 204,
+  1369: 200,
+  1405: 191,
+  1441: 207,
+  1442: 216,
+  1443: 192,
+  1444: 201,
+  1445: 208,
+};
+
 async function mapIHPB() {
   try {
-    const mappingTable: { [key: string | number]: number } = {
-      970: 130,
-      975: 189,
-      983: 205,
-      1031: 186,
-      1045: 193,
-      1048: 209,
-      1085: 194,
-      1113: 190,
-      1118: 217,
-      1120: 210,
-      1131: 195,
-      1142: 211,
-      1159: 196,
-      1168: 212,
-      1170: 197,
-      1195: 213,
-      1208: 202,
-      1214: 218,
-      1216: 203,
-      1241: 198,
-      1256: 219,
-      1289: 206,
-      1300: 214,
-      1310: 199,
-      1312: 215,
-      1333: 204,
-      1369: 200,
-      1405: 191,
-      1441: 207,
-      1442: 216,
-      1443: 192,
-      1444: 201,
-      1445: 208,
-    };
     require("../../config/config").config("pb");
-    const destProducts = await getAllProducts({ "categories:in": 165 });
+    const destProducts = await getAllProducts();
     for (let i = 0; i < destProducts.length; i++) {
       require("../../config/config").config("pb");
       console.log(i, destProducts.length);
       const destProduct = destProducts[i];
+      const categories = [...destProduct.categories]
       const variants = await getProductVariants(destProduct.id);
       const sku = variants[0].sku;
       require("../../config/config").config("ih");
@@ -184,18 +186,20 @@ async function mapIHPB() {
         continue;
       }
       for (const cat of srcProduct.categories) {
-        const mappedCat: number | undefined = mappingTable[cat];
+        const mappedCat: number | undefined = pbihMappingTable[cat];
         if (mappedCat) {
-          destProduct.categories.push(mappedCat);
+          categories.push(mappedCat);
         }
       }
       require("../../config/config").config("pb");
-      await updateProduct(destProduct.id, {
-        categories: destProduct.categories,
-        is_visible: true,
-      });
+      if(destProduct.categories.length !== categories.length){
+        await updateProduct(destProduct.id, {
+          categories: categories,
+          is_visible: true,
+        });
+      }
       console.log(
-        `https://store-d5068dtk11.mybigcommerce.com/manage/products/${destProduct.id}/edit`
+        `https://store-5rdxj17.mybigcommerce.com/manage/products/${destProduct.id}/edit`
       );
     }
   } catch (err) {

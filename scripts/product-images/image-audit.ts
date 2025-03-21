@@ -11,8 +11,8 @@ require("../../config/config").config(store);
 async function test() {
   try {
     const data: any[] = [];
-  //  const params = { "categories:in": 34 };
-    const products = await getAllProducts();
+    const params = { "categories:in": 34 };
+    const products = await getAllProducts(params);
 
     for (let i = 0; i < products.length; i++) {
       console.log(i, products.length);
@@ -56,7 +56,7 @@ async function test() {
 
         // console.log("Image Size: " + fileSize);
         // console.log("Dimensions: " + imageWidth + " x " + imageHeight);
-        const excesive_file_size = imageSizeInBytes / 1024 > 70;
+        const excesive_file_size_gt_70_kb = imageSizeInBytes / 1024 > 70;
         const not_square = imageWidth != imageHeight;
         const excessive_file_dimensions =
           imageWidth > 1000 || imageHeight > 1000;
@@ -65,19 +65,22 @@ async function test() {
         if (not_square && excessive_file_dimensions) {
           priority = "MID";
         }
-        if (excesive_file_size && not_square && excessive_file_dimensions) {
+        if (excesive_file_size_gt_70_kb && not_square && excessive_file_dimensions) {
           priority = "HIGH";
         }
 
         data.push({
           product_id: product.id,
+          image_id: image.id,
+          sort_order: image.sort_order,
+          is_thumbnail: image.is_thumbnail,
           sku: product.sku,
           name: product.name,
           image_url: imageUrl,
           file_size: imageSizeInBytes,
           width: imageWidth,
           height: imageHeight,
-          excesive_file_size,
+          excesive_file_size_gt_70_kb,
           not_square,
           excessive_file_dimensions,
         });
