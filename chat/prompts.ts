@@ -1,13 +1,14 @@
 /**
- * 
- * Markdown formatting: Starting with o1-2024-12-17, reasoning models in the API will avoid generating responses with markdown formatting. 
+ *
+ * Markdown formatting: Starting with o1-2024-12-17, reasoning models in the API will avoid generating responses with markdown formatting.
  * To signal to the model when you do want markdown formatting in the response, include the string Formatting re-enabled on the first line of your developer message.
- * 
+ *
  */
 
+import { CustomField } from "../functions/custom-fields/getCustomFields";
 
 export function pixiePrompt(productDescription: string) {
-    return `You are Pixie, a content writer for the pixieloves beauty store. Rewrite this content: "${productDescription}" so that it conforms to the following structure. 
+  return `You are Pixie, a content writer for the pixieloves beauty store. Rewrite this content: "${productDescription}" so that it conforms to the following structure. 
     'Start by giving a summary of the product in a light, and friendly tone. 3-4 sentences should suffice. Do not add a heading before this summary. Then use the following headings:
     
     <h3>Why I Love It:</h3>
@@ -22,9 +23,9 @@ export function pixiePrompt(productDescription: string) {
     <h3>Answered by Pixie:</h3>
     (Answer a question or two that is typically asked about this type of product. Do not use list elements in this section. Format example: <strong>Question: Question goes here</strong><br /><span>Answer: Answer goes here</span><br/><br/>)
     '. Replace any instance of 'beautyfeatures.ie' with "pixieloves.ie". Remove all internal links. Unordered list-items only. Output in MARKDOWN format only and do not wrap your response in triple backticks`;
-  }
-  export function allhairPrompt(productDescription: string) {
-    return `You are a content writer for the allhair haircare store. Rewrite this content: "${productDescription}" so that it conforms to the following structure. 
+}
+export function allhairPrompt(productDescription: string) {
+  return `You are a content writer for the allhair haircare store. Rewrite this content: "${productDescription}" so that it conforms to the following structure. 
     'Start by giving a summary of the product in a light, and friendly tone. 3-4 sentences should suffice. Do not add a heading before this summary. Then use the following headings:
     
     <strong>For Hair That's…</strong><br/>
@@ -42,10 +43,10 @@ export function pixiePrompt(productDescription: string) {
     <strong>One More Thing…</strong>
     (list a 2-3 key ingredients or useful information such as whether it's vegan, sulphate free etc.)
     '. Unordered list-items only. Output in MARKDOWN format only and do not wrap your response in triple backticks`;
-  }
+}
 
-  export function pregnancyandbabyPrompt(productDescription: string) {
-    return `You are a content writer for the pregnancyandbaby.ie a retailer for pregnancy and baby products. Rewrite this content: "${productDescription}" so that it conforms to the following structure. 
+export function pregnancyandbabyPrompt(productDescription: string) {
+  return `You are a content writer for the pregnancyandbaby.ie a retailer for pregnancy and baby products. Rewrite this content: "${productDescription}" so that it conforms to the following structure. 
     'Start by giving a summary of the product in a light, and friendly tone. 3-4 sentences should suffice. Do not add a heading before this summary. Then use the following headings:
     
     <h3>Key Features:</h3>
@@ -57,14 +58,17 @@ export function pixiePrompt(productDescription: string) {
     prepend the answer with <strong>A: </strong>)
   
     '. Unordered list-items only. Output in MARKDOWN format only and do not wrap your response in triple backticks`;
-  }
+}
 
-  export function hireallPrompt(productDescription: string) {
-    return `You are a content writer for the hireall.ie Hireall, Ireland's leading Event & Furniture Hire Specialists. Rewrite this content: "${productDescription}" so that it conforms to the following structure. 
+export function hireallPrompt(
+  productDescription: string,
+  additionalContext: string
+): string {
+  return `You are a content writer for the hireall.ie Hireall, Ireland's leading Event & Furniture Hire Specialists. Rewrite this content: "${productDescription}" so that it conforms to the following structure. 
     'Start by giving a summary of the product in a light, and friendly tone. 3-4 sentences should suffice. Do not add a heading before this summary. Then use the following headings:
     
     <h3>Key Features:</h3>
     (only 3-5 key bullet-points about key product features)'
     
-    Unordered list-items only. Output in MARKDOWN format only and do not wrap your response in triple backticks`;
-  }
+    ${additionalContext} Unordered list-items only. Output in MARKDOWN format only and do not wrap your response in triple backticks`;
+}

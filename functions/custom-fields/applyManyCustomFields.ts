@@ -1,5 +1,5 @@
 import { applyCustomField } from "./applyCustomField";
-import { CustomField } from "./getCustomFields";
+import { NewCustomField } from "./getCustomFields";
 /**
  * Loops through an array of many customFields and applys them to a single product
  * @param {object[]} productId
@@ -8,7 +8,7 @@ import { CustomField } from "./getCustomFields";
  */
 export function applyManyCustomFields(
   productId: number,
-  customFields: CustomField[]
+  customFields: NewCustomField[]
 ) {
   return new Promise(async function (resolve, reject) {
     try {

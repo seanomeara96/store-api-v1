@@ -1,9 +1,8 @@
+import { alignImages } from "../../functions/images/alignImages";
 import { createProductImage } from "../../functions/images/createProductImage";
 import { deleteProductImage } from "../../functions/images/deleteProductImage";
-import {
-  getAllProductImages,
-  ProductImage,
-} from "../../functions/images/getAllProductImages";
+import { getAllProductImages } from "../../functions/images/getAllProductImages";
+import { ProductImage } from "../../functions/images/getProductImage";
 import { NewImageParams } from "../../functions/products/createProduct";
 import { getAllProductVariants } from "../../functions/products/getAllProductVariants";
 
@@ -43,7 +42,7 @@ async function main() {
       { sku: "1022", name: "Wedgwood Tea Cup 20cl (Pack Size 10)" },
       { sku: "1023", name: "Wedgwood Tea Cup Saucer 14cm (Pack size 10)" },
     ];
-    for (let i = 13; i < skus.length; i++) {
+    for (let i = 0; i < skus.length; i++) {
       console.log(i, skus.length);
       const { sku } = skus[i];
       let [srcProductID, destProductID] = [0, 0];
@@ -87,45 +86,4 @@ async function getProductIds(sku: string, src: string, dest: string) {
   return [srcProductID, destProductID];
 }
 
-async function alignImages(
-  src: string,
-  dest: string,
-  srcProductID: number,
-  destProductID: number
-) {
-  try {
-    require("../../config/config").config(src);
-    const srcProductImages = await getAllProductImages(srcProductID);
 
-    require("../../config/config").config(dest);
-    const destProductImages = await getAllProductImages(destProductID);
-    for (let i = 0; i < destProductImages.length; i++) {
-      await deleteProductImage(destProductID, destProductImages[i].id);
-    }
-
-    for (let i = 0; i < srcProductImages.length; i++) {
-      await createProductImage(
-        destProductID,
-        convertToNewImageParams(srcProductImages[i])
-      );
-    }
-  } catch (err) {
-    throw err;
-  }
-}
-
-function convertToNewImageParams(image: ProductImage): NewImageParams {
-  return {
-    image_file: image.image_file,
-    is_thumbnail: image.is_thumbnail,
-    sort_order: image.sort_order,
-    description: image.description || undefined, // Make optional
-    image_url: image.url_zoom, // Set explicitly if needed
-    product_id: image.product_id,
-    url_zoom: image.url_zoom,
-    url_standard: image.url_standard,
-    url_thumbnail: image.url_thumbnail,
-    url_tiny: image.url_tiny,
-    date_modified: image.date_modified || undefined, // Make optional
-  };
-}

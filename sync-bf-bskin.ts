@@ -192,6 +192,47 @@ const addToPX = [
   "7457",
 ];
 
+const addToCH = [
+  "674",
+  "676",
+  "672",
+  "522",
+  "1075",
+  "552",
+  "113",
+  "409",
+  "707",
+  "PHOTO0004",
+  "BARMUD",
+  "406",
+  "349",
+  "409GAS",
+  "SEASIDE0002",
+  "1000233",
+  "916",
+  "4058",
+  "1000235",
+  "576",
+  "570",
+  "538",
+  "565",
+  "PED001",
+  "1000115",
+  "LECARM",
+  "CAB001",
+  "1079",
+  "377a",
+  "1082",
+  "245",
+  "5340",
+  "559",
+  "LO72B",
+  "305",
+  "PHOTO0002",
+  "1099CW",
+  "1000323",
+];
+
 (async function () {
   try {
     await transfer(src, destination);
@@ -202,6 +243,10 @@ const addToPX = [
 
 async function transfer(src: string, destination: string) {
   try {
+    if (src === "" && destination === "") {
+      throw new Error("incorrect src and/or destination supplied");
+    }
+
     let srcFilter;
     let destinationDummyCategoryID;
     let destination_name;
@@ -214,6 +259,14 @@ async function transfer(src: string, destination: string) {
 
     if (src == "ih") {
       src_name = "inhealth";
+    }
+
+    if (src === "ch") {
+      src_name = "caterhire";
+    }
+
+    if (src === "ha") {
+      src_name = "hireall";
     }
 
     if (!src_name) {
@@ -245,7 +298,9 @@ async function transfer(src: string, destination: string) {
 
     if (destination === "pb") {
       destinationDummyCategoryID = 165;
-      srcFilter = { "categories:in": [966, 1023, 1047, 1034, 1471, 970].join(",") };
+      srcFilter = {
+        "categories:in": [966, 1023, 1047, 1034, 1471, 970].join(","),
+      };
       destination_name = "PregnancyAndBaby";
       skipBrands = [];
     }
@@ -269,6 +324,28 @@ async function transfer(src: string, destination: string) {
       srcFilter = { "categories:in": [966].join(",") };
       destination_name = "Fertility Store";
       skipBrands = [];
+    }
+
+    if (destination === "ch") {
+      destinationDummyCategoryID = 488;
+      srcFilter = { "sku:in": addToCH.join(",") };
+      destination_name = "CaterHire";
+      skipBrands = [];
+    }
+
+    if(destination === "ha" && src !== "ch"){
+      throw new Error("source for hireall must be caterhire")
+    }
+
+    if (destination === "ch" && src !== "ha") {
+      throw new Error("source for caterhire must be hireall")
+    }
+
+    if (
+      (destination === "ah" || destination === "bsk" || destination === "px") &&
+      src !== "bf"
+    ) {
+      throw new Error("src for ah/bsk/px must be bf");
     }
 
     if (
@@ -426,6 +503,10 @@ async function transfer(src: string, destination: string) {
 
       if (destination === "ah") {
         updatedDescription = await bfToAhContentStructure(updatedDescription);
+      }
+
+      if (destination === "ch") {
+        updatedDescription = await haToCHContentStructure(updatedDescription)
       }
 
       const updatedMetaDescription = product.meta_description.replace(

@@ -31,7 +31,16 @@ export interface Category {
   meta_description: string;
   layout_file: string;
   is_visible: boolean;
-  default_product_sort: string;
+  default_product_sort:
+    | "use_store_settings"
+    | "featured"
+    | "newest"
+    | "best_selling"
+    | "alpha_asc"
+    | "alpha_desc"
+    | "avg_customer_review"
+    | "price_asc"
+    | "price_desc";
   image_url: string;
   custom_url: {
     url: string;
