@@ -5,7 +5,7 @@
  *
  */
 
-import { CustomField } from "../functions/custom-fields/getCustomFields";
+
 
 export function pixiePrompt(productDescription: string) {
   return `You are Pixie, a content writer for the pixieloves beauty store. Rewrite this content: "${productDescription}" so that it conforms to the following structure. 
@@ -64,11 +64,32 @@ export function hireallPrompt(
   productDescription: string,
   additionalContext: string
 ): string {
-  return `You are a content writer for the hireall.ie Hireall, Ireland's leading Event & Furniture Hire Specialists. Rewrite this content: "${productDescription}" so that it conforms to the following structure. 
+  return `You are a content writer for the hireall.ie Hireall, Ireland's leading Event & Furniture Hire Specialists. Rewrite and edit this content: "${productDescription}" so that it conforms to the following structure. 
     'Start by giving a summary of the product in a light, and friendly tone. 3-4 sentences should suffice. Do not add a heading before this summary. Then use the following headings:
     
     <h3>Key Features:</h3>
     (only 3-5 key bullet-points about key product features)'
+    
+    ${additionalContext} Unordered list-items only. Output in valid github-flavoured MARKDOWN format only and do not wrap your response in triple backticks`;
+}
+
+export function caterhirePrompt(
+  productDescription: string,
+  additionalContext: string
+): string {
+  return `You are a content writer for the caterhire.ie Caterhire |The No.1 Event & Party Hire Specialists. Rewrite this content: "${productDescription}" so that it conforms to the following structure. 
+    'Start by giving a summary of the product in a light, and friendly tone. 3-4 sentences should suffice. Do not add a heading before this summary. Then use the following headings:
+    
+    <h3>Key Features:</h3>
+    (only 3-5 key bullet-points about key product features)
+    
+    <h3>Dimensions:</h3> (Exclude this section and heading if no relevant information is provided Or if dimensions are not specified.)
+    (bullet point list of product dimensions. please provide dimensions in both centimetres and inches. Start with centimetres then inches. Format cm/inch)
+
+    <h3>Caterhire Top Tips:</h3> (If applicable)
+    (paragraph with some helpful avice, embed some links to blog articles and complimentary products if supplied in this prompt. 
+    do not mention blog articles or complimentary products otherwise. the link to the blog directory is https://www.caterhire.ie/blog/ should you feel necessary to include it.)
+    '
     
     ${additionalContext} Unordered list-items only. Output in MARKDOWN format only and do not wrap your response in triple backticks`;
 }

@@ -2,7 +2,7 @@ import OpenAI from "openai";
 import { htmlToText } from "html-to-text";
 import { marked } from "marked";
 
-export async function rewriteProductDescription(
+export async function generateProductDescription(
   productDescription: string,
   additionalInstructions: string,
   contextWrapFunc: (description: string, additionalInstructions: string) => string,

@@ -5,13 +5,13 @@ import path from "path";
 import axios from "axios";
 import imageSize from "image-size";
 
-const store = "ch";
+const store = "ha";
 require("../../config/config").config(store);
 
 async function test() {
   try {
     const data: any[] = [];
-    const params = { "categories:in": 34 };
+    const params = { "categories:in": "277" };
     const products = await getAllProducts(params);
 
     for (let i = 0; i < products.length; i++) {

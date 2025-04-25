@@ -22,7 +22,7 @@ const campaigns: any[] = [
   {
     type: "category",
     store: "bf",
-    identifier: "Top Brands/L'Oreal/Absolut Repair",
+    identifier: "Absolut Repair",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6236/13701/Absolut_Repair_Shampoo__26110.1658477016.jpg?c=2&imbypass=on",
     full_img:
@@ -38,7 +38,7 @@ const campaigns: any[] = [
   {
     type: "category",
     store: "bf",
-    identifier: "Top Brands/L'Oreal/Vitamino Color",
+    identifier: "Vitamino Color",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6235/13702/Vitamino_Color_Shampoo__70909.1658477078.jpg?c=2&imbypass=on",
     full_img:
@@ -54,7 +54,7 @@ const campaigns: any[] = [
   {
     type: "category",
     store: "bf",
-    identifier: "Top Brands/L'Oreal/Metal Detox",
+    identifier: "Metal Detox",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6233/13659/Copy_of_Copy_of_Template_49_1__06600.1658409766.jpg?c=2&imbypass=on",
     full_img:
@@ -70,7 +70,7 @@ const campaigns: any[] = [
   {
     type: "category",
     store: "bf",
-    identifier: "Top Brands/L'Oreal/Vitamino Color",
+    identifier: "Vitamino Color",
     thumbnail:
       "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6234/13703/Vitamino_Color_Mask__57243.1658477125.jpg?c=2&imbypass=on",
     full_img:
@@ -88,13 +88,13 @@ const campaigns: any[] = [
     store: "bf",
     identifier: "Dermalogica",
     thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/8668/22951/Dermalogica_Best_Sellers_GWP__39346.1731580425.jpg?c=2&imbypass=on",
+      "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/75x75/products/655/1387/Dermalogica_Biolumin-C_Brightening_Essentials__98852.1731582230.jpg?c=2&imbypass=on",
     full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/8668/22951/Dermalogica_Best_Sellers_GWP__39346.1731580425.jpg?c=2&imbypass=on",
-    headline: "Best Sellers Minis Gift",
-    worth: 32,
+      "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/300x300/products/655/1387/Dermalogica_Biolumin-C_Brightening_Essentials__98852.1731582230.jpg?c=2&imbypass=on",
+    headline: "Dermalogica Biolumin-C Brightening Essentials",
+    worth: 9,
     condition: "When you spend €100 or more on Dermalogica",
-    sku: "20504",
+    sku: "20505",
     sku_type: "product",
     display: "TRUE",
     destination_url: "https://www.beautyfeatures.ie/brands/Dermalogica.html",

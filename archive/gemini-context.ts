@@ -1,17 +1,17 @@
 import { htmlToText } from "html-to-text";
 
-import { getAllProducts } from "./functions/products/getAllProducts";
-import { output } from "./scripts/utils/output";
+import { getAllProducts } from "../functions/products/getAllProducts";
+import { output } from "../scripts/utils/output";
 
 import path from "path"
-import { getProductVariants } from "./functions/products/getProductVariants";
+import { getProductVariants } from "../functions/products/getProductVariants";
 
 
-const store = "ch"
+const store = "pb"
 
 async function main() {
   try {
-    require("./config/config").config(store);
+    require("../config/config").config(store);
    
     let products = await getAllProducts()
 
@@ -27,7 +27,7 @@ async function main() {
         out.push({
           sku: variant.sku,
           name: product.name,
-          //description: htmlToText(product.description),
+          description: htmlToText(product.description),
           //retail_price: product.price,
           //sale_price: product.sale_price,
           //saving: String(Math.round(((product.price - product.sale_price) / product.price) * 100)) + "%"

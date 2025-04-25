@@ -1,8 +1,11 @@
-require("../config/config").config("bf");
 import { getNumberOfImages } from "../../functions/images/getNumberOfImages";
 import { getAllProducts } from "../../functions/products/getAllProducts";
 import { output } from "../utils/output";
+import path from "path"
+
 async function numberOfImagesPerProduct() {
+  require("../../config/config").config("ih");
+
   try {
     const data: any[] = []
     const products = await getAllProducts();
@@ -12,11 +15,11 @@ async function numberOfImagesPerProduct() {
         id,
         name,
         sku,
-        "#images": imageCount,
+        "#images": imageCount['#images'],
       })
     }
 
-    output("imagesPerProduct", data, true);
+    output(path.resolve(__dirname, "imagesPerProduct.csv"), data, true);
   } catch {
     console.log("somehting went wrong");
   }

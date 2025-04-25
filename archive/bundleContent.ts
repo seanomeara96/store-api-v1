@@ -5536,7 +5536,7 @@ bundleData = bundleData.filter((bd) => !["20510", "20511"].includes(bd.component
 const skusToFix = [{"sku":"20988",},
  ]
 
-export async function generateContent(context: string): Promise<string> {
+ async function generateContent(context: string): Promise<string> {
   try {
     let response = await new OpenAI({
       apiKey: process.env.OPENAI_API_KEY,

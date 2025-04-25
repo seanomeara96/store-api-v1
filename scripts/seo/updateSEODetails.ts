@@ -127,25 +127,25 @@ const updates = [
 (async () => {
   try {
     for (let i = 0; i < updates.length; i++) {
-      console.log(i, updates.length)
+      console.log(i, updates.length);
       const update = updates[i];
       require("../../config/config").config(update.store);
-  
+
       if (update.type === "category") {
         await updateCategory(update.id, {
           page_title: update.page_title,
           meta_description: update.meta_description,
         });
       }
-  
+
       if (update.type === "brand") {
         await updateBrand(update.id, {
           page_title: update.page_title,
           meta_description: update.meta_description,
-        })
+        });
       }
     }
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 })();

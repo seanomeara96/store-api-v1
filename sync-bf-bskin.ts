@@ -27,12 +27,13 @@ import { getProductByName } from "./functions/products/getProductByName";
 import { getProductVariants } from "./functions/products/getProductVariants";
 import { getAllProducts } from "./functions/products/getAllProducts";
 import OpenAI from "openai";
-import { allhairPrompt } from "./chat/prompts";
+import { allhairPrompt, caterhirePrompt, hireallPrompt } from "./chat/prompts";
 import { htmlToText } from "html-to-text";
 import { marked } from "marked";
+import { getCustomFields } from "./functions/custom-fields/getCustomFields";
 
-const src = "ih";
-const destination: string = "bs";
+const src = "ch";
+const destination: string = "ha";
 
 const addToPX = [
   "11553B",
@@ -192,45 +193,13 @@ const addToPX = [
   "7457",
 ];
 
-const addToCH = [
-  "674",
-  "676",
-  "672",
-  "522",
-  "1075",
-  "552",
-  "113",
-  "409",
-  "707",
-  "PHOTO0004",
-  "BARMUD",
-  "406",
-  "349",
-  "409GAS",
-  "SEASIDE0002",
-  "1000233",
-  "916",
-  "4058",
-  "1000235",
-  "576",
-  "570",
-  "538",
-  "565",
-  "PED001",
-  "1000115",
-  "LECARM",
-  "CAB001",
-  "1079",
-  "377a",
-  "1082",
-  "245",
-  "5340",
-  "559",
-  "LO72B",
-  "305",
-  "PHOTO0002",
-  "1099CW",
-  "1000323",
+const addToCH: string[] = [];
+
+const addToHA: string[] = [
+  "F016",
+  "F015",
+  "F017",
+  "F025"
 ];
 
 (async function () {
@@ -274,7 +243,7 @@ async function transfer(src: string, destination: string) {
     }
 
     if (destination === "ah") {
-      srcFilter = { "categories:in": 12 };
+      srcFilter = { "categories:in": [12].join(",") };
       destinationDummyCategoryID = 190;
       destination_name = "AllHair";
       skipBrands = [
@@ -330,6 +299,13 @@ async function transfer(src: string, destination: string) {
       destinationDummyCategoryID = 488;
       srcFilter = { "sku:in": addToCH.join(",") };
       destination_name = "CaterHire";
+      skipBrands = [];
+    }
+
+    if (destination === "ha") {
+      destinationDummyCategoryID = 340;
+      srcFilter = { "sku:in": addToHA.join(",") };
+      destination_name = "HireAll";
       skipBrands = [];
     }
 
@@ -464,6 +440,7 @@ async function transfer(src: string, destination: string) {
 
       // if there is no brand on the src product its prob discontinued, so skip
       if (!brand) {
+        console.log(`skipping ${product.name} due to possible discontinued brand`)
         continue;
       }
 
@@ -506,7 +483,21 @@ async function transfer(src: string, destination: string) {
       }
 
       if (destination === "ch") {
-        updatedDescription = await haToCHContentStructure(updatedDescription)
+
+        require("./config/config").config(src);
+
+        const cf = await getCustomFields(product.id)
+
+        const additionalContext = `Also include details in the updated product content: ${JSON.stringify(cf)} `
+
+        console.log(product.name, product.sku)
+        updatedDescription = await haToCHContentStructure(updatedDescription, additionalContext)
+
+        require("./config/config").config(destination);
+      }
+
+      if(destination === "ha"){
+        updatedDescription = await chToHAContentStructure(updatedDescription)
       }
 
       const updatedMetaDescription = product.meta_description.replace(
@@ -698,7 +689,7 @@ function generateRandomString(length: number) {
   return result;
 }
 
-export async function bfToAhContentStructure(
+ async function bfToAhContentStructure(
   productDescription: string
 ): Promise<string> {
   try {
@@ -710,6 +701,51 @@ export async function bfToAhContentStructure(
         {
           role: "user",
           content: allhairPrompt(htmlToText(productDescription)),
+        },
+      ],
+    });
+
+    return marked(response.choices[0].message.content || "");
+  } catch (err: any) {
+    throw err;
+  }
+}
+
+async function chToHAContentStructure(
+  productDescription: string
+): Promise<string> {
+  try {
+    let response = await new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    }).chat.completions.create({
+      model: "gpt-4o",
+      messages: [
+        {
+          role: "user",
+          content: hireallPrompt(htmlToText(productDescription),''),
+        },
+      ],
+    });
+
+    return marked(response.choices[0].message.content || "");
+  } catch (err: any) {
+    throw err;
+  }
+}
+
+async function haToCHContentStructure(
+  productDescription: string,
+  additionalContext: string,
+): Promise<string> {
+  try {
+    let response = await new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    }).chat.completions.create({
+      model: "gpt-4o",
+      messages: [
+        {
+          role: "user",
+          content: caterhirePrompt(htmlToText(productDescription), additionalContext),
         },
       ],
     });

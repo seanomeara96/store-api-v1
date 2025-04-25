@@ -4,7 +4,7 @@ export const hireallCustomFieldNames = {
     "Colour",
     "Material",
     "Suitable For",
-    "Dimensions / Diameter",
+    "Dimensions / Diameter <!-- must be supplied in centimeters and inches. Format cm/inch. -->",
     "Dishwasher Safe",
     "Microwave Safe",
     "Oven Safe",
@@ -19,4 +19,19 @@ export const hireallCustomFieldNames = {
     "Suitable for",
     "Seats",
   ],
+  chairs: [
+    "Seat Height",
+    "Material",
+    "Colour",
+    "Stackable / Foldable",
+    "Usage <!-- indoor/outdoor -->",
+  ],
+  glassware: [
+    "Case Size",
+    "Colour",
+    "Material",
+    "Suitable For",
+    "Capacity <!-- must be supplied in centilitres and fluid ounces. Format cl/oz. -->",
+    "Dishwasher Safe",
+  ]
 };
