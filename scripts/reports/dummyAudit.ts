@@ -63,7 +63,7 @@ async function main() {
       const dummyCategoryId = dummyCategory.id;
 
       const products = await getAllProducts({
-        "categories:in": dummyCategoryId,
+        "categories:in": dummyCategoryId.toString(),
       });
 
       /**
