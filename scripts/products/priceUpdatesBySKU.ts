@@ -3,46 +3,25 @@ import { getAllProductVariants } from "../../functions/products/getAllProductVar
 import { getProductBySku } from "../../functions/products/getProductBySKU";
 import { updateProduct } from "../../functions/products/updateProduct";
 
-const stores: string[] = ["bsk"];
+const stores: string[] = ["bf"];
 
 //const no_discount_category_ID = 1493;
 const data = [
-  { sku: "103605", sale_price: 84.99, exclude: "FALSE" },
-  { sku: "110631", sale_price: 64.99, exclude: "FALSE" },
-  { sku: "110630", sale_price: 42.99, exclude: "FALSE" },
-  { sku: "110625", sale_price: 71.99, exclude: "FALSE" },
-  { sku: "110624", sale_price: 43.99, exclude: "FALSE" },
-  { sku: "110548", sale_price: 51.99, exclude: "FALSE" },
-  { sku: "111598", sale_price: 64.99, exclude: "FALSE" },
-  { sku: "110905", sale_price: 36.99, exclude: "FALSE" },
-  { sku: "100851", sale_price: 22.99, exclude: "FALSE" },
-  { sku: "6244", sale_price: 49.99, exclude: "FALSE" },
-  { sku: "6341", sale_price: 84.99, exclude: "FALSE" },
-  { sku: "111006", sale_price: 67.99, exclude: "FALSE" },
-  { sku: "7453", sale_price: 66.99, exclude: "FALSE" },
-  { sku: "7603", sale_price: 29.99, exclude: "FALSE" },
-  { sku: "8069", sale_price: 51.99, exclude: "FALSE" },
-  { sku: "9073", sale_price: 3.99, exclude: "FALSE" },
-  { sku: "9310", sale_price: 24.99, exclude: "FALSE" },
-  { sku: "9893", sale_price: 16.99, exclude: "FALSE" },
-  { sku: "10378", sale_price: 64.99, exclude: "FALSE" },
-  { sku: "102021", sale_price: 47.99, exclude: "FALSE" },
-  { sku: "11141", sale_price: 59, exclude: "FALSE" },
-  { sku: "11260", sale_price: 69.99, exclude: "FALSE" },
-  { sku: "11259", sale_price: 80, exclude: "FALSE" },
-  { sku: "11310", sale_price: 48.99, exclude: "FALSE" },
-  { sku: "110597", sale_price: 42.03, exclude: "FALSE" },
-  { sku: "12384", sale_price: 119.99, exclude: "FALSE" },
-  { sku: "12738", sale_price: 92, exclude: "FALSE" },
-  { sku: "12739", sale_price: 89.99, exclude: "FALSE" },
-  { sku: "12740", sale_price: 89.99, exclude: "FALSE" },
-  { sku: "13147", sale_price: 69.99, exclude: "FALSE" },
-  { sku: "20389", sale_price: 39.99, exclude: "FALSE" },
-  { sku: "20390", sale_price: 24.99, exclude: "FALSE" },
-  { sku: "20756", sale_price: 144, exclude: "FALSE" },
-  { sku: "20755", sale_price: 106, exclude: "FALSE" },
-  { sku: "21057", sale_price: 95, exclude: "FALSE" },
-  { sku: "21058", sale_price: 27, exclude: "FALSE" },
+  { sku: "8757", sale_price: 37.0, exclude: "TRUE" },
+  { sku: "9907", sale_price: 34.0, exclude: "TRUE" },
+  { sku: "13253", sale_price: 30.0, exclude: "TRUE" },
+  { sku: "8758", sale_price: 35.0, exclude: "TRUE" },
+  { sku: "20649", sale_price: 35.0, exclude: "TRUE" },
+  { sku: "8759", sale_price: 32.0, exclude: "TRUE" },
+  { sku: "20230", sale_price: 32.0, exclude: "TRUE" },
+  { sku: "20646", sale_price: 33.65, exclude: "TRUE" },
+  { sku: "8760", sale_price: 32.0, exclude: "TRUE" },
+  { sku: "20231", sale_price: 32.0, exclude: "TRUE" },
+  { sku: "20647", sale_price: 33.65, exclude: "TRUE" },
+  { sku: "13248", sale_price: 32.0, exclude: "TRUE" },
+  { sku: "14137", sale_price: 50.0, exclude: "TRUE" },
+  { sku: "20648", sale_price: 33.65, exclude: "TRUE" },
+  { sku: "8756", sale_price: 35.0, exclude: "TRUE" },
 ];
 
 enum ExcludeFromDiscountAction {
