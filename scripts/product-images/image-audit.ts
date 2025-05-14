@@ -5,13 +5,13 @@ import path from "path";
 import axios from "axios";
 import imageSize from "image-size";
 
-const store = "ha";
+const store = "ch";
 require("../../config/config").config(store);
 
 async function test() {
   try {
     const data: any[] = [];
-    const params = { "categories:in": "277" };
+    const params = { "categories:in": "138" };
     const products = await getAllProducts(params);
 
     for (let i = 0; i < products.length; i++) {
@@ -60,6 +60,7 @@ async function test() {
         const not_square = imageWidth != imageHeight;
         const excessive_file_dimensions =
           imageWidth > 1000 || imageHeight > 1000;
+        const insufficent_file_dimensions = imageWidth < 800 || imageHeight < 800;
 
         let priority = "LOW";
         if (not_square && excessive_file_dimensions) {
@@ -83,10 +84,16 @@ async function test() {
           excesive_file_size_gt_70_kb,
           not_square,
           excessive_file_dimensions,
+          insufficent_file_dimensions,
         });
       }
     }
 
+    console.log(`SUMMARY`)
+    console.log(`Images not square: ${data.reduce((a, c) => (c.not_square? a+1: a), 0)}`)
+    console.log(`Image dimensions too large: ${data.reduce((a, c) => (c.excessive_file_dimensions ? a+1: a), 0)}`)
+    console.log(`Image dimensions too small: ${data.reduce((a, c) => (c.insufficent_file_dimensions ? a+1: a), 0)}`)
+    console.log(`Excessive file size (>70kb): ${data.reduce((a, c) => (c.excesive_file_size_gt_70_kb ? a+1: a), 0)}`)
     await output(path.resolve(__dirname, "image-audit.csv"), data, true);
   } catch (err: any) {
     console.log(err.response ? err.response.data : err);

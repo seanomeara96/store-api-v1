@@ -5,25 +5,40 @@ import { getAllProducts } from "../../functions/products/getAllProducts";
 async function sortOrderBySKU() {
   try {
     const data = [
-      { sku: "8757", sale_price: 37.0, sort_order: 110 },
-      { sku: "9907", sale_price: 34.0, sort_order: 120 },
-      { sku: "13253", sale_price: 30.0, sort_order: 60 },
-      { sku: "8758", sale_price: 35.0, sort_order: 130 },
-      { sku: "20649", sale_price: 35.0, sort_order: 40 },
-      { sku: "8759", sale_price: 32.0, sort_order: 100 },
-      { sku: "20230", sale_price: 32.0, sort_order: 80 },
-      { sku: "20646", sale_price: 33.65, sort_order: 10 },
-      { sku: "8760", sale_price: 32.0, sort_order: 90 },
-      { sku: "20231", sale_price: 32.0, sort_order: 70 },
-      { sku: "20647", sale_price: 33.65, sort_order: 20 },
-      { sku: "13248", sale_price: 32.0, sort_order: 50 },
-      { sku: "14137", sale_price: 50.0, sort_order: 140 },
-      { sku: "20648", sale_price: 33.65, sort_order: 30 },
-      { sku: "8756", sale_price: 35.0, sort_order: 150 },
+      { sort_order: 1, sku: "3043" },
+      { sort_order: 2, sku: "3045" },
+      { sort_order: 3, sku: "3042" },
+      { sort_order: 4, sku: "3044" },
+      { sort_order: 5, sku: "3046" },
+      { sort_order: 6, sku: "3047" },
+      { sort_order: 7, sku: "3041" },
+      { sort_order: 8, sku: "3024" },
+      { sort_order: 9, sku: "3018" },
+      { sort_order: 10, sku: "3023" },
+      { sort_order: 11, sku: "3029" },
+      { sort_order: 12, sku: "3027" },
+      { sort_order: 13, sku: "3026" },
+      { sort_order: 14, sku: "3022" },
+      { sort_order: 15, sku: "3021" },
+      { sort_order: 16, sku: "3020" },
+      { sort_order: 17, sku: "3037" },
+      { sort_order: 18, sku: "3039" },
+      { sort_order: 19, sku: "3019" },
+      { sort_order: 20, sku: "3028" },
+      { sort_order: 21, sku: "3031" },
+      { sort_order: 22, sku: "3035" },
+      { sort_order: 23, sku: "3036" },
+      { sort_order: 24, sku: "3034" },
+      { sort_order: 25, sku: "3033" },
+      { sort_order: 26, sku: "3025" },
+      { sort_order: 27, sku: "3030" },
+      { sort_order: 28, sku: "1054" },
     ];
 
-    require("../../config/config").config("bf");
-    for (const { sku, sort_order } of data) {
+    require("../../config/config").config("ha");
+    for (let i = 0; i < data.length; i++) {
+      console.log(i, data.length);
+      const { sku, sort_order } = data[i];
       let product = await getProductBySku(sku);
       if (!product) {
         let products = await getAllProducts({ sku });
