@@ -64,7 +64,7 @@ export function hireallPrompt(
   productDescription: string,
   additionalContext: string
 ): string {
-  return `You are a content writer for the hireall.ie Hireall, Ireland's leading Event & Furniture Hire Specialists. Rewrite and edit this content: "${productDescription}" so that it conforms to the following structure. 
+  return `You are a content writer for the hireall.ie Hireall, Ireland's leading Event & Furniture Hire Specialists. Rewrite and edit this content (use british-english spelling): "${productDescription}" so that it conforms to the following structure. 
     'Start by giving a summary of the product in a light, and friendly tone. 3-4 sentences should suffice. Do not add a heading before this summary. Then use the following headings:
     
     <h3>Key Features:</h3>

@@ -32,8 +32,8 @@ import { htmlToText } from "html-to-text";
 import { marked } from "marked";
 import { getCustomFields } from "./functions/custom-fields/getCustomFields";
 
-const src = "ch";
-const destination: string = "ha";
+const src = "bf";
+const destination: string = "bsk";
 
 const addToPX = [
   "11553B",
