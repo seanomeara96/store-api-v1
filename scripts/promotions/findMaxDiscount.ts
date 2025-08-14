@@ -9,7 +9,7 @@ async function maxDiscount() {
    // const brand = await getBrandByName("Joico");
     //if (!brand) return console.log("no brand");
     const products = (await getAllProducts({
-      'categories:in': 982
+      'categories:in': [12].join(",")
     })).filter(
       (p) => p.inventory_level > 0
     );

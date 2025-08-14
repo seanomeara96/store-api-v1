@@ -1,0 +1,2863 @@
+{
+  "18": {
+    "category": {
+      "id": 18,
+      "name": "Bath",
+      "parent_id": 0,
+      "parent_name": "N/A"
+    },
+    "customFieldNames": []
+  },
+  "19": {
+    "category": {
+      "id": 19,
+      "name": "Garden",
+      "parent_id": 0,
+      "parent_name": "N/A"
+    },
+    "customFieldNames": []
+  },
+  "20": {
+    "category": {
+      "id": 20,
+      "name": "Publications",
+      "parent_id": 0,
+      "parent_name": "N/A"
+    },
+    "customFieldNames": []
+  },
+  "21": {
+    "category": {
+      "id": 21,
+      "name": "Kitchen",
+      "parent_id": 0,
+      "parent_name": "N/A"
+    },
+    "customFieldNames": []
+  },
+  "22": {
+    "category": {
+      "id": 22,
+      "name": "Utility",
+      "parent_id": 0,
+      "parent_name": "N/A"
+    },
+    "customFieldNames": []
+  },
+  "23": {
+    "category": {
+      "id": 23,
+      "name": "Shop All",
+      "parent_id": 0,
+      "parent_name": "N/A"
+    },
+    "customFieldNames": []
+  },
+  "219": {
+    "category": {
+      "id": 219,
+      "name": "Wedding Chairs",
+      "parent_id": 268,
+      "parent_name": "Chair Hire"
+    },
+    "customFieldNames": [
+      "Seat Height",
+      "Material",
+      "Colour",
+      "Stackable / Foldable",
+      "Usage",
+      "Case size",
+      "Pack size",
+      "Frame Colour",
+      "Seat Pads",
+      "Seats are fire retardant",
+      "Seats treated with Teflon (CRIB5)",
+      "Dimensions",
+      "Weight",
+      "Wood",
+      "Suitable for",
+      "Seat Pad",
+      "Seat Colour",
+      "Leg Colour"
+    ]
+  },
+  "259": {
+    "category": {
+      "id": 259,
+      "name": "Furniture Hire",
+      "parent_id": 344,
+      "parent_name": "Rent Now"
+    },
+    "customFieldNames": [
+      "Material",
+      "Colour",
+      "Stackable / Foldable",
+      "Usage",
+      "Seat Height",
+      "Qty Included",
+      "Sizes Available",
+      "Tile Type",
+      "Case Size",
+      "Dimensions",
+      "Suitable for",
+      "Max Weight",
+      "Power",
+      "Colour Range",
+      "Tabletop Material",
+      "Leg Material",
+      "Seating Capacity",
+      "Seats",
+      "Table top colour",
+      "Style",
+      "Chart Size",
+      "Flip Chart",
+      "Case size",
+      "Shelf",
+      "Available Colours",
+      "Suitable For",
+      "Pair With",
+      "Base",
+      "Fabric",
+      "Post Material",
+      "Base Diameter",
+      "Field 1",
+      "Field 3",
+      "Field 4",
+      "Field 5",
+      "Assembly",
+      "Finish",
+      "Belt Dimensions",
+      "What's included",
+      "Delivery",
+      "Pack size",
+      "Colour Options",
+      "Accessories Included",
+      "Number of Steps",
+      "Setup Required",
+      "Quantity Included",
+      "Size",
+      "Number of Sheets",
+      "Setup",
+      "Shape",
+      "Pair with",
+      "Other",
+      "Height",
+      "Base Style",
+      "Cushion",
+      "Stackable",
+      "Glass",
+      "Frame material",
+      "Sofa frame material",
+      "Chair frame material",
+      "Leg colour",
+      "Frame colour",
+      "Cushion colour",
+      "Use",
+      "LED lighting",
+      "Pack Size",
+      "Table numbers included",
+      "Ideal for",
+      "Width of mirror",
+      "Features"
+    ]
+  },
+  "260": {
+    "category": {
+      "id": 260,
+      "name": "Armchair Hire",
+      "parent_id": 259,
+      "parent_name": "Furniture Hire"
+    },
+    "customFieldNames": [
+      "Material",
+      "Colour",
+      "Stackable / Foldable",
+      "Usage",
+      "Seat Height",
+      "Dimensions",
+      "Case size",
+      "Cushion",
+      "Seats",
+      "Chair frame material"
+    ]
+  },
+  "261": {
+    "category": {
+      "id": 261,
+      "name": "Buffetware & Table Service Hire",
+      "parent_id": 344,
+      "parent_name": "Rent Now"
+    },
+    "customFieldNames": [
+      "Case size",
+      "Colour",
+      "Material",
+      "Dishwasher Safe",
+      "Diameter",
+      "Number of Tiers",
+      "Pack Size",
+      "Dishwasher safe",
+      "Size",
+      "Case Size",
+      "Fuel Requirement",
+      "Suitable for",
+      "Pack size",
+      "Capacity",
+      "Suitable For",
+      "Dimensions / Diameter",
+      "Number of Branches",
+      "Candles Included",
+      "Plates Included",
+      "Burn Time",
+      "Warning",
+      "Stackable",
+      "Candle included",
+      "Microwave Safe",
+      "Dimensions",
+      "Note",
+      "Power Supply",
+      "Power Consumption",
+      "Number of Shelves",
+      "Table Numbers Included",
+      "Dimensions: Tall Black Frame",
+      "Dimensions: Medium Black Frame",
+      "Dimensions: Low Black Frame",
+      "Dimensions: Long wood plinths",
+      "Dimensions: Large Ceramic Bowl",
+      "Dimensions Saucer",
+      "Dimensions Cup",
+      "Type"
+    ]
+  },
+  "262": {
+    "category": {
+      "id": 262,
+      "name": "Afternoon Tea & Cake Stands",
+      "parent_id": 261,
+      "parent_name": "Buffetware & Table Service Hire"
+    },
+    "customFieldNames": [
+      "Case size",
+      "Colour",
+      "Material",
+      "Dishwasher Safe",
+      "Diameter",
+      "Number of Tiers",
+      "Plates Included",
+      "Suitable For",
+      "Dimensions / Diameter",
+      "Note",
+      "Pack Size",
+      "Includes",
+      "Takes",
+      "Tiers"
+    ]
+  },
+  "263": {
+    "category": {
+      "id": 263,
+      "name": "Cutlery Hire",
+      "parent_id": 344,
+      "parent_name": "Rent Now"
+    },
+    "customFieldNames": [
+      "Suitability",
+      "Dishwasher Safe",
+      "Colour",
+      "Material",
+      "Case size",
+      "Made in",
+      "Handle material",
+      "Pack Size"
+    ]
+  },
+  "264": {
+    "category": {
+      "id": 264,
+      "name": "Windsor",
+      "parent_id": 263,
+      "parent_name": "Cutlery Hire"
+    },
+    "customFieldNames": [
+      "Pack size",
+      "Suitability",
+      "Dishwasher Safe",
+      "Colour",
+      "Material"
+    ]
+  },
+  "265": {
+    "category": {
+      "id": 265,
+      "name": "Delete",
+      "parent_id": 0,
+      "parent_name": "N/A"
+    },
+    "customFieldNames": [
+      "Tabletop Material",
+      "Leg Material",
+      "Usage",
+      "Colour",
+      "Table top colour",
+      "Leg colour",
+      "Material",
+      "Suitable for",
+      "Case size",
+      "Dishwasher Safe",
+      "Capacity"
+    ]
+  },
+  "266": {
+    "category": {
+      "id": 266,
+      "name": "Linen Hire",
+      "parent_id": 344,
+      "parent_name": "Rent Now"
+    },
+    "customFieldNames": [
+      "Colour",
+      "Pack size",
+      "Fits",
+      "Case size",
+      "**Please Note**",
+      "Size",
+      "Shape",
+      "Material",
+      "Use",
+      "Use With",
+      "Also Included",
+      "**Pack Size**",
+      "Qty per roll",
+      "Qty on roll",
+      "Finish",
+      "Fabric",
+      "Pack Size",
+      "Requires",
+      "Pack",
+      "Fits tables",
+      "Dimensions",
+      "Pattern",
+      "Fits tabletops",
+      "Suitable for"
+    ]
+  },
+  "267": {
+    "category": {
+      "id": 267,
+      "name": "Spandex Pod Table Covers",
+      "parent_id": 266,
+      "parent_name": "Linen Hire"
+    },
+    "customFieldNames": [
+      "Colour",
+      "Pack size",
+      "Fits",
+      "Pack",
+      "Case size",
+      "Fabric",
+      "Fits tables",
+      "Pack Size",
+      "Fits tabletops",
+      "Dimensions",
+      "Suitable for"
+    ]
+  },
+  "268": {
+    "category": {
+      "id": 268,
+      "name": "Chair Hire",
+      "parent_id": 344,
+      "parent_name": "Rent Now"
+    },
+    "customFieldNames": [
+      "Seat Height",
+      "Material",
+      "Colour",
+      "Stackable / Foldable",
+      "Usage",
+      "Case size",
+      "Dimensions",
+      "Cushion",
+      "100% Recyclable",
+      "Recyclable",
+      "Pack size",
+      "Frame Colour",
+      "Seat Pads",
+      "Seat Pad Material",
+      "Seats are fire retardant",
+      "Seats treated with Teflon (CRIB5)",
+      "Weight",
+      "Seats",
+      "Suitable for",
+      "Wood",
+      "Seat Pad",
+      "Seat Colour",
+      "Leg Colour"
+    ]
+  },
+  "269": {
+    "category": {
+      "id": 269,
+      "name": "Bar Stools",
+      "parent_id": 268,
+      "parent_name": "Chair Hire"
+    },
+    "customFieldNames": [
+      "Seat Height",
+      "Material",
+      "Colour",
+      "Stackable / Foldable",
+      "Usage",
+      "Case size",
+      "100% Recyclable",
+      "Recyclable",
+      "Pack size",
+      "Frame Colour",
+      "Seat Pads",
+      "Seat Pad Material",
+      "Seats are fire retardant",
+      "Seats treated with Teflon (CRIB5)"
+    ]
+  },
+  "270": {
+    "category": {
+      "id": 270,
+      "name": "Bars & Bar Accessories Hire",
+      "parent_id": 344,
+      "parent_name": "Rent Now"
+    },
+    "customFieldNames": [
+      "Case size",
+      "Dimensions",
+      "Holds",
+      "Stackable",
+      "Capacity",
+      "Serves",
+      "Material",
+      "Dimensions front panel",
+      "Power",
+      "Dishwasher Safe",
+      "Use",
+      "Colour",
+      "Pack Size",
+      "Size",
+      "Seat Height",
+      "Stackable / Foldable",
+      "Usage",
+      "Care",
+      "Counter space",
+      "Weight",
+      "Stand",
+      "Colour Options",
+      "Accessories Included",
+      "Finish",
+      "Pack size",
+      "Illuminates in",
+      "Dimensions Front Panel One Section",
+      "Brandable",
+      "Suitable for Draught Taps",
+      "Assembly Required",
+      "Storage Shelf",
+      "Case Size",
+      "Main unit under-counter storage:",
+      "Assembly",
+      "Fits Kegs",
+      "Fits Draught Taps",
+      "Includes",
+      "Dimensions (H x L x D):",
+      "Assemble",
+      "Expandable",
+      "Suitable for"
+    ]
+  },
+  "271": {
+    "category": {
+      "id": 271,
+      "name": "Bar Accessories",
+      "parent_id": 270,
+      "parent_name": "Bars & Bar Accessories Hire"
+    },
+    "customFieldNames": [
+      "Case size",
+      "Dimensions",
+      "Holds",
+      "Stackable",
+      "Capacity",
+      "Serves",
+      "Material",
+      "Dishwasher Safe",
+      "Use",
+      "Pack Size",
+      "Size",
+      "Colour",
+      "Care",
+      "Weight",
+      "Stand",
+      "Finish",
+      "Pack size",
+      "Case Size",
+      "Suitable for"
+    ]
+  },
+  "272": {
+    "category": {
+      "id": 272,
+      "name": "Games & Prop Hire",
+      "parent_id": 344,
+      "parent_name": "Rent Now"
+    },
+    "customFieldNames": [
+      "Case size",
+      "Dimensions",
+      "Size",
+      "Suitable",
+      "Includes",
+      "Players",
+      "Dimensions (H)",
+      "Age",
+      "Dimensions per piece",
+      "Dimensions Rope Grid",
+      "Suitable for",
+      "Material",
+      "Mat dimensions",
+      "Piece dimensions",
+      "Suitable for Kids",
+      "Weight",
+      "Pole Length",
+      "Dimensions Skittles",
+      "Dimensions Balls (Ø) & Pegs (H)",
+      "Pack size",
+      "Dimensions of Tower",
+      "Care",
+      "Assembly",
+      "Fits into car",
+      "Use",
+      "Colour",
+      "Board size",
+      "Cornhole Bags",
+      "Foldable Legs",
+      "Colour of board",
+      "Dimensions of cards",
+      "Pack Size",
+      "Theme",
+      "Prop theme",
+      "Case Size",
+      "Games Included",
+      "Giant Connect 4 Dimensions",
+      "Giant Snakes & Ladders Dimensions",
+      "Giant Jenga Dimensions"
+    ]
+  },
+  "273": {
+    "category": {
+      "id": 273,
+      "name": "Giant Games",
+      "parent_id": 272,
+      "parent_name": "Games & Prop Hire"
+    },
+    "customFieldNames": [
+      "Case size",
+      "Dimensions",
+      "Size",
+      "Suitable",
+      "Includes",
+      "Players",
+      "Dimensions (H)",
+      "Age",
+      "Dimensions per piece",
+      "Dimensions Rope Grid",
+      "Suitable for",
+      "Material",
+      "Mat dimensions",
+      "Piece dimensions",
+      "Suitable for Kids",
+      "Weight",
+      "Pole Length",
+      "Dimensions Skittles",
+      "Dimensions Balls (Ø) & Pegs (H)",
+      "Pack size",
+      "Dimensions of Tower",
+      "Care",
+      "Assembly",
+      "Fits into car",
+      "Use",
+      "Board size",
+      "Cornhole Bags",
+      "Foldable Legs",
+      "Colour of board",
+      "Dimensions of cards",
+      "Case Size",
+      "Games Included",
+      "Giant Connect 4 Dimensions",
+      "Giant Snakes & Ladders Dimensions",
+      "Giant Jenga Dimensions"
+    ]
+  },
+  "274": {
+    "category": {
+      "id": 274,
+      "name": "Outdoor Furniture & BBQ",
+      "parent_id": 344,
+      "parent_name": "Rent Now"
+    },
+    "customFieldNames": [
+      "Material",
+      "Colour",
+      "Stackable / Foldable",
+      "Usage",
+      "Case size",
+      "Fuel type",
+      "Power",
+      "Unit dimensions",
+      "Griddle dimensions",
+      "Seat Height",
+      "Seating capacity",
+      "Table dimensions",
+      "Chair dimensions",
+      "Tabletop Material",
+      "Leg Material",
+      "Seating Capacity",
+      "Frame",
+      "Storage Requirements",
+      "Capacity",
+      "Suitable for",
+      "Pack size",
+      "Suitability",
+      "Dishwasher Safe",
+      "Seats",
+      "Armchair dimensions",
+      "Grill size",
+      "Grill dimensions",
+      "Weight",
+      "Total Heat Input",
+      "Legs",
+      "Assembly",
+      "Bag size",
+      "Foldable / Stackable",
+      "Dimensions",
+      "Fuel",
+      "Metal",
+      "2 Seater Sofa dimensions",
+      "Coffee table dimensions",
+      "Table Hexagon Dimensions",
+      "Table Round Dimensions",
+      "Chair Dimensions",
+      "Size",
+      "Foldable legs",
+      "Seating Capactiy",
+      "2 Seater Dimensions",
+      "Armchair Dimensions",
+      "Table Dimensions",
+      "Cushion",
+      "Stackable",
+      "Glass",
+      "Case Size",
+      "Table top colour",
+      "Leg colour",
+      "Frame colour",
+      "Cushion colour",
+      "Use",
+      "Wood",
+      "Foldable"
+    ]
+  },
+  "275": {
+    "category": {
+      "id": 275,
+      "name": "Outdoor Seating",
+      "parent_id": 274,
+      "parent_name": "Outdoor Furniture & BBQ"
+    },
+    "customFieldNames": [
+      "Material",
+      "Colour",
+      "Stackable / Foldable",
+      "Usage",
+      "Seat Height",
+      "Case size",
+      "Seating capacity",
+      "Table dimensions",
+      "Chair dimensions",
+      "Tabletop Material",
+      "Leg Material",
+      "Seating Capacity",
+      "Seats",
+      "Armchair dimensions",
+      "Foldable / Stackable",
+      "Dimensions",
+      "2 Seater Sofa dimensions",
+      "Coffee table dimensions",
+      "Table Hexagon Dimensions",
+      "Table Round Dimensions",
+      "Chair Dimensions",
+      "Seating Capactiy",
+      "2 Seater Dimensions",
+      "Armchair Dimensions",
+      "Table Dimensions",
+      "Case Size",
+      "Suitable for",
+      "Size",
+      "Cushion",
+      "Pack size",
+      "Stackable",
+      "Glass",
+      "Table top colour",
+      "Leg colour",
+      "Frame colour",
+      "Cushion colour",
+      "Use",
+      "Wood",
+      "Foldable"
+    ]
+  },
+  "276": {
+    "category": {
+      "id": 276,
+      "name": "Sofa Hire",
+      "parent_id": 259,
+      "parent_name": "Furniture Hire"
+    },
+    "customFieldNames": [
+      "Material",
+      "Colour",
+      "Stackable / Foldable",
+      "Usage",
+      "Seat Height",
+      "Case size",
+      "Dimensions",
+      "Cushion",
+      "Seats",
+      "Frame material",
+      "Sofa frame material"
+    ]
+  },
+  "277": {
+    "category": {
+      "id": 277,
+      "name": "Table Hire",
+      "parent_id": 344,
+      "parent_name": "Rent Now"
+    },
+    "customFieldNames": [
+      "Tabletop Material",
+      "Leg Material",
+      "Usage",
+      "Colour",
+      "Table top colour",
+      "Leg colour",
+      "Material",
+      "Suitable for",
+      "Case Size",
+      "Dimensions",
+      "Seating Capacity",
+      "Relevant Linen Size",
+      "Seats",
+      "Assembly",
+      "Base",
+      "Finish",
+      "Case size",
+      "Available in",
+      "Tabletop Colour",
+      "Tabletop material",
+      "Leg material",
+      "Seating capacity",
+      "Pack size",
+      "Stackable",
+      "Size",
+      "Glass",
+      "Table Top Colour",
+      "Size of table top",
+      "LED lighting"
+    ]
+  },
+  "278": {
+    "category": {
+      "id": 278,
+      "name": "Coffee Table Hire",
+      "parent_id": 277,
+      "parent_name": "Table Hire"
+    },
+    "customFieldNames": [
+      "Tabletop Material",
+      "Leg Material",
+      "Usage",
+      "Colour",
+      "Table top colour",
+      "Leg colour",
+      "Material",
+      "Suitable for",
+      "Case Size",
+      "Dimensions",
+      "Assembly",
+      "Base",
+      "Finish",
+      "Case size",
+      "Pack size",
+      "Stackable",
+      "Size",
+      "Glass",
+      "Seats",
+      "LED lighting"
+    ]
+  },
+  "279": {
+    "category": {
+      "id": 279,
+      "name": "Mini Dishes",
+      "parent_id": 261,
+      "parent_name": "Buffetware & Table Service Hire"
+    },
+    "customFieldNames": [
+      "Pack Size",
+      "Colour",
+      "Dishwasher safe",
+      "Size",
+      "Capacity",
+      "Diameter",
+      "Case size",
+      "Suitable for",
+      "Dishwasher Safe",
+      "Material",
+      "Suitable For",
+      "Dimensions / Diameter",
+      "Pack size",
+      "Dimensions",
+      "Dimensions Saucer",
+      "Dimensions Cup"
+    ]
+  },
+  "280": {
+    "category": {
+      "id": 280,
+      "name": "Ottomans & Beanbags",
+      "parent_id": 259,
+      "parent_name": "Furniture Hire"
+    },
+    "customFieldNames": [
+      "Seat Height",
+      "Material",
+      "Colour",
+      "Stackable / Foldable",
+      "Usage",
+      "Dimensions",
+      "Case size",
+      "Pack size",
+      "Stackable",
+      "Size",
+      "Glass",
+      "Case Size",
+      "Suitable for",
+      "Seats",
+      "Table top colour",
+      "Leg colour"
+    ]
+  },
+  "281": {
+    "category": {
+      "id": 281,
+      "name": "Speciality Cutlery",
+      "parent_id": 263,
+      "parent_name": "Cutlery Hire"
+    },
+    "customFieldNames": [
+      "Pack size",
+      "Suitability",
+      "Dishwasher Safe",
+      "Colour",
+      "Material",
+      "Pack Size"
+    ]
+  },
+  "282": {
+    "category": {
+      "id": 282,
+      "name": "Catering Equipment Hire",
+      "parent_id": 344,
+      "parent_name": "Rent Now"
+    },
+    "customFieldNames": [
+      "Case Size",
+      "Fuel Requirement",
+      "Suitable for",
+      "Material",
+      "Dishwasher Safe",
+      "Pack size",
+      "Colour",
+      "Case size",
+      "Fuel type",
+      "Power",
+      "Unit dimensions",
+      "Griddle dimensions",
+      "Compatibility",
+      "Capacity",
+      "Measurements",
+      "Pack Size",
+      "Power Requirement",
+      "Number of rings",
+      "Number of Shelves",
+      "Shelf size",
+      "Finish",
+      "Suitability",
+      "Stackable",
+      "Will fit",
+      "Insulation Type",
+      "Access",
+      "Plumbing",
+      "Water Fill",
+      "Waste",
+      "Storage Requirements",
+      "Power requirement",
+      "Power consumption",
+      "Hot Cupboard Capacity",
+      "Number of wells",
+      "Legs",
+      "Suitable For",
+      "Number of Baskets",
+      "Basket Capacity",
+      "Model Type",
+      "Shelf Size",
+      "Power Supply",
+      "Power Consumption",
+      "No of Shelves",
+      "Temp Range",
+      "Burn Time",
+      "Warning",
+      "Number of Lamps",
+      "On Wheels",
+      "Grill size",
+      "Grill dimensions",
+      "Weight",
+      "Total Heat Input",
+      "Assembly",
+      "Safety",
+      "Bag size",
+      "Usage",
+      "Number of Sinks",
+      "Waste Requirement",
+      "Water Connection",
+      "Fuel",
+      "Metal",
+      "Diameter",
+      "Suitable Plates",
+      "Number of Lights",
+      "Number of Rings",
+      "Foldable legs",
+      "Dimensions",
+      "Power requirements",
+      "Water Capacity",
+      "Model",
+      "Number of Tiers",
+      "Hotcupboard Capacity",
+      "Water / Waste",
+      "Cooking area",
+      "Cleanup",
+      "Number of racks",
+      "Wheels",
+      "Water Supply",
+      "Coverage",
+      "Bulb Type",
+      "Mounting",
+      "Length",
+      "Storage",
+      "Energy Efficiency"
+    ]
+  },
+  "283": {
+    "category": {
+      "id": 283,
+      "name": "Chafer Units & Gastronorm Inserts",
+      "parent_id": 282,
+      "parent_name": "Catering Equipment Hire"
+    },
+    "customFieldNames": [
+      "Case Size",
+      "Fuel Requirement",
+      "Suitable for",
+      "Material",
+      "Dishwasher Safe",
+      "Stackable",
+      "Will fit",
+      "Burn Time",
+      "Warning",
+      "Power Supply",
+      "Power Consumption"
+    ]
+  },
+  "284": {
+    "category": {
+      "id": 284,
+      "name": "Chafer Units & Accessories",
+      "parent_id": 261,
+      "parent_name": "Buffetware & Table Service Hire"
+    },
+    "customFieldNames": [
+      "Case Size",
+      "Fuel Requirement",
+      "Suitable for",
+      "Material",
+      "Dishwasher Safe",
+      "Pack size",
+      "Colour",
+      "Burn Time",
+      "Warning",
+      "Stackable",
+      "Power Supply",
+      "Power Consumption"
+    ]
+  },
+  "285": {
+    "category": {
+      "id": 285,
+      "name": "White Linen",
+      "parent_id": 266,
+      "parent_name": "Linen Hire"
+    },
+    "customFieldNames": [
+      "Case size",
+      "**Please Note**",
+      "Fits",
+      "Size",
+      "Shape",
+      "Material",
+      "Colour",
+      "Pack size",
+      "**Pack Size**",
+      "Pack Size",
+      "Dimensions",
+      "Suitable for"
+    ]
+  },
+  "286": {
+    "category": {
+      "id": 286,
+      "name": "Kitchen Utensils",
+      "parent_id": 282,
+      "parent_name": "Catering Equipment Hire"
+    },
+    "customFieldNames": [
+      "Pack size",
+      "Dishwasher Safe",
+      "Colour",
+      "Material",
+      "Compatibility",
+      "Capacity",
+      "Measurements",
+      "Suitability",
+      "Case size"
+    ]
+  },
+  "287": {
+    "category": {
+      "id": 287,
+      "name": "Dancefloor, Staging & Lighting",
+      "parent_id": 259,
+      "parent_name": "Furniture Hire"
+    },
+    "customFieldNames": [
+      "Qty Included",
+      "Usage",
+      "Sizes Available",
+      "Tile Type",
+      "Power",
+      "Colour Range",
+      "Material",
+      "Delivery",
+      "Colour",
+      "Number of Steps",
+      "Setup Required",
+      "Quantity Included"
+    ]
+  },
+  "288": {
+    "category": {
+      "id": 288,
+      "name": "BBQ & Accessories",
+      "parent_id": 274,
+      "parent_name": "Outdoor Furniture & BBQ"
+    },
+    "customFieldNames": [
+      "Case size",
+      "Fuel type",
+      "Power",
+      "Unit dimensions",
+      "Griddle dimensions",
+      "Storage Requirements",
+      "Capacity",
+      "Suitable for",
+      "Pack size",
+      "Suitability",
+      "Dishwasher Safe",
+      "Colour",
+      "Material",
+      "Grill size",
+      "Grill dimensions",
+      "Weight",
+      "Total Heat Input",
+      "Legs",
+      "Assembly",
+      "Bag size",
+      "Usage",
+      "Fuel",
+      "Metal",
+      "Foldable legs",
+      "Dimensions",
+      "Power Requirement",
+      "Finish"
+    ]
+  },
+  "289": {
+    "category": {
+      "id": 289,
+      "name": "Salad Bowls & Serving Dishes",
+      "parent_id": 261,
+      "parent_name": "Buffetware & Table Service Hire"
+    },
+    "customFieldNames": [
+      "Pack Size",
+      "Material",
+      "Dishwasher safe",
+      "Diameter",
+      "Colour",
+      "Case size",
+      "Capacity",
+      "Case Size",
+      "Dimensions: Tall Black Frame",
+      "Dimensions: Medium Black Frame",
+      "Dimensions: Low Black Frame",
+      "Dimensions: Long wood plinths",
+      "Dimensions: Large Ceramic Bowl"
+    ]
+  },
+  "290": {
+    "category": {
+      "id": 290,
+      "name": "Kings Pattern",
+      "parent_id": 263,
+      "parent_name": "Cutlery Hire"
+    },
+    "customFieldNames": [
+      "Pack size",
+      "Suitability",
+      "Dishwasher Safe",
+      "Colour",
+      "Material",
+      "Pack Size"
+    ]
+  },
+  "291": {
+    "category": {
+      "id": 291,
+      "name": "Platters & Display Trays",
+      "parent_id": 261,
+      "parent_name": "Buffetware & Table Service Hire"
+    },
+    "customFieldNames": [
+      "Pack Size",
+      "Material",
+      "Capacity",
+      "Dishwasher Safe",
+      "Colour",
+      "Suitable For",
+      "Dimensions / Diameter",
+      "Diameter",
+      "Pack size",
+      "Case Size",
+      "Case size",
+      "Dimensions",
+      "Number of Shelves",
+      "Size",
+      "Dimensions: Tall Black Frame",
+      "Dimensions: Medium Black Frame",
+      "Dimensions: Low Black Frame",
+      "Dimensions: Long wood plinths",
+      "Dimensions: Large Ceramic Bowl"
+    ]
+  },
+  "292": {
+    "category": {
+      "id": 292,
+      "name": "Glassware Hire",
+      "parent_id": 344,
+      "parent_name": "Rent Now"
+    },
+    "customFieldNames": [
+      "Case size",
+      "Capacity",
+      "Material",
+      "Suitable For",
+      "Suitable for",
+      "Dishwasher Safe",
+      "Colour",
+      "Size",
+      "Dishwasher proof",
+      "Case Size",
+      "Tempered Glass",
+      "Stackable",
+      "Measurement",
+      "Dimensions",
+      "Pack Size",
+      "Use"
+    ]
+  },
+  "293": {
+    "category": {
+      "id": 293,
+      "name": "Wine Glasses",
+      "parent_id": 292,
+      "parent_name": "Glassware Hire"
+    },
+    "customFieldNames": [
+      "Case size",
+      "Capacity",
+      "Material",
+      "Suitable For",
+      "Suitable for",
+      "Dishwasher Safe",
+      "Colour",
+      "Measurement",
+      "Dimensions"
+    ]
+  },
+  "294": {
+    "category": {
+      "id": 294,
+      "name": "Childrens Furniture",
+      "parent_id": 259,
+      "parent_name": "Furniture Hire"
+    },
+    "customFieldNames": [
+      "Material",
+      "Colour",
+      "Stackable / Foldable",
+      "Usage",
+      "Case Size",
+      "Dimensions",
+      "Suitable for",
+      "Max Weight",
+      "Seat Height",
+      "Case size"
+    ]
+  },
+  "295": {
+    "category": {
+      "id": 295,
+      "name": "Hot Beverage Service",
+      "parent_id": 282,
+      "parent_name": "Catering Equipment Hire"
+    },
+    "customFieldNames": [
+      "Pack Size",
+      "Material",
+      "Dishwasher Safe",
+      "Colour",
+      "Capacity",
+      "Suitable For",
+      "Case Size",
+      "Power Supply",
+      "Power Consumption"
+    ]
+  },
+  "296": {
+    "category": {
+      "id": 296,
+      "name": "Arthur Price",
+      "parent_id": 263,
+      "parent_name": "Cutlery Hire"
+    },
+    "customFieldNames": [
+      "Pack size",
+      "Suitability",
+      "Dishwasher Safe",
+      "Colour",
+      "Material",
+      "Case size"
+    ]
+  },
+  "297": {
+    "category": {
+      "id": 297,
+      "name": "Coloured Linen",
+      "parent_id": 266,
+      "parent_name": "Linen Hire"
+    },
+    "customFieldNames": [
+      "Pack size",
+      "Colour",
+      "Size",
+      "Shape",
+      "Fits",
+      "Material",
+      "Case size",
+      "Pack Size",
+      "Fabric",
+      "Fits tables",
+      "Dimensions",
+      "Pattern"
+    ]
+  },
+  "298": {
+    "category": {
+      "id": 298,
+      "name": "Cooking & Warming Equipment",
+      "parent_id": 282,
+      "parent_name": "Catering Equipment Hire"
+    },
+    "customFieldNames": [
+      "Power Requirement",
+      "Number of rings",
+      "Number of Shelves",
+      "Shelf size",
+      "Finish",
+      "Storage Requirements",
+      "Capacity",
+      "Suitable for",
+      "Power requirement",
+      "Power consumption",
+      "Number of Baskets",
+      "Basket Capacity",
+      "Model Type",
+      "Shelf Size",
+      "Colour",
+      "Number of Lamps",
+      "Safety",
+      "Number of Rings",
+      "Hot Cupboard Capacity",
+      "Number of wells",
+      "Water / Waste",
+      "Suitability",
+      "Cooking area",
+      "Temp Range",
+      "Cleanup",
+      "Case size"
+    ]
+  },
+  "299": {
+    "category": {
+      "id": 299,
+      "name": "Water Glasses",
+      "parent_id": 292,
+      "parent_name": "Glassware Hire"
+    },
+    "customFieldNames": [
+      "Case size",
+      "Suitable for",
+      "Dishwasher Safe",
+      "Capacity",
+      "Colour",
+      "Material",
+      "Pack Size",
+      "Use",
+      "Suitable For"
+    ]
+  },
+  "300": {
+    "category": {
+      "id": 300,
+      "name": "Chair Covers, Chair Ties & Table Runners",
+      "parent_id": 266,
+      "parent_name": "Linen Hire"
+    },
+    "customFieldNames": [
+      "Pack size",
+      "Colour",
+      "Material",
+      "Use",
+      "Fits",
+      "Fabric",
+      "Case size",
+      "Pack Size"
+    ]
+  },
+  "301": {
+    "category": {
+      "id": 301,
+      "name": "Napkins",
+      "parent_id": 266,
+      "parent_name": "Linen Hire"
+    },
+    "customFieldNames": [
+      "Pack size",
+      "Colour",
+      "Material",
+      "Size",
+      "**Please Note**",
+      "Qty per roll",
+      "Use",
+      "Qty on roll",
+      "Finish",
+      "Case size",
+      "Pack Size",
+      "Pattern",
+      "Dimensions"
+    ]
+  },
+  "302": {
+    "category": {
+      "id": 302,
+      "name": "Conference & Event Chairs",
+      "parent_id": 268,
+      "parent_name": "Chair Hire"
+    },
+    "customFieldNames": [
+      "Seat Height",
+      "Material",
+      "Colour",
+      "Stackable / Foldable",
+      "Usage",
+      "Case size",
+      "Seat Colour",
+      "Leg Colour",
+      "Suitable for"
+    ]
+  },
+  "303": {
+    "category": {
+      "id": 303,
+      "name": "Outdoor Chairs",
+      "parent_id": 268,
+      "parent_name": "Chair Hire"
+    },
+    "customFieldNames": [
+      "Seat Height",
+      "Material",
+      "Colour",
+      "Stackable / Foldable",
+      "Usage",
+      "Case size",
+      "Dimensions",
+      "Cushion",
+      "100% Recyclable",
+      "Recyclable"
+    ]
+  },
+  "304": {
+    "category": {
+      "id": 304,
+      "name": "Beer Glasses",
+      "parent_id": 292,
+      "parent_name": "Glassware Hire"
+    },
+    "customFieldNames": [
+      "Case size",
+      "Suitable for",
+      "Dishwasher Safe",
+      "Capacity",
+      "Material"
+    ]
+  },
+  "305": {
+    "category": {
+      "id": 305,
+      "name": "Champagne Glasses",
+      "parent_id": 292,
+      "parent_name": "Glassware Hire"
+    },
+    "customFieldNames": [
+      "Case size",
+      "Suitable for",
+      "Dishwasher Safe",
+      "Capacity",
+      "Material",
+      "Colour",
+      "Suitable For",
+      "Measurement",
+      "Dimensions"
+    ]
+  },
+  "306": {
+    "category": {
+      "id": 306,
+      "name": "Crockery Hire",
+      "parent_id": 344,
+      "parent_name": "Rent Now"
+    },
+    "customFieldNames": [
+      "Pack Size",
+      "Suitable For",
+      "Dishwasher Safe",
+      "Colour",
+      "Capacity",
+      "Case Size",
+      "Material",
+      "Microwave Safe",
+      "Dimensions",
+      "Dimensions / Diameter",
+      "Pack size",
+      "Suitable for",
+      "Oven Safe",
+      "Case size",
+      "Suitable for microwave",
+      "Dishwasher safe",
+      "Dishawasher safe",
+      "Size",
+      "Dishwasher Friendly",
+      "Microwave",
+      "Pattern"
+    ]
+  },
+  "307": {
+    "category": {
+      "id": 307,
+      "name": "Gold Rim",
+      "parent_id": 306,
+      "parent_name": "Crockery Hire"
+    },
+    "customFieldNames": [
+      "Pack Size",
+      "Suitable For",
+      "Dishwasher Safe",
+      "Colour",
+      "Capacity",
+      "Case Size",
+      "Material",
+      "Dimensions / Diameter",
+      "Case size",
+      "Suitable for"
+    ]
+  },
+  "308": {
+    "category": {
+      "id": 308,
+      "name": "Service Trays",
+      "parent_id": 261,
+      "parent_name": "Buffetware & Table Service Hire"
+    },
+    "customFieldNames": [
+      "Pack Size",
+      "Dishwasher Safe",
+      "Material",
+      "Size",
+      "Colour",
+      "Type",
+      "Dimensions"
+    ]
+  },
+  "309": {
+    "category": {
+      "id": 309,
+      "name": "Cocktail & Bistro Tables",
+      "parent_id": 277,
+      "parent_name": "Table Hire"
+    },
+    "customFieldNames": [
+      "Tabletop Material",
+      "Leg Material",
+      "Seating Capacity",
+      "Relevant Linen Size",
+      "Usage",
+      "Colour",
+      "Case Size",
+      "Material",
+      "Dimensions",
+      "Suitable for",
+      "Seats",
+      "Table top colour",
+      "Leg colour",
+      "Case size",
+      "Available in",
+      "Tabletop Colour"
+    ]
+  },
+  "310": {
+    "category": {
+      "id": 310,
+      "name": "Gazebos & Parasols",
+      "parent_id": 274,
+      "parent_name": "Outdoor Furniture & BBQ"
+    },
+    "customFieldNames": [
+      "Material",
+      "Usage",
+      "Colour",
+      "Frame",
+      "Dimensions",
+      "Size"
+    ]
+  },
+  "311": {
+    "category": {
+      "id": 311,
+      "name": "Items for Sale",
+      "parent_id": 344,
+      "parent_name": "Rent Now"
+    },
+    "customFieldNames": []
+  },
+  "312": {
+    "category": {
+      "id": 312,
+      "name": "Banquet & Dining Tables",
+      "parent_id": 277,
+      "parent_name": "Table Hire"
+    },
+    "customFieldNames": [
+      "Tabletop Material",
+      "Leg Material",
+      "Seating Capacity",
+      "Relevant Linen Size",
+      "Usage",
+      "Colour",
+      "Case Size",
+      "Material",
+      "Dimensions",
+      "Seats",
+      "Suitable for",
+      "Table top colour",
+      "Leg colour",
+      "Case size",
+      "Tabletop Colour",
+      "Pack size",
+      "Table Top Colour",
+      "Size of table top",
+      "Stackable"
+    ]
+  },
+  "313": {
+    "category": {
+      "id": 313,
+      "name": "Speciality Glassware",
+      "parent_id": 292,
+      "parent_name": "Glassware Hire"
+    },
+    "customFieldNames": [
+      "Case size",
+      "Suitable For",
+      "Dishwasher Safe",
+      "Capacity",
+      "Colour",
+      "Material",
+      "Size",
+      "Dishwasher proof",
+      "Case Size",
+      "Tempered Glass",
+      "Stackable"
+    ]
+  },
+  "314": {
+    "category": {
+      "id": 314,
+      "name": "Illuminated Furniture",
+      "parent_id": 259,
+      "parent_name": "Furniture Hire"
+    },
+    "customFieldNames": [
+      "Seat Height",
+      "Material",
+      "Colour",
+      "Stackable / Foldable",
+      "Usage",
+      "Case Size",
+      "Suitable for",
+      "Tabletop Material",
+      "Leg Material",
+      "Seating Capacity",
+      "Dimensions",
+      "Seats",
+      "Table top colour",
+      "Case size",
+      "Assembly",
+      "Base",
+      "Finish",
+      "Colour Options",
+      "Accessories Included",
+      "Power",
+      "LED lighting",
+      "Leg colour"
+    ]
+  },
+  "315": {
+    "category": {
+      "id": 315,
+      "name": "Wedgwood Crockery",
+      "parent_id": 306,
+      "parent_name": "Crockery Hire"
+    },
+    "customFieldNames": [
+      "Pack Size",
+      "Suitable For",
+      "Dishwasher Safe",
+      "Microwave Safe",
+      "Material",
+      "Colour",
+      "Dimensions"
+    ]
+  },
+  "316": {
+    "category": {
+      "id": 316,
+      "name": "Dishwashers & Hygiene",
+      "parent_id": 282,
+      "parent_name": "Catering Equipment Hire"
+    },
+    "customFieldNames": [
+      "Material",
+      "Suitable for",
+      "Power Requirement",
+      "Capacity",
+      "Plumbing",
+      "Water Fill",
+      "Waste",
+      "Number of Sinks",
+      "Waste Requirement",
+      "Water Connection",
+      "Power requirements",
+      "Water Capacity",
+      "Power Consumption",
+      "Number of racks",
+      "Wheels",
+      "Water Supply",
+      "Coverage",
+      "Bulb Type",
+      "Mounting"
+    ]
+  },
+  "317": {
+    "category": {
+      "id": 317,
+      "name": "Victoria Gold",
+      "parent_id": 263,
+      "parent_name": "Cutlery Hire"
+    },
+    "customFieldNames": [
+      "Pack size",
+      "Suitability",
+      "Dishwasher Safe",
+      "Colour",
+      "Material"
+    ]
+  },
+  "318": {
+    "category": {
+      "id": 318,
+      "name": "Bar Counters",
+      "parent_id": 270,
+      "parent_name": "Bars & Bar Accessories Hire"
+    },
+    "customFieldNames": [
+      "Case size",
+      "Dimensions",
+      "Dimensions front panel",
+      "Power",
+      "Colour",
+      "Seat Height",
+      "Material",
+      "Stackable / Foldable",
+      "Usage",
+      "Counter space",
+      "Colour Options",
+      "Accessories Included",
+      "Finish",
+      "Illuminates in",
+      "Size",
+      "Dimensions Front Panel One Section",
+      "Brandable",
+      "Suitable for Draught Taps",
+      "Use",
+      "Assembly Required",
+      "Storage Shelf",
+      "Pack size",
+      "Main unit under-counter storage:",
+      "Assembly",
+      "Fits Kegs",
+      "Fits Draught Taps",
+      "Includes",
+      "Dimensions (H x L x D):",
+      "Assemble",
+      "Expandable"
+    ]
+  },
+  "319": {
+    "category": {
+      "id": 319,
+      "name": "Condiments",
+      "parent_id": 261,
+      "parent_name": "Buffetware & Table Service Hire"
+    },
+    "customFieldNames": [
+      "Case size",
+      "Colour",
+      "Dishwasher Safe",
+      "Suitable For",
+      "Diameter",
+      "Pack Size",
+      "Dishwasher safe",
+      "Capacity",
+      "Microwave Safe",
+      "Material",
+      "Dimensions",
+      "Dimensions / Diameter",
+      "Case Size"
+    ]
+  },
+  "320": {
+    "category": {
+      "id": 320,
+      "name": "Black Crockery",
+      "parent_id": 306,
+      "parent_name": "Crockery Hire"
+    },
+    "customFieldNames": [
+      "Pack Size",
+      "Suitable For",
+      "Dishwasher Safe",
+      "Colour",
+      "Dimensions / Diameter",
+      "Case Size",
+      "Material"
+    ]
+  },
+  "321": {
+    "category": {
+      "id": 321,
+      "name": "Skirting & Conference Cloths",
+      "parent_id": 266,
+      "parent_name": "Linen Hire"
+    },
+    "customFieldNames": [
+      "Pack size",
+      "Colour",
+      "Size",
+      "Fits",
+      "Material",
+      "Use With",
+      "Also Included",
+      "Requires",
+      "Case size",
+      "Pack Size",
+      "Dimensions"
+    ]
+  },
+  "322": {
+    "category": {
+      "id": 322,
+      "name": "Conference & Event Essentials",
+      "parent_id": 259,
+      "parent_name": "Furniture Hire"
+    },
+    "customFieldNames": [
+      "Pack size",
+      "Colour",
+      "Size",
+      "Fits",
+      "Style",
+      "Material",
+      "Chart Size",
+      "Flip Chart",
+      "Case size",
+      "Dimensions",
+      "Shelf",
+      "Available Colours",
+      "Suitable For",
+      "Pair With",
+      "Base",
+      "Use With",
+      "Also Included",
+      "Fabric",
+      "Usage",
+      "Post Material",
+      "Base Diameter",
+      "Stackable / Foldable",
+      "Finish",
+      "Belt Dimensions",
+      "What's included",
+      "Assembly",
+      "Number of Sheets",
+      "Requires",
+      "Setup",
+      "Shape",
+      "Seat Height",
+      "Suitable for",
+      "Pair with",
+      "Other",
+      "Height",
+      "Base Style",
+      "Pack Size",
+      "Table numbers included",
+      "Ideal for",
+      "Use",
+      "Width of mirror",
+      "Features"
+    ]
+  },
+  "323": {
+    "category": {
+      "id": 323,
+      "name": "Centerpieces & Table Accessories",
+      "parent_id": 261,
+      "parent_name": "Buffetware & Table Service Hire"
+    },
+    "customFieldNames": [
+      "Case size",
+      "Number of Branches",
+      "Colour",
+      "Candles Included",
+      "Material",
+      "Dishwasher Safe",
+      "Number of Tiers",
+      "Plates Included",
+      "Suitable For",
+      "Dimensions / Diameter",
+      "Candle included",
+      "Table Numbers Included",
+      "Size"
+    ]
+  },
+  "324": {
+    "category": {
+      "id": 324,
+      "name": "Arcade",
+      "parent_id": 263,
+      "parent_name": "Cutlery Hire"
+    },
+    "customFieldNames": [
+      "Pack size",
+      "Suitability",
+      "Dishwasher Safe",
+      "Colour",
+      "Material"
+    ]
+  },
+  "325": {
+    "category": {
+      "id": 325,
+      "name": "Jasper Conran",
+      "parent_id": 306,
+      "parent_name": "Crockery Hire"
+    },
+    "customFieldNames": [
+      "Pack Size",
+      "Suitable For",
+      "Dishwasher Safe",
+      "Colour",
+      "Dimensions / Diameter",
+      "Pack size",
+      "Suitable for",
+      "Microwave Safe",
+      "Oven Safe",
+      "Material",
+      "Dimensions",
+      "Case Size",
+      "Capacity"
+    ]
+  },
+  "326": {
+    "category": {
+      "id": 326,
+      "name": "Banquet & Dining Chairs",
+      "parent_id": 268,
+      "parent_name": "Chair Hire"
+    },
+    "customFieldNames": [
+      "Seat Height",
+      "Material",
+      "Colour",
+      "Stackable / Foldable",
+      "Usage",
+      "Case size",
+      "Dimensions",
+      "Recyclable",
+      "Pack size",
+      "Frame Colour",
+      "Seat Pads",
+      "Seats are fire retardant",
+      "Seats treated with Teflon (CRIB5)",
+      "Weight",
+      "Wood",
+      "Suitable for",
+      "Seat Pad",
+      "Seat Colour",
+      "Leg Colour"
+    ]
+  },
+  "327": {
+    "category": {
+      "id": 327,
+      "name": "Vintage Crockery",
+      "parent_id": 306,
+      "parent_name": "Crockery Hire"
+    },
+    "customFieldNames": [
+      "Pack Size",
+      "Suitable For",
+      "Dishwasher Safe",
+      "Colour",
+      "Capacity",
+      "Case Size",
+      "Dimensions / Diameter",
+      "Case size",
+      "Size"
+    ]
+  },
+  "328": {
+    "category": {
+      "id": 328,
+      "name": "Food Prep & Service",
+      "parent_id": 282,
+      "parent_name": "Catering Equipment Hire"
+    },
+    "customFieldNames": [
+      "Material",
+      "Insulation Type",
+      "Power Requirement",
+      "Access",
+      "Power requirement",
+      "Power consumption",
+      "Hot Cupboard Capacity",
+      "Number of wells",
+      "Finish",
+      "Legs",
+      "Suitable for",
+      "Colour",
+      "Capacity",
+      "On Wheels",
+      "Model Type",
+      "Case size",
+      "Diameter",
+      "Suitable Plates",
+      "Number of Lights",
+      "Model",
+      "Number of Tiers",
+      "Hotcupboard Capacity",
+      "Pack Size",
+      "Power"
+    ]
+  },
+  "329": {
+    "category": {
+      "id": 329,
+      "name": "Silver Rim",
+      "parent_id": 306,
+      "parent_name": "Crockery Hire"
+    },
+    "customFieldNames": [
+      "Pack Size",
+      "Suitable For",
+      "Dishwasher Safe",
+      "Colour",
+      "Dimensions / Diameter",
+      "Material",
+      "Case Size",
+      "Capacity"
+    ]
+  },
+  "330": {
+    "category": {
+      "id": 330,
+      "name": "Coloured Crockery",
+      "parent_id": 306,
+      "parent_name": "Crockery Hire"
+    },
+    "customFieldNames": [
+      "Pack Size",
+      "Suitable For",
+      "Dishwasher Safe",
+      "Colour",
+      "Dimensions / Diameter",
+      "Case Size",
+      "Material",
+      "Microwave Safe",
+      "Dimensions",
+      "Suitable for microwave",
+      "Suitable for",
+      "Dishwasher safe",
+      "Pack size",
+      "Dishawasher safe",
+      "Case size",
+      "Size"
+    ]
+  },
+  "331": {
+    "category": {
+      "id": 331,
+      "name": "Cocktail Glasses",
+      "parent_id": 292,
+      "parent_name": "Glassware Hire"
+    },
+    "customFieldNames": [
+      "Case size",
+      "Dishwasher Safe",
+      "Capacity",
+      "Material",
+      "Suitable for",
+      "Suitable For",
+      "Size",
+      "Tempered Glass"
+    ]
+  },
+  "332": {
+    "category": {
+      "id": 332,
+      "name": "Benches",
+      "parent_id": 268,
+      "parent_name": "Chair Hire"
+    },
+    "customFieldNames": [
+      "Seat Height",
+      "Material",
+      "Colour",
+      "Stackable / Foldable",
+      "Usage",
+      "Case size",
+      "Dimensions",
+      "Cushion",
+      "Seats",
+      "Suitable for"
+    ]
+  },
+  "333": {
+    "category": {
+      "id": 333,
+      "name": "Outdoor Tables",
+      "parent_id": 277,
+      "parent_name": "Table Hire"
+    },
+    "customFieldNames": [
+      "Tabletop Material",
+      "Leg Material",
+      "Seating Capacity",
+      "Usage",
+      "Colour",
+      "Material",
+      "Stackable / Foldable",
+      "2 Seater Sofa dimensions",
+      "Armchair dimensions",
+      "Coffee table dimensions",
+      "Case Size",
+      "Dimensions",
+      "Suitable for",
+      "Seats"
+    ]
+  },
+  "334": {
+    "category": {
+      "id": 334,
+      "name": "Water Jugs & Carafes",
+      "parent_id": 292,
+      "parent_name": "Glassware Hire"
+    },
+    "customFieldNames": [
+      "Case size",
+      "Capacity",
+      "Colour",
+      "Material",
+      "Suitable For",
+      "Size",
+      "Pack Size",
+      "Suitable for"
+    ]
+  },
+  "335": {
+    "category": {
+      "id": 335,
+      "name": "Arctic White",
+      "parent_id": 306,
+      "parent_name": "Crockery Hire"
+    },
+    "customFieldNames": [
+      "Colour",
+      "Material",
+      "Suitable For",
+      "Dimensions / Diameter",
+      "Dishwasher Safe",
+      "Microwave Safe",
+      "Oven Safe",
+      "Case Size"
+    ]
+  },
+  "336": {
+    "category": {
+      "id": 336,
+      "name": "Charger Plates",
+      "parent_id": 306,
+      "parent_name": "Crockery Hire"
+    },
+    "customFieldNames": [
+      "Pack Size",
+      "Suitable For",
+      "Dishwasher Safe",
+      "Colour",
+      "Dimensions / Diameter",
+      "Case Size",
+      "Material",
+      "Case size",
+      "Size"
+    ]
+  },
+  "338": {
+    "category": {
+      "id": 338,
+      "name": "Refrigeration Hire",
+      "parent_id": 282,
+      "parent_name": "Catering Equipment Hire"
+    },
+    "customFieldNames": [
+      "Colour",
+      "Power Supply",
+      "Power Consumption",
+      "Capacity",
+      "No of Shelves",
+      "Temp Range",
+      "Case size",
+      "Power",
+      "Length",
+      "Pack Size",
+      "Storage",
+      "Energy Efficiency",
+      "Dimensions"
+    ]
+  },
+  "339": {
+    "category": {
+      "id": 339,
+      "name": "Exam Tables",
+      "parent_id": 277,
+      "parent_name": "Table Hire"
+    },
+    "customFieldNames": [
+      "Tabletop Material",
+      "Leg Material",
+      "Seating Capacity",
+      "Relevant Linen Size",
+      "Usage",
+      "Colour",
+      "Case Size",
+      "Material",
+      "Dimensions",
+      "Suitable for",
+      "Seats",
+      "Case size",
+      "Tabletop material",
+      "Leg material",
+      "Seating capacity",
+      "Pack size",
+      "Stackable"
+    ]
+  },
+  "340": {
+    "category": {
+      "id": 340,
+      "name": "Dummy",
+      "parent_id": 0,
+      "parent_name": "N/A"
+    },
+    "customFieldNames": [
+      "Material",
+      "Insulation Type",
+      "Power Requirement",
+      "Access",
+      "Seat Height",
+      "Colour",
+      "Stackable / Foldable",
+      "Usage",
+      "Case Size",
+      "Case size",
+      "Size",
+      "Suitable For",
+      "Capacity",
+      "Call directly to purchase",
+      "**Please Note**",
+      "CALL DIRECTLY TO PURCHASE",
+      "Pack size",
+      "Use",
+      "Players"
+    ]
+  },
+  "341": {
+    "category": {
+      "id": 341,
+      "name": "Prop Hire",
+      "parent_id": 272,
+      "parent_name": "Games & Prop Hire"
+    },
+    "customFieldNames": [
+      "Case size",
+      "Colour",
+      "Size",
+      "Pack size",
+      "Dimensions",
+      "Pack Size",
+      "Theme",
+      "Prop theme"
+    ]
+  },
+  "342": {
+    "category": {
+      "id": 342,
+      "name": "Goa",
+      "parent_id": 263,
+      "parent_name": "Cutlery Hire"
+    },
+    "customFieldNames": [
+      "Pack size",
+      "Suitability",
+      "Dishwasher Safe",
+      "Colour",
+      "Material"
+    ]
+  },
+  "344": {
+    "category": {
+      "id": 344,
+      "name": "Rent Now",
+      "parent_id": 0,
+      "parent_name": "N/A"
+    },
+    "customFieldNames": [
+      "Colour",
+      "Pack size",
+      "Fits",
+      "Case size",
+      "Fuel type",
+      "Power",
+      "Unit dimensions",
+      "Griddle dimensions",
+      "Suitability",
+      "Dishwasher Safe",
+      "Material",
+      "Capacity",
+      "Suitable For",
+      "**Please Note**",
+      "Shape",
+      "Size",
+      "Seat Height",
+      "Stackable / Foldable",
+      "Usage",
+      "Pack Size",
+      "Case Size",
+      "Tabletop Material",
+      "Leg Material",
+      "Seating Capacity",
+      "Relevant Linen Size",
+      "Dimensions",
+      "Seats",
+      "Suitable for",
+      "Microwave Safe",
+      "Table top colour",
+      "Dimensions / Diameter",
+      "Seating capacity",
+      "Table dimensions",
+      "Chair dimensions",
+      "Oven Safe",
+      "Shelf",
+      "Base",
+      "Style",
+      "Available Colours",
+      "Dimensions front panel",
+      "Use With",
+      "Also Included",
+      "Storage Requirements",
+      "Counter space",
+      "Dimensions (H)",
+      "Age",
+      "Players",
+      "Assembly",
+      "Finish",
+      "Grill size",
+      "Grill dimensions",
+      "Weight",
+      "Total Heat Input",
+      "Legs",
+      "Includes",
+      "Suitable for Kids",
+      "Bag size",
+      "Colour Options",
+      "Accessories Included",
+      "Fuel",
+      "Metal",
+      "Power requirement",
+      "Power consumption",
+      "Hot Cupboard Capacity",
+      "Number of wells",
+      "2 Seater Sofa dimensions",
+      "Armchair dimensions",
+      "Coffee table dimensions",
+      "Dimensions Skittles",
+      "Dimensions Balls (Ø) & Pegs (H)",
+      "Illuminates in",
+      "Foldable legs",
+      "Power requirements",
+      "Suitable",
+      "Frame",
+      "Requires",
+      "Dimensions Front Panel One Section",
+      "Seating Capactiy",
+      "2 Seater Dimensions",
+      "Armchair Dimensions",
+      "Table Dimensions",
+      "Leg colour",
+      "Power Supply",
+      "Power Consumption",
+      "No of Shelves",
+      "Temp Range",
+      "Number of Shelves",
+      "Shelf Size",
+      "Model Type",
+      "Water / Waste",
+      "Power Requirement",
+      "Number of racks",
+      "Wheels",
+      "Water Supply",
+      "Fabric",
+      "Height",
+      "Base Style",
+      "Fits into car",
+      "Use",
+      "Suitable for microwave",
+      "Dishwasher safe",
+      "Dishawasher safe",
+      "Made in",
+      "Handle",
+      "Handle material",
+      "Available in",
+      "Tabletop Colour",
+      "Tabletop material",
+      "Leg material",
+      "Dishwasher proof",
+      "Cushion",
+      "Stackable",
+      "Glass",
+      "100% Recyclable",
+      "Recyclable",
+      "Frame material",
+      "Sofa frame material",
+      "Chair frame material",
+      "Length",
+      "Dimensions: Tall Black Frame",
+      "Dimensions: Medium Black Frame",
+      "Dimensions: Low Black Frame",
+      "Dimensions: Long wood plinths",
+      "Dimensions: Large Ceramic Bowl",
+      "Chairs",
+      "Table",
+      "Tablecloth",
+      "Crockery",
+      "Cutlery",
+      "Glassware",
+      "Napkins",
+      "Table size",
+      "Table Linen",
+      "Frame Colour",
+      "Seat Pads",
+      "Seat Pad Material",
+      "Seats are fire retardant",
+      "Seats treated with Teflon (CRIB5)",
+      "Table Top Colour",
+      "Size of table top",
+      "Board size",
+      "Cornhole Bags",
+      "Foldable Legs",
+      "Colour of board",
+      "Tempered Glass",
+      "Frame colour",
+      "Cushion colour",
+      "Dimensions Saucer",
+      "Dimensions Cup",
+      "Fits tables",
+      "Measurement",
+      "Main unit under-counter storage:",
+      "Fits Kegs",
+      "Fits Draught Taps",
+      "Dimensions (H x L x D):",
+      "Assemble",
+      "Expandable",
+      "Dimensions of cards",
+      "LED lighting",
+      "Type",
+      "Storage",
+      "Energy Efficiency",
+      "Takes",
+      "Tiers",
+      "Table numbers included",
+      "Ideal for",
+      "Width of mirror",
+      "Features",
+      "Theme",
+      "Prop theme",
+      "Pattern",
+      "Fits tabletops",
+      "Games Included",
+      "Giant Connect 4 Dimensions",
+      "Giant Snakes & Ladders Dimensions",
+      "Giant Jenga Dimensions",
+      "Dishwasher Friendly",
+      "Microwave",
+      "Wood",
+      "Foldable",
+      "Seat Pad",
+      "Seat Colour",
+      "Leg Colour"
+    ]
+  },
+  "345": {
+    "category": {
+      "id": 345,
+      "name": "Rent By Event",
+      "parent_id": 0,
+      "parent_name": "N/A"
+    },
+    "customFieldNames": []
+  },
+  "346": {
+    "category": {
+      "id": 346,
+      "name": "Aqua",
+      "parent_id": 263,
+      "parent_name": "Cutlery Hire"
+    },
+    "customFieldNames": ["Colour", "Material", "Handle material", "Made in"]
+  },
+  "347": {
+    "category": {
+      "id": 347,
+      "name": "Mother of Pearl",
+      "parent_id": 263,
+      "parent_name": "Cutlery Hire"
+    },
+    "customFieldNames": ["Case size", "Made in", "Material", "Handle", "Colour"]
+  },
+  "348": {
+    "category": {
+      "id": 348,
+      "name": "Stoneware & Tablescapes",
+      "parent_id": 306,
+      "parent_name": "Crockery Hire"
+    },
+    "customFieldNames": [
+      "Pack Size",
+      "Suitable For",
+      "Dishwasher Safe",
+      "Colour",
+      "Dimensions / Diameter",
+      "Microwave Safe"
+    ]
+  },
+  "349": {
+    "category": {
+      "id": 349,
+      "name": "Special Offers",
+      "parent_id": 344,
+      "parent_name": "Rent Now"
+    },
+    "customFieldNames": [
+      "Pack size",
+      "Suitability",
+      "Dishwasher Safe",
+      "Colour",
+      "Material",
+      "Seat Height",
+      "Stackable / Foldable",
+      "Usage",
+      "Case size",
+      "Pack Size",
+      "Suitable For",
+      "Dimensions / Diameter",
+      "Suitable for",
+      "Microwave Safe",
+      "Oven Safe",
+      "Dimensions",
+      "Case Size",
+      "Dimensions front panel",
+      "Power",
+      "Capacity",
+      "Counter space",
+      "Finish",
+      "Illuminates in",
+      "Size",
+      "Dimensions Front Panel One Section",
+      "Chairs",
+      "Table",
+      "Tablecloth",
+      "Crockery",
+      "Cutlery",
+      "Glassware",
+      "Napkins",
+      "Table size",
+      "Table Linen",
+      "Main unit under-counter storage:",
+      "Assembly",
+      "Fits Kegs",
+      "Fits Draught Taps",
+      "Includes",
+      "Games Included",
+      "Age",
+      "Giant Connect 4 Dimensions",
+      "Giant Snakes & Ladders Dimensions",
+      "Giant Jenga Dimensions"
+    ]
+  },
+  "350": {
+    "category": {
+      "id": 350,
+      "name": "Office Furniture",
+      "parent_id": 259,
+      "parent_name": "Furniture Hire"
+    },
+    "customFieldNames": [
+      "Material",
+      "Colour",
+      "Stackable / Foldable",
+      "Usage",
+      "Seat Height",
+      "Case size",
+      "Size"
+    ]
+  },
+  "351": {
+    "category": {
+      "id": 351,
+      "name": "Milano",
+      "parent_id": 263,
+      "parent_name": "Cutlery Hire"
+    },
+    "customFieldNames": ["Case size", "Colour", "Pack Size"]
+  },
+  "352": {
+    "category": {
+      "id": 352,
+      "name": "Tableware",
+      "parent_id": 261,
+      "parent_name": "Buffetware & Table Service Hire"
+    },
+    "customFieldNames": [
+      "Pack size",
+      "Suitability",
+      "Dishwasher Safe",
+      "Colour",
+      "Material",
+      "Case size",
+      "**Please Note**",
+      "Fits",
+      "Size",
+      "Shape",
+      "Capacity",
+      "Suitable For",
+      "Suitable for",
+      "Pack Size",
+      "Dishwasher safe",
+      "Dimensions / Diameter",
+      "Case Size",
+      "Microwave Safe",
+      "Dimensions",
+      "Diameter",
+      "Number of Branches",
+      "Candles Included",
+      "Oven Safe",
+      "**Pack Size**",
+      "Qty per roll",
+      "Use",
+      "Qty on roll",
+      "Finish",
+      "Candle included",
+      "Measurements",
+      "Table Numbers Included",
+      "Suitable for microwave",
+      "Dishawasher safe",
+      "Made in",
+      "Handle",
+      "Handle material",
+      "Dishwasher proof",
+      "Tempered Glass",
+      "Stackable"
+    ]
+  },
+  "354": {
+    "category": {
+      "id": 354,
+      "name": "New products",
+      "parent_id": 344,
+      "parent_name": "Rent Now"
+    },
+    "customFieldNames": [
+      "Pack size",
+      "Colour",
+      "Size",
+      "Seat Height",
+      "Material",
+      "Stackable / Foldable",
+      "Usage",
+      "Case size",
+      "Pack Size",
+      "Suitable For",
+      "Dishwasher Safe",
+      "Dimensions / Diameter",
+      "Microwave Safe",
+      "Suitable for",
+      "Dishwasher safe",
+      "Dishawasher safe",
+      "Table top colour",
+      "Dimensions",
+      "Seats",
+      "Case Size",
+      "Frame Colour",
+      "Seat Pads",
+      "Seat Pad Material",
+      "Seats are fire retardant",
+      "Seats treated with Teflon (CRIB5)",
+      "Weight",
+      "Table Top Colour",
+      "Size of table top",
+      "Leg colour",
+      "Includes",
+      "Board size",
+      "Cornhole Bags",
+      "Foldable Legs",
+      "Colour of board",
+      "Tempered Glass",
+      "Capacity",
+      "Stackable",
+      "Frame colour",
+      "Cushion colour",
+      "Use",
+      "Main unit under-counter storage:",
+      "Assembly",
+      "Fits Kegs",
+      "Fits Draught Taps",
+      "Dimensions (H x L x D):",
+      "Assemble",
+      "Expandable",
+      "Dishwasher Friendly",
+      "Microwave",
+      "Pattern",
+      "Fits",
+      "Wood",
+      "Foldable",
+      "Seat Pad"
+    ]
+  },
+  "355": {
+    "category": {
+      "id": 355,
+      "name": "Christmas Props",
+      "parent_id": 341,
+      "parent_name": "Prop Hire"
+    },
+    "customFieldNames": ["Pack Size", "Dimensions"]
+  },
+  "356": {
+    "category": {
+      "id": 356,
+      "name": "Table Protector",
+      "parent_id": 266,
+      "parent_name": "Linen Hire"
+    },
+    "customFieldNames": ["Pack Size", "Colour", "Dimensions", "Suitable for"]
+  },
+  "357": {
+    "category": {
+      "id": 357,
+      "name": "Alice In Wonderland",
+      "parent_id": 341,
+      "parent_name": "Prop Hire"
+    },
+    "customFieldNames": ["Case size"]
+  },
+  "358": {
+    "category": {
+      "id": 358,
+      "name": "Animal Props",
+      "parent_id": 341,
+      "parent_name": "Prop Hire"
+    },
+    "customFieldNames": ["Pack Size", "Theme", "Dimensions", "Prop theme"]
+  },
+  "359": {
+    "category": {
+      "id": 359,
+      "name": "Halloween Props",
+      "parent_id": 341,
+      "parent_name": "Prop Hire"
+    },
+    "customFieldNames": []
+  },
+  "360": {
+    "category": {
+      "id": 360,
+      "name": "Villeroy & Boch Crockery",
+      "parent_id": 306,
+      "parent_name": "Crockery Hire"
+    },
+    "customFieldNames": [
+      "Case Size",
+      "Colour",
+      "Material",
+      "Dimensions",
+      "Suitable For",
+      "Dishwasher Safe"
+    ]
+  },
+  "361": {
+    "category": {
+      "id": 361,
+      "name": "Barbecue and Accessories",
+      "parent_id": 282,
+      "parent_name": "Catering Equipment Hire"
+    },
+    "customFieldNames": [
+      "Case size",
+      "Fuel type",
+      "Power",
+      "Unit dimensions",
+      "Griddle dimensions",
+      "Storage Requirements",
+      "Capacity",
+      "Suitable for",
+      "Pack size",
+      "Suitability",
+      "Dishwasher Safe",
+      "Colour",
+      "Material",
+      "Grill size",
+      "Grill dimensions",
+      "Weight",
+      "Total Heat Input",
+      "Legs",
+      "Assembly",
+      "Bag size",
+      "Usage",
+      "Fuel",
+      "Metal",
+      "Foldable legs",
+      "Dimensions",
+      "Power Requirement",
+      "Finish"
+    ]
+  },
+  "362": {
+    "category": {
+      "id": 362,
+      "name": "Wedgwood Gio Platinum",
+      "parent_id": 306,
+      "parent_name": "Crockery Hire"
+    },
+    "customFieldNames": [
+      "Case size",
+      "Colour",
+      "Dimensions",
+      "Dishwasher Friendly",
+      "Microwave",
+      "Material",
+      "Pattern",
+      "Suitable For",
+      "Dishwasher Safe"
+    ]
+  },
+  "363": {
+    "category": {
+      "id": 363,
+      "name": "Wedgwood Gio Gold",
+      "parent_id": 306,
+      "parent_name": "Crockery Hire"
+    },
+    "customFieldNames": [
+      "Case size",
+      "Colour",
+      "Dimensions",
+      "Dishwasher Friendly",
+      "Microwave",
+      "Material",
+      "Pattern",
+      "Dishwasher Safe",
+      "Suitable For"
+    ]
+  }
+}

@@ -1,4 +1,4 @@
-require("../../config/config").config("bf");
+require("../../config/config").config("ch");
 import { deleteProduct } from "../../functions/products/deleteProduct";
-deleteProduct(7772).then((res) => console.log(res + "\n")).catch(console.log);
+deleteProduct(250).then((res) => console.log(res + "\n")).catch(console.log);
 

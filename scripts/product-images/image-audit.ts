@@ -7,96 +7,136 @@ import imageSize from "image-size";
 
 const store = "ch";
 require("../../config/config").config(store);
+const configs = [
+  {
+    id: 77,
+    name: `loungeFurniture`,
+  },
+  { id: 33, name: `outdoorFurniture` },
+  { id: 28, name: `illuminatedFurniture` },
+  { id: 576, name: `officeFurniture` },
+];
 
 async function test() {
-  try {
-    const data: any[] = [];
-    const params = { "categories:in": "138" };
-    const products = await getAllProducts(params);
+  for (const config of configs) {
+    try {
+      const data: any[] = [];
+      const params = { "categories:in": [config.id].join(",") };
+      const products = await getAllProducts(params);
 
-    for (let i = 0; i < products.length; i++) {
-      console.log(i, products.length);
+      for (let i = 0; i < products.length; i++) {
+        console.log(i, products.length);
 
-      const product = products[i];
-      const images = await getAllProductImages(product.id);
-      for (let ii = 0; ii < images.length; ii++) {
-        const image = images[ii];
-        // Specify the URL of the image
+        const product = products[i];
+        const images = await getAllProductImages(product.id);
+        for (let ii = 0; ii < images.length; ii++) {
+          const image = images[ii];
+          // Specify the URL of the image
 
-        const storehash = process.env[store.toUpperCase() + `_STORE_HASH`];
-        const imageUrl =
-          `https://store-${storehash}.mybigcommerce.com/product_images/` +
-          image.image_file;
+          const storehash = process.env[store.toUpperCase() + `_STORE_HASH`];
+          const imageUrl =
+            `https://store-${storehash}.mybigcommerce.com/product_images/` +
+            image.image_file;
 
-        console.log(imageUrl);
+          console.log(imageUrl);
 
-        let response;
+          let response;
 
-        try {
-          response = await axios.get(imageUrl, {
-            responseType: "arraybuffer",
+          try {
+            response = await axios.get(imageUrl, {
+              responseType: "arraybuffer",
+            });
+          } catch (err: any) {
+            // console.log(err.response ? err.response.data : err);
+            continue;
+          }
+
+          // Use image-size to get image dimensions
+          const dimensions = imageSize(response.data);
+
+          // Extract relevant information
+          const imageSizeInBytes = response.headers["content-length"];
+          const imageWidth = dimensions.width;
+          const imageHeight = dimensions.height;
+
+          if (!imageHeight || !imageWidth) {
+            console.log("no image data");
+            return;
+          }
+
+          // console.log("Image Size: " + fileSize);
+          // console.log("Dimensions: " + imageWidth + " x " + imageHeight);
+          const excesive_file_size_gt_70_kb = imageSizeInBytes / 1024 > 70;
+          const not_square = imageWidth != imageHeight;
+          const excessive_file_dimensions =
+            imageWidth > 1000 || imageHeight > 1000;
+          const insufficent_file_dimensions =
+            imageWidth < 800 || imageHeight < 800;
+
+          let priority = "LOW";
+          if (not_square && excessive_file_dimensions) {
+            priority = "MID";
+          }
+          if (
+            excesive_file_size_gt_70_kb &&
+            not_square &&
+            excessive_file_dimensions
+          ) {
+            priority = "HIGH";
+          }
+
+          data.push({
+            product_id: product.id,
+            image_id: image.id,
+            sort_order: image.sort_order,
+            is_thumbnail: image.is_thumbnail,
+            sku: product.sku,
+            name: product.name,
+            image_url: imageUrl,
+            file_size: imageSizeInBytes,
+            width: imageWidth,
+            height: imageHeight,
+            excesive_file_size_gt_70_kb,
+            not_square,
+            excessive_file_dimensions,
+            insufficent_file_dimensions,
           });
-        } catch (err: any) {
-          // console.log(err.response ? err.response.data : err);
-          continue;
         }
-
-        // Use image-size to get image dimensions
-        const dimensions = imageSize(response.data);
-
-        // Extract relevant information
-        const imageSizeInBytes = response.headers["content-length"];
-        const imageWidth = dimensions.width;
-        const imageHeight = dimensions.height;
-
-        if (!imageHeight || !imageWidth) {
-          console.log("no image data");
-          return;
-        }
-
-        // console.log("Image Size: " + fileSize);
-        // console.log("Dimensions: " + imageWidth + " x " + imageHeight);
-        const excesive_file_size_gt_70_kb = imageSizeInBytes / 1024 > 70;
-        const not_square = imageWidth != imageHeight;
-        const excessive_file_dimensions =
-          imageWidth > 1000 || imageHeight > 1000;
-        const insufficent_file_dimensions = imageWidth < 800 || imageHeight < 800;
-
-        let priority = "LOW";
-        if (not_square && excessive_file_dimensions) {
-          priority = "MID";
-        }
-        if (excesive_file_size_gt_70_kb && not_square && excessive_file_dimensions) {
-          priority = "HIGH";
-        }
-
-        data.push({
-          product_id: product.id,
-          image_id: image.id,
-          sort_order: image.sort_order,
-          is_thumbnail: image.is_thumbnail,
-          sku: product.sku,
-          name: product.name,
-          image_url: imageUrl,
-          file_size: imageSizeInBytes,
-          width: imageWidth,
-          height: imageHeight,
-          excesive_file_size_gt_70_kb,
-          not_square,
-          excessive_file_dimensions,
-          insufficent_file_dimensions,
-        });
       }
-    }
 
-    console.log(`SUMMARY`)
-    console.log(`Images not square: ${data.reduce((a, c) => (c.not_square? a+1: a), 0)}`)
-    console.log(`Image dimensions too large: ${data.reduce((a, c) => (c.excessive_file_dimensions ? a+1: a), 0)}`)
-    console.log(`Image dimensions too small: ${data.reduce((a, c) => (c.insufficent_file_dimensions ? a+1: a), 0)}`)
-    console.log(`Excessive file size (>70kb): ${data.reduce((a, c) => (c.excesive_file_size_gt_70_kb ? a+1: a), 0)}`)
-    await output(path.resolve(__dirname, "image-audit.csv"), data, true);
-  } catch (err: any) {
-    console.log(err.response ? err.response.data : err);
+      console.log(`SUMMARY`);
+      console.log(
+        `Images not square: ${data.reduce(
+          (a, c) => (c.not_square ? a + 1 : a),
+          0
+        )}`
+      );
+      console.log(
+        `Image dimensions too large: ${data.reduce(
+          (a, c) => (c.excessive_file_dimensions ? a + 1 : a),
+          0
+        )}`
+      );
+      console.log(
+        `Image dimensions too small: ${data.reduce(
+          (a, c) => (c.insufficent_file_dimensions ? a + 1 : a),
+          0
+        )}`
+      );
+      console.log(
+        `Excessive file size (>70kb): ${data.reduce(
+          (a, c) => (c.excesive_file_size_gt_70_kb ? a + 1 : a),
+          0
+        )}`
+      );
+      await output(
+        path.resolve(__dirname, `${config.name}-image-audit.csv`),
+        data,
+        true
+      );
+    } catch (err: any) {
+      console.log(err.response ? err.response.data : err);
+    }
   }
 }
 test();

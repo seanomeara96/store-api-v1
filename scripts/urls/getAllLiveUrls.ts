@@ -5,9 +5,11 @@ import { getAllCategories } from "../../functions/categories/getAllCategories";
 import { getAllPages } from "../../functions/pages/getAllPages";
 import { getAllProducts } from "../../functions/products/getAllProducts";
 import { getAllBlogs } from "../../functions/blogs/getAllBlogs";
-import fs from "fs"
 import path from "path"
 import { output } from "../utils/output";
+
+getAllLiveUrls("bf")
+
 async function getAllLiveUrls(site: string) {
   try {
     require("../../config/config").config(site);
@@ -106,13 +108,8 @@ async function getAllLiveUrls(site: string) {
 
     const filteredData = data.filter(({ slug }) => !discontinuedUrls.includes(slug));
 
-    const filteredDataWithSlugsRemoved = filteredData.map(function (item) {
-      delete item.slug;
-      return item;
-    })
 
-
-    output(path.resolve(__dirname, site+"-urls.csv"), filteredDataWithSlugsRemoved, true)
+    output(path.resolve(__dirname, site+"-urls.csv"), filteredData, true)
 
   } catch (err) {
     console.log(err);
@@ -120,4 +117,3 @@ async function getAllLiveUrls(site: string) {
 }
 
 
-getAllLiveUrls("ch")

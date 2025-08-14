@@ -1,46 +1,26 @@
 import { addCatToProduct } from "../../functions/products/addCatToProduct";
 
-require("../../config/config").config("bf");
+require("../../config/config").config("bsk");
 
-const cat_id = 983;//640;
-const ids = [{"Product ID":3057},
-  {"Product ID":3068},
-  {"Product ID":3069},
-  {"Product ID":3539},
-  {"Product ID":3541},
-  {"Product ID":4083},
-  {"Product ID":4086},
-  {"Product ID":4148},
-  {"Product ID":4500},
-  {"Product ID":4501},
-  {"Product ID":4502},
-  {"Product ID":5182},
-  {"Product ID":5235},
-  {"Product ID":5236},
-  {"Product ID":5237},
-  {"Product ID":5238},
-  {"Product ID":5239},
-  {"Product ID":5240},
-  {"Product ID":5241},
-  {"Product ID":5246},
-  {"Product ID":5260},
-  {"Product ID":5311},
-  {"Product ID":5612},
-  {"Product ID":6253},
-  {"Product ID":6257},
-  {"Product ID":6258},
-  {"Product ID":6260},
-  {"Product ID":6263},
-  {"Product ID":6269},
-  {"Product ID":8307},
-  {"Product ID":8308},
-  {"Product ID":8309},
-  {"Product ID":8959},
-  {"Product ID":8972},
-  {"Product ID":8990},
-  {"Product ID":9002},
-  {"Product ID":9010},
-  {"Product ID":9049}];
+const cat_id = 17; //640;
+const ids = [
+  { "Product ID": 282 },
+  { "Product ID": 304 },
+  { "Product ID": 313 },
+  { "Product ID": 321 },
+  { "Product ID": 410 },
+  { "Product ID": 425 },
+  { "Product ID": 434 },
+  { "Product ID": 451 },
+  { "Product ID": 464 },
+  { "Product ID": 506 },
+  { "Product ID": 526 },
+  { "Product ID": 528 },
+  { "Product ID": 571 },
+  { "Product ID": 663 },
+  { "Product ID": 664 },
+  { "Product ID": 674 },
+];
 
 const productIds = ids.map((i) => Object.values(i)[0]);
 

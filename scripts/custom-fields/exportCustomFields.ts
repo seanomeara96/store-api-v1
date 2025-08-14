@@ -18,7 +18,7 @@ async function exportCustomFields() {
       custom_field_name: string;
       custom_field_value: string;
     }[] = [];
-    const products = await getAllProducts({ "categories:in": [268].join(",") });
+    const products = await getAllProducts({ "categories:in": [292].join(",") });
     for (let i = 0; i < products.length; i++) {
       console.log(`fetching custom fields`, i, products.length);
       const product = products[i];

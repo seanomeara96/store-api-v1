@@ -1,100 +1,62 @@
-import { Category } from "./functions/categories/createCategory";
-import { getAllCategories } from "./functions/categories/getAllCategories";
-import { addCatToProduct } from "./functions/products/addCatToProduct";
 import { getAllProducts } from "./functions/products/getAllProducts";
-import { Product } from "./functions/products/Product";
-import fs from "fs";
+import { JSDOM } from "jsdom";
 import path from "path";
-
-type node = {
-  parent: node | undefined;
-  data: Category;
-  children: node[] | undefined;
-};
-
-function getChildren(parentNode: node, categories: Category[]) {
-  for (let j = 0; j < categories.length; j++) {
-    if (categories[j].parent_id === parentNode.data.id) {
-      if (!parentNode.children) {
-        parentNode.children = [];
-      }
-      const node = {
-        parent: parentNode,
-        data: categories[j],
-        children: undefined,
-      };
-      getChildren(node, categories);
-      parentNode.children.push(node);
-    }
-  }
-}
-
-function buildTree(cat: Category, categories: Category[]) {
-  const rootNode: node = {
-    parent: undefined,
-    data: cat,
-    children: undefined,
-  };
-  getChildren(rootNode, categories);
-  return rootNode;
-}
-
-async function recursivelyPopulate(node: node) {
-  if (node.children) {
-    for (const childNode of node.children) {
-      await recursivelyPopulate(childNode);
-    }
-  }
-  const parent = node.parent?.data;
-  if (parent) {
-    const products = await getAllProducts({
-      "categories:in": [node.data.id].join(","),
-    });
-    for (const product of products) {
-      if (!product.categories.includes(parent.id)) {
-        console.log("============");
-        console.log(`product: ${product.name}`);
-        console.log(`current cat: ${node.data.name}`);
-        console.log(`missing from: ${parent.name}`);
-        console.log("============");
-        console.log();
-        await addCatToProduct(product.id, parent.id);
-      }
-    }
-  }
-}
-
-async function backupProducts() {
-  const now = new Date();
-  const timestamp = now
-    .toISOString()
-    .replace(/[:.]/g, "-") // Replace colons and periods with dashes
-    .replace("T", "_") // Replace 'T' with underscore
-    .split("Z")[0]; // Remove the trailing 'Z'
-  const products = await getAllProducts();
-  fs.writeFileSync(
-    path.resolve(__dirname, `product-backup-${timestamp}.json`),
-    JSON.stringify(products),
-    { encoding: "utf-8" }
+import fs from "fs";
+function insertDomain(link: string, store: string): string {
+  return link.replace(
+    `%%GLOBAL_ShopPathSSL%%`,
+    store === "ch" ? "https://caterhire.ie" : "https://hireall.ie"
   );
-  console.log("products backed up");
 }
 
-async function testMain() {
+function getHrefValues(descriptionHTML: string) {
+  const { document } = new JSDOM(`<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    ${descriptionHTML}
+</body>
+</html>`).window;
+  return Array.from(document.querySelectorAll("a")).map((a) => a.href);
+}
+async function foo() {
   try {
-    // identify all products where free shipping applies
-    require("./config/config").config("bf");
-    //await backupProducts();
-    const categories = await getAllCategories();
-    for (const cat of categories) {
-      if (!cat.parent_id) {
-        if ([548, 1057].includes(cat.id)) continue;
-        const tree = buildTree(cat, categories);
-        await recursivelyPopulate(tree);
+    for (let store of ["ch", "ha"]) {
+      require("./config/config").config(store);
+      const products = await getAllProducts();
+      for (let i = 0; i < products.length; i++) {
+        console.log(i, products.length);
+        const product = products[i];
+        const hrefs = getHrefValues(product.description);
+
+        const links = hrefs.map((link) =>
+          link.includes(`%%GLOBAL_ShopPathSSL%%`)
+            ? insertDomain(link, store)
+            : link
+        );
+
+        for (const link of links) {
+          try {
+            const res = await fetch(link);
+            if (res.status === 404) {
+              fs.appendFileSync(
+                path.resolve(__dirname, "internal-link-404.csv"),
+                `${store}\t${product.id}\t${product.name}\t${link}\n`
+              );
+            }
+          } catch (err) {
+            console.log(err);
+          }
+        }
       }
     }
   } catch (err) {
     console.log(err);
   }
 }
-testMain();
+
+foo();

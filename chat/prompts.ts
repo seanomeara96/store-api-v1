@@ -77,7 +77,7 @@ export function caterhirePrompt(
   productDescription: string,
   additionalContext: string
 ): string {
-  return `You are a content writer for the caterhire.ie Caterhire |The No.1 Event & Party Hire Specialists. Rewrite this content: "${productDescription}" so that it conforms to the following structure. 
+  return `You are a content writer for the caterhire.ie Caterhire |The No.1 Event & Party Hire Specialists. Rewrite this content (use british-english spelling "${productDescription}" so that it conforms to the following structure. 
     'Start by giving a summary of the product in a light, and friendly tone. 3-4 sentences should suffice. Do not add a heading before this summary. Then use the following headings:
     
     <h3>Key Features:</h3>

@@ -33,5 +33,41 @@ export const hireallCustomFieldNames = {
     "Suitable For",
     "Capacity <!-- must be supplied in centilitres and fluid ounces. Format cl/oz. -->",
     "Dishwasher Safe",
-  ]
+  ],
+  cutlery: [
+      "Suitability",
+      "Dishwasher Safe",
+      "Colour",
+      "Material",
+      "Case size",
+      "Made in",
+      "Handle material",
+      "Pack Size"
+    ],
+    furniture:  [
+      "Material",
+      "Colour",
+      "Stackable / Foldable",
+      "Usage",
+      "Seat Height",
+      "Case size",
+      "Dimensions",
+      "Cushion",
+      "Seats",
+      "Frame material",
+      "Sofa frame material"
+    ],
+    tableService: [
+      "Pack Size",
+      "Colour",
+      "Dishwasher safe",
+      "Size",
+      "Capacity",
+      "Case size",
+      "Suitable for",
+      "Dishwasher Safe",
+      "Material",
+      "Suitable For",
+      "Dimensions / Diameter",
+    ]
 };

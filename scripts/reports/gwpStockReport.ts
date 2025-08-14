@@ -68,33 +68,17 @@ const campaigns: any[] = [
     destination_url: "https://www.beautyfeatures.ie/metal-detox/",
   },
   {
-    type: "category",
-    store: "bf",
-    identifier: "Vitamino Color",
-    thumbnail:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/75x75/products/6234/13703/Vitamino_Color_Mask__57243.1658477125.jpg?c=2&imbypass=on",
-    full_img:
-      "https://cdn11.bigcommerce.com/s-63354/images/stencil/300x300/products/6234/13703/Vitamino_Color_Mask__57243.1658477125.jpg?c=2&imbypass=on",
-    headline: "Free L'Oreal Professionnel Vitamino Color Mask 75ml",
-    worth: 8,
-    condition: "When you spend €30 on the L'Oreal Vitamino Color range",
-    sku: "11786",
-    sku_type: "product",
-    display: "TRUE",
-    destination_url: "https://www.beautyfeatures.ie/vitamino-color/",
-  },
-  {
     type: "brand",
     store: "bf",
     identifier: "Dermalogica",
     thumbnail:
-      "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/75x75/products/655/1387/Dermalogica_Biolumin-C_Brightening_Essentials__98852.1731582230.jpg?c=2&imbypass=on",
+      "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/75x75/products/662/1404/Dermalogica_Daily_Exfoliation_and_Hydrating_Essentials_GWP__06045.1740064104.jpg?c=2&imbypass=on",
     full_img:
-      "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/300x300/products/655/1387/Dermalogica_Biolumin-C_Brightening_Essentials__98852.1731582230.jpg?c=2&imbypass=on",
-    headline: "Dermalogica Biolumin-C Brightening Essentials",
-    worth: 9,
+      "https://cdn11.bigcommerce.com/s-7f87b/images/stencil/300x300/products/662/1404/Dermalogica_Daily_Exfoliation_and_Hydrating_Essentials_GWP__06045.1740064104.jpg?c=2&imbypass=on",
+    headline: "Free Dermalogica Daily Exfoliation and Hydrating Essentials Kit",
+    worth: 17,
     condition: "When you spend €100 or more on Dermalogica",
-    sku: "20505",
+    sku: "20842",
     sku_type: "product",
     display: "TRUE",
     destination_url: "https://www.beautyfeatures.ie/brands/Dermalogica.html",

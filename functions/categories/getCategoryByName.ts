@@ -1,16 +1,20 @@
+import { Category } from "./createCategory";
 import { getAllCategories } from "./getAllCategories";
 /**
  * Fetches a category object by name, if there are multiple it will reject
  * @param name
  * @returns
  */
-export const getCategoryByName = (name: string) =>
-  new Promise((resolve, reject) =>
-    getAllCategories({ name })
-      .then((res: any[]) =>
-        res.length > 1
-          ? reject("there are multiple categories with this name")
-          : resolve(res[0])
-      )
-      .catch((err: any) => reject(err))
-  );
+export async function getCategoryByName(
+  name: string
+): Promise<Category | undefined> {
+  try {
+    const res = await getAllCategories({ name });
+    if (res.length > 1) {
+      throw "there are multiple categories with this name";
+    }
+    return res[0];
+  } catch (err) {
+    throw err;
+  }
+}
