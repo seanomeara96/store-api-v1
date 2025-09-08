@@ -2,62 +2,49 @@ import { getAllProducts } from "./functions/products/getAllProducts";
 import { JSDOM } from "jsdom";
 import { parse } from "tldts";
 import { updateProduct } from "./functions/products/updateProduct";
-const inhealthBlacklistedDomainMap: { [key: string]: string } = {
-  "babyaccessories.ie": "pregnancyandbaby.ie",
-  "all4baby.ie": "pregnancyandbaby.ie",
-  "tonykealys.com": "pregnancyandbaby.ie",
-  "bellababy.ie": "pregnancyandbaby.ie",
-  "mamasandpapas.ie": "pregnancyandbaby.ie",
-  "traleenurserysupplies.com": "pregnancyandbaby.ie",
-  "babydocshop.ie": "pregnancyandbaby.ie",
-  "babasafe.ie": "babysafety.ie",
-  "hickeyspharmacies.ie": "pregnancyandbaby.ie",
-  "mambaby.com": "pregnancyandbaby.ie",
-  "boots.ie": "pregnancyandbaby.ie",
-  "mccabespharmacy.com": "pregnancyandbaby.ie",
-  "smythstoys.com": "pregnancyandbaby.ie",
-  "motherandbaby.ie": "pregnancyandbaby.ie",
-};
 
-function replaceBlacklistedUrls(
-  domainMap: { [key: string]: string },
-  content: string
-) {
-  return content.replace(/https?:\/\/([^\/"\s]+)/gi, (match, domain) => {
-    const lowerDomain = domain.toLowerCase();
-    if (domainMap[lowerDomain]) {
-      // Replace the whole URL (domain + path) with just the replacement domain
-      const prefix = match.startsWith("https://") ? "https://" : "http://";
-      return prefix + domainMap[lowerDomain];
-    }
-    return match;
-  });
+function checkIsLinkInternal(href: string, shopDomain: string): boolean {
+  return (
+    href.includes("%%GLOBAL_ShopPathSSL%%") ||
+    href.toLowerCase().includes(shopDomain.toLowerCase())
+  );
 }
 
 async function main() {
   try {
     require("./config/config").config("ih");
     const products = await getAllProducts();
-    for(let i= 0; i< products.length;i++){
-      console.log(i,products.length)
-      const p = products[i]
+    products.reverse();
+    for (let i = 0; i < products.length; i++) {
+      console.log(i, products.length);
+      const p = products[i];
       const wrappedDescription = wrap(p.description);
       const dom = new JSDOM(wrappedDescription);
       const document = dom.window.document;
-      const domains = getDomainsFromDocument(document);
-      let containsBlackListedDomains = false;
-      for (const domain of domains) {
-        if (inhealthBlacklistedDomainMap[domain]) {
-          containsBlackListedDomains = true;
-          break;
+
+      const anchors = document.querySelectorAll("a");
+      let toUpdate = false;
+      for (const anchor of anchors) {
+        const isNotInternalLink = !checkIsLinkInternal(
+          anchor.href,
+          "inhealth.ie"
+        );
+        if (isNotInternalLink && anchor.href.includes("utm_source=openai")) {
+          const fragment = document
+            .createRange()
+            .createContextualFragment(anchor.innerHTML);
+          anchor.replaceWith(fragment);
+          toUpdate = true;
         }
       }
-      if (containsBlackListedDomains) {
-        const updatedContent = replaceBlacklistedDomains(
-          document,
-          inhealthBlacklistedDomainMap
-        );
-        await updateProduct(p.id,{description: updatedContent})
+
+      if (toUpdate) {
+        await updateProduct(p.id, {
+          description: document.body.innerHTML.replace(
+            /\(([^)\s]+(\.[^)\s]+)+[^\s)]*)\)/g,
+            ""
+          ),
+        });
       }
     }
   } catch (err) {
@@ -107,7 +94,6 @@ function wrap(content: string) {
 </body>
 </html>`;
 }
-
 
 function getDomain(url: string): string {
   try {

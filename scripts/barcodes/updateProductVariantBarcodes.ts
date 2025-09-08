@@ -5,13 +5,12 @@ import { getProductVariants } from "../../functions/products/getProductVariants"
 import { updateProduct } from "../../functions/products/updateProduct";
 
 async function main() {
-  for(const store of ["ah", "bsk", "ih",  "pb", "bs"]){
+  for(const store of ["bf", "ah", "bsk", "ih",  "pb", "bs"]){
     require("../../config/config").config(store);
     try {
       const products = await getAllProducts();
-      console.log(products.length)
       for (let i = 0; i < products.length; i++) {
-        console.log(`Updating product ${i + 1} of ${products.length}`);
+        console.log(i,products.length);
         const product = products[i];
   
         try {

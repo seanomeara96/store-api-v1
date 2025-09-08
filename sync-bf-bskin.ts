@@ -33,7 +33,7 @@ import { marked } from "marked";
 import { getCustomFields } from "./functions/custom-fields/getCustomFields";
 
 const src = "bf";
-const destination: string = "px";
+const destination: string = "bsk";
 
 const addToPX = [
     "14348",

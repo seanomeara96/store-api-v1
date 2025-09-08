@@ -1,6 +1,6 @@
 import { NewImageParams } from "../products/createProduct";
 import FormData from "form-data";
-import {Readable } from "stream"
+import { Readable } from "stream";
 import fs from "fs";
 import { ProductImage } from "./getProductImage";
 /**
@@ -31,7 +31,7 @@ export function createProductImageFromFile(
   imagePath: string,
   imageName: string,
   isThumbnail: boolean,
-  sortOrder: number,
+  sortOrder: number
 ): Promise<undefined> {
   return new Promise(async function (resolve, reject) {
     try {
@@ -53,13 +53,12 @@ export function createProductImageFromFile(
   });
 }
 
-
 export function createProductImageFromBuffer(
   product_id: number,
   imageBuffer: Buffer,
   imageName: string,
   isThumbnail: boolean,
-  sortOrder: number,
+  sortOrder: number
 ): Promise<ProductImage> {
   return new Promise(async function (resolve, reject) {
     try {
@@ -72,19 +71,19 @@ export function createProductImageFromBuffer(
       readableStream.push(null); // Signal the end of the stream
 
       // Append the image buffer as a file
-      formData.append('image_file', readableStream, imageName);
+      formData.append("image_file", readableStream, imageName);
 
       // Append additional fields
-      formData.append('is_thumbnail', String(isThumbnail));
-      formData.append('sort_order', String(sortOrder));
+      formData.append("is_thumbnail", String(isThumbnail));
+      formData.append("sort_order", String(sortOrder));
+
+      const headers = formData.getHeaders();
 
       // Make the API request
-      const res = await require('../../config/config').store.post(
+      const res = await require("../../config/config").store.post(
         `/catalog/products/${product_id}/images`,
         formData,
-        {
-          headers: formData.getHeaders(),
-        },
+        { headers }
       );
 
       resolve(res.data.data);

@@ -12,7 +12,7 @@ export function removeCategoryFromProductsInCategory(
         return reject("id must be number");
       }
       const queryParam = {
-        "categories:in": categoryId,
+        "categories:in": [categoryId].join(","),
       };
 
       const products = suppliedProducts

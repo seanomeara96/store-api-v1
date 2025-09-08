@@ -1,10 +1,12 @@
+import { productUpdateFields } from "./createProduct";
+
 /**
  * updates a product. must supply a valid field
  * @param {number} productId
  * @param {object} fieldToUpdate
  * @returns promise
  */
-export function updateProduct(productId: number, fieldToUpdate: any) {
+export function updateProduct(productId: number, fieldToUpdate: productUpdateFields) {
   return new Promise(async function (resolve, reject) {
     if (typeof productId !== "number")
       return reject("product id must be a number");

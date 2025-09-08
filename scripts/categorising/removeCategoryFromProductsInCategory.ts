@@ -4,7 +4,7 @@ require("../../config/config").config("bf");
 
 async function main() {
   try {
-    const res = await removeCategoryFromProductsInCategory(640);
+    const res = await removeCategoryFromProductsInCategory(719);
     if (!Array.isArray(res)) {
       console.log(res);
       return;

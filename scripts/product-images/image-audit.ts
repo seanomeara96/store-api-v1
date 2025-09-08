@@ -8,13 +8,12 @@ import imageSize from "image-size";
 const store = "ch";
 require("../../config/config").config(store);
 const configs = [
-  {
-    id: 77,
-    name: `loungeFurniture`,
-  },
+  { id: 34, name: "tables" },
+  { id: 77, name: `loungeFurniture` },
   { id: 33, name: `outdoorFurniture` },
   { id: 28, name: `illuminatedFurniture` },
   { id: 576, name: `officeFurniture` },
+  //{ id: 38, name: `tableLinen` },
 ];
 
 async function test() {
@@ -66,12 +65,12 @@ async function test() {
 
           // console.log("Image Size: " + fileSize);
           // console.log("Dimensions: " + imageWidth + " x " + imageHeight);
-          const excesive_file_size_gt_70_kb = imageSizeInBytes / 1024 > 70;
-          const not_square = imageWidth != imageHeight;
+          const excesive_file_size_gt_70_kb = String(imageSizeInBytes / 1024 > 70);
+          const not_square = String(imageWidth != imageHeight);
           const excessive_file_dimensions =
-            imageWidth > 1000 || imageHeight > 1000;
+            String(imageWidth > 1000 || imageHeight > 1000);
           const insufficent_file_dimensions =
-            imageWidth < 800 || imageHeight < 800;
+            String(imageWidth < 800 || imageHeight < 800);
 
           let priority = "LOW";
           if (not_square && excessive_file_dimensions) {
@@ -94,6 +93,7 @@ async function test() {
             name: product.name,
             image_url: imageUrl,
             file_size: imageSizeInBytes,
+            file_size_formatted: formatBytes(imageSizeInBytes),
             width: imageWidth,
             height: imageHeight,
             excesive_file_size_gt_70_kb,

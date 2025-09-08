@@ -45,6 +45,24 @@ export function allhairPrompt(productDescription: string) {
     '. Unordered list-items only. Output in MARKDOWN format only and do not wrap your response in triple backticks`;
 }
 
+export function beautyfeaturesPrompt(productDescription: string) {
+  return `You are a content writer for the beautyfeatures.ie online cosmetics retailer in Ireland. Rewrite this content: "${productDescription}" so that it conforms to the following structure. 
+    'Use the following headings:
+    
+    <strong>Who's it for?</strong><br/>
+    (The type of condition/hair/skin this product is suitable for)
+    
+    <strong>Introduction</strong>
+    (Start by giving a summary of the product in a light, and friendly tone. 3-4 sentences should suffice)
+  
+    <strong>How To Use?</strong>
+    (give a 2-5 point guide for use)
+    
+    <strong>Key Ingredients</strong>
+    (list a 2-3 key ingredients or useful information such as whether it's vegan, sulphate free etc.)
+    '. Unordered list-items only. Output in MARKDOWN format only and do not wrap your response in triple backticks`;
+}
+
 export function pregnancyandbabyPrompt(productDescription: string) {
   return `You are a content writer for the pregnancyandbaby.ie a retailer for pregnancy and baby products. Rewrite this content: "${productDescription}" so that it conforms to the following structure. 
     'Start by giving a summary of the product in a light, and friendly tone. 3-4 sentences should suffice. Do not add a heading before this summary. Then use the following headings:
