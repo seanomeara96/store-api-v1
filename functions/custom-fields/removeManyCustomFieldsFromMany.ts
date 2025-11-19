@@ -22,20 +22,24 @@ const filters = [
     value: "Men & Women",
   },
 ];
+
 /**
  * Takes product Ids JSON and an Objetc with name and value properties for filters
  * @param {object} productIds
  * @param {object} filters
  * @returns
  */
-export const removeManyFiltersFromMany = (
+export async function removeManyFiltersFromMany(
   productIds: { [key: string]: number }[],
-  filters: { name: string; value: string }[]
-) =>
-  new Promise((resolve, reject) => {
-    let promises = productIds.map((product) => {
-      let idNumber = Object.values(product)[0];
+  filters: { name: string; value: string }[],
+) {
+  try {
+    const promises = productIds.map((product) => {
+      const idNumber = Object.values(product)[0];
       return removeManyFilters(idNumber, filters);
     });
-    Promise.allSettled(promises).then(resolve).catch(reject);
-  });
+    return await Promise.allSettled(promises);
+  } catch (error) {
+    throw error;
+  }
+}

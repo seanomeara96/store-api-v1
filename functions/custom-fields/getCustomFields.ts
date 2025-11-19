@@ -14,15 +14,15 @@ export interface NewCustomField {
  * @param {number} productId
  * @returns
  */
-export function getCustomFields(productId: number): Promise<CustomField[]> {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const response = await require("../../config/config").store.get(
-        `/catalog/products/${productId}/custom-fields`
-      );
-      resolve(response.data.data);
-    } catch (err) {
-      reject(err);
-    }
-  });
+export async function getCustomFields(
+  productId: number,
+): Promise<CustomField[]> {
+  try {
+    const response = await require("../../config/config").store.get(
+      `/catalog/products/${productId}/custom-fields`,
+    );
+    return response.data.data;
+  } catch (err) {
+    throw err;
+  }
 }

@@ -14,93 +14,83 @@ let data: {
   action: string;
 }[] = [
   {
-    product_id: 199,
-    product_name:
-      "Diva Burgundy Glass 84cl  - Extra Large Glass (Case Size 16)",
-    custom_field_id: 4647,
-    custom_field_name: "Case size",
-    custom_field_value: "16",
-    action: "DELETE",
-  },
-  {
-    product_id: 199,
-    product_name:
-      "Diva Burgundy Glass 84cl  - Extra Large Glass (Case Size 16)",
-    custom_field_id: 8561,
-    custom_field_name: "Case size",
-    custom_field_value: "4-piece glassware series",
+    product_id: 459,
+    product_name: "MY Drap Cocktail Napkin Emerald Green",
+    custom_field_id: 200,
+    custom_field_name: "Pack size",
+    custom_field_value: "25",
     action: "UPDATE",
   },
   {
-    product_id: 309,
-    product_name: "Black Salto Glass 33cl (Case Size 16)",
-    custom_field_id: 8962,
-    custom_field_name: "Capacity",
-    custom_field_value: "32.5cl/11oz",
+    product_id: 586,
+    product_name: "MY Drap Cocktail Napkin Sea Blue",
+    custom_field_id: 271,
+    custom_field_name: "Pack size",
+    custom_field_value: "25",
     action: "UPDATE",
   },
   {
-    product_id: 368,
-    product_name: "Pichet Water Jug 1 Litre (Case Size 1)",
-    custom_field_id: 8576,
-    custom_field_name: "Dishwasher Safe",
-    custom_field_value: "Yes",
-    action: "DELETE",
+    product_id: 643,
+    product_name: "MY Drap Cocktail Napkin Black",
+    custom_field_id: 305,
+    custom_field_name: "Pack size",
+    custom_field_value: "150",
+    action: "UPDATE",
   },
   {
-    product_id: 368,
-    product_name: "Pichet Water Jug 1 Litre (Case Size 1)",
-    custom_field_id: 9150,
-    custom_field_name: "Dishwasher Safe",
-    custom_field_value: "Yes",
-    action: "DELETE",
+    product_id: 674,
+    product_name: "MYdrap Napkin Fuchsia Pink 8in x 8in",
+    custom_field_id: 323,
+    custom_field_name: "Pack size",
+    custom_field_value: "25",
+    action: "UPDATE",
   },
   {
-    product_id: 372,
-    product_name: "Plain Water Jug 1 Litre (Case Size 1)",
-    custom_field_id: 4623,
-    custom_field_name: "Case size",
+    product_id: 915,
+    product_name: "MY Drap Canape Napkin Cream",
+    custom_field_id: 460,
+    custom_field_name: "Pack size",
+    custom_field_value: "100",
+    action: "UPDATE",
+  },
+  {
+    product_id: 943,
+    product_name: "MY Drap Canape Napkin Black Roll",
+    custom_field_id: 476,
+    custom_field_name: "Pack size",
+    custom_field_value: "100",
+    action: "UPDATE",
+  },
+  {
+    product_id: 460,
+    product_name: "MY Drap Cocktail Napkin Red Gingham",
+    custom_field_id: 201,
+    custom_field_name: "Pack size",
+    custom_field_value: "25",
+    action: "UPDATE",
+  },
+  {
+    product_id: 508,
+    product_name: "MY Drap Cocktail Napkin Pistachio",
+    custom_field_id: 228,
+    custom_field_name: "Pack size",
+    custom_field_value: "25",
+    action: "UPDATE",
+  },
+  {
+    product_id: 459,
+    product_name: "MY Drap Cocktail Napkin Emerald Green",
+    custom_field_id: 9779,
+    custom_field_name: "Pack size",
     custom_field_value: "1",
     action: "DELETE",
   },
   {
-    product_id: 372,
-    product_name: "Plain Water Jug 1 Litre (Case Size 1)",
-    custom_field_id: 8578,
-    custom_field_name: "Case size",
+    product_id: 460,
+    product_name: "MY Drap Cocktail Napkin Red Gingham",
+    custom_field_id: 9780,
+    custom_field_name: "Pack size",
     custom_field_value: "1",
-    action: "UPDATE",
-  },
-  {
-    product_id: 1586,
-    product_name: "Chrome Water Jug 1L (Case Size 1)",
-    custom_field_id: 7198,
-    custom_field_name: "Case size",
-    custom_field_value: "1",
-    action: "UPDATE",
-  },
-  {
-    product_id: 1586,
-    product_name: "Chrome Water Jug 1L (Case Size 1)",
-    custom_field_id: 9107,
-    custom_field_name: "Case Size",
-    custom_field_value: "1",
-    action: "DELETE",
-  },
-  {
-    product_id: 1614,
-    product_name: "Diamond Clear Water Tumbler 28cl (Case Size 1)",
-    custom_field_id: 7226,
-    custom_field_name: "Case size",
-    custom_field_value: "1",
-    action: "UPDATE",
-  },
-  {
-    product_id: 1614,
-    product_name: "Diamond Clear Water Tumbler 28cl (Case Size 1)",
-    custom_field_id: 9111,
-    custom_field_name: "Case Size",
-    custom_field_value: "1 per case",
     action: "DELETE",
   },
 ];
@@ -142,6 +132,11 @@ async function test() {
             row.custom_field_value
           );
         } catch (err: any) {
+          if (err.response.data.title.includes("already exists")) {
+            row.action = "delete";
+            i--;
+            continue;
+          }
           throw err;
         }
       } else if (row.action.toLowerCase() === "delete") {

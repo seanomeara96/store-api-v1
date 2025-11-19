@@ -5,9 +5,13 @@ import { getBrandByName } from "./getBrandByName";
  * @param {*} name
  * @returns
  */
-export const getBrandIdByName = (name: string): Promise<number | undefined> =>
-  new Promise((resolve, reject) => {
-    getBrandByName(name)
-      .then((i) => resolve(i? i.id : undefined))
-      .catch((err) => reject(err));
-  });
+export const getBrandIdByName = async (
+  name: string,
+): Promise<number | undefined> => {
+  try {
+    const brand = await getBrandByName(name);
+    return brand ? brand.id : undefined;
+  } catch (error) {
+    throw error;
+  }
+};

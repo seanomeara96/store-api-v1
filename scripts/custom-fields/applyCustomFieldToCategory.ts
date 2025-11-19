@@ -1,12 +1,13 @@
+import { getCategory } from "../../functions/categories/getCategory";
 import { getCategoryByName } from "../../functions/categories/getCategoryByName";
 import { applyCustomField } from "../../functions/custom-fields/applyCustomField";
 import { getAllProducts } from "../../functions/products/getAllProducts";
 
 async function foo() {
   try {
-    require("../../config/config").config("ha");
+    require("../../config/config").config("ch");
 
-    const category = await getCategoryByName("Childrens Furniture")
+    const category = await getCategory(38)
     if(!category) throw "computer says no. nice try"
 
     const products = await getAllProducts({
@@ -16,7 +17,7 @@ async function foo() {
       console.log(i, products.length)
       const p = products[i]
       try {
-        await applyCustomField(p.id, "Case size", "1");
+        await applyCustomField(p.id, "Pack size", "1");
         await new Promise((res) => setTimeout(res, 1500));
       } catch (err) {
         continue

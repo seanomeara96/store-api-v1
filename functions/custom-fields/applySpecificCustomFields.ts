@@ -9,32 +9,29 @@ interface specificFilters {
  * @param {array} data
  * @returns promise
  */
-export function applySpecificFilters(data: specificFilters[]) {
-  return new Promise(async function (resolve, reject) {
-    try {
-      for (const item of data) {
-        if (!item["Key"]) {
-          throw "No Key Heading";
-        }
-        if (!item["Value"]) {
-          throw "No Value heading";
-        }
-        const key = item["Key"];
-        const value = item["Value"];
-        // generate array of product names by removing fields key and value
-        let productNames = Object.keys(item).filter(
-          (key) => key !== "Key" && key !== "Value"
-        );
-        for (var name in productNames) {
-          if (item[productNames[name]].toUpperCase() === "X") {
-            const id = await getProductIdByName(productNames[name]);
-            await applyCustomField(id as number, key, value);
-          }
+export async function applySpecificFilters(data: specificFilters[]) {
+  try {
+    for (const item of data) {
+      if (!item["Key"]) {
+        throw "No Key Heading";
+      }
+      if (!item["Value"]) {
+        throw "No Value heading";
+      }
+      const key = item["Key"];
+      const value = item["Value"];
+      // generate array of product names by removing fields key and value
+      let productNames = Object.keys(item).filter(
+        (key) => key !== "Key" && key !== "Value",
+      );
+      for (const name of productNames) {
+        if (item[name].toUpperCase() === "X") {
+          const id = await getProductIdByName(name);
+          await applyCustomField(id as number, key, value);
         }
       }
-      resolve(undefined);
-    } catch (err) {
-      reject(err);
     }
-  });
+  } catch (err) {
+    throw err;
+  }
 }

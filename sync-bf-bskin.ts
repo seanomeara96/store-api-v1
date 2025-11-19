@@ -27,128 +27,290 @@ import { getProductByName } from "./functions/products/getProductByName";
 import { getProductVariants } from "./functions/products/getProductVariants";
 import { getAllProducts } from "./functions/products/getAllProducts";
 import OpenAI from "openai";
-import { allhairPrompt, caterhirePrompt, hireallPrompt } from "./chat/prompts";
+import { allhairPrompt, caterhirePrompt, hireallPrompt, pixiePrompt } from "./chat/prompts";
 import { htmlToText } from "html-to-text";
 import { marked } from "marked";
 import { getCustomFields } from "./functions/custom-fields/getCustomFields";
 
 const src = "bf";
-const destination: string = "bsk";
+const destination: string = "ah";
 
 const addToPX = [
-    "14348",
-    "14349",
-    "14351",
-    "14352",
-    "14353",
-    "14354",
-    "14355",
-    "14356",
-    "14357",
-    "14358",
-    "14402",
-    "14403",
-    "14404",
-    "14405",
-    "14406",
-    "14407",
-    "21581",
-    "21577",
-    "21582",
-    "21575",
-    "21595",
-    "21587",
-    "21591",
-    "21590",
-    "21580",
-    "21589",
-    "21592",
-    "21579",
-    "21594",
-    "21588",
-    "21586",
-    "21576",
-    "21593",
-    "21584",
-    "21583",
-    "21585",
-    "21676",
-    "21652",
-    "21674",
-    "21680",
-    "21677",
-    "21679",
-    "21675",
-    "21665",
-    "21671",
-    "21678",
-    "21668",
-    "21670",
-    "21666",
-    "21669",
-    "21672",
-    "21667",
-    "21673",
-    "21732",
-    "21681",
-    "21761",
-    "21804",
-    "21805",
-    "21806",
-    "21807",
-    "21808",
-    "21809",
-    "21810",
-    "21811",
-    "21812",
-    "21813",
-    "21814",
-    "21815",
-    "21816",
-    "21817",
-    "21818",
-    "21819",
-    "21820",
-    "21839",
-    "21840",
-    "21841",
-    "21842",
-    "21843",
-    "21844",
-    "21845",
-    "21846",
-    "21847",
-    "21855",
-    "21854"
+  "14348",
+  "14349",
+  "14351",
+  "14352",
+  "14353",
+  "14354",
+  "14355",
+  "14356",
+  "14357",
+  "14358",
+  "14402",
+  "14403",
+  "14404",
+  "14405",
+  "14406",
+  "14407",
+  "21581",
+  "21577",
+  "21582",
+  "21575",
+  "21595",
+  "21587",
+  "21591",
+  "21590",
+  "21580",
+  "21589",
+  "21592",
+  "21579",
+  "21594",
+  "21588",
+  "21586",
+  "21576",
+  "21593",
+  "21584",
+  "21583",
+  "21585",
+  "21676",
+  "21652",
+  "21674",
+  "21680",
+  "21677",
+  "21679",
+  "21675",
+  "21665",
+  "21671",
+  "21678",
+  "21668",
+  "21670",
+  "21666",
+  "21669",
+  "21672",
+  "21667",
+  "21673",
+  "21732",
+  "21681",
+  "21804",
+  "21805",
+  "21806",
+  "21807",
+  "21808",
+  "21809",
+  "21810",
+  "21811",
+  "21812",
+  "21813",
+  "21814",
+  "21815",
+  "21816",
+  "21817",
+  "21818",
+  "21819",
+  "21820",
+  "21839",
+  "21840",
+  "21841",
+  "21842",
+  "21843",
+  "21844",
+  "21845",
+  "21846",
+  "21847",
+  "21891",
+  "21890",
+  "21889",
+  "21888",
+  "21887",
+  "21886",
+  "21885",
+  "21884",
+  "21883",
+  "21882",
+  "21855",
+  "21854",
+  "21927",
+  "21926",
+  "21892",
+  "22027",
+  "22028",
+  "22029",
+  "22030",
+  "22033",
+  "22034",
+  "22035",
+  "22037",
+  "22039",
+  "22040",
+  "22041",
+  "22042",
+  "22043",
+  "22044",
+  "22045",
+  "22047",
+  "22048",
+  "22049",
+  "22050",
+  "22051",
+  "22052",
+  "22053",
+  "22054",
+  "22055",
+  "22056",
+  "22058",
+  "22059",
+  "22060",
+  "22061",
+  "22062",
+  "22064",
+  "22066",
+  "22067",
+  "22069",
+  "22070",
+  "22071",
+  "22074",
+  "22075",
+  "22076",
+  "22077",
+  "22078",
+  "22081",
+  "22082",
+  "22085",
+  "22087",
+  "22089",
+  "22091",
+  "22092",
+  "22093",
+  "22094",
+  "22095",
+  "22096",
+  "22097",
+  "22099",
+  "22100",
+  "22101",
+  "22102",
+  "22103",
+  "22104",
+  "22105",
+  "22106",
+  "22107",
+  "22108",
+  "22109",
+  "22110",
+  "22112",
+  "22114",
+  "22115",
+  "22116",
+  "22117",
+  "22118",
+  "22119",
+  "22121",
+  "22122",
+  "22123",
+  "22124",
+  "22126",
+  "22127",
+  "22129",
+  "22130",
+  "22131",
+  "22132",
+  "22133",
+  "22134",
+  "22136",
+  "22137",
+  "22138",
+  "22139",
+  "22140",
+  "22142",
+  "22143",
+  "22145",
+  "22146",
+  "22147",
+  "22148",
+  "22149",
+  "22150",
+  "22151",
+  "22152",
+  "22153",
+  "22154",
+  "22155",
+  "22156",
+  "22157",
+  "22159",
+  "22160",
+  "22162",
+  "22163",
+  "22164",
+  "22166",
+  "22167",
+  "22168",
+  "22169",
+  "22170",
+  "22171",
+  "22172",
+  "22173",
+  "22174",
+  "22175",
+  "22176",
+  "22178",
+  "22180",
+  "22181",
+  "22182",
+  "22183",
+  "22184",
+  "22185",
+  "22186",
+  "22188",
+  "22189",
+  "22190",
+  "22192",
+  "22193",
+  "22194",
+  "22195",
+  "22196",
+  "22197",
+  "22199",
+  "22200",
+  "22202",
+  "22203",
+  "22205",
+  "22206",
+  "22207",
+  "22209",
+  "22211",
+  "22212",
+  "22213",
+  "22214",
+  "22215",
+  "22216",
+  "22217",
+  "22218",
+  "22219",
+  "22221",
 ];
 
 const addToIH: string[] = [
-    "21782",
-    "21784",
-    "21787",
-    "21781",
-    "21776",
-    "21773",
-    "21775",
-    "21771",
-    "21770",
-    "21769",
-    "21768",
-    "21767",
-    "21766",
-    "21765",
-    "21757",
-    "21756"
+  "21782",
+  "21784",
+  "21787",
+  "21781",
+  "21776",
+  "21773",
+  "21775",
+  "21771",
+  "21770",
+  "21769",
+  "21768",
+  "21767",
+  "21766",
+  "21765",
+  "21757",
+  "21756",
 ];
 
 const addToCH: string[] = [];
 
-const addToHA: string[] = [
-  "F016",
-  "F015",
-  "F017",
-  "F025"
-];
+const addToHA: string[] = ["F016", "F015", "F017", "F025"];
 
 (async function () {
   try {
@@ -188,6 +350,12 @@ async function transfer(src: string, destination: string) {
 
     if (!src_name) {
       throw new Error("No config for that source store");
+    }
+
+    if (destination == "kbsk") {
+      srcFilter = { "categories:in": [1135].join(",") };
+      destinationDummyCategoryID = 24;
+      destination_name = "Korean Beauty Skincare";
     }
 
     if (destination === "ah") {
@@ -258,22 +426,25 @@ async function transfer(src: string, destination: string) {
     }
 
     if (destination === "ih") {
-      destinationDummyCategoryID = 1469
+      destinationDummyCategoryID = 1469;
       srcFilter = { "sku:in": addToIH.join(",") };
-      destination_name = "InHealth"
-      skipBrands = []
+      destination_name = "InHealth";
+      skipBrands = [];
     }
 
-    if(destination === "ha" && src !== "ch"){
-      throw new Error("source for hireall must be caterhire")
+    if (destination === "ha" && src !== "ch") {
+      throw new Error("source for hireall must be caterhire");
     }
 
     if (destination === "ch" && src !== "ha") {
-      throw new Error("source for caterhire must be hireall")
+      throw new Error("source for caterhire must be hireall");
     }
 
     if (
-      (destination === "ah" || destination === "bsk" || destination === "px" || destination === "ih") &&
+      (destination === "ah" ||
+        destination === "bsk" ||
+        destination === "px" ||
+        destination === "ih" || destination === "kbsk") &&
       src !== "bf"
     ) {
       throw new Error("src for ah/bsk/px/ih must be bf");
@@ -395,7 +566,9 @@ async function transfer(src: string, destination: string) {
 
       // if there is no brand on the src product its prob discontinued, so skip
       if (!brand) {
-        console.log(`skipping ${product.name} due to possible discontinued brand`)
+        console.log(
+          `skipping ${product.name} due to possible discontinued brand`
+        );
         continue;
       }
 
@@ -433,26 +606,34 @@ async function transfer(src: string, destination: string) {
         destination_name
       );
 
+      if (destination === "px") {
+        updatedDescription = await bfToPxContentStructure(updatedDescription)
+      }
+
       if (destination === "ah") {
         updatedDescription = await bfToAhContentStructure(updatedDescription);
       }
 
       if (destination === "ch") {
-
         require("./config/config").config(src);
 
-        const cf = await getCustomFields(product.id)
+        const cf = await getCustomFields(product.id);
 
-        const additionalContext = `Also include details in the updated product content: ${JSON.stringify(cf)} `
+        const additionalContext = `Also include details in the updated product content: ${JSON.stringify(
+          cf
+        )} `;
 
-        console.log(product.name, product.sku)
-        updatedDescription = await haToCHContentStructure(updatedDescription, additionalContext)
+        console.log(product.name, product.sku);
+        updatedDescription = await haToCHContentStructure(
+          updatedDescription,
+          additionalContext
+        );
 
         require("./config/config").config(destination);
       }
 
-      if(destination === "ha"){
-        updatedDescription = await chToHAContentStructure(updatedDescription)
+      if (destination === "ha") {
+        updatedDescription = await chToHAContentStructure(updatedDescription);
       }
 
       const updatedMetaDescription = product.meta_description.replace(
@@ -481,7 +662,7 @@ async function transfer(src: string, destination: string) {
         meta_description: updatedMetaDescription,
         inventory_tracking: product.inventory_tracking,
         inventory_level: product.inventory_level,
-        is_visible: false,
+        is_visible: product.is_visible,
         sort_order: product.sort_order,
         images: newImages,
         brand_name: brand_name,
@@ -644,7 +825,7 @@ function generateRandomString(length: number) {
   return result;
 }
 
- async function bfToAhContentStructure(
+async function bfToAhContentStructure(
   productDescription: string
 ): Promise<string> {
   try {
@@ -666,6 +847,28 @@ function generateRandomString(length: number) {
   }
 }
 
+async function bfToPxContentStructure(
+  productDescription: string
+): Promise<string> {
+  try {
+    let response = await new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    }).chat.completions.create({
+      model: "gpt-4o",
+      messages: [
+        {
+          role: "user",
+          content: pixiePrompt(htmlToText(productDescription)),
+        },
+      ],
+    });
+
+    return marked(response.choices[0].message.content || "");
+  } catch (err: any) {
+    throw err;
+  }
+}
+
 async function chToHAContentStructure(
   productDescription: string
 ): Promise<string> {
@@ -677,7 +880,7 @@ async function chToHAContentStructure(
       messages: [
         {
           role: "user",
-          content: hireallPrompt(htmlToText(productDescription),''),
+          content: hireallPrompt(htmlToText(productDescription), ""),
         },
       ],
     });
@@ -690,7 +893,7 @@ async function chToHAContentStructure(
 
 async function haToCHContentStructure(
   productDescription: string,
-  additionalContext: string,
+  additionalContext: string
 ): Promise<string> {
   try {
     let response = await new OpenAI({
@@ -700,7 +903,10 @@ async function haToCHContentStructure(
       messages: [
         {
           role: "user",
-          content: caterhirePrompt(htmlToText(productDescription), additionalContext),
+          content: caterhirePrompt(
+            htmlToText(productDescription),
+            additionalContext
+          ),
         },
       ],
     });

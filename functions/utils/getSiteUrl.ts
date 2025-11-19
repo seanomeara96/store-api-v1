@@ -4,6 +4,8 @@
  */
 export function getSiteUrl(storeInitials: string): string {
   switch (storeInitials.toLowerCase()) {
+    case "kbsk":
+      return "https://koreanbeautyskincare.ie"
     case "px":
       return "https://pixieloves.ie";
     case "bf":

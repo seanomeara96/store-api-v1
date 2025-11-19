@@ -6,19 +6,16 @@ import { applyCustomField } from "./applyCustomField";
  * @param {string} value
  * @returns
  */
-export function applyCustomFieldToMany(
+export async function applyCustomFieldToMany(
   productIds: number[],
   name: string,
-  value: string
+  value: string,
 ) {
-  return new Promise(async function (resolve, reject) {
-    try {
-      for (const id of productIds) {
-        await applyCustomField(id, name, value)
-      }
-      resolve(undefined)
-    } catch (err) {
-      reject(err);
+  try {
+    for (const id of productIds) {
+      await applyCustomField(id, name, value);
     }
-  });
+  } catch (err) {
+    throw err;
+  }
 }

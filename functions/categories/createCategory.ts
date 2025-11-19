@@ -48,18 +48,19 @@ export interface Category {
   };
 }
 
-export function createCategory(
-  categoryToCreate: CategoryCreationParams
+export async function createCategory(
+  categoryToCreate: CategoryCreationParams,
 ): Promise<Category> {
-  return new Promise(async function (resolve, reject) {
-    try {
-      const res = await require("../../config/config").store.post(
-        `/catalog/categories`,
-        categoryToCreate
-      );
-      resolve(res.data.data);
-    } catch (err) {
-      reject(err);
-    }
-  });
+  const config = await import("../../config/config");
+  try {
+    const response = await config.store.post(
+      `/catalog/categories`,
+      categoryToCreate,
+    );
+    return response.data.data;
+  } catch (error) {
+    return Promise.reject(
+      new Error(`Failed to create category: ${error.message}`),
+    );
+  }
 }

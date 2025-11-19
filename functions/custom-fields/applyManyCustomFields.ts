@@ -6,18 +6,15 @@ import { NewCustomField } from "./getCustomFields";
  * @param {object[]} customFields
  * @returns
  */
-export function applyManyCustomFields(
+export async function applyManyCustomFields(
   productId: number,
-  customFields: NewCustomField[]
+  customFields: NewCustomField[],
 ) {
-  return new Promise(async function (resolve, reject) {
-    try {
-      for (const { name, value } of customFields) {
-        await applyCustomField(productId, name, value);
-      }
-      resolve(undefined);
-    } catch (err) {
-      reject(err);
+  try {
+    for (const { name, value } of customFields) {
+      await applyCustomField(productId, name, value);
     }
-  });
+  } catch (err) {
+    throw err;
+  }
 }

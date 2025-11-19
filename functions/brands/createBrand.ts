@@ -37,19 +37,17 @@ export interface BrandCreationParams {
 }
 /**
  * copied to client.ts
- * @param params 
- * @returns 
+ * @param params
+ * @returns
  */
-export function createBrand(params: BrandCreationParams): Promise<Brand> {
-  return new Promise(async function (resolve, reject) {
-    try {
-      const res = await require("../../config/config").store.post(
-        `/catalog/brands`,
-        params
-      );
-      resolve(res.data.data);
-    } catch (err) {
-      reject(err);
-    }
-  });
+export async function createBrand(params: BrandCreationParams): Promise<Brand> {
+  try {
+    const res = await require("../../config/config").store.post(
+      `/catalog/brands`,
+      params,
+    );
+    return res.data.data;
+  } catch (err) {
+    throw err;
+  }
 }

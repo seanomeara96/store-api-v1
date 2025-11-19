@@ -1,4 +1,4 @@
-require("../../config/config").config("pb");
+require("../../config/config").config("kbsk");
 import { Product } from "../../functions/products/Product";
 import { getAllProducts } from "../../functions/products/getAllProducts";
 import { updateProduct } from "../../functions/products/updateProduct";
@@ -39,11 +39,18 @@ async function main() {
       const promise = updateProduct(product.id, { retail_price: 0 });
       promises.push(promise);
     }
-    await Promise.allSettled(promises);
+    await Promise.all(promises);
 
 
     const secondCheck = await fetchNonZeroRetailPrices();
-    log(`${secondCheck.length} still need to be updated. Something went wrong`);
+
+    if(secondCheck.length === 0){
+      log("all g my fren")
+    } else {
+      log(`${secondCheck.length} still need to be updated. Something went wrong`);
+    }
+
+    
   } catch (err) {
     log(err);
   }

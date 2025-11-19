@@ -6,22 +6,26 @@ import { Brand } from "./Brand";
  * @param {object} fieldToUpdate
  * @returns promise
  */
-export function updateBrand(
+export async function updateBrand(
   brandId: number,
-  fieldToUpdate: any
+  fieldToUpdate: Record<string, any>,
 ): Promise<Brand> {
-  return new Promise((resolve, reject) => {
-    if (typeof brandId !== "number")
-      return reject("product id must be a number");
+  if (typeof brandId !== "number") {
+    throw new Error("Brand ID must be a number");
+  }
 
-    if (typeof fieldToUpdate !== "object")
-      return reject("field to update must be an object");
+  if (typeof fieldToUpdate !== "object" || fieldToUpdate === null) {
+    throw new Error("Field to update must be a non-null object");
+  }
 
-    require("../../config/config")
-      .store.put(`/catalog/brands/${brandId}`, {
-        ...fieldToUpdate,
-      })
-      .then((res: any) => resolve(res.data.data as Brand))
-      .catch((err: any) => reject(err.response.data));
-  });
+  const config = require("../../config/config");
+  try {
+    const res = await config.store.put(
+      `/catalog/brands/${brandId}`,
+      fieldToUpdate,
+    );
+    return res.data.data as Brand;
+  } catch (err: any) {
+    throw err.response.data;
+  }
 }

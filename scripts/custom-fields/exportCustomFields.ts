@@ -10,6 +10,9 @@ import { getAllProducts } from "../../functions/products/getAllProducts";
 import { output } from "../utils/output";
 async function exportCustomFields() {
   try {
+
+    // table linen hireall
+    // ha 266
     require("../../config/config").config("ha")
     const data: {
       product_id: number;
@@ -18,7 +21,7 @@ async function exportCustomFields() {
       custom_field_name: string;
       custom_field_value: string;
     }[] = [];
-    const products = await getAllProducts({ "categories:in": [292].join(",") });
+    const products = await getAllProducts({ "categories:in": [266].join(",") });
     for (let i = 0; i < products.length; i++) {
       console.log(`fetching custom fields`, i, products.length);
       const product = products[i];

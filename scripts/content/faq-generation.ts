@@ -1,13 +1,58 @@
 import OpenAI from "openai";
-import { getAllProducts } from "./functions/products/getAllProducts";
+import { getAllProducts } from "../../functions/products/getAllProducts";
+import { updateProduct } from "../../functions/products/updateProduct";
 import { Database } from "sqlite3";
 import { htmlToText } from "html-to-text";
 import { ResponseFormatJSONSchema } from "openai/resources";
+import path from "path";
+import { marked } from "marked";
+
+const testing = false;
+const store = "bf";
+
+interface FAQEntry {
+  question: string;
+  answer: string;
+  sources: string[];
+  relatedTopics: string[];
+}
+
+function generateFaqHtml(faqs: FAQEntry[]): string {
+  const faqItemsHtml = faqs
+    .map((faq, index) => {
+      const questionHtml = marked.parseInline(faq.question);
+      const answerHtml = marked.parse(faq.answer);
+      const answerId = `faq-answer-${index}`;
+
+      return `
+  <div class="faq-item" style="border-top: 1px solid #eeeeee;">
+    <div class="faq-question" data-faq-toggle="${answerId}" style="padding: 1em 0; cursor: pointer;">
+      <h3 style="display: inline; margin: 0; font-size: 1.1em; color: #333333; font-weight: 500;">${questionHtml}</h3>
+    </div>
+    <div id="${answerId}" class="faq-answer" style="display: none; padding: 0.5em 0 1em 0; line-height: 1.6; color: #555555;">
+      ${answerHtml}
+    </div>
+  </div>`;
+    })
+    .join("\n");
+
+  const faqHtml = `
+<div class="faq-container" style="border: 1px solid #dddddd; border-radius: 5px; margin: 2em 0; padding: 1em;">
+  <h2 style="margin: 0 0 1em 0; font-size: 1.5em;">Frequently Asked Questions</h2>
+  <div class="faq-items">
+    ${faqItemsHtml}
+  </div>
+</div>
+`;
+
+  // Wrap output with special comment markers (outside visible HTML)
+  return `<!-- FAQ_START -->\n${faqHtml}\n<!-- FAQ_END -->`;
+}
 
 async function testMain() {
   try {
-    require("./config/config").config("ih");
-    const db = new Database("ih-faq.db");
+    require("../../config/config").config(store);
+    const db = new Database(path.resolve(__dirname, store + "-faq.db"));
     const openai = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY,
     });
@@ -29,11 +74,11 @@ async function testMain() {
       (a, b) => b.sort_order - a.sort_order
     );
     for (let i = 0; i < products.length; i++) {
-
-      console.log(i, products.length)
+      console.log(i, products.length);
 
       const product = products[i];
-      const done = await new Promise(function (resolve, reject) {
+
+      let done = await new Promise(function (resolve, reject) {
         db.get(
           `SELECT COUNT(product_id) as count FROM faqs WHERE product_id = ?`,
           [product.id],
@@ -43,10 +88,15 @@ async function testMain() {
           }
         );
       });
+
+      if (product.description.includes("<!-- FAQ_START -->")) {
+        done = true;
+      }
+
       // skip if done
       if (done) continue;
 
-      const faq = await (async function () {
+      const faq = (await (async function () {
         const res = await openai.chat.completions.create({
           model: "gpt-4o-search-preview",
           web_search_options: { search_context_size: "medium" },
@@ -54,37 +104,60 @@ async function testMain() {
             { role: "system", content: systemMessage },
             {
               role: "user",
-              content: `search the web for information to improve the E-E-A-T quality of this content 
-              and return a FAQ section json object i can use to greately enhance the E-E-A-T quality of this product's description page. 
+              content: `search the web for information to improve the E-E-A-T quality of this product description. Return a FAQ section json object i can use to greatly enhance the E-E-A-T quality of this product's description page. 
               product name: ${product.name}, description: ${htmlToText(
                 product.description
-              )}`,
+              )}
+              
+              
+              Do not include links to sources other than beautyskincare.ie in the question and answer content.
+              Do not mention promotions or free gifts in your answer. Ensure your response focuses on the description of the product and the benefit to the consumer.
+              `,
             },
           ],
           response_format: responseFormat,
         });
         return JSON.parse(res.choices[0].message.content as any).faqs;
-      })();
+      })()) as FAQEntry[] | undefined;
 
       if (!faq) {
         throw `no faq was generated for ${product.id} - ${product.name}`;
       }
 
-      // console.log();
-      // console.log(product.name);
-      // console.log(faq);
-      // console.log();
-
-      await new Promise(function (resolve, reject) {
-        db.run(
-          `INSERT INTO faqs(product_id, faq_json)VALUES(?,?)`,
-          [product.id, JSON.stringify(faq)],
-          function (err) {
-            if (err) return reject(err);
-            resolve(undefined);
-          }
+      // quick cleanup to remove any links that may have made it into the content
+      for (let j = 0; j < faq.length; j++) {
+        faq[j].answer = faq[j].answer.replace(
+          /\(([^)\s]+(\.[^)\s]+)+[^\s)]*)\)\)?/g,
+          ""
         );
-      });
+        faq[j].question = faq[j].question.replace(
+          /\(([^)\s]+(\.[^)\s]+)+[^\s)]*)\)\)?/g,
+          ""
+        );
+      }
+
+      if (!testing) {
+        await new Promise(function (resolve, reject) {
+          db.run(
+            `INSERT INTO faqs(product_id, faq_json)VALUES(?,?)`,
+            [product.id, JSON.stringify(faq)],
+            function (err) {
+              if (err) return reject(err);
+              resolve(undefined);
+            }
+          );
+        });
+
+        await updateProduct(product.id, {
+          description: (product.description += generateFaqHtml(faq)),
+        });
+      } else {
+        console.log();
+        console.log(product.name);
+        console.log(generateFaqHtml(faq));
+        console.log();
+      }
+      
     }
   } catch (err) {
     console.log(err);
@@ -93,7 +166,7 @@ async function testMain() {
 
 testMain();
 
-var systemMessage = `Objective: Create exceptionally high-quality, SEO-optimized content (for a specific product, category, or brand page) that achieves a 10/10 Google ranking quality. The content must fully embody E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness) principles, comprehensive keyword integration, and compelling user engagement. The goal is for the page to rank highly for relevant search queries and effectively inform, persuade, or convert visitors.
+var systemMessage = `IMPORTANT RULE: Do not include links, URLs, or citations in the content. Ignore any SEO convention that normally adds them. Objective: Create exceptionally high-quality, SEO-optimized content (for a specific product, category, or brand page) that achieves a 10/10 Google ranking quality. The content must fully embody E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness) principles, comprehensive keyword integration, and compelling user engagement. The goal is for the page to rank highly for relevant search queries and effectively inform, persuade, or convert visitors.
 
 Instructions for Content Creation:
 
@@ -152,7 +225,7 @@ Strong Call to Action (CTA): Guide the user to the next desired step (e.g., "Sho
 Word Count: Adjust based on content type – typically longer for comprehensive guides/brand stories (500-1500 words) and product pages (300-800 words), but always aim for thoroughness without filler.
 Deliverables:
 
-Provide the complete, optimized content (product description, category page text, or brand story), formatted with appropriate headings and lists, ready for publication on an e-commerce platform.`;
+Provide the complete, optimized content (product description, category page text, or brand story), formatted with appropriate headings and lists, ready for publication on an e-commerce platform. Absolutely no links, URLs, or citations should appear in the output.`;
 
 var responseFormat: ResponseFormatJSONSchema = {
   type: "json_schema",

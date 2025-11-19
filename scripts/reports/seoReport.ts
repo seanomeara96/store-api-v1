@@ -172,6 +172,7 @@ const stores: Stores = [
   { initial: "ds", name: "DogSpace" },
   { initial: "stie", name: "Sleepytot IE" },
   { initial: "px", name: "Pixie Loves" },
+  { initial: "kbsk", name: "Korean BeautySkincare" },
 ];
 checkAllSeo(stores, [
   "sean@beautyfeatures.ie",

@@ -1,12 +1,12 @@
 import path from "path";
 import fs from "fs";
-import { getAllCategories } from "./functions/categories/getAllCategories";
+import { getAllCategories } from "../functions/categories/getAllCategories";
 import {
   Category,
   CategoryCreationParams,
   createCategory,
-} from "./functions/categories/createCategory";
-const { config } = require("./config/config");
+} from "../functions/categories/createCategory";
+const { config } = require("../config/config");
 
 // Type definitions
 type CategoryMap = Record<number, number | undefined>;
@@ -15,46 +15,19 @@ interface CategoryWithChildren extends Category {
 }
 
 // Configuration constants
-const MAPPING_FILE = path.resolve(__dirname, "ih-pb-mapping.json");
-const SOURCE_CONFIG = "ih";
-const TARGET_CONFIG = "pb";
-const ROOT_CATEGORY_ID = 970;
+
+const SOURCE_CONFIG = "bf";
+const TARGET_CONFIG = "kbsk";
+
+const MAPPING_FILE = path.resolve(__dirname, `${SOURCE_CONFIG}-${TARGET_CONFIG}-mapping.json`);
+
+// the parent category of which you want to copy it and its children
+const ROOT_CATEGORY_ID = 1135;
 
 // Initial category ID mapping
+// manually include any preexisting mappings
 const INITIAL_MAP: CategoryMap = {
-  970: 130,
-  975: 189,
-  983: 205,
-  1031: 186,
-  1045: 193,
-  1048: 209,
-  1085: 194,
-  1113: 190,
-  1118: 217,
-  1120: 210,
-  1131: 195,
-  1142: 211,
-  1159: 196,
-  1168: 212,
-  1170: 197,
-  1195: 213,
-  1208: 202,
-  1214: 218,
-  1216: 203,
-  1241: 198,
-  1256: 219,
-  1289: 206,
-  1300: 214,
-  1310: 199,
-  1312: 215,
-  1333: 204,
-  1369: 200,
-  1405: 191,
-  1441: 207,
-  1442: 216,
-  1443: 192,
-  1444: 201,
-  1445: 208,
+1135:24
 };
 
 async function loadCategoryMap(): Promise<CategoryMap> {

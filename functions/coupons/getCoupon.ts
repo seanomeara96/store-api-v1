@@ -1,13 +1,14 @@
 // 'The route is not found, check the URL'
 
-export const getCoupon = (id: number) =>
-  new Promise((resolve, reject) =>
-    require("../../config/config")
-      .store.get(`/coupons/${id}`)
-      .then(resolve)
-      .catch(reject)
-  );
-
+export async function getCoupon(id: number) {
+  try {
+    const config = require("../../config/config");
+    const result = await config.store.get(`/coupons/${id}`);
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
 
 // not been implemented yet
 // exports.getCoupon = getCoupon;

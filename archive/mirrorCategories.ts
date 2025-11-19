@@ -3,90 +3,96 @@ import { getAllProducts } from "../functions/products/getAllProducts";
 import { getProductBySku } from "../functions/products/getProductBySKU";
 import { getProductIdFromSku } from "../functions/products/getProductIdFromSku";
 import { getProductVariants } from "../functions/products/getProductVariants";
+import { Product } from "../functions/products/Product";
 /**
  * needed to get products from a category on beautyskincare and map them to an equivalent category on pixieloves
  */
 
+const src = "bf";
+const dest = "kbsk";
+
 async function main() {
   try {
-    const data = [
-      { cat_name: "Product Range", bsk_id: 59, px_id: 449 },
-      { cat_name: "Active Clearing", bsk_id: 93, px_id: 458 },
-      { cat_name: "AGE Smart®", bsk_id: 12, px_id: 452 },
-      { cat_name: "UltraCalming™ (Sensitive Skin)", bsk_id: 18, px_id: 459 },
-      {
-        cat_name: "MediBac Clearing® (Acne treatments)",
-        bsk_id: 23,
-        px_id: 451,
-      },
-      {
-        cat_name: "Clear Start™ (Skincare for Teenagers)",
-        bsk_id: 52,
-        px_id: 460,
-      },
-      { cat_name: "Daily Skin Health", bsk_id: 16, px_id: 455 },
-      { cat_name: "Daylight Defense", bsk_id: 17, px_id: 457 },
-      { cat_name: "PowerBright TRx™", bsk_id: 53, px_id: 454 },
-      { cat_name: "Gluten-Free", bsk_id: 79, px_id: 456 },
-      { cat_name: "Vegan", bsk_id: 80, px_id: 453 },
-      { cat_name: "Skin Concern", bsk_id: 60, px_id: 450 },
-      { cat_name: "Signs of Ageing", bsk_id: 62, px_id: 467 },
-      { cat_name: "Acne and Breakouts", bsk_id: 41, px_id: 465 },
-      { cat_name: "Dryness and Dehydration", bsk_id: 40, px_id: 463 },
-      { cat_name: "Oily Skin", bsk_id: 46, px_id: 461 },
-      { cat_name: "Sensitivity and Redness", bsk_id: 61, px_id: 462 },
-      { cat_name: "Uneven Skin Tone", bsk_id: 63, px_id: 466 },
-      { cat_name: "Dermalogica Speed Mapping", bsk_id: 65, px_id: 464 },
-    ];
-    for (let x = 1; x < data.length; x++) {
-      const category = data[x];
+    const data: { [key: number]: number } = {
+      "1135": 24,
+      "1159": 25,
+      "1160": 26,
+      "1161": 27,
+      "1162": 28,
+      "1163": 29,
+      "1164": 30,
+      "1165": 31,
+      "1166": 32,
+      "1176": 33,
+      "1177": 34,
+      "1178": 35,
+      "1179": 36,
+      "1180": 37,
+      "1181": 38,
+      "1182": 39,
+      "1183": 40,
+      "1184": 41,
+      "1185": 42,
+      "1186": 43,
+      "1187": 44,
+      "1188": 45,
+      "1189": 46,
+      "1190": 47,
+      "1191": 50,
+      "1192": 51,
+      "1193": 52,
+      "1194": 53,
+      "1195": 54,
+      "1196": 55,
+      "1197": 56,
+      "1198": 48,
+      "1199": 49,
+    };
 
-      require("./config/config").config("bsk");
-      const bskSKUs = [];
-      
+    for (const src_id_key in data) {
+      require("../config/config").config(src);
+      const srcSKUs = [];
 
       const products = await getAllProducts({
-        "categories:in": category.bsk_id,
+        "categories:in": src_id_key,
       });
-      console.log(
-        `there are ${products.length} products in the ${category.cat_name} category`
-      );
 
       for (let i = 0; i < products.length; i++) {
         const product = products[i];
 
-        console.log(`getting variants for ${i + 1}/${products.length}`);
+        console.log(`getting variants for ${i}/${products.length}`);
 
         const variants = (await getProductVariants(product.id)) as any[];
         for (let ii = 0; ii < variants.length; ii++) {
           const variant = variants[ii];
-          bskSKUs.push(variant.sku);
+          srcSKUs.push(variant.sku);
         }
       }
 
-      const uniquebskSKUs = [...new Set(bskSKUs)];
+      const uniqueSrcSKUs = [...new Set(srcSKUs)];
 
-      require("./config/config").config("px");
+      require("../config/config").config(dest);
 
-      for (let iii = 0; iii < uniquebskSKUs.length; iii++) {
-        const sku = uniquebskSKUs[iii];
+      for (let iii = 0; iii < uniqueSrcSKUs.length; iii++) {
+        const sku = uniqueSrcSKUs[iii];
 
-        let product;
+        let product: Product | undefined;
 
         try {
-          product = (await getProductBySku(sku)) as any;
+          product = await getProductBySku(sku);
         } catch (err) {
           continue;
         }
 
+        if (!product) continue;
+
         console.log(`adding category to product ${product.name}`);
 
+        const dest_id = data[src_id_key];
         try {
-          await addCatToProduct(product.id, category.px_id);
+          await addCatToProduct(product.id, dest_id);
         } catch (err) {
-          console.log(
-            `error adding cat id ${category.px_id} to ${product.name}`
-          );
+          console.log(`error adding cat id ${dest_id} to ${product.name}`);
         }
       }
     }

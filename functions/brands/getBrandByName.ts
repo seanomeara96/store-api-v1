@@ -5,24 +5,20 @@ import { getAllBrands } from "./getAllBrands";
  * @param {*} name
  * @returns
  */
-export function getBrandByName(name: string): Promise<Brand | undefined> {
-  return new Promise(async function (resolve, reject) {
-    try {
-      const res = await getAllBrands({ name });
+export async function getBrandByName(name: string): Promise<Brand | undefined> {
+  try {
+    const res = await getAllBrands({ name });
 
-      if (res.length < 1) {
-        resolve(undefined)
-        return
-      }
-
-      if (res.length > 1) {
-        throw `many brands with name ${name}`
-      }
-
-      resolve(res[0])
-
-    } catch (err) {
-      reject(err);
+    if (res.length < 1) {
+      return undefined;
     }
-  });
+
+    if (res.length > 1) {
+      throw `many brands with name ${name}`;
+    }
+
+    return res[0];
+  } catch (err) {
+    throw err;
+  }
 }

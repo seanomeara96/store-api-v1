@@ -14,13 +14,12 @@ export class Banners {
   // TODO replace with get banner params
   /**
    * Will throw an error
-   * @param params 
-   * @returns 
+   * @param params
+   * @returns
    */
   async getAll(params: any = {}) {
     try {
-      // TODO add banner typing
-      let banners: any[] = [];
+      const banners: any[] = [];
       let pageNumber = 1;
       while (true) {
         const { data } = await this.client.get("/banners", {
@@ -31,17 +30,11 @@ export class Banners {
           },
         });
 
-        let dataArray;
-        if (data.data === undefined) {
-          dataArray = data;
-        } else {
-          dataArray = data.data;
-        }
+        const dataArray = data.data ?? data;
 
         if (dataArray.length) {
           banners.push(...dataArray);
           pageNumber++;
-          continue;
         } else {
           return banners;
         }

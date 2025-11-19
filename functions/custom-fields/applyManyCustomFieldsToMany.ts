@@ -7,19 +7,15 @@ import { CustomField } from "./getCustomFields";
  * @param {object[]} filters
  * @returns
  */
-export function applyManyFiltersToMany (
+export async function applyManyFiltersToMany(
   productIds: number[],
-  filters: CustomField[]
+  filters: CustomField[],
 ) {
-  return new Promise(async function (resolve, reject) {
-    try {
-      for(const id of productIds){
-        await applyManyCustomFields(id, filters)
-      }
-      resolve(undefined)
-    } catch(err) {
-      reject(err)
+  try {
+    for (const id of productIds) {
+      await applyManyCustomFields(id, filters);
     }
-  });
+  } catch (err) {
+    throw err;
+  }
 }
-

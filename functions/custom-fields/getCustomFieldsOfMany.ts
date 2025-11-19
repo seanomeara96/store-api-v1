@@ -13,19 +13,22 @@ const productIds: productId[] = [
  * @param {object[]} productIds
  * @returns
  */
-export const getFiltersOfMany = (productIds: productId[]) =>
-  new Promise((resolve, reject) => {
+export async function getFiltersOfMany(productIds: productId[]) {
+  try {
     let promises = productIds.map((product) =>
-    getCustomFields(Object.values(product)[0])
+      getCustomFields(Object.values(product)[0]),
     );
-    Promise.allSettled(promises)
-      .then((res) => {
-        // I dont know how I got this to stop throwing a type error
-        const fulfilled: PromiseFulfilledResult<any>[] = res.filter(
-          ({ status }) => status === "fulfilled"
-        ) as PromiseFulfilledResult<any>[];
-        const filters = fulfilled.map((res) => res.value);
-        resolve(filters);
-      })
-      .catch(reject);
-  });
+
+    const res = await Promise.allSettled(promises);
+
+    // I dont know how I got this to stop throwing a type error
+    const fulfilled: PromiseFulfilledResult<any>[] = res.filter(
+      ({ status }) => status === "fulfilled",
+    ) as PromiseFulfilledResult<any>[];
+
+    const filters = fulfilled.map((res) => res.value);
+    return filters;
+  } catch (error) {
+    throw error;
+  }
+}

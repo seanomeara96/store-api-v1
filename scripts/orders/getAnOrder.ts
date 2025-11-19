@@ -1,7 +1,7 @@
 import { getOrderById } from "../../functions/orders/getOrderById";
-require("../../config/config").config("ih", 2);
-
-const orderNumbers: number[] = [100143186, 100143188, 100143178];
+require("../../config/config").config("bf", 2);
+// 9376405
+const orderNumbers: number[] = [9376402];
 const orders = [];
 (async function () {
   try {
@@ -11,11 +11,11 @@ const orders = [];
     }
 
     for (const order of orders) {
-      console.log(
-        order.payment_method,
-        order.payment_status,
-        order.payment_provider_id
-      );
+      console.log({
+        payment_method: order.payment_method,
+        payment_status: order.payment_status,
+        payment_provider_id: order.payment_provider_id,
+      });
     }
   } catch (err) {
     console.log(err);

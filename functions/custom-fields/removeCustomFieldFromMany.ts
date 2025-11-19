@@ -7,15 +7,18 @@ const productIDs = [
   { "Product ID": 181 },
 ];
 
-export const removeFilterFromMany = (
+export async function removeFilterFromMany(
   productIds: { [key: string]: number }[],
   name: string,
-  value: string
-) =>
-  new Promise((resolve, reject) => {
-    let promises = productIds.map((product: { [key: string]: number }) => {
-      let idNumber = Object.values(product)[0];
+  value: string,
+) {
+  try {
+    const promises = productIds.map((product: { [key: string]: number }) => {
+      const idNumber = Object.values(product)[0];
       return removeFilter(idNumber, name, value);
     });
-    Promise.allSettled(promises).then(resolve).catch(reject);
-  });
+    return await Promise.allSettled(promises);
+  } catch (error) {
+    throw error;
+  }
+}

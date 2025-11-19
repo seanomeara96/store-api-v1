@@ -6,9 +6,17 @@ import { getProductVariants } from "../../functions/products/getProductVariants"
 
 async function test() {
   try {
-    require("../../config/config").config("bf");
+    require("../../config/config").config("ah");
 
-    const brands = ["P.Louise"];
+    const brands = [
+"Moxi Loves",
+"Caudalie" ,
+"E45",
+"Olos",
+"Geske",
+"Cosrx",
+"Tommy Hilfiger",
+];
 
     for (let i = 0; i < brands.length; i++) {
       const brand = await getBrandByName(brands[i]);
@@ -37,16 +45,16 @@ async function test() {
       if (all_oos) {
         console.log(`Deleting all products for ${brand.name}`);
         for (const product of brand_products) {
-          await deleteProduct(product.id);
+          await deleteProduct(product.id, true);
         }
       } else {
-        console.log(`Brand ${brand.name} has products`);
+        console.log(`Brand ${brand.name} has products. skipping...`);
         continue;
       }
 
       console.log(`Deleting brand: ${brand.name}`);
       // finally delete brand
-      await deleteBrand(brand.id);
+      await deleteBrand(brand.id, true);
     }
   } catch (err) {
     console.log(err);

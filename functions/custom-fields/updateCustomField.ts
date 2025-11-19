@@ -6,19 +6,18 @@
  * @param {string} value
  * @returns
  */
-export function updateCustomField(
+export async function updateCustomField(
   product_id: number,
   custom_field_id: number,
   name: string,
-  value: string
+  value: string,
 ) {
-  return new Promise(function (resolve, reject) {
-    require("../../config/config")
-      .store.put(
-        `/catalog/products/${product_id}/custom-fields/${custom_field_id}`,
-        { name, value }
-      )
-      .then(resolve)
-      .catch(reject);
-  });
+  try {
+    await require("../../config/config").store.put(
+      `/catalog/products/${product_id}/custom-fields/${custom_field_id}`,
+      { name, value },
+    );
+  } catch (error) {
+    throw error;
+  }
 }

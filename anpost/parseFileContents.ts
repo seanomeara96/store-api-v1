@@ -109,6 +109,8 @@ function parseDateString(dateString: string) {
   return new Date(year, month - 1, day, hours, minutes, seconds).toISOString()
 }
 
+
+// this is a test
 (() => console.log(
   parseFileContents(`00+3709445+20230623010435+5+
 01+CE+182183209+IE+GN423941/01+SORTED+20230623004243+MERRYWELL DSU LARGE PCLS+DUBLIN 6+++++
