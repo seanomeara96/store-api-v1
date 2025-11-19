@@ -5,6 +5,8 @@ import { getAll } from "../utils/getAll";
  * @param {*} params
  * @returns resolves with an array of product variants objects
  */
-export const getAllProductVariants = getAll(`/catalog/variants`) as (
-  params?: any
-) => Promise<ProductVariant[]>;
+export async function getAllProductVariants(
+  params?: any,
+): Promise<ProductVariant[]> {
+  return getAll(`/catalog/variants`)(params);
+}

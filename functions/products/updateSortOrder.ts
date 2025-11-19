@@ -5,11 +5,16 @@ import { updateProduct } from "./updateProduct";
  * @param {number} sortOrderNumber
  * @returns
  */
-export const updateSortOrder = (productId: number, sortOrderNumber: number) =>
-  new Promise((resolve, reject) => {
-    if (typeof productId !== "number" || typeof sortOrderNumber !== "number")
-      return reject("please supply a number");
-    updateProduct(productId, { sort_order: sortOrderNumber })
-      .then(resolve)
-      .catch(reject);
-  });
+export async function updateSortOrder(
+  productId: number,
+  sortOrderNumber: number,
+) {
+  if (typeof productId !== "number" || typeof sortOrderNumber !== "number") {
+    throw new Error("please supply a number");
+  }
+  try {
+    await updateProduct(productId, { sort_order: sortOrderNumber });
+  } catch (error) {
+    throw error;
+  }
+}

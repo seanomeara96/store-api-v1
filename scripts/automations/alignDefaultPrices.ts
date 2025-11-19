@@ -5,7 +5,8 @@ import { updateProduct } from "../../functions/products/updateProduct";
 async function main() {
   try {
     const products = await getAllProducts();
-    for (const p of products) {
+    for (let i = 0; i < products.length; i++) {
+      const p = products[i];
       try {
         await updateProduct(p.id, { price: p.retail_price });
         console.log("updated", p.id);

@@ -1,9 +1,11 @@
 import { getOrderById } from "../../functions/orders/getOrderById";
+import { Order } from "../../functions/orders/Order";
 require("../../config/config").config("bf", 2);
 // 9376405
 const orderNumbers: number[] = [9376402];
-const orders = [];
-(async function () {
+const orders: Order[] = [];
+
+async function fetchOrders() {
   try {
     for (const order of orderNumbers) {
       // native - shipped
@@ -20,4 +22,6 @@ const orders = [];
   } catch (err) {
     console.log(err);
   }
-})();
+}
+
+fetchOrders();

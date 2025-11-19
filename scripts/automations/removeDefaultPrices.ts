@@ -7,7 +7,7 @@ async function main() {
     const products = await getAllProducts();
     for (const p of products) {
       try {
-        await updateProduct(p.id, { price:0 });
+        await updateProduct(p.id, { price: 0 });
         console.log("updated", p.id);
       } catch (err: any) {
         console.log(err.response.data);

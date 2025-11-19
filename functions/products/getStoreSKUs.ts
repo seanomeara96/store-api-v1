@@ -3,13 +3,15 @@ import { ProductVariant } from "../../newclient/products/variants";
 
 import { getProductVariants } from "./getProductVariants";
 
-export function getStoreSKUs(
+export async function getStoreSKUs(
   batchSize: number,
-  filterLive: boolean = false
+  filterLive: boolean = false,
 ): Promise<ProductVariant[]> {
-  return new Promise(async (resolve, reject) => {
+  try {
     const products = filterLive
-      ? (await getAllProducts()).filter((product) => product.is_visible)
+      ? (await getAllProducts()).filter(function (product) {
+          return product.is_visible;
+        })
       : await getAllProducts();
     const variants = [];
     const batches = [];
@@ -19,11 +21,17 @@ export function getStoreSKUs(
     }
 
     for (const batch of batches) {
-      const promises = batch.map((product) => getProductVariants(product.id));
+      const promises = batch.map(function (product) {
+        return getProductVariants(product.id);
+      });
       const responses = await Promise.allSettled(promises);
 
-      if (responses.filter((response) => response.status === "rejected").length)
-        return reject("requests for variants was rejected");
+      if (
+        responses.filter(function (response) {
+          return response.status === "rejected";
+        }).length
+      )
+        throw new Error("requests for variants was rejected");
 
       const productVariantsBatch: ProductVariant[][] = [];
       for (let ii = 0; ii < responses.length; ii++) {
@@ -37,8 +45,10 @@ export function getStoreSKUs(
     }
 
     const variantSKUs = variants.flat();
-    resolve(variantSKUs);
-  });
+    return variantSKUs;
+  } catch (error) {
+    return Promise.reject(error);
+  }
 }
 
 export default getStoreSKUs;

@@ -1,27 +1,27 @@
 import { Order } from "./Order";
 
+export async function getOrderProducts(order: Order): Promise<OrderProduct[]> {
+  const orderId = order.id;
+  const { resource } = order.products;
+  console.log("requesting products from order:", orderId);
 
-export function getOrderProducts (order:Order):Promise<OrderProduct[]> {
-  return new Promise((resolve, reject) => {
-    const orderId = order.id;
-    const { resource } = order.products;
-    console.log("requesting products from order:", orderId);
-    if (typeof orderId !== "number") {
-      console.log("typeof orderId", typeof orderId);
-      return reject("order id must be a number");
-    }
-    if (typeof resource !== "string") {
-      console.log("typeof resource", typeof resource);
-      return reject("resource must be a path string");
-    }
-    require("../../config/config")
-      .store.get(resource)
-      .then((e:any) => {
-        console.log("success");
-        resolve(e.data);
-      })
-      .catch(reject);
-  });
+  if (typeof orderId !== "number") {
+    console.log("typeof orderId", typeof orderId);
+    throw new Error("order id must be a number");
+  }
+
+  if (typeof resource !== "string") {
+    console.log("typeof resource", typeof resource);
+    throw new Error("resource must be a path string");
+  }
+
+  try {
+    const e = await require("../../config/config").store.get(resource);
+    console.log("success");
+    return e.data;
+  } catch (error) {
+    throw error;
+  }
 }
 
 interface AppliedDiscount {
@@ -29,7 +29,7 @@ interface AppliedDiscount {
   name: string;
   amount: string;
   code: string;
-  target: 'order' | 'product';
+  target: "order" | "product";
 }
 
 interface ProductOption {
@@ -40,8 +40,15 @@ interface ProductOption {
   display_name: string;
   display_value: string;
   value: string;
-  type: 'Checkbox' | 'Date field' | 'File Upload' | 'Multi-line text field' | 
-        'Multiple choice' | 'Product Pick List' | 'Swatch' | 'Text field';
+  type:
+    | "Checkbox"
+    | "Date field"
+    | "File Upload"
+    | "Multi-line text field"
+    | "Multiple choice"
+    | "Product Pick List"
+    | "Swatch"
+    | "Text field";
   name: string;
   display_style: string;
   display_name_customer: string;
@@ -64,7 +71,7 @@ export interface OrderProduct {
   order_address_id: number;
   name: string;
   sku: string;
-  type: 'physical' | 'digital';
+  type: "physical" | "digital";
   base_price: string;
   price_ex_tax: string;
   price_inc_tax: string;
@@ -102,6 +109,3 @@ export interface OrderProduct {
   applied_discounts: AppliedDiscount[];
   product_options: ProductOption[];
 }
-
-
-

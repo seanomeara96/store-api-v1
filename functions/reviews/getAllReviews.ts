@@ -6,15 +6,13 @@ import { Review } from "./Review";
  * @param {number} product_id
  * @returns
  */
-export function getAllReviews(product_id: number): Promise<Review[]> {
-  return new Promise(async function (resolve, reject) {
-    try {
-      const response = await require("../../config/config").store.get(
-        `/catalog/products/${product_id}/reviews`
-      );
-      resolve(response.data.data);
-    } catch (err) {
-      reject(err);
-    }
-  });
+export async function getAllReviews(product_id: number): Promise<Review[]> {
+  try {
+    const response = await require("../../config/config").store.get(
+      `/catalog/products/${product_id}/reviews`,
+    );
+    return response.data.data;
+  } catch (err) {
+    throw err;
+  }
 }

@@ -9,16 +9,18 @@ import { removeCatFromProduct } from "./removeCatFromProduct";
  * @param {*} categoryName
  * @returns
  */
-export const removeCategoryFromSpecificProducts = (
+export async function removeCategoryFromSpecificProducts(
   productIds: { [key: string]: number }[],
-  categoryId: number
-) =>
-  new Promise((resolve, reject) =>
-    Promise.allSettled(
+  categoryId: number,
+) {
+  try {
+    const results = await Promise.allSettled(
       productIds.map((productId: { [key: string]: number }) =>
-        removeCatFromProduct(Object.values(productId)[0], categoryId)
-      )
-    )
-      .then(resolve)
-      .catch(reject)
-  );
+        removeCatFromProduct(Object.values(productId)[0], categoryId),
+      ),
+    );
+    return results;
+  } catch (error) {
+    throw error;
+  }
+}

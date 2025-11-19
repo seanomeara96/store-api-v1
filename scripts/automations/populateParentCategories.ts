@@ -1,9 +1,9 @@
-import { Category } from "./functions/categories/createCategory";
-import { getAllCategories } from "./functions/categories/getAllCategories";
-import { Product } from "./functions/products/Product";
-import { addCatToProduct } from "./functions/products/addCatToProduct";
-import { getAllProducts } from "./functions/products/getAllProducts";
-import { updateProduct } from "./functions/products/updateProduct";
+import { Category } from "../../functions/categories/createCategory";
+import { getAllCategories } from "../../functions/categories/getAllCategories";
+import { Product } from "../../functions/products/Product";
+import { addCatToProduct } from "../../functions/products/addCatToProduct";
+import { getAllProducts } from "../../functions/products/getAllProducts";
+import { updateProduct } from "../../functions/products/updateProduct";
 
 require("./config/config").config("ch");
 
@@ -22,7 +22,7 @@ async function test() {
     const categories = await getAllCategories();
 
     function findCat(id: number) {
-      return categories.find((c) => c.id === id);
+      return categories.find((c: Category) => c.id === id);
     }
 
     const parentCategoryIds: number[] = [
@@ -67,7 +67,7 @@ async function test() {
       console.log(
         `addressing ${i + 1} of ${orderedsubcategories.length} categories id (${
           c.id
-        }) name ${c.name} => child of ${findCat(c.parent_id)?.name}`
+        }) name ${c.name} => child of ${findCat(c.parent_id)?.name}`,
       );
 
       const items = products.filter((p) => p.updatedCategories.includes(c.id));
@@ -87,16 +87,15 @@ async function test() {
       const asc = (a: number, b: number) => a - b;
       product.categories = [...new Set(product.categories)].sort(asc);
       product.updatedCategories = [...new Set(product.updatedCategories)].sort(
-        asc
+        asc,
       );
       if (product.categories !== product.updatedCategories) {
         productsToUpdate.push(product);
       }
     }
 
-    console.log("productsToUpdate.length", productsToUpdate.length)
-    
-    
+    console.log("productsToUpdate.length", productsToUpdate.length);
+
     for (let iv = 0; iv < productsToUpdate.length; iv++) {
       console.log(`updating ${iv + 1} of ${productsToUpdate.length} products`);
       const product = productsToUpdate[iv];

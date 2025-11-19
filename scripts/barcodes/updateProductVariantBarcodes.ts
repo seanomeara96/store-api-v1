@@ -5,23 +5,27 @@ import { getProductVariants } from "../../functions/products/getProductVariants"
 import { updateProduct } from "../../functions/products/updateProduct";
 
 async function main() {
-  for(const store of ["bf", "ah", "bsk", "ih",  "pb", "bs"]){
+  const stores = ["bf", "ah", "bsk", "ih", "pb", "bs"];
+
+  for (const store of stores) {
     require("../../config/config").config(store);
+
     try {
       const products = await getAllProducts();
+
       for (let i = 0; i < products.length; i++) {
-        console.log(i,products.length);
+        console.log(i, products.length);
         const product = products[i];
-  
+
         try {
           const vars = await getProductVariants(product.id);
-  
+
           console.log(`Found ${vars.length} variants for ${product.name}`);
-  
-          if (!vars.length) {
-            throw "No Variants";
+
+          if (vars.length === 0) {
+            throw new Error("No Variants");
           }
-  
+
           if (vars.length === 1) {
             try {
               const bpProductDetails = await getBpProductDetails(product.sku);
@@ -31,14 +35,16 @@ async function main() {
                 mpn: bpProductDetails.barcode,
               });
               console.log(
-                `Updated barcode for sku ${product.sku} : ${product.name}`
+                `Updated barcode for sku ${product.sku} : ${product.name}`,
               );
             } catch (err) {
-              console.log(`Error while updating barcode for sku: ${product.sku}`);
-              console.log(err);
+              console.error(
+                `Error while updating barcode for sku: ${product.sku}`,
+                err,
+              );
             }
           }
-  
+
           if (vars.length > 1) {
             for (let ii = 0; ii < vars.length; ii++) {
               console.log(`Updating variant ${ii + 1} of ${vars.length}`);
@@ -51,31 +57,32 @@ async function main() {
                   upc: bpProductDetails.barcode,
                 });
                 console.log(
-                  `Updated barcode for sku ${variant.sku} a variant of ${product.name}`
+                  `Updated barcode for sku ${variant.sku} a variant of ${product.name}`,
                 );
               } catch (err) {
-                console.log(
-                  `Error while updating for sku: ${variant.sku} a variant of ${product.name}`
+                console.error(
+                  `Error while updating for sku: ${variant.sku} a variant of ${product.name}`,
+                  err,
                 );
-                console.log(err);
               }
             }
           }
         } catch (err: any) {
-          console.log(`Error fetching variants`);
-          console.log(err);
-          if (err.response) {
-            if (err.response.status == 503 || err.response.status == 429) {
-              await new Promise((res) => setTimeout(res, 30 * 1000));
-              i--;
-              continue;
-            }
+          console.error(`Error fetching variants`, err);
+          if (
+            err.response &&
+            (err.response.status === 503 || err.response.status === 429)
+          ) {
+            await new Promise((res) => setTimeout(res, 30 * 1000));
+            i--;
+            continue;
           }
         }
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   }
 }
+
 main();

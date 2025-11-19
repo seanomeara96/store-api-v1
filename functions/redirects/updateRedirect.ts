@@ -2,12 +2,12 @@ function isUrlInvalid(url: string) {
   return !url || typeof url !== "string";
 }
 
-const requestBody = (
+function requestBody(
   reject: (x: unknown) => void,
   oldUrl: string,
   newUrl: string,
-  type = "url"
-) => {
+  type = "url",
+) {
   const allowedValues = ["product", "brand", "category", "page", "post", "url"];
 
   if (isUrlInvalid(oldUrl) || isUrlInvalid(newUrl)) {
@@ -29,20 +29,21 @@ const requestBody = (
       },
     },
   ];
-};
+}
 
-export const updateRedirect = (fromPath: string, toPath: string) =>
-  new Promise((resolve, reject) => {
-    require("../../config/config")
-      .store.put("/storefront/redirects", requestBody(reject, fromPath, toPath))
-      .then((res: any) => {
-        if (res.status === 200 || res.status === 201) {
-          resolve(res.status);
-        } else {
-          reject(res.status);
-        }
-      })
-      .catch(reject);
-  });
-
-
+export async function updateRedirect(fromPath: string, toPath: string) {
+  try {
+    const config = require("../../config/config");
+    const res = await config.store.put(
+      "/storefront/redirects",
+      requestBody(Promise.reject, fromPath, toPath),
+    );
+    if (res.status === 200 || res.status === 201) {
+      return res.status;
+    } else {
+      throw new Error(String(res.status));
+    }
+  } catch (error) {
+    throw error;
+  }
+}

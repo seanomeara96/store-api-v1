@@ -79,14 +79,14 @@ async function test() {
 
     const filterString = JSON.stringify(filters);
 
-    for (const product of products) {
-      product.description = htmlToText(product.description);
+    for (let i = 0; i < products.length; i++) {
+      products[i].description = htmlToText(products[i].description);
     }
 
     // do some hand holding here
-    products = products.filter((p) =>
-      p.description.toLowerCase().includes("paraben")
-    );
+    products = products.filter(function (p) {
+      return p.description.toLowerCase().includes("paraben");
+    });
 
     console.log("products.length", products.length);
     const openai = new OpenAI({
@@ -102,9 +102,9 @@ async function test() {
 
       console.log(`updateing ${i + 1} of ${products.length}`, product.id);
 
-      const messageContent = `Return only a javascript array of custom fields from these options 
+      const messageContent = `Return only a javascript array of custom fields from these options
       """${filterString}"""
-      that are highly relevant (Important: Make no assumptions and only supply custom fields with a high level of confidence that they are relevant) to this product and is supported by the product description 
+      that are highly relevant (Important: Make no assumptions and only supply custom fields with a high level of confidence that they are relevant) to this product and is supported by the product description
       """${product.description}""".
       Make sure to include the full js object e.g [{"Hair Type": "All Types"}]. """Only return the js array"""`;
 
@@ -142,7 +142,7 @@ async function test() {
             await applyCustomField(product.id, name, value);
           } catch (err: any) {
             console.log(
-              err.response ? err.response.data : err.data ? err.data : err
+              err.response ? err.response.data : err.data ? err.data : err,
             );
           }
         }

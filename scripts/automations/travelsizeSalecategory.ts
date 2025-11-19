@@ -7,8 +7,9 @@ async function test() {
     let products = await getAllProducts();
 
     const excludeCategories = [663];
-    products = products.filter((p) => {
-      for (const category of excludeCategories) {
+    products = products.filter(function (p) {
+      for (let i = 0; i < excludeCategories.length; i++) {
+        const category = excludeCategories[i];
         if (p.categories.includes(category)) return false;
       }
       return true;

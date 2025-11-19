@@ -41,10 +41,7 @@ export const getAll =
       getData();
     });
 
-export async function all(
-  params: any,
-  getManyFn: (params: any) => any
-) {
+export async function all(params: any, getManyFn: (params: any) => any) {
   try {
     const all = [];
     let page = 1;

@@ -1,7 +1,8 @@
-export const createRedirect = (fromUrl: string, toUrl: string) =>
-  new Promise((resolve, reject) => {
-    require("../../config/config")
-      .store.put(`/storefront/redirects`, [
+export const createRedirect = async function (fromUrl: string, toUrl: string) {
+  try {
+    const res = await require("../../config/config").store.put(
+      `/storefront/redirects`,
+      [
         {
           from_path: fromUrl,
           site_id: 1000,
@@ -11,7 +12,10 @@ export const createRedirect = (fromUrl: string, toUrl: string) =>
             url: toUrl,
           },
         },
-      ])
-      .then((res: any) => resolve(res.data.data))
-      .catch(reject);
-  });
+      ],
+    );
+    return res.data.data;
+  } catch (error) {
+    throw error;
+  }
+};

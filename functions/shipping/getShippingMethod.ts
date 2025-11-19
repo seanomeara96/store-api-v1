@@ -1,8 +1,11 @@
-export function getShippingMethod(zone_id: number, method_id: number) {
-  return new Promise((resolve, reject) => {
-    require("../../config/config")
-      .store(`/shipping/zones/${zone_id}/methods/${method_id}`)
-      .then((response: any) => resolve(response.data))
-      .catch(reject);
-  });
+export async function getShippingMethod(zone_id: number, method_id: number) {
+  try {
+    const config = require("../../config/config");
+    const response: any = await config.store(
+      `/shipping/zones/${zone_id}/methods/${method_id}`,
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 }

@@ -1,6 +1,5 @@
 import fs from "fs";
-import { getFirstProductImage } from "../../functions/images/getFirstProductImage";
-import { getAllProducts } from "../../functions/products/getAllProducts";
+
 import download from "image-downloader";
 
 import path from "path";
@@ -17,10 +16,12 @@ async function main() {
   for (const sku of ["8299", "7250", "5355"]) {
     const product = await getProductBySku(sku);
 
-    products.push({
-      id: product.id,
-      folderName: product.name.toLowerCase().split(" ").join("-"),
-    });
+    if (product) {
+      products.push({
+        id: product.id,
+        folderName: product.name.toLowerCase().split(" ").join("-"),
+      });
+    }
   }
 
   for (const product of products) {
@@ -32,7 +33,10 @@ async function main() {
 
     const images = await getAllProductImages(product.id);
 
-    const imageUrls = images.map((img) => img.url_zoom);
+    const imageUrls = [];
+    for (const img of images) {
+      imageUrls.push(img.url_zoom);
+    }
 
     for (const image of imageUrls) {
       const options = {
@@ -41,7 +45,11 @@ async function main() {
         extractFilename: true,
       };
 
-      await download.image(options).catch(console.log);
+      try {
+        await download.image(options);
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 }

@@ -1,4 +1,11 @@
 require("../../config/config").config("ch");
 import { deleteProduct } from "../../functions/products/deleteProduct";
-deleteProduct(250).then((res) => console.log(res + "\n")).catch(console.log);
-
+async function executeDeleteProduct() {
+  try {
+    const res = await deleteProduct(250);
+    console.log(res + "\n");
+  } catch (err) {
+    console.log(err);
+  }
+}
+executeDeleteProduct();

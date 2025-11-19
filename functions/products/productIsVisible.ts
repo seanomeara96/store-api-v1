@@ -1,10 +1,12 @@
 import { updateProduct } from "./updateProduct";
 
-export const productIsVisible = (productId: number, is_visible: boolean) =>
-  new Promise((resolve, reject) =>
-    updateProduct(productId, {
+export async function productIsVisible(productId: number, is_visible: boolean) {
+  try {
+    const result = await updateProduct(productId, {
       is_visible,
-    })
-      .then(resolve)
-      .catch(reject)
-  );
+    });
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}

@@ -5,24 +5,22 @@ import { updateProduct } from "../../functions/products/updateProduct";
 const { log } = console;
 
 /**
- * returns a function that sets a retial price to 0
+ * returns a function that sets a retail price to 0
  * @param {number} param0 product id
  * @returns
  */
 
-function fetchNonZeroRetailPrices(): Promise<Product[]> {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const products = await getAllProducts();
-      // retail price must be zero
-      const nonZeroRetailPrices = products.filter(
-        (product) => product.retail_price > 0
-      );
-      resolve(nonZeroRetailPrices);
-    } catch (err) {
-      reject(err);
-    }
-  });
+async function fetchNonZeroRetailPrices(): Promise<Product[]> {
+  try {
+    const products = await getAllProducts();
+    // retail price must be zero
+    const nonZeroRetailPrices = products.filter(function (product) {
+      return product.retail_price > 0;
+    });
+    return nonZeroRetailPrices;
+  } catch (err) {
+    throw err;
+  }
 }
 
 /**
@@ -32,25 +30,24 @@ async function main() {
   try {
     const nonZeroRetailPrices = await fetchNonZeroRetailPrices();
     log(`${nonZeroRetailPrices.length} need to be updated`);
-    
-    
+
     const promises = [];
-    for (const product of nonZeroRetailPrices) {
+    for (let i = 0; i < nonZeroRetailPrices.length; i++) {
+      const product = nonZeroRetailPrices[i];
       const promise = updateProduct(product.id, { retail_price: 0 });
       promises.push(promise);
     }
     await Promise.all(promises);
 
-
     const secondCheck = await fetchNonZeroRetailPrices();
 
-    if(secondCheck.length === 0){
-      log("all g my fren")
+    if (secondCheck.length === 0) {
+      log("all g my fren");
     } else {
-      log(`${secondCheck.length} still need to be updated. Something went wrong`);
+      log(
+        `${secondCheck.length} still need to be updated. Something went wrong`,
+      );
     }
-
-    
   } catch (err) {
     log(err);
   }

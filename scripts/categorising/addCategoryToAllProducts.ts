@@ -5,9 +5,9 @@ require("../../config/config").config("bf");
 
 (async () => {
   try {
-    const products = await getAllProducts({'categories:in': 55})
+    const products = await getAllProducts({ "categories:in": "55" });
     for (let i = 0; i < products.length; i++) {
-      const p_id = products[i].id
+      const p_id = products[i].id;
       try {
         await addCatToProduct(p_id, 640);
         console.log(`updated ${i + 1} of ${products.length}`);

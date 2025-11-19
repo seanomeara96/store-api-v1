@@ -1,18 +1,19 @@
-import { CreateProductVariantParams, ProductVariant } from "../../newclient/products/variants";
+import {
+  CreateProductVariantParams,
+  ProductVariant,
+} from "../../newclient/products/variants";
 
-export function createProductVariant(
+export async function createProductVariant(
   product_id: number,
-  params: CreateProductVariantParams
+  params: CreateProductVariantParams,
 ): Promise<ProductVariant> {
-  return new Promise(async function (resolve, reject) {
-    try {
-      const res = await require("../../config/config").store.post(
-        `/catalog/products/${product_id}/variants`,
-        params
-      );
-      resolve(res.data.data)
-    } catch (err) {
-      reject(err);
-    }
-  });
+  try {
+    const res = await require("../../config/config").store.post(
+      `/catalog/products/${product_id}/variants`,
+      params,
+    );
+    return res.data.data;
+  } catch (err) {
+    throw err;
+  }
 }

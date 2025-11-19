@@ -1,7 +1,9 @@
 import { getOrderProducts } from "./getOrderProducts";
-export const getOrderProductNames = (order:any) =>
-  new Promise((resolve, reject) => {
-    getOrderProducts(order)
-      .then((e: any) => resolve(e.map((g: any) => g.name)))
-      .catch(reject);
-  });
+export async function getOrderProductNames(order: any) {
+  try {
+    const products = await getOrderProducts(order);
+    return products.map((product: any) => product.name);
+  } catch (error) {
+    throw error;
+  }
+}

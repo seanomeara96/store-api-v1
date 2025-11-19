@@ -20,8 +20,9 @@ async function cap() {
 
       const products = await getAllProducts({ brand_id: brand.id });
       for (const product of products) {
-        if (product.order_quantity_maximum !== 5)
+        if (product.order_quantity_maximum !== 5) {
           await updateProduct(product.id, { order_quantity_maximum: 5 });
+        }
       }
     }
   } catch (err) {

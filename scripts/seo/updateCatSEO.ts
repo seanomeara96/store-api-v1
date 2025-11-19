@@ -1,4 +1,7 @@
-require("../../config/config").config("stie");
+import { config } from "../../config/config";
+import { updateCategory } from "../../functions/categories/updateCategory";
+
+config("stie");
 
 const data = [
   {
@@ -19,29 +22,36 @@ const data = [
   },
 ];
 
-function validateFields(obj) {
-  ["Page Title", "Meta Description"].forEach((i) => {
+function validateFields(obj: { [key: string]: any }) {
+  for (let i of ["Page Title", "Meta Description"]) {
     if (!obj.hasOwnProperty(i)) {
       throw `Missing Property ${i}`;
     }
-  });
+  }
 }
 
-data.forEach(validateFields);
+function validateAllData(data: Array<{ [key: string]: any }>) {
+  for (let item of data) {
+    validateFields(item);
+  }
+}
 
-const { updateCategory } = require("../../functions/categories/updateCategory");
-
-(async () => {
+async function updateData() {
   for (const x of data) {
     console.log(`Updating ${x.name}...`);
 
-    const res = await updateCategory(x.id, {
-      page_title: x["Page Title"],
-      meta_description: x["Meta Description"],
-    }).catch((err) => {
-      throw new Error(err);
-    });
+    try {
+      await updateCategory(x.id, {
+        page_title: x["Page Title"],
+        meta_description: x["Meta Description"],
+      });
+    } catch (err) {
+      throw new Error(String(err));
+    }
 
     console.log("success");
   }
-})();
+}
+
+validateAllData(data);
+updateData();

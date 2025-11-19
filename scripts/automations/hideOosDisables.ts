@@ -35,7 +35,7 @@ const stores = [
   for (const store of stores) {
     require("../../config/config").config(store.id);
     const products = await getAllProducts({
-      "categories:in": store.dable,
+      "categories:in": String(store.dable),
     });
 
     const isVisibleOos = products.filter(function (p) {
@@ -47,7 +47,7 @@ const stores = [
       console.log(`nothing to do on ${store.id}`);
       continue;
     }
-    
+
     const promises = isVisibleOos.map((p) => productIsVisible(p.id, false));
     const res = await Promise.allSettled(promises);
     const errors = res.filter((r) => r.status === "rejected");

@@ -1,20 +1,17 @@
 require("../config/config").config("bf");
 import { getProductsByBrand } from "../products/getProductsByBrand";
 import { updateSearchKeywords } from "./updateSearchKeywords";
-export function updateSearchKeywordsByBrand (
+export async function updateSearchKeywordsByBrand(
   brandName: string,
-  searchKeywordsToAdd: string[]
+  searchKeywordsToAdd: string[],
 ) {
-  return new Promise((resolve, reject) => {
-    getProductsByBrand(brandName)
-      .then((products) => {
-        let promises = [];
-        for (const product of products) {
-          promises.push(updateSearchKeywords(product.id, searchKeywordsToAdd));
-        }
-        Promise.allSettled(promises).then(resolve).catch(reject);
-      })
-      .catch(reject);
-  });
-};
-
+  try {
+    const products = await getProductsByBrand(brandName);
+    const promises = products.map((product) =>
+      updateSearchKeywords(product.id, searchKeywordsToAdd),
+    );
+    await Promise.allSettled(promises);
+  } catch (error) {
+    throw error;
+  }
+}

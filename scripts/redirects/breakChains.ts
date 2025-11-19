@@ -7,16 +7,16 @@ require("../../config/config").config("ds");
 async function main() {
   const redirects = await getAllRedirects();
 
-  const urlRedirects = redirects.filter(
-    (redirect) => redirect.to.type == "url"
-  );
+  const urlRedirects = redirects.filter(async function (redirect) {
+    return redirect.to.type === "url";
+  });
 
   for (const redirect of urlRedirects) {
     for (const otherRedirect of urlRedirects) {
       if (redirect.to.url === otherRedirect.from_path) {
         try {
           console.log(
-            `old: ${redirect.from_path} => ${redirect.to.url} => ${otherRedirect.from_path} => ${otherRedirect.to.url}`
+            `old: ${redirect.from_path} => ${redirect.to.url} => ${otherRedirect.from_path} => ${otherRedirect.to.url}`,
           );
           await deleteRedirect(redirect.id);
           console.log(`new: ${redirect.from_path} => ${otherRedirect.to.url}`);

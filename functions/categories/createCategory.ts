@@ -47,18 +47,17 @@ export interface Category {
     is_customized: boolean;
   };
 }
-
 export async function createCategory(
   categoryToCreate: CategoryCreationParams,
 ): Promise<Category> {
-  const config = await import("../../config/config");
+  const config = require("../../config/config");
   try {
     const response = await config.store.post(
       `/catalog/categories`,
       categoryToCreate,
     );
     return response.data.data;
-  } catch (error) {
+  } catch (error: any) {
     return Promise.reject(
       new Error(`Failed to create category: ${error.message}`),
     );

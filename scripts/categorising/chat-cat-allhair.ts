@@ -1,18 +1,17 @@
 import { getAllCategories } from "../../functions/categories/getAllCategories";
 import { getProductById } from "../../functions/products/getProductById";
-import { Configuration, CreateChatCompletionResponse, OpenAIApi } from "openai";
+import { OpenAI } from "openai";
 import { updateProduct } from "../../functions/products/updateProduct";
 import { getAllProducts } from "../../functions/products/getAllProducts";
 import { convert } from "html-to-text";
 
 require("../../config/config").config("ah");
-const configuration = new Configuration({
+const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
-const openai = new OpenAIApi(configuration);
 
 async function main() {
-  const dummyProducts = await getAllProducts({ "categories:in": 190 });
+  const dummyProducts = await getAllProducts({ "categories:in": "190" });
   const cats = await getAllCategories({ parent_id: 170 });
   let catContext = `id\tcategory_name\tparent_category_name\n`;
 
@@ -35,9 +34,9 @@ async function main() {
     console.log(`product id`, product.id);
 
     const start = performance.now();
-    let completion: CreateChatCompletionResponse;
+    let completion: OpenAI.Chat.Completions.ChatCompletion | undefined;
     try {
-      let { data } = await openai.createChatCompletion({
+      completion = await openai.chat.completions.create({
         model: "gpt-4",
         messages: [
           {
@@ -46,25 +45,22 @@ async function main() {
           },
           {
             role: "user",
-            content: `Return only a javascript array of the most relevant IDs for categories relevant to the 
+            content: `Return only a javascript array of the most relevant IDs for categories relevant to the
                 ${product.name} based on this product description "${convert(product.description)}" using this category dataset: "${catContext}".`,
           },
         ],
       });
-
-      if (!data) {
-        throw new Error("promblem with request");
-      }
-
-      completion = data;
     } catch (err: any) {
-        console.log(err.response ? err.response.data : err)
-        if(err.response.data && err.response.data.error.code === "rate_limit_exceeded"){
-            await new Promise((res) => setTimeout(res, 5000))
-            i--
-            continue
-        }
-        break
+      console.log(err.response ? err.response.data : err);
+      if (
+        err.response.data &&
+        err.response.data.error.code === "rate_limit_exceeded"
+      ) {
+        await new Promise((res) => setTimeout(res, 5000));
+        i--;
+        continue;
+      }
+      break;
     }
 
     if (!completion.choices.length || !completion.choices[0].message) {

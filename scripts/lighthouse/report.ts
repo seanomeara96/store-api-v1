@@ -19,12 +19,12 @@ const urls = [
 async function test() {
   try {
     const res = await axios.get(
-      `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${urls[1]}`
+      `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${urls[1]}`,
     );
     fs.writeFileSync(
       path.resolve(__dirname, "res.json"),
       JSON.stringify(res.data),
-      { encoding: "utf-8" }
+      { encoding: "utf-8" },
     );
   } catch (err) {
     console.log(err);

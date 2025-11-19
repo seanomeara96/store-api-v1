@@ -5,14 +5,15 @@ import { productIsVisible } from "./productIsVisible";
  * @param {boolean} is_visible
  * @returns promise
  */
-export function setVisibilityOfMany(productIds: number[], is_visible: boolean) {
-  return new Promise(async function (resolve, reject) {
-    try {
-      for (const id of productIds) {
-        await productIsVisible(id, is_visible);
-      }
-    } catch (err) {
-      reject(err);
+export async function setVisibilityOfMany(
+  productIds: number[],
+  is_visible: boolean,
+) {
+  try {
+    for (const id of productIds) {
+      await productIsVisible(id, is_visible);
     }
-  });
+  } catch (err) {
+    throw err;
+  }
 }

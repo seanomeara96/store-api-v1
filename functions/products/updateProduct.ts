@@ -9,12 +9,13 @@ import { Product } from "./Product";
  */
 export async function updateProduct(
   productId: number,
-  fieldToUpdate: productUpdateFields
+  fieldToUpdate: productUpdateFields,
 ) {
   try {
-    if (typeof productId !== "number") throw "product id must be a number";
+    if (typeof productId !== "number")
+      throw new Error("product id must be a number");
     if (typeof fieldToUpdate !== "object")
-      throw "field to update must be an object";
+      throw new Error("field to update must be an object");
     const productURL = `/catalog/products/${productId}`;
     const { store } = require("../../config/config");
     const res = await store.put(productURL, {

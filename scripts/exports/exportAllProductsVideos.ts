@@ -3,23 +3,23 @@ import { getProductVideos } from "../../functions/products/getProductVideos";
 import { output } from "../utils/output";
 require("../../config/config").config("bsk");
 
-const exportAllProductsVideos = async () => {
+async function exportAllProductsVideos() {
   try {
-    const data: any[] = []
+    const data: any[] = [];
     const products = await getAllProducts();
-    for(const product of products){
-      const videos = await getProductVideos(product.id)
+    for (const product of products) {
+      const videos = await getProductVideos(product.id);
       data.push({
         id: product.id,
         name: product.name,
         sku: product.sku,
-        numberOfVideos: videos.length
-      })
+        numberOfVideos: videos.length,
+      });
     }
-    
-  output("all-videos", data, true);
+
+    output("all-videos", data, true);
   } catch (err) {
     console.log(err);
   }
-};
+}
 exportAllProductsVideos();

@@ -1,22 +1,22 @@
 import { getAllProducts } from "./getAllProducts";
 
-export const getManyProductsBySKU = (skuArray: { [key: string]: number }[]) =>
-  new Promise((resolve, reject) => {
-    if (!skuArray.length) return reject("No SKUs provided");
-    if (!skuArray[0].hasOwnProperty("sku"))
-      return reject("must provide sku number under propery 'sku'");
-    let promises: Promise<any>[] = [];
-    let products: any = [];
-    skuArray.forEach((SKU) => {
-      promises.push(
-        getAllProducts({
-          sku: SKU.sku,
-        })
-          .then((product) => products.push(product[0]))
-          .catch((err) => reject(err))
-      );
-    });
-    Promise.allSettled(promises)
-      .then(() => resolve(products))
-      .catch((err) => console.log(err));
-  });
+export async function getManyProductsBySKU(
+  skuArray: { [key: string]: "string" }[],
+) {
+  if (!skuArray.length) throw new Error("No SKUs provided");
+  if (!skuArray[0].hasOwnProperty("sku"))
+    throw new Error("must provide sku number under property 'sku'");
+
+  let products: any = [];
+
+  try {
+    for (const SKU of skuArray) {
+      const product = await getAllProducts({ sku: SKU.sku });
+      products.push(product[0]);
+    }
+    return products;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}

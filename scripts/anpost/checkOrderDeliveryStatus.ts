@@ -13,12 +13,12 @@ import {
   sendTrustpilotReviewRequestEmail,
 } from "../email/google-review";
 
-function getAnPostItemCodeFromTrackingNumber(string: string) {
+function getAnPostItemCodeFromTrackingNumber(string: string): string {
   return string.replace(/^CE|IE$/g, "");
 }
 
-type store = "bf" | "ih";
-async function report(store: store, itemRecords: ItemRecord[]) {
+type Store = "bf" | "ih";
+async function report(store: Store, itemRecords: ItemRecord[]): Promise<void> {
   require("../../config/config").config(store, 2);
   try {
     const minDate = new Date();
@@ -42,9 +42,8 @@ async function report(store: store, itemRecords: ItemRecord[]) {
     };
     const anPostOrdersAndShipments: OrderAndShipment[] = [];
 
-    for (let i = 0; i < orders.length; i++) {
+    for (const [i, order] of orders.entries()) {
       console.log(`order shipment ${i + 1} of ${orders.length}`);
-      const order = orders[i];
       console.log(order.id);
       const shipments = await getOrderShipment(order.id);
       const shipment = shipments[0];
@@ -54,7 +53,8 @@ async function report(store: store, itemRecords: ItemRecord[]) {
       }
 
       const hasTrackingNumber = shipment.tracking_number;
-      const trackingNumberIsAnPostTrackingNumber = shipment.tracking_number.startsWith("CE");
+      const trackingNumberIsAnPostTrackingNumber =
+        shipment.tracking_number.startsWith("CE");
 
       if (hasTrackingNumber && trackingNumberIsAnPostTrackingNumber) {
         anPostOrdersAndShipments.push({
@@ -65,10 +65,8 @@ async function report(store: store, itemRecords: ItemRecord[]) {
       }
     }
 
-    for (let i = 0; i < anPostOrdersAndShipments.length; i++) {
-      const data = anPostOrdersAndShipments[i];
-
-      const deliveryRecord = itemRecords.find(function (item) {
+    for (const data of anPostOrdersAndShipments) {
+      const deliveryRecord = itemRecords.find((item) => {
         const { tracking_number } = data.shipment;
         const itemNumber = getAnPostItemCodeFromTrackingNumber(tracking_number);
         const matchingCode = String(item.ITEM_NUMBER) === itemNumber;
@@ -82,7 +80,7 @@ async function report(store: store, itemRecords: ItemRecord[]) {
     const hasDeliveryRecord = (a: OrderAndShipment) => a.deliveryRecord;
     const ordersDelivered = anPostOrdersAndShipments.filter(hasDeliveryRecord);
 
-    let out = ordersDelivered.map((o) => ({
+    const out = ordersDelivered.map((o) => ({
       name: o.order.billing_address.first_name,
       email: o.order.billing_address.email,
       order_id: o.order.id,
@@ -104,16 +102,15 @@ async function report(store: store, itemRecords: ItemRecord[]) {
     }
 
     // want to cap at 100 emails and 75 25 split toward gmail
-    if(store === "bf"){
-      console.log("gmails capped at 50")
-      gmails = gmails.slice(0, 75)
-      console.log("non gmails capped at 25")
-      nonGmails = nonGmails.slice(0, 25)
+    if (store === "bf") {
+      console.log("gmails capped at 50");
+      gmails = gmails.slice(0, 75);
+      console.log("non gmails capped at 25");
+      nonGmails = nonGmails.slice(0, 25);
     }
 
-
     console.log(
-      `store: ${store}, gmails: ${gmails.length}, non-gmails: ${nonGmails.length}`
+      `store: ${store}, gmails: ${gmails.length}, non-gmails: ${nonGmails.length}`,
     );
 
     await sendGooglReviewRequestEmail(gmails, store);
@@ -129,7 +126,7 @@ async function report(store: store, itemRecords: ItemRecord[]) {
   }
 }
 
-function getTodaysCachePath():string {
+function getTodaysCachePath(): string {
   const today = new Date();
   const year = today.getFullYear();
   const month = String(today.getMonth() + 1).padStart(2, "0"); // Months are zero-based
@@ -140,7 +137,10 @@ function getTodaysCachePath():string {
   return path.resolve(__dirname, cacheFileName);
 }
 
-function cacheItemRecords(itemRecords: ItemRecord[], cacheFilePath: string) {
+function cacheItemRecords(
+  itemRecords: ItemRecord[],
+  cacheFilePath: string,
+): void {
   const itemRecordsString = JSON.stringify(itemRecords);
   // save down the records for future reference
   fs.writeFileSync(cacheFilePath, itemRecordsString, { encoding: "utf-8" });
@@ -154,13 +154,15 @@ async function main() {
     let itemRecords;
     if (fs.existsSync(cacheFilePath)) {
       console.log(`Using cached records`);
-      const fileContents = fs.readFileSync(cacheFilePath, { encoding: "utf-8" });
+      const fileContents = fs.readFileSync(cacheFilePath, {
+        encoding: "utf-8",
+      });
       itemRecords = JSON.parse(fileContents);
     } else {
       itemRecords = await getItemRecords();
     }
     cacheItemRecords(itemRecords, cacheFilePath);
-    const stores = ["bf", "ih"] as store[];
+    const stores: Store[] = ["bf", "ih"];
     for (const store of stores) {
       await report(store, itemRecords);
     }

@@ -1,9 +1,8 @@
-require("../../config/config").config("bf")
+require("../../config/config").config("bf");
 import { getAllPages } from "../../functions/pages/getAllPages";
 
-
-
-function update(){
-    getAllPages().then(console.log)
+async function update() {
+  const pages = await getAllPages();
+  console.log(pages);
 }
-update()
+update();

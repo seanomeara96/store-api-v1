@@ -1,4 +1,4 @@
-import { getProductIdByName } from "../products/getProductIdByName";
+import { getProductByName } from "../products/getProductByName";
 import { applyCustomField } from "./applyCustomField";
 type applyBoolean = "" | "x";
 interface specificFilters {
@@ -26,7 +26,7 @@ export async function applySpecificFilters(data: specificFilters[]) {
       );
       for (const name of productNames) {
         if (item[name].toUpperCase() === "X") {
-          const id = await getProductIdByName(name);
+          const { id } = await getProductByName(name);
           await applyCustomField(id as number, key, value);
         }
       }

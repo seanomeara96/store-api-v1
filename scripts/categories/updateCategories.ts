@@ -1,5 +1,5 @@
 require("../../config/config").config("bf");
-const { updateCategory } = require("../../functions/categories/updateCategory");
+import { updateCategory } from "../../functions/categories/updateCategory";
 const data = [
   {
     id: 737,

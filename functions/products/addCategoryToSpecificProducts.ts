@@ -6,18 +6,21 @@ import { addCatToProduct } from "./addCatToProduct";
  * @param {number} categoryId
  * @returns
  */
-export function addCategoryToSpecificProducts(
+export async function addCategoryToSpecificProducts(
   productIds: { [key: string]: number }[],
-  categoryId: number
+  categoryId: number,
 ) {
-  return new Promise((resolve, reject) => {
-    if (!Array.isArray(productIds) || typeof categoryId !== "number")
-      return reject("please check paramters");
-    const promises = productIds.map((productId) => {
-      const id = productId[Object.keys(productId)[0]];
-      if (typeof id !== "number") return reject("product id must be a number");
-      return addCatToProduct(id, categoryId);
-    });
-    Promise.allSettled(promises).then(resolve).catch(reject);
+  if (!Array.isArray(productIds) || typeof categoryId !== "number") {
+    throw new Error("please check paramters");
+  }
+
+  const promises = productIds.map((productId) => {
+    const id = productId[Object.keys(productId)[0]];
+    if (typeof id !== "number") {
+      throw new Error("product id must be a number");
+    }
+    return addCatToProduct(id, categoryId);
   });
+
+  return Promise.allSettled(promises);
 }

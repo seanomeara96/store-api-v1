@@ -1,8 +1,10 @@
-export function getAllShippingMethods(zone_id: number) {
-  return new Promise((resolve, reject) => {
-    require("../../config/config")
-      .store.get(`/shipping/zones/${zone_id}/methods`)
-      .then((res: any) => resolve(res.data))
-      .catch((err: any) => reject(err));
-  });
+export async function getAllShippingMethods(zone_id: number) {
+  try {
+    const res = await require("../../config/config").store.get(
+      `/shipping/zones/${zone_id}/methods`,
+    );
+    return res.data;
+  } catch (err) {
+    throw err;
+  }
 }

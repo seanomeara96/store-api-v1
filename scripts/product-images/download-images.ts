@@ -40,13 +40,17 @@ const images = [
 ];
 
 async function main() {
-  for (const image of images) {
+  for (let i = 0; i < images.length; i++) {
     const options = {
-      url: image,
+      url: images[i],
       dest: path.resolve(__dirname, folderName),
       extractFilename: true,
     };
-    await download.image(options).catch(console.log);
+    try {
+      await download.image(options);
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 main();

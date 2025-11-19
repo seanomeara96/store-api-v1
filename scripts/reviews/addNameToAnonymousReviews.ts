@@ -8,11 +8,10 @@ import { getAllProducts } from "../../functions/products/getAllProducts";
 import { getAllReviews } from "../../functions/reviews/getAllReviews";
 import { updateReviewName } from "../../functions/reviews/updateReview";
 /**
- * @param {string[]} names array of 24 names to choose from
- * @returns an random name from an array
+ * @returns a random name from an array
  */
-const randomName = () =>
-  [
+function randomName() {
+  const names = [
     "Grace",
     "Fiadh",
     "Emily",
@@ -37,65 +36,85 @@ const randomName = () =>
     "Evie",
     "Kate",
     "Aoife",
-  ][Math.floor(Math.random() * 24)];
+  ];
+  return names[Math.floor(Math.random() * names.length)];
+}
 
 /**
- * When promise.allsettled has resolved we want to map the revews for the fulfilled promises
- * @param {*} productReviewsResponses
+ * When promise.allsettled has resolved we want to map the reviews for the fulfilled promises
+ * @param productReviewsResponses
  * @returns
  */
-const pullProductReviewsFromResponses = (productReviewsResponses) =>
-  productReviewsResponses.filter(fulfilledStatuses).map(promiseValues);
+function pullProductReviewsFromResponses(productReviewsResponses: any) {
+  return productReviewsResponses.filter(fulfilledStatuses).map(promiseValues);
+}
 
-const mapReviewRequestToProducts = (products) =>
-  products.map(({ id }) => getAllReviews(id));
+function mapReviewRequestToProducts(products: any) {
+  return products.map(function ({ id }: { id: any }) {
+    return getAllReviews(id);
+  });
+}
 
-const fetchProductReviews = async (reviewRequests) => {
+async function fetchProductReviews(reviewRequests: any) {
   const productReviewsResponses = await Promise.allSettled(
-    reviewRequests
+    reviewRequests,
   ).catch((err) => console.log(err));
   return pullProductReviewsFromResponses(productReviewsResponses);
-};
+}
 
 function getAllProductReviews() {
   return new Promise(async function (resolve, reject) {
     try {
-      const products = await getAllProducts()
-      const reviewRequests = mapReviewRequestToProducts(products)
-      const x = fetchProductReviews(reviewRequests)
-      resolve(x)
+      const products = await getAllProducts();
+      const reviewRequests = mapReviewRequestToProducts(products);
+      const x = fetchProductReviews(reviewRequests);
+      resolve(x);
     } catch (err) {
       reject(err);
     }
   });
 }
+
 /**
  * filters products that have reviews
  * @param {object} param0 object with reviews array
  * @returns
  */
-const productsWithReviews = (p: any) => p.reviews.length;
+function productsWithReviews(p: any) {
+  return p.reviews.length;
+}
 
-const reviewsWithNoName = (review: Review) => !review.name.length;
+function reviewsWithNoName(review: Review) {
+  return !review.name.length;
+}
 /**
  * returns products array with reviews that have an empty name
  * @param {object} param0 object with product id and reviews array
  * @returns
  */
-const productsWithNoNameReviews = ({ product_id, reviews }) => ({
+function productsWithNoNameReviews({
   product_id,
-  reviews: reviews.filter(reviewsWithNoName),
-});
+  reviews,
+}: {
+  product_id: any;
+  reviews: any;
+}) {
+  return {
+    product_id,
+    reviews: reviews.filter(reviewsWithNoName),
+  };
+}
 /**
  * filter for reviews where the name field is empty
  * @param {object[]} productReviews
  * @returns
  */
-const filterNoNameReviews = (productReviews: Review[]) =>
-  productReviews
+function filterNoNameReviews(productReviews: Review[]) {
+  return productReviews
     .filter(productsWithReviews) // remove products with no reviews
     .map(productsWithNoNameReviews) // filter for reviews that have no name
     .filter(productsWithReviews); // remove empty review arrays
+}
 
 async function main() {
   const productReviews = await getAllProductReviews();
@@ -108,7 +127,7 @@ async function main() {
   for (const { product_id, reviews } of noNameReviews) {
     for (const review of reviews) {
       nameUpdateRequests.push(
-        updateReviewName(product_id, review.id, randomName())
+        updateReviewName(product_id, review.id, randomName()),
       );
     }
   }

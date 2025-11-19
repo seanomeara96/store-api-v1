@@ -19,4 +19,6 @@ interface Script {
   channel_id: number; // Channel ID associated with the script
 }
 
-export const getAllScripts = getAll(`/content/scripts`) as (params?: {}) => Promise<Script[]>
+export async function getAllScripts(params?: {}): Promise<Script[]> {
+  return await getAll(`/content/scripts`)(params);
+}

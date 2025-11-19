@@ -1,30 +1,25 @@
 import { Review, ReviewUpdateParams } from "./Review";
 
-export function updateReview(
+export async function updateReview(
   product_id: number,
   review_id: number,
-  updatedFields: ReviewUpdateParams
+  updatedFields: ReviewUpdateParams,
 ): Promise<Review> {
-  return new Promise(function (resolve, reject) {
-    require("../../config/config")
-      .store.put(`/catalog/products/${product_id}/reviews/${review_id}`, {
-        ...updatedFields,
-      })
-      .then((response: any) => resolve(response.data.data as Review))
-      .catch(reject);
-  });
+  try {
+    const response: any = await require("../../config/config").store.put(
+      `/catalog/products/${product_id}/reviews/${review_id}`,
+      { ...updatedFields },
+    );
+    return response.data.data as Review;
+  } catch (err) {
+    throw err;
+  }
 }
 
-export function updateReviewName(
+export async function updateReviewName(
   product_id: number,
   review_id: number,
-  name: string
+  name: string,
 ): Promise<Review> {
-  return new Promise(async function (resolve, reject) {
-    try {
-      resolve(await updateReview(product_id, review_id, { name }));
-    } catch (err) {
-      reject(err);
-    }
-  });
+  return updateReview(product_id, review_id, { name });
 }

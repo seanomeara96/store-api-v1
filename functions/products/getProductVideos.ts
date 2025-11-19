@@ -1,12 +1,14 @@
-export function getProductVideos (product_id: number): Promise<Video[]>  {
-  return new Promise((resolve, reject) => {
-    require("../../config/config")
-      .store.get(`/catalog/products/${product_id}/videos`)
-      .then((res: any) => resolve(res.data.data))
-      .catch((err: any) => reject(err.response.data));
-  });
-};
-
+export async function getProductVideos(product_id: number): Promise<Video[]> {
+  try {
+    const config = require("../../config/config");
+    const res = await config.store.get(
+      `/catalog/products/${product_id}/videos`,
+    );
+    return res.data.data;
+  } catch (err: any) {
+    throw err.response.data;
+  }
+}
 
 interface Video {
   title: string;

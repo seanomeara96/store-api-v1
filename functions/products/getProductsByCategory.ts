@@ -1,6 +1,9 @@
 import { getAllProducts } from "./getAllProducts";
 
-export const getProductsByCategory = (category_id: number) =>
-  new Promise((resolve, reject) =>
-    getAllProducts({ "categories:in": category_id }).then(resolve).catch(reject)
-  );
+export async function getProductsByCategory(category_id: number) {
+  try {
+    return await getAllProducts({ "categories:in": String(category_id) });
+  } catch (error) {
+    throw error;
+  }
+}

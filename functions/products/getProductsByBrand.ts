@@ -6,14 +6,12 @@ import { getAllProducts } from "./getAllProducts";
  * @param {string} name name of brand
  * @returns
  */
-export function getProductsByBrand(name: string): Promise<Product[]> {
-  return new Promise(async function (resolve, reject) {
-    try {
-      const brand_id = await getBrandIdByName(name);
-      const res = await getAllProducts({ brand_id });
-      resolve(res as Product[]);
-    } catch (err) {
-      reject(err);
-    }
-  });
+export async function getProductsByBrand(name: string): Promise<Product[]> {
+  try {
+    const brand_id = await getBrandIdByName(name);
+    const res = await getAllProducts({ brand_id });
+    return res as Product[];
+  } catch (err) {
+    throw err;
+  }
 }

@@ -39,26 +39,28 @@ function wait(ms: number) {
 
 async function main() {
   while (true) {
-    const count = (await new Promise(function (resolve, reject) {
+    const count = await new Promise<number>((resolve, reject) => {
       db.get(
-       `SELECT count(id) as count 
-        FROM review_backups 
+        `SELECT count(id) as count
+        FROM review_backups
         WHERE restored = FALSE`,
-        (err, row: any) => (err ? reject(err) : resolve(row.count as number))
+        (err, row: any) => (err ? reject(err) : resolve(row.count as number)),
       );
-    })) as number;
+    });
 
     console.log(`${count} reviews are left to restore`);
 
-    const reviewBackup = (await new Promise((resolve, reject) => {
-      db.get(
-       `SELECT *
+    const reviewBackup = await new Promise<RevieweBackup | undefined>(
+      (resolve, reject) => {
+        db.get(
+          `SELECT *
         FROM review_backups
         WHERE restored = FALSE
         LIMIT 1;`,
-        (err, row: RevieweBackup) => (err ? reject(err) : resolve(row))
-      );
-    })) as RevieweBackup;
+          (err, row: RevieweBackup) => (err ? reject(err) : resolve(row)),
+        );
+      },
+    );
 
     if (!reviewBackup) {
       break;
@@ -76,7 +78,7 @@ async function main() {
     try {
       await createReview(reviewBackup.product_id, params);
     } catch (err: any) {
-      if (err.response.status === 429) {
+      if (err.response?.status === 429) {
         await wait(2000);
       } else {
         console.log(err);
@@ -84,11 +86,11 @@ async function main() {
       continue;
     }
 
-    await new Promise(function (resolve, reject) {
+    await new Promise<void>((resolve, reject) => {
       db.run(
         `UPDATE review_backups SET restored = TRUE WHERE id = ?`,
         [reviewBackup.id],
-        (err) => (err ? reject(err) : resolve(undefined))
+        (err) => (err ? reject(err) : resolve()),
       );
     });
   }

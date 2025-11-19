@@ -62,6 +62,7 @@ const SKUs = [
       const sku = SKUs[i];
       try {
         const product = await getProductBySku(sku);
+        if (!product) throw "no product";
         await addCatToProduct(product.id, 686);
         console.log(`updated ${i + 1} of ${SKUs.length}`);
       } catch (err: any) {

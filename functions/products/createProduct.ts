@@ -199,17 +199,16 @@ export interface productUpdateFields {
     length: string;
   }[];
 }
-export function createProduct(productCreationFields: productCreationFields):Promise<Product> {
-  return new Promise(async function (resolve, reject) {
-    try {
-      const res = await require("../../config/config").store.post(
-        "/catalog/products",
-        productCreationFields
-      );
-
-      resolve(res.data.data);
-    } catch (err) {
-      reject(err);
-    }
-  });
+export async function createProduct(
+  productCreationFields: productCreationFields,
+): Promise<Product> {
+  try {
+    const res = await require("../../config/config").store.post(
+      "/catalog/products",
+      productCreationFields,
+    );
+    return res.data.data;
+  } catch (err) {
+    throw err;
+  }
 }

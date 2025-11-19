@@ -6,13 +6,14 @@ const api = require("../../config/config");
 //api.config("ch", 2);
 const instance = api.store;
 
-(async () => {
+(async function main() {
   try {
     const posts = await getAllBlogs();
 
-    let postsContainingHttp = posts.filter(
-      (post) => (post.body.match(/http:\/\//gi) || []).length > 0
-    );
+    let postsContainingHttp = posts.filter(function (post) {
+      return (post.body.match(/http:\/\//gi) || []).length > 0;
+    });
+
     if (!postsContainingHttp.length) {
       throw "there are no unsafe links";
     }
@@ -26,20 +27,22 @@ const instance = api.store;
 
     const secondCheck = await getAllBlogs();
     const results = secondCheck
-      .map((post) => (post.body.match(/http:\/\//gi) || []).length)
-      .reduce((a, b) => a + b);
+      .map(function (post) {
+        return (post.body.match(/http:\/\//gi) || []).length;
+      })
+      .reduce(function (a, b) {
+        return a + b;
+      });
 
     console.log(`${results} blog posts have unsafe links`);
 
-    function updateBlogPost(blogPostId: number, updatedContent: string) {
-      return new Promise(async (resolve, reject) => {
-        try {
-          const res = await updateBlog(blogPostId, {body: updatedContent})
-          resolve(res);
-        } catch (err) {
-          reject(err);
-        }
-      });
+    async function updateBlogPost(blogPostId: number, updatedContent: string) {
+      try {
+        const res = await updateBlog(blogPostId, { body: updatedContent });
+        return res;
+      } catch (err) {
+        throw err;
+      }
     }
   } catch (err) {
     console.log(err);

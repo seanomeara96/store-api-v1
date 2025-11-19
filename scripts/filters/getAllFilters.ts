@@ -9,7 +9,10 @@ require("../../config/config").config("bf");
 (async function () {
   const products = await getAllProducts();
 
-  const promises = products.map((product) => getCustomFields(product.id));
+  const promises = [];
+  for (const product of products) {
+    promises.push(getCustomFields(product.id));
+  }
 
   const res = await Promise.allSettled(promises);
 

@@ -1,8 +1,8 @@
-import { Category } from "./functions/categories/createCategory";
-import { getAllCategories } from "./functions/categories/getAllCategories";
-import { addCatToProduct } from "./functions/products/addCatToProduct";
-import { getAllProducts } from "./functions/products/getAllProducts";
-import { Product } from "./functions/products/Product";
+import { Category } from "../../functions/categories/createCategory";
+import { getAllCategories } from "../../functions/categories/getAllCategories";
+import { addCatToProduct } from "../../functions/products/addCatToProduct";
+import { getAllProducts } from "../../functions/products/getAllProducts";
+import { Product } from "../../functions/products/Product";
 import fs from "fs";
 import path from "path";
 
@@ -75,7 +75,7 @@ async function backupProducts() {
   fs.writeFileSync(
     path.resolve(__dirname, `product-backup-${timestamp}.json`),
     JSON.stringify(products),
-    { encoding: "utf-8" }
+    { encoding: "utf-8" },
   );
   console.log("products backed up");
 }

@@ -1,17 +1,23 @@
 window.addEventListener("DOMContentLoaded", async () => {
   const publicHolidays = [
-    "1 January 2022",
-    "2 January 2022",
-    "3 January 2022",
-    "6 February 2023",
-    "17 March 2023",
-    "10 April 2023",
-    "1 May 2023",
-    "5 June 2023",
-    "7 August 2023",
-    "30 October 2023",
-    "25 December 2023",
-    "26 December 2023",
+    "1 January 2025",
+    "17 March 2025",
+    "21 April 2025",
+    "5 May 2025",
+    "2 June 2025",
+    "4 August 2025",
+    "27 October 2025",
+    "25 December 2025",
+    "26 December 2025",
+    "1 January 2026",
+    "17 March 2026",
+    "6 April 2026",
+    "4 May 2026",
+    "1 June 2026",
+    "3 August 2026",
+    "26 October 2026",
+    "25 December 2026",
+    "26 December 2026",
   ];
 
   // this should work
@@ -28,6 +34,7 @@ window.addEventListener("DOMContentLoaded", async () => {
           return resolve(cntnr);
         }
         if (count === 4) {
+          // Potential bug: This only allows for 5 attempts due to zero-based index.
           clearInterval(itr);
           reject("no countdown container");
         }
@@ -41,19 +48,19 @@ window.addEventListener("DOMContentLoaded", async () => {
 
     const today = new Date();
 
-    const todayIsNotWeekend = ![0, 5, 6].includes(today.getDay());
+    const todayIsNotWeekend = ![0, 5, 6].includes(today.getDay()); // Potential bug: Sunday (0) is a weekend, but Friday (5) typically is not.
 
     const todayIsNotPublicHoliday = !publicHolidays.includes(
       new Intl.DateTimeFormat("en-IE", {
         day: "numeric",
         month: "long",
         year: "numeric",
-      }).format(today)
+      }).format(today),
     );
 
     const todayAtEnd = new Date(
-      `${today.toString().replace(/[0-9]+:[0-9]+:[0-9]+/, "14:00:00")}`
-    );
+      `${today.toString().replace(/[0-9]+:[0-9]+:[0-9]+/, "14:00:00")}`,
+    ); // Potential bug: Assumes today.toString() produces a consistent, parseable format.
 
     const timeAtEnd = todayAtEnd.getTime();
 
@@ -66,18 +73,18 @@ window.addEventListener("DOMContentLoaded", async () => {
           const hoursUntilEnd = Math.floor(secondsUntilEnd / 60 / 60);
 
           const minutesUntilEnd = Math.floor(
-            (secondsUntilEnd - hoursUntilEnd * 60 * 60) / 60
+            (secondsUntilEnd - hoursUntilEnd * 60 * 60) / 60,
           );
 
           const secondsRemaining = Math.floor(
-            secondsUntilEnd - hoursUntilEnd * 60 * 60 - minutesUntilEnd * 60
+            secondsUntilEnd - hoursUntilEnd * 60 * 60 - minutesUntilEnd * 60,
           );
 
           container.innerHTML = `&#128666; ${hoursUntilEnd} hrs ${minutesUntilEnd} mins ${secondsRemaining} secs left for Next Day Delivery`;
         }
       }, 1000);
     } else {
-      container.innerHTML = "&#128666; Order before 2pm for Next Day Delivery";
+      container.innerHTML = "&#128666; Order before 2pm for Next Day Delivery"; // Potential issue: Doesn't account for cases where 2pm has passed.
     }
   } catch (err) {
     console.error(err);

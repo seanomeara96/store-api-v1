@@ -1,467 +1,79 @@
-import express from "express"
-import fs from "fs"
-import path from "path"
-import { getAllProducts } from "../../functions/products/getAllProducts"
+import express from "express";
+import fs from "fs";
+import path from "path";
+import { getAllProducts } from "../../functions/products/getAllProducts";
 import { ProductImage } from "../../functions/images/getProductImage";
 import { getAllProductImages } from "../../functions/images/getAllProductImages";
 import { deleteProductImage } from "../../functions/images/deleteProductImage";
 import { getProductBySku } from "../../functions/products/getProductBySKU";
 import { Product } from "../../functions/products/Product";
 const store = "bf";
-let imagery:ProductImage[]
-let batchedImagery:{[key: number]:ProductImage[] } = {}
-let skus = [
-    "MOR_MO0094",
-    "11427",
-    "21944",
-    "21383",
-    "5725",
-    "21369",
-    "21382",
-    "14308",
-    "21365",
-    "10354a",
-    "14316",
-    "5051",
-    "5702",
-    "100704",
-    "12286",
-    "MOR_MO0111",
-    "10490",
-    "5011",
-    "12106",
-    "12546",
-    "12108",
-    "11650",
-    "14315",
-    "12105",
-    "21946",
-    "MOR_MO0096",
-    "12290",
-    "12107",
-    "21943",
-    "5048",
-    "12557",
-    "5053",
-    "6504a",
-    "21456",
-    "12288",
-    "21395",
-    "5718",
-    "5052",
-    "5724",
-    "10359",
-    "12289",
-    "5050",
-    "12679",
-    "5840",
-    "21681",
-    "21445",
-    "5717",
-    "20681",
-    "12287",
-    "21367",
-    "12586",
-    "14623",
-    "14054",
-    "12353",
-    "REDK_P042480",
-    "12579",
-    "20210",
-    "20722",
-    "12578",
-    "20723",
-    "13320",
-    "21384",
-    "11636",
-    "21050",
-    "20208",
-    "13333",
-    "12584",
-    "12576",
-    "12626",
-    "11635",
-    "20761",
-    "20724",
-    "20766",
-    "12577",
-    "21374",
-    "20765",
-    "21368",
-    "20213",
-    "20763",
-    "REDK_P027970",
-    "20109",
-    "20721",
-    "12581",
-    "20212",
-    "20760",
-    "12582",
-    "13337",
-    "12575",
-    "20759",
-    "20762",
-    "13334",
-    "21388",
-    "12580",
-    "21378",
-    "20209",
-    "21371",
-    "20720",
-    "20764",
-    "13332",
-    "13319",
-    "12233",
-    "11052",
-    "10184",
-    "11992",
-    "12217",
-    "11359",
-    "11233",
-    "11454",
-    "11708",
-    "11428",
-    "11039",
-    "11741",
-    "11994",
-    "12020",
-    "11040",
-    "11744",
-    "11742",
-    "10301",
-    "11038",
-    "10397",
-    "12216",
-    "12211",
-    "12254",
-    "11041",
-    "12234",
-    "10125",
-    "6077",
-    "12214",
-    "12247",
-    "12153",
-    "12018",
-    "12215",
-    "12008",
-    "5717A",
-    "11988",
-    "11358",
-    "11043",
-    "10396",
-    "11743",
-    "11740",
-    "12248",
-    "11099c",
-    "10257A",
-    "10256",
-    "10257",
-    "12249",
-    "12250",
-    "11232",
-    "12251",
-    "10185",
-    "10102",
-    "11099e",
-    "11473",
-    "8246",
-    "9649",
-    "10302",
-    "8713",
-    "8488",
-    "8248",
-    "8714",
-    "9652",
-    "9763",
-    "8492",
-    "REDK_P042560",
-    "REDK_P027920",
-    "8204",
-    "9762",
-    "9299",
-    "8206",
-    "10124",
-    "REDK_P027790",
-    "9899",
-    "8910",
-    "8258",
-    "8718",
-    "8909",
-    "8251",
-    "9011",
-    "8252",
-    "9636",
-    "8719",
-    "9894",
-    "8716",
-    "8001",
-    "8908",
-    "9651",
-    "7609",
-    "9650",
-    "8911",
-    "8256",
-    "9045",
-    "9050",
-    "8253",
-    "7682",
-    "9898",
-    "REDK_P029530",
-    "9070",
-    "9764",
-    "8490",
-    "9067",
-    "9631",
-    "9300",
-    "REDK_P042690",
-    "8205",
-    "100705a",
-    "5256",
-    "6868",
-    "6747",
-    "7999",
-    "6483",
-    "7684",
-    "8250",
-    "5703",
-    "20791",
-    "20790",
-    "8255",
-    "5723",
-    "21731",
-    "6745",
-    "21729",
-    "5056",
-    "6869",
-    "21726",
-    "5057",
-    "21730",
-    "5726",
-    "21724",
-    "21723",
-    "5336",
-    "6465",
-    "5728",
-    "5730",
-    "21725",
-    "6443",
-    "8000",
-    "6470",
-    "5380",
-    "21722",
-    "21721",
-    "5727",
-    "7687",
-    "6259",
-    "20787",
-    "20788",
-    "6258",
-    "21728",
-    "5729",
-    "6746",
-    "9921",
-    "7683",
-    "6743",
-    "5055",
-    "20792",
-    "6744",
-    "7608",
-    "11561",
-    "21021",
-    "6475",
-    "21011",
-    "21032",
-    "20211",
-    "21018",
-    "21004",
-    "21010",
-    "21036",
-    "6474",
-    "11553B",
-    "14051",
-    "14523",
-    "21052",
-    "20797",
-    "21008",
-    "21031",
-    "9895",
-    "7494",
-    "21016",
-    "20468",
-    "14522",
-    "21055",
-    "20795",
-    "21006",
-    "21019",
-    "14050",
-    "21652",
-    "9897",
-    "21013",
-    "20798",
-    "21054",
-    "6469",
-    "21005",
-    "14592",
-    "14590",
-    "6482",
-    "6481A",
-    "6481",
-    "20793",
-    "20794",
-    "6471",
-    "21056",
-    "14285",
-    "6466",
-    "13140",
-    "20789",
-    "21015",
-    "21035",
-    "7657",
-    "6476",
-    "14591",
-    "11852",
-    "21044",
-    "9719",
-    "21007",
-    "12934",
-    "21029",
-    "21026",
-    "21014",
-    "13248",
-    "14032",
-    "14032C",
-    "14032D",
-    "14032B",
-    "14283",
-    "20527",
-    "20521",
-    "20678",
-    "20677",
-    "21481",
-    "21041",
-    "21022",
-    "20676",
-    "8970",
-    "12926",
-    "14280",
-    "14281",
-    "20684",
-    "11877",
-    "20668",
-    "20519",
-    "21012",
-    "20679",
-    "21020",
-    "21017",
-    "20517",
-    "14282",
-    "20520",
-    "21053",
-    "9720",
-    "14284",
-    "20516",
-    "12927",
-    "21033",
-    "12928",
-    "8971",
-    "12936",
-    "13253",
-    "21009",
-    "20533",
-    "20518",
-    "21037",
-    "10455",
-    "11866",
-    "20647",
-    "20838",
-    "9801",
-    "11075",
-    "9908",
-    "9803",
-    "20656",
-    "21475",
-    "20649",
-    "9229",
-    "20663",
-    "21470",
-    "11074",
-    "21473",
-    "20658",
-    "20841",
-    "20674",
-    "20661",
-    "20648",
-    "20840",
-    "20675",
-    "20839",
-    "20672",
-    "14136",
-    "20657",
-    "9804",
-    "21472",
-    "20650",
-    "20651",
-    "9805",
-    "20646",
-    "20673",
-    "21476",
-    "21474",
-    "20652",
-    "20660",
-    "20199",
-    "21471",
-    "20662",
-    "9802",
-    "20659",
-    "21469"
-]
-async function main(){
+let imagery: ProductImage[];
+let batchedImagery: { [key: number]: ProductImage[] } = {};
+let skus = ["MOR_MO0094", "9802", "20659", "21469"];
+async function main() {
   try {
-    require("../../config/config").config(store)
-
-    
+    require("../../config/config").config(store);
 
     try {
-      imagery = JSON.parse(fs.readFileSync(path.resolve(__dirname, `${store}-images.json`), {encoding: "utf-8"}))
+      imagery = JSON.parse(
+        fs.readFileSync(path.resolve(__dirname, `${store}-images.json`), {
+          encoding: "utf-8",
+        }),
+      );
     } catch {
-      const products:Product[] = []
-      for(const sku of skus){
-        const product = await getProductBySku(sku)
-        if(product) products.push(product)
+      const products: Product[] = [];
+      for (const sku of skus) {
+        const product = await getProductBySku(sku);
+        if (product) products.push(product);
       }
-      imagery = []
-      for(let i = 0; i < products.length; i++){
-        console.log(i, products.length)
-        imagery.push(...(await getAllProductImages(products[i].id)))
+      imagery = [];
+      for (let i = 0; i < products.length; i++) {
+        console.log(i, products.length);
+        imagery.push(...(await getAllProductImages(products[i].id)));
       }
-      fs.writeFileSync(path.resolve(__dirname, `${store}-images-original.json`), JSON.stringify(imagery), {encoding: "utf-8"})
-      fs.writeFileSync(path.resolve(__dirname, `${store}-images.json`), JSON.stringify(imagery), {encoding: "utf-8"})
+      fs.writeFileSync(
+        path.resolve(__dirname, `${store}-images-original.json`),
+        JSON.stringify(imagery),
+        { encoding: "utf-8" },
+      );
+      fs.writeFileSync(
+        path.resolve(__dirname, `${store}-images.json`),
+        JSON.stringify(imagery),
+        { encoding: "utf-8" },
+      );
     }
-    const app = express()
+    const app = express();
 
-
-    imagery.sort((a,b) => a.sort_order - b.sort_order)
-    for(const image of imagery) {
-      if(!batchedImagery[image.product_id]) batchedImagery[image.product_id] = []
-      batchedImagery[image.product_id].push(image)
+    imagery.sort(function (a, b) {
+      return a.sort_order - b.sort_order;
+    });
+    for (const image of imagery) {
+      if (!batchedImagery[image.product_id])
+        batchedImagery[image.product_id] = [];
+      batchedImagery[image.product_id].push(image);
     }
 
-    let gallery: string = ``
-    for(const batch in batchedImagery){
-      if(batchedImagery[batch].length < 2) continue
-      let images = batchedImagery[batch].map(img => /*HTML*/`<img
-                hx-trigger="click"
-                hx-post="/delete/${img.product_id}/${img.id}"
-                hx-swap="outerHTML"
-                style="aspect-ratio:1/1; width: 250px;" src="${img.url_zoom}">`).join("")
-            
-      gallery += /*HTML*/`
+    let gallery: string = ``;
+    for (const batch in batchedImagery) {
+      if (batchedImagery[batch].length < 2) continue;
+      let images = batchedImagery[batch]
+        .map(function (img) {
+          return /*HTML*/ `<img
+            hx-trigger="click"
+            hx-post="/delete/${img.product_id}/${img.id}"
+            hx-swap="outerHTML"
+            style="aspect-ratio:1/1; width: 250px;" src="${img.url_zoom}">`;
+        })
+        .join("");
+
+      gallery += /*HTML*/ `
       <div style="display: flex; " >${images}</div>
-      `
+      `;
     }
 
-    app.get("/",(req, res)=>{
-      res.send(/*HTML*/`<!DOCTYPE html>
+    app.get("/", function (req, res) {
+      res.send(/*HTML*/ `<!DOCTYPE html>
         <html lang="en">
         <head>
             <meta charset="UTF-8">
@@ -472,24 +84,30 @@ async function main(){
             ${gallery}
             <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
         </body>
-        </html>`)
-    })
+        </html>`);
+    });
 
-    app.post(`/delete/:product_id/:image_id`, async (req, res)=>{
-      const pID = parseInt(req.params.product_id)
-      const ID = parseInt(req.params.image_id)
-      await deleteProductImage(pID, ID)
-      console.log(`deleted product ${req.params.product_id} image ${req.params.image_id}`)
-      imagery = imagery.filter(img => !(img.id === ID && img.product_id === pID) )
-      fs.writeFileSync(path.resolve(__dirname, `${store}-images.json`), JSON.stringify(imagery), {encoding: "utf-8"})
-      res.send("")
-    })
+    app.post(`/delete/:product_id/:image_id`, async function (req, res) {
+      const pID = parseInt(req.params.product_id);
+      const ID = parseInt(req.params.image_id);
+      await deleteProductImage(pID, ID);
+      console.log(
+        `deleted product ${req.params.product_id} image ${req.params.image_id}`,
+      );
+      imagery = imagery.filter(function (img) {
+        return !(img.id === ID && img.product_id === pID);
+      });
+      fs.writeFileSync(
+        path.resolve(__dirname, `${store}-images.json`),
+        JSON.stringify(imagery),
+        { encoding: "utf-8" },
+      );
+      res.send("");
+    });
 
-    app.listen(3000)
-
-  } catch(err) {
-    console.log(err)
+    app.listen(3000);
+  } catch (err) {
+    console.log(err);
   }
 }
-main()
-
+main();

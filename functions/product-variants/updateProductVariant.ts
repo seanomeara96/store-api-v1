@@ -1,21 +1,18 @@
-export function updateProductVariant(
+export async function updateProductVariant(
   product_id: number,
   variant_id: number,
-  updateParams: UpdateVriantParams
-) {
-  return new Promise(async function (resolve, reject) {
-    try {
-      const res = await require("../../config/config").store.put(
-        `/catalog/products/${product_id}/variants/${variant_id}`,
-        updateParams
-      );
-      resolve(res.data.data)
-    } catch (err) {
-      reject(err);
-    }
-  });
+  updateParams: UpdateVriantParams,
+): Promise<any> {
+  try {
+    const res = await require("../../config/config").store.put(
+      `/catalog/products/${product_id}/variants/${variant_id}`,
+      updateParams,
+    );
+    return res.data.data;
+  } catch (err) {
+    throw err;
+  }
 }
-
 
 interface UpdateVriantParams {
   cost_price?: number;

@@ -3,7 +3,7 @@ import { output } from "../utils/output";
 
 const stores = ["bf"];
 
-(async () => {
+async function fetchSKUs() {
   const skus = [];
   for (const store of stores) {
     require("../../config/config").config(store);
@@ -12,7 +12,11 @@ const stores = ["bf"];
   }
   const uniqueSkus = [...new Set(skus)];
 
-  const skuJSON = uniqueSkus.map((sku) => ({ sku }));
+  const skuJSON = uniqueSkus.map(function (sku) {
+    return { sku: sku };
+  });
 
   await output("allSKUs", skuJSON, true);
-})();
+}
+
+fetchSKUs();

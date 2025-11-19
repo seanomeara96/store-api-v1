@@ -30,8 +30,8 @@ function getNextReview(): Promise<StoredReview> {
   return new Promise((resolve, reject) =>
     db.get(
       `SELECT * FROM reviews WHERE updated = 0 AND error = 0 LIMIT 1`,
-      (err, row) => (err ? reject(err) : resolve(row as StoredReview))
-    )
+      (err, row) => (err ? reject(err) : resolve(row as StoredReview)),
+    ),
   );
 }
 
@@ -40,24 +40,24 @@ function getReviewCount(): Promise<number> {
     db.get(
       `SELECT count(id) AS count FROM reviews WHERE updated = 0 AND error = 0`,
       (err, row) =>
-        err ? reject(err) : resolve((row as { count: number }).count)
-    )
+        err ? reject(err) : resolve((row as { count: number }).count),
+    ),
   );
 }
 
 function setReviewUpdated(review: StoredReview) {
   return new Promise((resolve, reject) =>
     db.run(`UPDATE reviews SET updated = 1 WHERE id = ?`, [review.id], (err) =>
-      err ? reject(err) : resolve(true)
-    )
+      err ? reject(err) : resolve(true),
+    ),
   );
 }
 
 function setReviewErrored(review: StoredReview) {
   return new Promise((resolve, reject) =>
     db.run(`UPDATE reviews SET error = 1 WHERE id = ?`, [review.id], (err) =>
-      err ? reject(err) : resolve(true)
-    )
+      err ? reject(err) : resolve(true),
+    ),
   );
 }
 
@@ -74,9 +74,9 @@ async function main() {
     let review;
     try {
       review = await getNextReview();
-      if(!review){
-        console.log("no review found")
-        break
+      if (!review) {
+        console.log("no review found");
+        break;
       }
       console.log(`fetched original review`, review);
     } catch (err) {
@@ -87,8 +87,11 @@ async function main() {
     let product;
     try {
       product = await getProductBySku(review.sku);
+      if (!product) {
+        throw new Error("Product not found");
+      }
       console.log(
-        `fetched product https://pixieloves.ie${product.custom_url.url}`
+        `fetched product https://pixieloves.ie${product.custom_url.url}`,
       );
     } catch (err) {
       await setReviewErrored(review);
@@ -126,12 +129,17 @@ async function main() {
     const newTitle = responseText(titleRewriteResponse.data)?.trim();
 
     try {
-      const dateString = review.date_reviewed
+      const dateString = review.date_reviewed;
       const [day, month, year, hours, minutes] = dateString.split(/\/|\s|:/);
 
       // Note: Months in JavaScript's Date object are zero-based, so we need to subtract 1 from the month value
-      const dateObject = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), parseInt(hours), parseInt(minutes));
-      
+      const dateObject = new Date(
+        parseInt(year),
+        parseInt(month) - 1,
+        parseInt(day),
+        parseInt(hours),
+        parseInt(minutes),
+      );
 
       const newReview: ReviewCreateParams = {
         name: review.name,

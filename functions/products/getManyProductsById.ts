@@ -1,20 +1,20 @@
 import { getAllProducts } from "./getAllProducts";
 
-export const getManyProductsById = (idArray: number[]) =>
-  new Promise((resolve, reject) => {
-    let promises: any = [];
+export async function getManyProductsById(idArray: number[]) {
+  try {
     let products: any = [];
-    idArray.forEach((id) => {
-      promises.push(
-        getAllProducts({
-          id,
-        })
-          .then((product) => products.push(product[0]))
-          .catch((err) => reject(err))
-      );
-    });
-    Promise.allSettled(promises)
-      .then(() => resolve(products))
-      .catch((err) => console.log(err));
-  });
+    for (const id of idArray) {
+      try {
+        const product = await getAllProducts({ id });
+        products.push(product[0]);
+      } catch (err) {
+        throw err;
+      }
+    }
+    return products;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
 // 3615

@@ -36,7 +36,7 @@ function createCouponData(
     entity: "categories",
     ids: [0],
   },
-  enabled = true
+  enabled = true,
 ) {
   const { dayAbbr, dd, monthAbbr, yyyy } = expires;
   return {
@@ -58,14 +58,16 @@ const couponData = createCouponData(
   {
     entity: "categories",
     ids: [0],
-  }
+  },
 );
 
 const stores = ["ah", "bs", "pb"];
 
-(async function () {
+async function createCouponsForAllStores() {
   for (let store of stores) {
-    require("../../config/config").config(store)
+    require("../../config/config").config(store);
     await createCoupon(couponData);
   }
-})();
+}
+
+createCouponsForAllStores();

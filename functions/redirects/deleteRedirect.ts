@@ -1,14 +1,14 @@
-export function deleteRedirect(id: number) {
-  return new Promise(function (resolve, reject) {
-    
-    require("../../config/config")
-      .store.delete(`/storefront/redirects`, {
-        params: {
-          "id:in": id,
-          site_id: 1000,
-        },
-      })
-      .then((res: any) => resolve(res.data.data))
-      .catch((err: any) => reject(err.response.data));
-  });
+export async function deleteRedirect(id: number) {
+  try {
+    const config = require("../../config/config");
+    const response = await config.store.delete(`/storefront/redirects`, {
+      params: {
+        "id:in": id,
+        site_id: 1000,
+      },
+    });
+    return response.data.data;
+  } catch (error: any) {
+    throw error.response.data;
+  }
 }

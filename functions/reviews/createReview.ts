@@ -1,18 +1,16 @@
 import { Review, ReviewCreateParams } from "./Review";
 
-export function createReview(
+export async function createReview(
   product_id: number,
-  params: ReviewCreateParams
+  params: ReviewCreateParams,
 ): Promise<Review> {
-  return new Promise(async function (resolve, reject) {
-    try {
-      const res = await require("../../config/config").store.post(
-        `/catalog/products/${product_id}/reviews`,
-        params
-      );
-      resolve(res.data.data as Review);
-    } catch (err) {
-      reject(err);
-    }
-  });
+  try {
+    const res = await require("../../config/config").store.post(
+      `/catalog/products/${product_id}/reviews`,
+      params,
+    );
+    return res.data.data as Review;
+  } catch (err) {
+    throw err;
+  }
 }

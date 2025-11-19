@@ -10,20 +10,19 @@ export function getSites() {
 }
 
 function getXSiteId(siteUrl: string) {
-  return function () {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const sites = (await getSites()) as any[];
-        const id = sites.find((site: any) => site.url === siteUrl)?.id;
-        if (id) {
-          resolve(id);
-          return;
-        }
-        reject("no id");
-      } catch (err) {
-        reject(err);
+  return async function () {
+    try {
+      const sites = (await getSites()) as any[];
+      const id = sites.find(function (site: any) {
+        return site.url === siteUrl;
+      })?.id;
+      if (id) {
+        return id;
       }
-    });
+      throw new Error("no id");
+    } catch (err) {
+      throw err;
+    }
   };
 }
 

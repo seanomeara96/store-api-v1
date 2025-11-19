@@ -7,26 +7,29 @@ async function exportCategories() {
     require("../../config/config").config(store);
     let pages = await getAllPages();
 
-    pages = pages.filter(
-      (b) =>
+    pages = pages.filter(async function (b) {
+      return (
         b.is_visible &&
         ((typeof b.meta_title !== "undefined" && !b.meta_title.length) ||
           (typeof b.meta_description !== "undefined" &&
             !b.meta_description.length))
-    );
+      );
+    });
 
-    const exportdata = pages.map((c) => ({
-      id: c.id,
-      name: c.name,
-      page_title: c.meta_title,
-      meta_description: c.meta_description,
-      url: c.url,
-    }));
+    const exportdata = pages.map(function (c) {
+      return {
+        id: c.id,
+        name: c.name,
+        page_title: c.meta_title,
+        meta_description: c.meta_description,
+        url: c.url,
+      };
+    });
 
     await output(
       path.resolve(__dirname, store + "-page-export.csv"),
       exportdata,
-      true
+      true,
     );
 
     console.log("And done");

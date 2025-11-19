@@ -1,7 +1,6 @@
 require("../../config/config").config("bf");
 import { applyCustomFieldToMany } from "../../functions/custom-fields/applyCustomFieldsToMany";
 
-
 const products = [
   { "Product ID": 5933 },
   { "Product ID": 5934 },
@@ -10,6 +9,20 @@ const products = [
   { "Product ID": 5937 },
   { "Product ID": 5938 },
 ];
-applyCustomFieldToMany(products.map(p => p["Product ID"]), "", "")
-  .then(console.log)
-  .catch(console.log);
+
+async function main() {
+  try {
+    const result = await applyCustomFieldToMany(
+      products.map(function (p) {
+        return p["Product ID"];
+      }),
+      "",
+      "",
+    );
+    console.log(result);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+main();
