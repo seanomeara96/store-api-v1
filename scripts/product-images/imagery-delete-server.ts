@@ -10,7 +10,62 @@ import { Product } from "../../functions/products/Product";
 const store = "bf";
 let imagery: ProductImage[];
 let batchedImagery: { [key: number]: ProductImage[] } = {};
-let skus = ["MOR_MO0094", "9802", "20659", "21469"];
+let skus = [
+  "22877",
+  "22886",
+  "22892",
+  "22880",
+  "22912",
+  "22879",
+  "22899",
+  "22911",
+  "22893",
+  "22884",
+  "22889",
+  "22908",
+  "22914",
+  "22890",
+  "22878",
+  "22887",
+  "22894",
+  "22910",
+  "22882",
+  "22909",
+  "22902",
+  "22913",
+  "22885",
+  "22900",
+  "22905",
+  "22895",
+  "22906",
+  "22786",
+  "22784",
+  "22783",
+  "22785",
+  "22782",
+  "22901",
+  "22898",
+  "22888",
+  "22883",
+  "22915",
+  "22896",
+  "22847",
+  "22844",
+  "22843",
+  "22839",
+  "22723",
+  "22235",
+  "22233",
+  "22541",
+  "22718",
+  "22717",
+  "22722",
+  "22721",
+  "22720",
+  "22238",
+  "22719",
+  "22897",
+];
 async function main() {
   try {
     require("../../config/config").config(store);
@@ -56,7 +111,6 @@ async function main() {
 
     let gallery: string = ``;
     for (const batch in batchedImagery) {
-      if (batchedImagery[batch].length < 2) continue;
       let images = batchedImagery[batch]
         .map(function (img) {
           return /*HTML*/ `<img

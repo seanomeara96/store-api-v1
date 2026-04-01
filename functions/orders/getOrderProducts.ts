@@ -1,23 +1,17 @@
 import { Order } from "./Order";
 
-export async function getOrderProducts(order: Order): Promise<OrderProduct[]> {
-  const orderId = order.id;
-  const { resource } = order.products;
-  console.log("requesting products from order:", orderId);
-
-  if (typeof orderId !== "number") {
-    console.log("typeof orderId", typeof orderId);
+export async function getOrderProducts(
+  orderID: number,
+): Promise<OrderProduct[]> {
+  if (typeof orderID !== "number") {
+    console.log("typeof orderId", typeof orderID);
     throw new Error("order id must be a number");
   }
 
-  if (typeof resource !== "string") {
-    console.log("typeof resource", typeof resource);
-    throw new Error("resource must be a path string");
-  }
-
   try {
-    const e = await require("../../config/config").store.get(resource);
-    console.log("success");
+    const e = await require("../../config/config").store.get(
+      `/orders/${orderID}/products`,
+    );
     return e.data;
   } catch (error) {
     throw error;

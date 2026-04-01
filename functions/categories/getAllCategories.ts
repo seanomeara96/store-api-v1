@@ -5,8 +5,16 @@ import { Category } from "./createCategory";
  * @param {*} params
  * @returns
  */
+export type GetAllCategoriesParams = {
+  page?: number;
+  limit?: number;
+  name?: string;
+  parent_id?: number;
+  is_visible?: boolean;
+  min_id?: number;
+  max_id?: number;
+};
+
 export const getAllCategories = getAll("/catalog/categories") as (
-    params?: any
-  ) => Promise<Category[]>;
-
-
+  params?: GetAllCategoriesParams,
+) => Promise<Category[]>;

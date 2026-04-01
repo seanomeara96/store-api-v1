@@ -61,18 +61,23 @@ async function testMain() {
       db.run(
         `CREATE TABLE IF NOT EXISTS faqs (
 				product_id INTEGER UNIQUE NOT NULL,
-				faq_json TEXT NOT NULL			
+				faq_json TEXT NOT NULL
 			)`,
         function (err) {
           if (err) return reject(err);
           resolve(undefined);
-        }
+        },
       );
     });
 
-    const products = (await getAllProducts()).sort(
-      (a, b) => b.sort_order - a.sort_order
-    );
+    const products = (await getAllProducts())
+      .sort((a, b) => b.sort_order - a.sort_order)
+      .filter(
+        (p) =>
+          p.inventory_level > 0 &&
+          p.description !== "" &&
+          !p.name.toLowerCase().includes("gwp"),
+      );
     for (let i = 0; i < products.length; i++) {
       console.log(i, products.length);
 
@@ -85,7 +90,7 @@ async function testMain() {
           function (err, row: { count: number }) {
             if (err) return reject(err);
             resolve(row.count > 0);
-          }
+          },
         );
       });
 
@@ -104,12 +109,12 @@ async function testMain() {
             { role: "system", content: systemMessage },
             {
               role: "user",
-              content: `search the web for information to improve the E-E-A-T quality of this product description. Return a FAQ section json object i can use to greatly enhance the E-E-A-T quality of this product's description page. 
+              content: `search the web for information to improve the E-E-A-T quality of this product description. Return a FAQ section json object i can use to greatly enhance the E-E-A-T quality of this product's description page.
               product name: ${product.name}, description: ${htmlToText(
-                product.description
+                product.description,
               )}
-              
-              
+
+
               Do not include links to sources other than beautyskincare.ie in the question and answer content.
               Do not mention promotions or free gifts in your answer. Ensure your response focuses on the description of the product and the benefit to the consumer.
               `,
@@ -128,11 +133,11 @@ async function testMain() {
       for (let j = 0; j < faq.length; j++) {
         faq[j].answer = faq[j].answer.replace(
           /\(([^)\s]+(\.[^)\s]+)+[^\s)]*)\)\)?/g,
-          ""
+          "",
         );
         faq[j].question = faq[j].question.replace(
           /\(([^)\s]+(\.[^)\s]+)+[^\s)]*)\)\)?/g,
-          ""
+          "",
         );
       }
 
@@ -144,7 +149,7 @@ async function testMain() {
             function (err) {
               if (err) return reject(err);
               resolve(undefined);
-            }
+            },
           );
         });
 
@@ -157,7 +162,6 @@ async function testMain() {
         console.log(generateFaqHtml(faq));
         console.log();
       }
-      
     }
   } catch (err) {
     console.log(err);

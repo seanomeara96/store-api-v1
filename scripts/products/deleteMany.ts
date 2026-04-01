@@ -1,5 +1,5 @@
 import { deleteProduct } from "../../functions/products/deleteProduct";
-require("../../config/config").config("px");
+require("../../config/config").config("ch");
 const data = [
   { "Product ID": 1617 },
   { "Product ID": 3382 },

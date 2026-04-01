@@ -4,12 +4,12 @@ import { getAllPages } from "../../functions/pages/getAllPages";
 import { output } from "../utils/output";
 import path from "path";
 
-function fmt(type: string) {
+function createSeoRowMapper(type: string) {
   return function (p: any) {
     try {
       return {
         id: p.id,
-        type: type,
+        type,
         name: p.name ?? p.title,
         page_title: p.page_title ?? p.meta_title,
         meta_description: p.meta_description,
@@ -20,14 +20,13 @@ function fmt(type: string) {
         throw new Error(
           `${err.message} at resource of type ${type}: ${JSON.stringify(p)}`,
         );
-      } else {
-        throw err;
       }
+      throw err;
     }
   };
 }
 
-async function ptAndMD() {
+async function exportSeoToCsv() {
   try {
     require("../..//config/config").config("ch");
 
@@ -35,18 +34,12 @@ async function ptAndMD() {
     const categories = await getAllCategories();
     const brands = await getAllBrands();
 
+    const isVisible = (p: any) => p.is_visible;
+
     const seo = [
-      ...pages
-        .filter(function (p) {
-          return p.is_visible;
-        })
-        .map(fmt("page")),
-      ...brands.map(fmt("brand")),
-      ...categories
-        .filter(function (p) {
-          return p.is_visible;
-        })
-        .map(fmt("category")),
+      ...pages.filter(isVisible).map(createSeoRowMapper("page")),
+      ...brands.map(createSeoRowMapper("brand")),
+      ...categories.filter(isVisible).map(createSeoRowMapper("category")),
     ];
 
     await output(path.resolve(__dirname, "SEO-Export.csv"), seo, true);
@@ -59,4 +52,4 @@ async function ptAndMD() {
   }
 }
 
-ptAndMD();
+exportSeoToCsv();

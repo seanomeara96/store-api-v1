@@ -11,15 +11,15 @@ const blackFridayCategory = 1057;
 
 async function maxDiscount() {
   try {
-   // const brand = await getBrandByName("Kérastase");
+    // const brand = await getBrandByName("Kérastase");
     //if (!brand) return console.log("no brand");
     const products = (
       await getAllProducts({
-        "categories:in": [1203].join(","),
-       //brand_id: brand.id,
+        "categories:in": [1215].join(","),
+        //brand_id: brand.id,
       })
     ).filter(
-      (p) => p.inventory_level > 0 && !p.name.toLowerCase().includes("gwp")
+      (p) => p.inventory_level > 0 && !p.name.toLowerCase().includes("gwp"),
     );
     let max: { discount: number; product: Product | undefined } = {
       discount: 0,
@@ -42,7 +42,7 @@ async function maxDiscount() {
         }
       }
     }
-    
+
     console.log(max.discount, relative ? "%" : "€");
     console.log(max.product!.id);
     console.log(max.product!.name);

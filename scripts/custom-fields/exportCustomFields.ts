@@ -10,10 +10,9 @@ import { getAllProducts } from "../../functions/products/getAllProducts";
 import { output } from "../utils/output";
 async function exportCustomFields() {
   try {
-
     // table linen hireall
     // ha 266
-    require("../../config/config").config("ha")
+    require("../../config/config").config("ch");
     const data: {
       product_id: number;
       product_name: string;
@@ -21,7 +20,8 @@ async function exportCustomFields() {
       custom_field_name: string;
       custom_field_value: string;
     }[] = [];
-    const products = await getAllProducts({ "categories:in": [266].join(",") });
+    const products =
+      await getAllProducts(/*{ "categories:in": [261].join(",") }*/);
     for (let i = 0; i < products.length; i++) {
       console.log(`fetching custom fields`, i, products.length);
       const product = products[i];
@@ -37,9 +37,9 @@ async function exportCustomFields() {
         });
       }
     }
-    output(path.resolve(__dirname, "custom-field-export.csv"), data, true)
+    output(path.resolve(__dirname, "custom-field-export.csv"), data, true);
   } catch (err: any) {
     console.log(err.response.data ?? err.response ?? err);
   }
 }
-exportCustomFields()
+exportCustomFields();

@@ -1,21 +1,29 @@
 import OpenAI from "openai";
 import { htmlToText } from "html-to-text";
 import { marked } from "marked";
+import { ChatModel } from "openai/resources/chat/chat";
 
 export async function generateProductDescription(
+  model: ChatModel,
   productDescription: string,
   additionalInstructions: string,
-  contextWrapFunc: (description: string, additionalInstructions: string) => string,
+  contextWrapFunc: (
+    description: string,
+    additionalInstructions: string,
+  ) => string,
 ): Promise<string> {
   try {
     let response = await new OpenAI({
       apiKey: process.env.OPENAI_API_KEY,
     }).chat.completions.create({
-      model: "gpt-4o",
+      model: model,
       messages: [
         {
           role: "user",
-          content: contextWrapFunc(htmlToText(productDescription), additionalInstructions),
+          content: contextWrapFunc(
+            htmlToText(productDescription),
+            additionalInstructions,
+          ),
         },
       ],
     });

@@ -3,7 +3,7 @@ import { getCustomField } from "../../functions/custom-fields/getCustomField";
 import { CustomField } from "../../functions/custom-fields/getCustomFields";
 import { updateCustomField } from "../../functions/custom-fields/updateCustomField";
 
-require("../../config/config").config("ha");
+require("../../config/config").config("ch");
 
 let data: {
   product_id: number;
@@ -12,83 +12,92 @@ let data: {
   custom_field_name: string;
   custom_field_value: string;
   action: string;
+  duplicate?: string;
 }[] = [
   {
-    product_id: 459,
-    product_name: "MY Drap Cocktail Napkin Emerald Green",
-    custom_field_id: 200,
-    custom_field_name: "Pack size",
-    custom_field_value: "25",
-    action: "UPDATE",
-  },
-  {
-    product_id: 586,
-    product_name: "MY Drap Cocktail Napkin Sea Blue",
-    custom_field_id: 271,
-    custom_field_name: "Pack size",
-    custom_field_value: "25",
-    action: "UPDATE",
-  },
-  {
-    product_id: 643,
-    product_name: "MY Drap Cocktail Napkin Black",
-    custom_field_id: 305,
-    custom_field_name: "Pack size",
-    custom_field_value: "150",
-    action: "UPDATE",
-  },
-  {
-    product_id: 674,
-    product_name: "MYdrap Napkin Fuchsia Pink 8in x 8in",
-    custom_field_id: 323,
-    custom_field_name: "Pack size",
-    custom_field_value: "25",
-    action: "UPDATE",
-  },
-  {
-    product_id: 915,
-    product_name: "MY Drap Canape Napkin Cream",
-    custom_field_id: 460,
-    custom_field_name: "Pack size",
-    custom_field_value: "100",
-    action: "UPDATE",
-  },
-  {
-    product_id: 943,
-    product_name: "MY Drap Canape Napkin Black Roll",
-    custom_field_id: 476,
-    custom_field_name: "Pack size",
-    custom_field_value: "100",
-    action: "UPDATE",
-  },
-  {
-    product_id: 460,
-    product_name: "MY Drap Cocktail Napkin Red Gingham",
-    custom_field_id: 201,
-    custom_field_name: "Pack size",
-    custom_field_value: "25",
-    action: "UPDATE",
-  },
-  {
-    product_id: 508,
-    product_name: "MY Drap Cocktail Napkin Pistachio",
-    custom_field_id: 228,
-    custom_field_name: "Pack size",
-    custom_field_value: "25",
-    action: "UPDATE",
-  },
-  {
-    product_id: 459,
-    product_name: "MY Drap Cocktail Napkin Emerald Green",
-    custom_field_id: 9779,
-    custom_field_name: "Pack size",
-    custom_field_value: "1",
+    product_id: 127,
+    product_name: "Art Deco Comic Strip Locker Table",
+    custom_field_id: 1096,
+    custom_field_name: "Case Size:",
+    custom_field_value: "1 Per Case",
     action: "DELETE",
   },
   {
-    product_id: 460,
-    product_name: "MY Drap Cocktail Napkin Red Gingham",
-    custom_field_id: 9780,
+    product_id: 186,
+    product_name: "Table Rectangular 6ft x 36in",
+    custom_field_id: 1089,
+    custom_field_name: "Case Size:",
+    custom_field_value: "1 Per Case",
+    action: "DELETE",
+  },
+  {
+    product_id: 479,
+    product_name: "Art Deco Comic Strip Table",
+    custom_field_id: 1097,
+    custom_field_name: "Case Size:",
+    custom_field_value: "1 Per Case",
+    action: "DELETE",
+  },
+  {
+    product_id: 501,
+    product_name: "Table Half Round 5ft (Folding)",
+    custom_field_id: 1092,
+    custom_field_name: "Case Size:",
+    custom_field_value: "1 Per Case",
+    action: "DELETE",
+  },
+  {
+    product_id: 740,
+    product_name: "Table Rectangular 4ft x 24in",
+    custom_field_id: 1091,
+    custom_field_name: "Case Size:",
+    custom_field_value: "1 Per Case",
+    action: "DELETE",
+  },
+  {
+    product_id: 907,
+    product_name: "Table Rectangular 4ft x 30in",
+    custom_field_id: 1093,
+    custom_field_name: "Case Size:",
+    custom_field_value: "1 Per Case",
+    action: "DELETE",
+  },
+  {
+    product_id: 992,
+    product_name: "Table Rectangular 8ft x 30in",
+    custom_field_id: 1095,
+    custom_field_name: "Case Size:",
+    custom_field_value: "1 Per Case",
+    action: "DELETE",
+  },
+  {
+    product_id: 1091,
+    product_name: "Table Rectangular 8ft x 24in",
+    custom_field_id: 1094,
+    custom_field_name: "Case Size:",
+    custom_field_value: "1 Per Case",
+    action: "DELETE",
+  },
+  {
+    product_id: 1164,
+    product_name: "Alaska Square Coffee Table - White",
+    custom_field_id: 1075,
+    custom_field_name: "Case Size:",
+    custom_field_value: "1 Per Case",
+    action: "DELETE",
+  },
+  {
+    product_id: 1168,
+    product_name: "Table Rectangular 8ft x 18in",
+    custom_field_id: 1085,
+    custom_field_name: "Case Size:",
+    custom_field_value: "1 Per Case",
+    action: "DELETE",
+  },
+  {
+    product_id: 1472,
+    product_name: "Alice Bar Stool Rose Gold",
+    custom_field_id: 798,
     custom_field_name: "Pack size",
     custom_field_value: "1",
     action: "DELETE",
@@ -120,8 +129,8 @@ async function test() {
       ) {
         console.log(
           `updating custom field for ${row.product_id}
-              name: ${cf.name} => ${row.custom_field_name} 
-              value: ${cf.value} => ${row.custom_field_value}`
+              name: ${cf.name} => ${row.custom_field_name}
+              value: ${cf.value} => ${row.custom_field_value}`,
         );
         await new Promise((res) => setTimeout(res, 3000));
         try {
@@ -129,7 +138,7 @@ async function test() {
             row.product_id,
             row.custom_field_id,
             row.custom_field_name,
-            row.custom_field_value
+            row.custom_field_value,
           );
         } catch (err: any) {
           if (err.response.data.title.includes("already exists")) {
@@ -141,7 +150,7 @@ async function test() {
         }
       } else if (row.action.toLowerCase() === "delete") {
         console.log(
-          `deleting custom field name:${cf.name}; value:${cf.value};`
+          `deleting custom field name:${cf.name}; value:${cf.value};`,
         );
         try {
           await new Promise((res) => setTimeout(res, 3000));

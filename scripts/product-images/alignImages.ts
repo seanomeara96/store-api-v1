@@ -3,24 +3,35 @@ import { getAllProductVariants } from "../../functions/products/getAllProductVar
 
 async function main() {
   try {
-    const src = "ch";
-    const dest = "ha";
+    const src = "bf";
+    const dest = "ih";
 
-    /* silver rim, gold rim, jasper conran, meditaranian */
     const skus = [
-      { sku: "1227" },
-      { sku: "HAMP01" },
-      { sku: "CRB001-1000665" },
-      { sku: "AS0005" },
-      { sku: "BR0005" },
-      { sku: "MK0001" },
-    ];
+      "100114",
+      "100107",
+      "100103",
+      "100101",
+      "100136",
+      "100117",
+      "100100",
+      "100119",
+      "100106",
+      "100102",
+      "100115",
+      "9963",
+      "10570",
+      "10571",
+      "10572",
+      "10573",
+    ].map((sku) => ({ sku: sku.trim() }));
 
     const seen: number[] = [];
     for (let i = 0; i < skus.length; i++) {
+      await delay(1000);
       console.log(i, skus.length);
       const { sku } = skus[i];
       let [srcProductID, destProductID] = [0, 0];
+      await delay(1000);
       try {
         [srcProductID, destProductID] = await getProductIds(sku, src, dest);
       } catch (err) {
@@ -30,12 +41,13 @@ async function main() {
       if (!srcProductID || !destProductID) {
         throw new Error("Expected an id for both src and dest product");
       }
+      await delay(1000);
       if (seen.includes(destProductID)) continue;
       await alignImages(src, dest, srcProductID, destProductID);
       seen.push(destProductID);
-      await delay(3000);
+      await delay(1000);
     }
-  } catch (err) {
+  } catch (err: any) {
     console.log(err);
   }
 }

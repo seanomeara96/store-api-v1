@@ -1,7 +1,7 @@
 import { getAllCategories } from "../../functions/categories/getAllCategories";
 import { output } from "../utils/output";
 import path from "path";
-const store = "ah";
+const store = "ch";
 async function exportCategories() {
   try {
     require("../../config/config").config(store);
@@ -11,15 +11,15 @@ async function exportCategories() {
     for (let i = 0; i < categories.length; i++) {
       let c = categories[i];
       let name = c.name;
-      let parent = categories.find(function (p) {
-        return p.id == c.parent_id;
-      });
-      while (parent) {
-        name = parent.name + " => " + name;
-        parent = categories.find(function (p) {
-          return p.id == parent!.parent_id;
-        });
-      }
+      // let parent = categories.find(function (p) {
+      //   return p.id == c.parent_id;
+      // });
+      // while (parent) {
+      //   name = parent.name + " => " + name;
+      //   parent = categories.find(function (p) {
+      //     return p.id == parent!.parent_id;
+      //   });
+      // }
 
       exportdata.push({
         id: c.id,
@@ -27,8 +27,8 @@ async function exportCategories() {
         name: name,
         //sort_order: c.sort_order,
         //page_title: c.page_title,
-        meta_description: c.meta_description,
-        //url: c.custom_url.url,
+        //meta_description: c.meta_description,
+        url: c.custom_url.url,
       });
     }
 

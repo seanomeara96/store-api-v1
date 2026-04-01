@@ -5,22 +5,35 @@ import path from "path";
 import axios from "axios";
 import imageSize from "image-size";
 
-const store = "ch";
+const store = "ha";
 require("../../config/config").config(store);
-const configs = [
-  { id: 34, name: "tables" },
-  { id: 77, name: `loungeFurniture` },
-  { id: 33, name: `outdoorFurniture` },
-  { id: 28, name: `illuminatedFurniture` },
-  { id: 576, name: `officeFurniture` },
+interface CategoryConfig {
+  id: number;
+  name: string;
+}
+
+const configs: CategoryConfig[] = [
+  // { id: 34, name: "tables" },
+  // { id: 77, name: `loungeFurniture` },
+  // { id: 33, name: `outdoorFurniture` },
+  // { id: 28, name: `illuminatedFurniture` },
+  // { id: 576, name: `officeFurniture` },
   //{ id: 38, name: `tableLinen` },
 ];
 
 async function test() {
+  if (configs.length == 0) {
+    configs.push({ id: 0, name: "all" });
+  }
   for (const config of configs) {
     try {
       const data: any[] = [];
-      const params = { "categories:in": [config.id].join(",") };
+      const params: any = {};
+
+      if (config.id > 0) {
+        params["categories:in"] = [config.id].join(",");
+      }
+
       const products = await getAllProducts(params);
 
       for (let i = 0; i < products.length; i++) {
@@ -65,12 +78,16 @@ async function test() {
 
           // console.log("Image Size: " + fileSize);
           // console.log("Dimensions: " + imageWidth + " x " + imageHeight);
-          const excesive_file_size_gt_70_kb = String(imageSizeInBytes / 1024 > 70);
+          const excesive_file_size_gt_70_kb = String(
+            imageSizeInBytes / 1024 > 70,
+          );
           const not_square = String(imageWidth != imageHeight);
-          const excessive_file_dimensions =
-            String(imageWidth > 1000 || imageHeight > 1000);
-          const insufficent_file_dimensions =
-            String(imageWidth < 800 || imageHeight < 800);
+          const excessive_file_dimensions = String(
+            imageWidth > 1000 || imageHeight > 1000,
+          );
+          const insufficent_file_dimensions = String(
+            imageWidth < 800 || imageHeight < 800,
+          );
 
           let priority = "LOW";
           if (not_square && excessive_file_dimensions) {
@@ -108,31 +125,31 @@ async function test() {
       console.log(
         `Images not square: ${data.reduce(
           (a, c) => (c.not_square ? a + 1 : a),
-          0
-        )}`
+          0,
+        )}`,
       );
       console.log(
         `Image dimensions too large: ${data.reduce(
           (a, c) => (c.excessive_file_dimensions ? a + 1 : a),
-          0
-        )}`
+          0,
+        )}`,
       );
       console.log(
         `Image dimensions too small: ${data.reduce(
           (a, c) => (c.insufficent_file_dimensions ? a + 1 : a),
-          0
-        )}`
+          0,
+        )}`,
       );
       console.log(
         `Excessive file size (>70kb): ${data.reduce(
           (a, c) => (c.excesive_file_size_gt_70_kb ? a + 1 : a),
-          0
-        )}`
+          0,
+        )}`,
       );
       await output(
         path.resolve(__dirname, `${config.name}-image-audit.csv`),
         data,
-        true
+        true,
       );
     } catch (err: any) {
       console.log(err.response ? err.response.data : err);

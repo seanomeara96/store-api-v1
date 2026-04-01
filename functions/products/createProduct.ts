@@ -12,7 +12,7 @@ export interface NewImageParams {
   url_tiny?: string; // the tiny URL for this image
   date_modified?: string; // the date on which the product image was modified
 }
-type productTypes = "physical" | "digital";
+export type productTypes = "physical" | "digital";
 type inventoryTrackingOptions = "none" | "product" | "variant";
 type availabilityOptions = "available" | "disabled" | "preorder";
 type giftWrappingOptions = "any" | "none" | "list";

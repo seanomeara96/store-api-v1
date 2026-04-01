@@ -169,7 +169,6 @@ const stores: Stores = [
   { initial: "ih", name: "InHealth" },
   { initial: "bs", name: "BabySafety" },
   { initial: "hie", name: "Haakaa Ireland" },
-  { initial: "ds", name: "DogSpace" },
   { initial: "stie", name: "Sleepytot IE" },
   { initial: "px", name: "Pixie Loves" },
   { initial: "kbsk", name: "Korean BeautySkincare" },
